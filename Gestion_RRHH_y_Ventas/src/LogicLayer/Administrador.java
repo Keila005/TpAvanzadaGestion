@@ -36,7 +36,7 @@ public class Administrador extends Usuario{
 	@Override
 	public void Menu() {
 		String[] opciones = {
-				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Gestionar sueldo y bonos","Salir"	
+				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Salir"	
 			};
 			int opcion;
 			do {
@@ -55,7 +55,7 @@ public class Administrador extends Usuario{
 					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");
 					break;
 			case 4:
-				JOptionPane.showMessageDialog(null, "Editar sueldo base\nEditar sueldo hora extra\nEditar monto de bono");
+				JOptionPane.showMessageDialog(null, "Busca al empleado y le asigna las horas extras trabajadas, para calcular el sueldo");
 				break;
 					
 				}
