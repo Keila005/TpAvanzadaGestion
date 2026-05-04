@@ -6,19 +6,18 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 public class Vendedor extends Empleado {
-	
 	private double comision;
 	private int ventasTotales;
 	private static LinkedList<Venta> historialVenta;
 	
 	
-	
-	public Vendedor(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
+public Vendedor(String nombre, String mail, String contrasenia, String apellido, int dni, double sueldoBase,
 			LocalDate fechaContratacion, int faltas, double comision, int ventasTotales) {
-		super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
+		super(nombre, mail, contrasenia, apellido, dni, sueldoBase, fechaContratacion, faltas);
 		this.comision = comision;
 		this.ventasTotales = ventasTotales;
 	}
+
 	public double getComision() {
 		return comision;
 	}

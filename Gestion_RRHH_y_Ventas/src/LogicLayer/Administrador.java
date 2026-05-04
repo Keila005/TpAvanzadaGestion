@@ -4,13 +4,15 @@ import javax.swing.JOptionPane;
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
+	 private String apellido;
 	 private String areaEncargado;
 	 
-	
-	public Administrador(String nombre, String apellido, String mail, String contrasenia, int idAdmin,
+	 
+	public Administrador(String nombre, String mail, String contrasenia, int idAdmin, String apellido,
 			String areaEncargado) {
-		super(nombre, apellido, mail, contrasenia);
+		super(nombre, mail, contrasenia);
 		this.idAdmin = idAdmin;
+		this.apellido = apellido;
 		this.areaEncargado = areaEncargado;
 	}
 	public int getIdAdmin() {
@@ -19,20 +21,17 @@ public class Administrador extends Usuario{
 	public void setIdAdmin(int idAdmin) {
 		this.idAdmin = idAdmin;
 	}
-	
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 	public String getAreaEncargado() {
 		return areaEncargado;
 	}
 	public void setAreaEncargado(String areaEncargado) {
 		this.areaEncargado = areaEncargado;
-	}
-	
-	
-	
-	@Override
-	public String toString() {
-		return "Administrador [idAdmin=" + idAdmin + ", areaEncargado=" + areaEncargado
-				+ "]";
 	}
 	@Override
 	public void Menu() {

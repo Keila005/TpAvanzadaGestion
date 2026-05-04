@@ -8,15 +8,13 @@ import javax.swing.JOptionPane;
 
 public class Usuario {
 	private String nombre;
-	private String apellido;
 	private String mail;
 	private String contrasenia;
 	private static LinkedList<Actores> listusuarios;
 	
-	protected Usuario(String nombre,String apellido, String mail, String contrasenia) {
+	protected Usuario(String nombre, String mail, String contrasenia) {
 		super();
 		this.nombre = nombre;
-		this.apellido = apellido;
 		this.mail = mail;
 		this.contrasenia = contrasenia;
 	}
@@ -57,21 +55,11 @@ public class Usuario {
 		this.contrasenia = contrasenia;
 	}
 	
-	
 	@Override
 	public String toString() {
-		return "Usuario: nombre=" + nombre + ", apellido=" + apellido + ", mail=" + mail + ", contrasenia="
-				+ contrasenia + "\n";
+		return "Usuario: Nombre=" + nombre + ",mail=" + mail + ", contrasenia=" + contrasenia + "\n";
 	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
+	  
 	public static Usuario login(String mail, String contrasenia) {
 	        for (Actores a : getListusuarios()) {
 	            if (a.getUsuario().getMail().equalsIgnoreCase(mail) &&
@@ -103,7 +91,7 @@ public class Usuario {
 	public static void sobrecarga() {
 		
 		//ESTE ES EL ADMINISTRADOR
-		 getListusuarios().add(new Actores(new Administrador("Admin","Perez","admin@mail.com","1234",1,"Area de gestion")));
+		 getListusuarios().add(new Actores(new Administrador("Admin","admin@mail.com","1234",1,"Perez","Area de gestion")));
 		//ESTE ES EL EMPLEADO LIDER
 	        getListusuarios().add(new Actores(new Operativo("Juan","empleadoLider@mail.com","1234","Gomez",1234555,1000,LocalDate.of(1999, 12, 30),0,Roles.LIDER_PROYECTO,0)));
 	      //ESTE ES EL ELMPELADO MIEMBRO
