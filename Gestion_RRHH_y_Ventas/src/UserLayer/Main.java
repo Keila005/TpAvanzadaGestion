@@ -2,10 +2,19 @@ package UserLayer;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import DLL.Conexion;
 import LogicLayer.Usuario;
 
 public class Main {
 public static void main(String[] args) {
+<<<<<<< HEAD
+	
+	//Hola soy keila
+=======
+
+	Conexion.getInstance();
+>>>>>>> caro
+	
 	String []menu= {"Login","Salir"};
 	int opcion;
 	do {
