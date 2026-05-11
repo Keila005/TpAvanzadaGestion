@@ -10,7 +10,7 @@ public class Conexion {
 	private static String URL ="jdbc:mysql://localhost:3306/gestion";
 	private static String USER = "root";
 	private static String PASSWORD ="";
-	
+	//fbhsdjkghfuashfjrwsh
 	private static Connection conect;
 	private static Conexion instance;
 	private Conexion() {
