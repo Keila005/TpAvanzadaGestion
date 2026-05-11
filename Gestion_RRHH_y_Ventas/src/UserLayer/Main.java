@@ -21,7 +21,7 @@ public static void main(String[] args) {
 		opcion = JOptionPane.showOptionDialog(null, "Bienvenidos al sistema de gestion de RRHH y Comerciales", null, 0, JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("../img/tienda.png")), menu, menu[0]);
 		switch(opcion) {
 		case 0:
-			String mail = JOptionPane.showInputDialog("Ingrese su mail");
+			String mail = JOptionPane.showInputDialog("Ingrese su Mail");
 			String contrasenia = JOptionPane.showInputDialog("Ingrese su contraseña");
 			Usuario user=Usuario.login(mail, contrasenia);
 			if (user==null) {
