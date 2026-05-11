@@ -7,7 +7,7 @@ import LogicLayer.Usuario;
 
 public class Main {
 public static void main(String[] args) {
-
+// hola estoy probando q onda
 	Conexion.getInstance();
 	
 	String []menu= {"Login","Salir"};
