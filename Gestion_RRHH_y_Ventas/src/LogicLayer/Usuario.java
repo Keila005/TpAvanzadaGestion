@@ -13,7 +13,7 @@ public class Usuario {
 	private String contrasenia;
 	private static LinkedList<Actores> listusuarios;
 	
-	protected Usuario(String nombre,String apellido, String mail, String contrasenia) {
+	public Usuario(String nombre,String apellido, String mail, String contrasenia) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -40,14 +40,6 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getApellido() {
-		return nombre;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
 
 	public String getMail() {
 		return mail;
