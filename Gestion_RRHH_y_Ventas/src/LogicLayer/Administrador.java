@@ -27,6 +27,14 @@ public class Administrador extends Usuario{
 	public void setAreaEncargado(String areaEncargado) {
 		this.areaEncargado = areaEncargado;
 	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Administrador [idAdmin=" + idAdmin + ", areaEncargado=" + areaEncargado
+				+ "]";
+	}
 	@Override
 	public void Menu() {
 		String[] opciones = {
