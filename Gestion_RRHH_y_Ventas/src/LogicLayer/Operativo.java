@@ -8,8 +8,9 @@ import javax.swing.JOptionPane;
 
 public class Operativo extends Empleado {
 private Roles Rol;
-private int rendimiento;
-//private LinkedList<Tarea> tareasAsignadas;
+private int rendimientoIndividual;
+private LinkedList<Tarea> tareasAsignadas;
+
 
 public Roles getRol() {
 	return Rol;
@@ -17,36 +18,26 @@ public Roles getRol() {
 public void setRol(Roles rol) {
 	Rol = rol;
 }
-public int getRendimiento() {
-	return rendimiento;
+public int getRendimientoIndividual() {
+	return rendimientoIndividual;
 }
-public void setRendimiento(int rendimiento) {
-	this.rendimiento = rendimiento;
+public void setRendimientoIndividual(int rendimientoIndividual) {
+	this.rendimientoIndividual = rendimientoIndividual;
 }
 
-
+public LinkedList<Tarea> getTareasAsignadas() {
+	return tareasAsignadas;
+}
+public void setTareasAsignadas(LinkedList<Tarea> tareasAsignadas) {
+	this.tareasAsignadas = tareasAsignadas;
+}
 public Operativo(String nombre, String mail, String contrasenia, String apellido, int dni, double sueldoBase,
-		LocalDate fechaContratacion, int faltas, Roles rol, int rendimiento) {
+		LocalDate fechaContratacion, int faltas, Roles rol, int rendimientoIndividual) {
 	super(nombre, mail, contrasenia, apellido, dni, sueldoBase, fechaContratacion, faltas);
 	Rol = rol;
-	this.rendimiento = rendimiento;
+	this.rendimientoIndividual = rendimientoIndividual;
 }
 
-
-//public void asignarTarea(String nombreTarea, String descripcion, Empleado asignado, Proyecto proyecto) {
-//    if (Rol != Roles.LIDER_PROYECTO) {
-//        JOptionPane.showMessageDialog(null, "Error: Solo un líder puede asignar tareas.", 
-//                                    "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
-//        return;
-//    }
-//    
-//    Tarea tarea = new Tarea(nombreTarea, descripcion, "PENDIENTE", 0, 
-//                            proyecto.getIdProyecto(), asignado.getDni());
-//    proyecto.agregarTarea(tarea);
-//    
-//  //  if (asignado instanceof Operativo) {
-////        ((Operativo) asignado).getTareasAsignadas().add(tarea);
-//    }
 @Override
 public void Menu() {
 	String[] opciones = {
@@ -133,4 +124,29 @@ public void Menu() {
 			}
 			}while(opcion!=4);//FIN DEL MENU PRINCIPAL
 }
+
+//CALCULAR OPERACIONES DE LOS RENDIMIENTOS
+public double calcularRendimientoIndividual(Operativo ope) {
+	
+	 int total = this.tareasAsignadas.size();
+
+	    if(total == 0) {
+	    	JOptionPane.showMessageDialog(null, "El operativo no tiene tareas asignadas para poder calcular su rendimiento individual");
+	        return 0;
+	    }
+
+	    int completadas = 0;
+
+	    for(Tarea t : this.tareasAsignadas) {
+
+	        if(t.getEstado().equalsIgnoreCase("FINALIZADA")) {
+
+	            completadas++;
+	        }
+	    }
+
+	    return (completadas/total)*100;
+}
+
+	
 }//fin de la clase operativo
