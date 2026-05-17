@@ -56,6 +56,13 @@ public Operativo(String nombre, String apellido, String mail, String contrasenia
 //    }
 @Override
 public void Menu() {
+	
+	java.time.LocalTime ahora = java.time.LocalTime.now();
+	java.time.LocalDate fechaHoy = java.time.LocalDate.now();
+	String hora = ahora.getHour() + ":" + (ahora.getMinute() < 10 ? "0" + ahora.getMinute() : ahora.getMinute());
+	String dia = fechaHoy.getDayOfMonth() + "/" + fechaHoy.getMonthValue();
+	JOptionPane.showMessageDialog(null, "Fichaje registrado - " + hora + "hs el día " + dia);
+	
 	String[] opciones = {
 			"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Cargo","Salir"	
 		};
