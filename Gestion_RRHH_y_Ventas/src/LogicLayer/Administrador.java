@@ -1,5 +1,5 @@
 package LogicLayer;
-
+import LogicLayer.Actores;
 import javax.swing.JOptionPane;
 
 public class Administrador extends Usuario{
@@ -50,8 +50,20 @@ public class Administrador extends Usuario{
 					JOptionPane.showMessageDialog(null, "Crear nuevo proyecto(se define nombre, asignacion de lider y fecha)\nVer proyecto existentes");
 					break;
 				case 2:
-					JOptionPane.showMessageDialog(null, "Rendimiento Operativo\nRendimiento vendedor\nRendimiento de productos");
-					break;
+				    String reporte = "=== RENDIMIENTO ===\n";
+				    for (Actores a : Usuario.getListusuarios()) {
+				        Usuario u = a.getUsuario();
+				        if (u instanceof Operativo) {
+				            Operativo op = (Operativo) u;
+				            reporte += op.getNombre() + " - Rendimiento: " + op.getRendimiento() + "\n";
+				        }
+				        if (u instanceof Vendedor) {
+				            Vendedor ven = (Vendedor) u;
+				            reporte += ven.getNombre() + " - Ventas: " + ven.getVentasTotales() + "\n";
+				        }
+				    }
+				    JOptionPane.showMessageDialog(null, reporte);
+				    break;
 				case 3:
 					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");
 					break;

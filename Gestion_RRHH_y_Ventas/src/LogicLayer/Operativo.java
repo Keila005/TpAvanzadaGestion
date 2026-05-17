@@ -25,6 +25,7 @@ public void setRendimiento(int rendimiento) {
 }
 
 
+
 public Operativo(String nombre, String mail, String contrasenia, String apellido, int dni, double sueldoBase,
 		LocalDate fechaContratacion, int faltas, Roles rol, int rendimiento) {
 	super(nombre, mail, contrasenia, apellido, dni, sueldoBase, fechaContratacion, faltas);
@@ -57,8 +58,8 @@ public void Menu() {
 			opcion = JOptionPane.showOptionDialog(null, "Bienvenido operativo", "Operativo", 0, 0, null, opciones, opciones);
 			switch (opcion) {
 			case 0:
-				JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo\nBonos\nRendimiento");
-				break;
+			    JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo: $" + getSueldoBase() + "\nBonos\nRendimiento: " + rendimiento);
+			    break;
 			case 1:
 				JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");
 				break;

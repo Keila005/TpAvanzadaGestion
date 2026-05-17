@@ -11,9 +11,11 @@ public class Usuario {
 	private String apellido;
 	private String mail;
 	private String contrasenia;
+	public double sueldo;
+	public String rol;
 	private static LinkedList<Actores> listusuarios;
 	
-	protected Usuario(String nombre,String apellido, String mail, String contrasenia) {
+	public Usuario(String nombre,String apellido, String mail, String contrasenia) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -70,6 +72,11 @@ public class Usuario {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+	
+	//prueba 
+	public static Usuario loginBD(String email, String pass) {
+	    return DLL.ControllerUsuario.login(email, pass);
 	}
 
 	public static Usuario login(String mail, String contrasenia) {

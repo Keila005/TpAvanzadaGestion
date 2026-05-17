@@ -37,6 +37,7 @@ public class Vendedor extends Empleado {
 	public static void setHistorialVenta(LinkedList<Venta> historialVenta) {
 		Vendedor.historialVenta = historialVenta;
 	}
+	
 	@Override
 	public void Menu() {
 		String[] opcioneses = {
