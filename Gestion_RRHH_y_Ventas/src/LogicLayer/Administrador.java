@@ -65,8 +65,37 @@ public class Administrador extends Usuario{
 				    JOptionPane.showMessageDialog(null, reporte);
 				    break;
 				case 3:
-					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");
-					break;
+				    String[] opcionesSolicitud = {"Aprobar", "Rechazar", "Ver solicitudes pendientes", "Volver"};
+				    int accion = JOptionPane.showOptionDialog(null, "Gestionar solicitudes", "Solicitudes", 0, 0, null, opcionesSolicitud, opcionesSolicitud[0]);
+				    
+				    if (accion == 0) {
+				        String empleado = JOptionPane.showInputDialog("Nombre del empleado a APROBAR:");
+				        if (empleado == null || empleado.trim().isEmpty()) {
+				            JOptionPane.showMessageDialog(null, "Nombre no válido");
+				            break;
+				        }
+				        if (empleado.equalsIgnoreCase("admin")) {
+				            JOptionPane.showMessageDialog(null, "No se puede aprobar solicitud del administrador");
+				            break;
+				        }
+				        JOptionPane.showMessageDialog(null, "Solicitud de " + empleado + " APROBADA");
+				        
+				    } else if (accion == 1) {
+				        String empleado = JOptionPane.showInputDialog("Nombre del empleado a RECHAZAR:");
+				        if (empleado == null || empleado.trim().isEmpty()) {
+				            JOptionPane.showMessageDialog(null, "Nombre no válido");
+				            break;
+				        }
+				        if (empleado.equalsIgnoreCase("admin")) {
+				            JOptionPane.showMessageDialog(null, "No se puede rechazar solicitud del administrador");
+				            break;
+				        }
+				        JOptionPane.showMessageDialog(null, "Solicitud de " + empleado + " RECHAZADA");
+				        
+				    } else if (accion == 2) {
+				        JOptionPane.showMessageDialog(null, "Solicitudes pendientes:\n- Juan: Vacaciones\n- Pedro: Permiso\n- Maria: Vacaciones");
+				    }
+				    break;
 				case 4:
 				    String empleado = JOptionPane.showInputDialog("Nombre del empleado:");
 				    if (empleado == null || empleado.trim().isEmpty()) {
