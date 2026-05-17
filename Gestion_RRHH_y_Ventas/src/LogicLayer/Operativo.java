@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 public class Operativo extends Empleado {
 private Roles Rol;
 private int rendimiento;
+private int horasExtra;
 //private LinkedList<Tarea> tareasAsignadas;
 
 public Roles getRol() {
@@ -23,14 +24,19 @@ public int getRendimiento() {
 public void setRendimiento(int rendimiento) {
 	this.rendimiento = rendimiento;
 }
+public int getHorasExtra() { 
+	return horasExtra; 
+	}
+public void setHorasExtra(int horasExtra) { this.horasExtra = horasExtra; }
 
 
 
-public Operativo(String nombre, String mail, String contrasenia, String apellido, int dni, double sueldoBase,
-		LocalDate fechaContratacion, int faltas, Roles rol, int rendimiento) {
-	super(nombre, mail, contrasenia, apellido, dni, sueldoBase, fechaContratacion, faltas);
-	Rol = rol;
-	this.rendimiento = rendimiento;
+public Operativo(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
+        LocalDate fechaContratacion, int faltas, Roles rol, int rendimiento) {
+    super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
+    Rol = rol;
+    this.rendimiento = rendimiento;
+    this.horasExtra = 0;
 }
 
 
@@ -58,7 +64,8 @@ public void Menu() {
 			opcion = JOptionPane.showOptionDialog(null, "Bienvenido operativo", "Operativo", 0, 0, null, opciones, opciones);
 			switch (opcion) {
 			case 0:
-			    JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo: $" + getSueldoBase() + "\nBonos\nRendimiento: " + rendimiento);
+			    int horasExtraPrueba = 5; // PRUEBA
+			    JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo: $" + getSueldoBase() + "\nHoras extra: " + horasExtraPrueba + "\nBonos\nRendimiento: " + rendimiento);
 			    break;
 			case 1:
 				JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");

@@ -108,15 +108,19 @@ public class Usuario {
 	public void Menu(){};	
 	
 	public static void sobrecarga() {
-		
-		//ESTE ES EL ADMINISTRADOR
-		 getListusuarios().add(new Actores(new Administrador("Admin","Perez","admin@mail.com","1234",1,"Area de gestion")));
-		//ESTE ES EL EMPLEADO LIDER
-	        getListusuarios().add(new Actores(new Operativo("Juan","empleadoLider@mail.com","1234","Gomez",1234555,1000,LocalDate.of(1999, 12, 30),0,Roles.LIDER_PROYECTO,0)));
-	      //ESTE ES EL ELMPELADO MIEMBRO
-	        getListusuarios().add(new Actores(new Operativo("Pedro","empleadoMiembro@mail.com","1234","Pablo",1234566,500,LocalDate.of(2008, 5, 25),0,Roles.MIEMBRO_PROYECTO,0)));
-	      //ESTE ES EL EMPLEADO VENDEDOR
-	        getListusuarios().add(new Actores(new 
-Vendedor("Fulanito","empleadoVendedor@mail.com","1234","Lopez",45684332,5000,LocalDate.of(2010,10, 23),0,1000,0)));
-	};
+	    
+	    //ESTE ES EL ADMINISTRADOR
+	    getListusuarios().add(new Actores(new Administrador("Admin","Perez","admin@mail.com","1234",1,"Area de gestion")));
+	    
+	    //ESTE ES EL EMPLEADO LIDER
+	    Operativo juan = new Operativo("Juan", "Gomez", "empleadoLider@mail.com", "1234", 1234555, 1000, LocalDate.of(1999,12,30), 0, Roles.LIDER_PROYECTO, 0);
+	    juan.setHorasExtra(8);
+	    getListusuarios().add(new Actores(juan));
+	    
+	    //ESTE ES EL EMPLEADO MIEMBRO
+	    getListusuarios().add(new Actores(new Operativo("Pedro", "Pablo", "empleadoMiembro@mail.com", "1234", 1234566, 500, LocalDate.of(2008,5,25), 0, Roles.MIEMBRO_PROYECTO, 0)));
+	    
+	    //ESTE ES EL EMPLEADO VENDEDOR
+	    getListusuarios().add(new Actores(new Vendedor("Fulanito", "Lopez", "empleadoVendedor@mail.com", "1234", 45684332, 5000, LocalDate.of(2010,10,23), 0, 1000, 0)));
+	}
 }
