@@ -68,8 +68,29 @@ public void Menu() {
 			    JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo: $" + getSueldoBase() + "\nHoras extra: " + horasExtraPrueba + "\nBonos\nRendimiento: " + rendimiento);
 			    break;
 			case 1:
-				JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");
-				break;
+			    String[] tipos = {"Vacaciones", "Permiso"};
+			    int tipo = JOptionPane.showOptionDialog(null, "¿Qué deseas solicitar?", "Solicitud", 0, 0, null, tipos, tipos[0]);
+			    if (tipo == -1) break;
+			    
+			    String fecha = JOptionPane.showInputDialog("Fecha (dd/mm/aaaa):");
+			    if (fecha == null || fecha.trim().isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Fecha no válida");
+			        break;
+			    }
+			    
+			    if (!fecha.matches("\\d{2}/\\d{2}/\\d{4}")) {
+			        JOptionPane.showMessageDialog(null, "Formato incorrecto. Use dd/mm/aaaa");
+			        break;
+			    }
+			    
+			    String motivo = JOptionPane.showInputDialog("Motivo:");
+			    if (motivo == null || motivo.trim().isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Motivo no válido");
+			        break;
+			    }
+			    
+			    JOptionPane.showMessageDialog(null, "Solicitud de " + tipos[tipo] + " enviada");
+			    break;
 			case 2:
 				JOptionPane.showMessageDialog(null, "Escribe un comentario y califica su emocion del 1 al 10");
 				break;
