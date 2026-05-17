@@ -37,7 +37,7 @@ public class Administrador extends Usuario{
 	@Override
 	public void Menu() {
 		String[] opciones = {
-				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Salir"	
+			    "Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Validar asistencia","Modificar asistencia","Salir"    
 			};
 			int opcion;
 			do {
@@ -127,8 +127,30 @@ public class Administrador extends Usuario{
 				    
 				    JOptionPane.showMessageDialog(null, "Se registraron " + horasInt + " horas extra para " + empleado);
 				    break;
+				case 5:
+				    String[] empleadosVal = {"Juan", "Pedro", "Fulanito"};
+				    String elegido = (String) JOptionPane.showInputDialog(null, "Seleccionar empleado", "Validar asistencia", JOptionPane.QUESTION_MESSAGE, null, empleadosVal, empleadosVal[0]);
+				    if (elegido == null) break;
+				    
+				    String[] estados = {"Presente", "Ausente", "Tarde", "Justificado"};
+				    String estado = (String) JOptionPane.showInputDialog(null, "Estado para " + elegido, "Validar", JOptionPane.QUESTION_MESSAGE, null, estados, estados[0]);
+				    if (estado == null) break;
+				    
+				    JOptionPane.showMessageDialog(null, "Asistencia de " + elegido + " validada como: " + estado);
+				    break;
+
+				case 6:
+				    String empleadoMod = JOptionPane.showInputDialog("Nombre del empleado:");
+				    if (empleadoMod == null || empleadoMod.trim().isEmpty()) break;
+				    
+				    String nuevaHora = JOptionPane.showInputDialog("Nueva hora de entrada (HH:MM):");
+				    if (nuevaHora == null || nuevaHora.trim().isEmpty()) break;
+				    
+				    JOptionPane.showMessageDialog(null, "Asistencia de " + empleadoMod + " modificada a las " + nuevaHora);
+				    break;
+				    
 				}
-			}while(opcion!=5);
+			}while(opcion!=7);
 	}
 	 
 	
