@@ -41,7 +41,7 @@ public class Administrador extends Usuario{
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administardor", "", 0, 0, null, opciones, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administrador", "", 0, 0, null, opciones, opciones);
 				switch (opcion) {
 				case 0:
 					JOptionPane.showMessageDialog(null, "Ver datos del empleado\nEditar datos del empleado");
@@ -67,10 +67,37 @@ public class Administrador extends Usuario{
 				case 3:
 					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");
 					break;
-			case 4:
-				JOptionPane.showMessageDialog(null, "Busca al empleado y le asigna las horas extras trabajadas, para calcular el sueldo");
-				break;
-					
+				case 4:
+				    String empleado = JOptionPane.showInputDialog("Nombre del empleado:");
+				    if (empleado == null || empleado.trim().isEmpty()) {
+				        JOptionPane.showMessageDialog(null, "Nombre no válido");
+				        break;
+				    }
+				    
+				    String horas = JOptionPane.showInputDialog("Cantidad de horas extra:");
+				    if (horas == null || horas.trim().isEmpty()) {
+				        JOptionPane.showMessageDialog(null, "Horas no válidas");
+				        break;
+				    }
+				    
+				    int horasInt;
+				    try {
+				        horasInt = Integer.parseInt(horas);
+				        if (horasInt < 0) {
+				            JOptionPane.showMessageDialog(null, "Las horas no pueden ser negativas");
+				            break;
+				        }
+				        if (horasInt > 20) {
+				            JOptionPane.showMessageDialog(null, "Máximo 20 horas extra por semana");
+				            break;
+				        }
+				    } catch (NumberFormatException e) {
+				        JOptionPane.showMessageDialog(null, "Ingrese un número válido");
+				        break;
+				    }
+				    
+				    JOptionPane.showMessageDialog(null, "Se registraron " + horasInt + " horas extra para " + empleado);
+				    break;
 				}
 			}while(opcion!=5);
 	}
