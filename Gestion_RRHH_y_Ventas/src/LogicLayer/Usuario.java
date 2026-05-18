@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Usuario {
+	private  int idUsuario;
 	private String nombre;
 	private String apellido;
 	private String mail;
@@ -21,10 +22,23 @@ public class Usuario {
 		this.contrasenia = contrasenia;
 	}
 	
+	public  Usuario() {
+		
+	}
+	public Usuario(int idUsuario, String nombre, String apellido, String mail, String contrasenia) {
+		super();
+		this.idUsuario = idUsuario;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.mail = mail;
+		this.contrasenia = contrasenia;
+	}
+
+
 	public static LinkedList<Actores> getListusuarios() {
         if (listusuarios == null) {
             listusuarios = new LinkedList<>();
-//            sobrecarga(); 
+           sobrecarga(); 
         }
         return listusuarios;
     }
@@ -58,6 +72,14 @@ public class Usuario {
 	}
 	
 	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario: nombre=" + nombre + ", apellido=" + apellido + ", mail=" + mail + ", contrasenia="

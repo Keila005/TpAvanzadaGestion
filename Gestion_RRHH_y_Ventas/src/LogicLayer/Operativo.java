@@ -6,40 +6,83 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import DLL.ControllerEvaluacion;
+
 public class Operativo extends Empleado {
+private int idOperativo;
 private Roles Rol;
-private int rendimientoIndividual;
+private int rendimiento;
 private LinkedList<Tarea> tareasAsignadas;
+private LinkedList<Evaluacion360> evaluacionesRecibidas;
 
 
+
+public int getIdOperativo() {
+	return idOperativo;
+}
+public void setIdOperativo(int idOperativo) {
+	this.idOperativo = idOperativo;
+}
 public Roles getRol() {
 	return Rol;
 }
 public void setRol(Roles rol) {
 	Rol = rol;
 }
-public int getRendimientoIndividual() {
-	return rendimientoIndividual;
-}
-public void setRendimientoIndividual(int rendimientoIndividual) {
-	this.rendimientoIndividual = rendimientoIndividual;
-}
 
+
+public int getRendimiento() {
+	return rendimiento;
+}
+public void setRendimiento(int rendimiento) {
+	this.rendimiento = rendimiento;
+}
 public LinkedList<Tarea> getTareasAsignadas() {
 	return tareasAsignadas;
 }
 public void setTareasAsignadas(LinkedList<Tarea> tareasAsignadas) {
 	this.tareasAsignadas = tareasAsignadas;
 }
+
+public LinkedList<Evaluacion360> getEvaluacionesRecibidas() {
+	return evaluacionesRecibidas;
+}
+public void setEvaluacionesRecibidas(LinkedList<Evaluacion360> evaluacionesRecibidas) {
+	this.evaluacionesRecibidas = evaluacionesRecibidas;
+}
+
 public Operativo(String nombre, String mail, String contrasenia, String apellido, int dni, double sueldoBase,
 		LocalDate fechaContratacion, int faltas, Roles rol, int rendimientoIndividual) {
 	super(nombre, mail, contrasenia, apellido, dni, sueldoBase, fechaContratacion, faltas);
 	Rol = rol;
-	this.rendimientoIndividual = rendimientoIndividual;
+	this.rendimiento = rendimiento;
 }
 
+public Operativo() {
+	super();
+	   this.tareasAsignadas = new LinkedList<>();
+	    this.evaluacionesRecibidas = new LinkedList<>();
+}
+
+public Operativo(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
+		LocalDate fechaContratacion, int faltas, int idOperativo, Roles rol, int rendimientoIndividual,
+		LinkedList<Tarea> tareasAsignadas, LinkedList<Evaluacion360> evaluacionesRecibidas) {
+	super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
+	this.idOperativo = idOperativo;
+	Rol = rol;
+	this.rendimiento = rendimiento;
+	this.tareasAsignadas =  new LinkedList<>(); 	
+	this.evaluacionesRecibidas =  new LinkedList<>();
+}
+
+public void agregarEvaluacion(Evaluacion360 e) {
+
+    evaluacionesRecibidas.add(e);
+}
 @Override
 public void Menu() {
+	
+	
 	String[] opciones = {
 			"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Cargo","Salir"	
 		};
@@ -86,9 +129,83 @@ public void Menu() {
 								case 2:
 								JOptionPane.showMessageDialog(null, "Crear nombre de la reunion y una fecha");
 									break;
-								case 3:
-								JOptionPane.showMessageDialog(null, "Elegir a un compañero y responder algunas preguntas");
-									break;
+								case 3:// EVALUAR COMPAÑERO
+					ControllerEvaluacion ce = new ControllerEvaluacion();
+					Operativo empleadoLogueado = this;
+					
+	LinkedList<Operativo> integrantes= ce.mostrarIntegrantesEquipo(empleadoLogueado.getIdOperativo());
+	
+	  String nombres[] = new String[integrantes.size()];
+
+      for(int i = 0; i < integrantes.size(); i++) {
+
+          nombres[i] =integrantes.get(i).getNombre() + " " + integrantes.get(i).getApellido();
+      }
+   
+      String seleccionado = (String) JOptionPane.showInputDialog(
+    null, "Seleccione un integrante del equipo","Evaluacion 360", JOptionPane.QUESTION_MESSAGE, null,nombres,nombres[0]);
+      
+      if (seleccionado!=null) {
+		Operativo evaluado= null;
+		
+		for(Operativo op : integrantes) { 
+			String nombreCompleto = op.getNombre() + " " + op.getApellido(); 		
+			if(nombreCompleto.equals(seleccionado)) { 
+				evaluado = op; 
+				if(evaluado != null) {
+
+		    	    int[] respuestas = new int[10];
+
+		    	    String[] preguntas = {
+		    	        "¿Cumple sus tareas a tiempo?",
+		    	        "¿Asiste regularmente al trabajo grupal?",
+		    	        "¿Apoya a sus compañeros cuando es necesario?",
+		    	        "¿Se comunica de forma clara?",
+		    	        "¿Escucha y respeta las opiniones de otros?",
+		    	        "¿Muestra iniciativa en su trabajo?",
+		    	        "¿Se adapta a cambios en el proyecto?",
+		    	        "¿Mantiene una actitud responsable?",
+		    	        "¿Cumple con su rol dentro del equipo?",
+		    	        "¿Contribuye positivamente al resultado del proyecto?"
+		    	    };
+
+		    	    for(int i = 0; i < preguntas.length; i++) {
+
+		    	        int btn = JOptionPane.showConfirmDialog(
+		    	                null,
+		    	                preguntas[i],
+		    	                "Evaluación 360",
+		    	                JOptionPane.YES_NO_OPTION
+		    	        );
+
+		    	        if(btn == JOptionPane.YES_OPTION) {
+		    	            respuestas[i] = 1;
+		    	        } else {
+		    	            respuestas[i] = 0;
+		    	        }
+		    	    }
+		    	    String comentariOpcional= JOptionPane.showInputDialog("Ingrese algún comentario adicional");
+ Evaluacion360 evaluacion =new Evaluacion360(empleadoLogueado, evaluado, respuestas,comentariOpcional);
+		   evaluado.agregarEvaluacion(evaluacion);
+		   ce.guardarEvaluacion(evaluacion);
+		   double rendimientoGrupal =evaluado.calcularRendimientoGrupal();
+		   
+		   JOptionPane.showMessageDialog( null, "Evaluación realizada correctamente" +"\nEvaluado: "
+			        + evaluado.getNombre() + "\nPuntaje otorgado: "
+			        + evaluacion.getPuntajeTotal()+ "/10"
+			);
+
+			//break;// si hay un evaluado termina de contestar y sale
+			}
+		}
+	}
+      
+    	}// SI SELECCIONO UN NOMBRE
+      else {
+			JOptionPane.showMessageDialog(null, "No se selecciono a nadie");
+		}
+     
+									break;// del caso 3
 
 								
 								}
@@ -126,7 +243,7 @@ public void Menu() {
 }
 
 //CALCULAR OPERACIONES DE LOS RENDIMIENTOS
-public double calcularRendimientoIndividual(Operativo ope) {
+public double calcularRendimientoIndividual() {
 	
 	 int total = this.tareasAsignadas.size();
 
@@ -146,6 +263,42 @@ public double calcularRendimientoIndividual(Operativo ope) {
 	    }
 
 	    return (completadas/total)*100;
+}
+
+//RENDIMIENTO DE EVALUACION 360
+public double calcularRendimientoGrupal() {
+
+    if(evaluacionesRecibidas.isEmpty()) {
+    	JOptionPane.showMessageDialog(null, "Nadie hizo la evaluacion 360°");
+        return 0;
+    }
+
+    int suma = 0;
+
+    for(Evaluacion360 e : evaluacionesRecibidas) {
+
+        suma += e.getPuntajeTotal();
+    }
+
+    double promedio =(double)suma/evaluacionesRecibidas.size();
+
+    return (promedio / 10.0) * 100;
+}
+
+//RENDIMIENTO DE LOS DOS TIPOS JUNTOS
+public double calcularRendimientoFinal() {
+	
+    double individual =calcularRendimientoIndividual();
+
+    double grupal =calcularRendimientoGrupal();
+    
+    if (individual==0 || grupal==0) {
+		JOptionPane.showMessageDialog(null, "El operativo no cumple con algún rendimiennto grupal o invidivual");
+		return 0;
+	}else {
+		
+		return (individual + grupal) / 2;
+	}
 }
 
 	

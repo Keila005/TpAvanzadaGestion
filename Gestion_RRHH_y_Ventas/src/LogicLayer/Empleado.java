@@ -9,7 +9,9 @@ public abstract class Empleado extends Usuario {
 	private LocalDate fechaContratacion;
 	private int faltas;
 	
-
+	public Empleado() {
+		super();
+	}
 
 	public Empleado(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
 			LocalDate fechaContratacion, int faltas) {
