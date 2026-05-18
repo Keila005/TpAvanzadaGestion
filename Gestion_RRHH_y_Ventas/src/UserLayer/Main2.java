@@ -11,8 +11,8 @@ public class Main2 {
 		
 		ControllerUsuario nuevo = new ControllerUsuario();
 		
-		JOptionPane.showMessageDialog(null, nuevo.mostrarUsuarios());
-		String[] acciones = { "Login", "Registrar", "Salir" };
+//		JOptionPane.showMessageDialog(null, nuevo.mostrarUsuarios());
+		String[] acciones = { "Login", "Salir" };
 	    int menu = 0;
 	    
 	    do {
@@ -39,32 +39,32 @@ public class Main2 {
 	                Usuario usuario= nuevo.login(mail, contrasenia);  
 	                
 
-	            case 1: 
+	              //REGISTRAR       case 1: 
 	            	
-	            	 String nombre =JOptionPane.showInputDialog("Ingrese nombre");
-	            	 String apellido =JOptionPane.showInputDialog("Ingrese apellido");
-	            	 String mail1 = "";
-	                 while (mail1.isEmpty()) {
-	                 	mail = JOptionPane.showInputDialog("Ingrese mail");
-	                     if (mail.isEmpty()) {
-	                         JOptionPane.showMessageDialog(null, "Incorrecto");
-	                     }
-	                 }
-
-	                 String contrasenia1 = "";
-	                 while (contrasenia1.isEmpty()) {
-	                     contrasenia = JOptionPane.showInputDialog("Ingrese contraseña");
-	                     if (contrasenia.isEmpty()) {
-	                         JOptionPane.showMessageDialog(null, "Incorrecto");
-	                     }
-	                 }
-	                
-	                 Usuario usuarioNuevo=new Usuario(nombre,apellido,mail1,contrasenia1);
-	                		 nuevo.agregarUsuario(usuarioNuevo); 
+//	            	 String nombre =JOptionPane.showInputDialog("Ingrese nombre");
+//	            	 String apellido =JOptionPane.showInputDialog("Ingrese apellido");
+//	            	 String mail1 = "";
+//	                 while (mail1.isEmpty()) {
+//	                 	mail = JOptionPane.showInputDialog("Ingrese mail");
+//	                     if (mail.isEmpty()) {
+//	                         JOptionPane.showMessageDialog(null, "Incorrecto");
+//	                     }
+//	                 }
+//
+//	                 String contrasenia1 = "";
+//	                 while (contrasenia1.isEmpty()) {
+//	                     contrasenia = JOptionPane.showInputDialog("Ingrese contraseña");
+//	                     if (contrasenia.isEmpty()) {
+//	                         JOptionPane.showMessageDialog(null, "Incorrecto");
+//	                     }
+//	                 }
+//	                
+//	                 Usuario usuarioNuevo=new Usuario(nombre,apellido,mail1,contrasenia1);
+//	                		 nuevo.agregarUsuario(usuarioNuevo); 
 	                
 	                break;
 	        }
-	    } while (menu != 2);
+	    } while (menu != 1);
 	}
 	
 }
