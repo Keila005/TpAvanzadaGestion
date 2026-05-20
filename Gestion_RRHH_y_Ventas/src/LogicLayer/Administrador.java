@@ -106,7 +106,6 @@ public class Administrador extends Usuario{
 					int grupal =operativoSeleccionado.calcularRendimientoGrupal();
 					
 					int  finalRendimiento=operativoSeleccionado.getRendimiento();
-					//int finalRendimiento =operativoSeleccionado.calcularRendimientoFinal();
 
 					            JOptionPane.showMessageDialog(
 					                    null,
