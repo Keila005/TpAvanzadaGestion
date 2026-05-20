@@ -3,8 +3,8 @@ package DLL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import LogicLayer.*;
+
 
 public class ControllerUsuario {
 
@@ -17,12 +17,10 @@ public class ControllerUsuario {
         try {
 
             PreparedStatement stmt = con.prepareStatement(
-                "SELECT * FROM usuario WHERE email = ? AND contrasenia = ?"
+                "SELECT * FROM usuario WHERE email = ?"
             );
 
             stmt.setString(1, mail);
-            stmt.setString(2, contrasenia);
-
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) {
@@ -33,75 +31,78 @@ public class ControllerUsuario {
                 String email = rs.getString("email");
                 String pass = rs.getString("contrasenia");
                 
-                // VER SI ES ADMIN
-                PreparedStatement adminStmt = con.prepareStatement(
-                    "SELECT * FROM admin_rrhh WHERE id_usuario = ?"
-                );
-
-                adminStmt.setInt(1, idUsuario);
-
-                ResultSet adminRs = adminStmt.executeQuery();
-
-                if(adminRs.next()) {
-
-                    String sector = adminRs.getString("sector");
-
-                    usuario = new Administrador(nombre,apellido,email,pass,idUsuario,sector
+                if(Hashing.verificar(contrasenia, pass)) {
+                	 // VER SI ES ADMIN
+                    PreparedStatement adminStmt = con.prepareStatement(
+                        "SELECT * FROM admin_rrhh WHERE id_usuario = ?"
                     );
 
-                    return usuario;
-                }
+                    adminStmt.setInt(1, idUsuario);
 
-                // VER SI ES OPERATIVO
-                PreparedStatement operativoStmt = con.prepareStatement(
-                    "SELECT * FROM operativo o"
-                    + " INNER JOIN empleado e"
-                    + " ON o.id_empleado = e.id_empleado"
-                    + " WHERE e.id_usuario = ?");
+                    ResultSet adminRs = adminStmt.executeQuery();
 
-                operativoStmt.setInt(1, idUsuario);
+                    if(adminRs.next()) {
 
-                ResultSet opRs = operativoStmt.executeQuery();
+                        String sector = adminRs.getString("sector");
 
-                if(opRs.next()) {
+                        usuario = new Administrador(nombre,apellido,email,pass,idUsuario,sector
+                        );
 
-                    String rolDB = opRs.getString("rol");
-
-                    Roles rol;
-
-                    if(rolDB.equalsIgnoreCase("Lider de Proyecto")) {
-                        rol = Roles.LIDER_PROYECTO;
-                    } else {
-                        rol = Roles.MIEMBRO_PROYECTO;
+                        return usuario;
                     }
 
-                    int rendimiento = opRs.getInt("rendimiento");
+                    // VER SI ES OPERATIVO
+                    PreparedStatement operativoStmt = con.prepareStatement(
+                        "SELECT * FROM operativo o"
+                        + " INNER JOIN empleado e"
+                        + " ON o.id_empleado = e.id_empleado"
+                        + " WHERE e.id_usuario = ?");
 
-                    usuario = new Operativo( nombre,apellido,email,pass,0, 0,null,0,
-                        opRs.getInt("id_empleado"),rol,rendimiento,null,null);
-                    return usuario;
+                    operativoStmt.setInt(1, idUsuario);
+
+                    ResultSet opRs = operativoStmt.executeQuery();
+
+                    if(opRs.next()) {
+
+                        String rolDB = opRs.getString("rol");
+
+                        Roles rol;
+
+                        if(rolDB.equalsIgnoreCase("Lider de Proyecto")) {
+                            rol = Roles.LIDER_PROYECTO;
+                        } else {
+                            rol = Roles.MIEMBRO_PROYECTO;
+                        }
+
+                        int rendimiento = opRs.getInt("rendimiento");
+
+                        usuario = new Operativo( nombre,apellido,email,pass,0, 0,null,0,
+                            opRs.getInt("id_empleado"),rol,rendimiento,null,null);
+                        return usuario;
+                    }
+
+                    // VER SI ES VENDEDOR
+
+                    PreparedStatement vendedorStmt = con.prepareStatement(
+                        "  SELECT * FROM vendedor v"
+                        + " INNER JOIN empleado e"
+                        + " ON v.id_empleado = e.id_empleado"
+                        + " WHERE e.id_usuario = ?"
+                    );
+
+                    vendedorStmt.setInt(1, idUsuario);
+
+                    ResultSet venRs = vendedorStmt.executeQuery();
+
+                    if(venRs.next()) {
+
+                        usuario = new Vendedor( nombre,apellido,email, pass,0,
+                            0, null, 0,venRs.getDouble("comision"), venRs.getInt("ventas_totales"));
+
+                        return usuario;
+                    }
                 }
-
-                // VER SI ES VENDEDOR
-
-                PreparedStatement vendedorStmt = con.prepareStatement(
-                    "  SELECT * FROM vendedor v"
-                    + " INNER JOIN empleado e"
-                    + " ON v.id_empleado = e.id_empleado"
-                    + " WHERE e.id_usuario = ?"
-                );
-
-                vendedorStmt.setInt(1, idUsuario);
-
-                ResultSet venRs = vendedorStmt.executeQuery();
-
-                if(venRs.next()) {
-
-                    usuario = new Vendedor( nombre,apellido,email, pass,0,
-                        0, null, 0,venRs.getDouble("comision"), venRs.getInt("ventas_totales"));
-
-                    return usuario;
-                }
+               
 
             }
 

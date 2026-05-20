@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import DLL.ControllerUsuario;
+import DLL.Hashing;
 import LogicLayer.Usuario;
 
 public class Main2 {
@@ -14,6 +15,7 @@ public class Main2 {
 		String[] acciones = { "Login", "Salir" };
 	    int menu = 0;
 		 nuevo.mostrarUsuarios();
+		 System.out.println(Hashing.hash("1234"));
 	    do {
 	    	menu = JOptionPane.showOptionDialog(null, "Bienvenidos al sistema de gestion de RRHH y Comerciales", null, 0, JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("../img/tienda.png")), acciones, acciones[0]);
 	        switch (menu) {
@@ -23,7 +25,7 @@ public class Main2 {
 	            	 if(usuario != null) {
 	            		    usuario.Menu();
 	            		} else {
-	            		    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+	            		    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
 	            		}
 	                
 
