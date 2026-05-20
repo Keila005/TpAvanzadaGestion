@@ -2,19 +2,18 @@ package LogicLayer;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
-
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import DLL.ControllerComentario;
 import DLL.ControllerEvaluacion;
 
-public class Operativo extends Empleado {
+public class Operativo extends Empleado implements Validador {
 private int idOperativo;
 private Roles Rol;
-private int rendimiento;
+private double rendimiento;
 private LinkedList<Tarea> tareasAsignadas;
 private LinkedList<Evaluacion360> evaluacionesRecibidas;
-
+private static ControllerComentario comentarioController = new ControllerComentario();
 
 
 public int getIdOperativo() {
@@ -31,7 +30,7 @@ public void setRol(Roles rol) {
 }
 
 
-public int getRendimiento() {
+public double getRendimiento() {
 	return rendimiento;
 }
 public void setRendimiento(int rendimiento) {
@@ -52,10 +51,11 @@ public void setEvaluacionesRecibidas(LinkedList<Evaluacion360> evaluacionesRecib
 }
 
 public Operativo(String nombre, String mail, String contrasenia, String apellido, int dni, double sueldoBase,
-		LocalDate fechaContratacion, int faltas, Roles rol, int rendimientoIndividual) {
+		LocalDate fechaContratacion, int faltas, Roles rol, double rendimiento) {
 	super(nombre, mail, contrasenia, apellido, dni, sueldoBase, fechaContratacion, faltas);
 	Rol = rol;
-	this.rendimiento = rendimiento;
+	this.rendimiento = rendimiento; //ACA FALTA YA QUE NECESITO TENER EL RENDIMIENTO INDIVIDUAL,
+									//EL RENDIMIENTO 360 Y HACER EL PROMEDIO *100
 }
 
 public Operativo() {
@@ -65,7 +65,7 @@ public Operativo() {
 }
 
 public Operativo(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
-		LocalDate fechaContratacion, int faltas, int idOperativo, Roles rol, int rendimientoIndividual,
+		LocalDate fechaContratacion, int faltas, int idOperativo, Roles rol, double rendimiento,
 		LinkedList<Tarea> tareasAsignadas, LinkedList<Evaluacion360> evaluacionesRecibidas) {
 	super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
 	this.idOperativo = idOperativo;
@@ -96,8 +96,20 @@ public void Menu() {
 			case 1:
 				JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");
 				break;
-			case 2:
-				JOptionPane.showMessageDialog(null, "Escribe un comentario y califica su emocion del 1 al 10");
+			case 2: //COMENTAR
+				String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");
+				LocalDate fechaComentario= LocalDate.now();
+				String[] sentimientos = {"Positivo","Neutro","Negativo"};
+
+				String sentimiento = (String)JOptionPane.showInputDialog(
+				        null,"Seleccione su sentimiento","Comentario Anónimo",
+				        JOptionPane.QUESTION_MESSAGE,
+				        null,sentimientos,sentimientos[0]
+				);
+				if(sentimiento != null) {
+					comentarioController.agregarComentarios(
+							new ComentarioAnonimo(comentario,fechaComentario,sentimiento));
+				}
 				break;
 			case 3:
 				String cargo[]= {"Lider del proyecto","Miembro del proyecto","Volver"};
@@ -297,7 +309,7 @@ public double calcularRendimientoFinal() {
 		return 0;
 	}else {
 		
-		return (individual + grupal) / 2;
+		return ((individual + grupal) / 2)*100;
 	}
 }
 

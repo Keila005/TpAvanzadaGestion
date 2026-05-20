@@ -5,11 +5,14 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
+import DLL.ControllerComentario;
+
 public class Vendedor extends Empleado {
 	
 	private double comision;
 	private int ventasTotales;
 	private static LinkedList<Venta> historialVenta;
+	private static ControllerComentario comentarioController = new ControllerComentario();
 	
 	
 	
@@ -53,8 +56,20 @@ public class Vendedor extends Empleado {
 			case 1:
 				JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");
 				break;
-			case 2:
-				JOptionPane.showMessageDialog(null, "Escribe un comentario y califica su emocion del 1 al 10");
+			case 2:// COMENTAR
+				String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");
+				LocalDate fechaComentario= LocalDate.now();
+				String[] sentimientos = {"Positivo","Neutro","Negativo"};
+
+				String sentimiento = (String)JOptionPane.showInputDialog(
+				        null,"Seleccione su sentimiento","Comentario Anónimo",
+				        JOptionPane.QUESTION_MESSAGE,
+				        null,sentimientos,sentimientos[0]
+				);
+				if(sentimiento != null) {
+					comentarioController.agregarComentarios(
+							new ComentarioAnonimo(comentario,fechaComentario,sentimiento));
+				}
 				break;
 			case 3:
 				String vender[]= {"Ver productos","Ingreso del producto","Registrar venta",

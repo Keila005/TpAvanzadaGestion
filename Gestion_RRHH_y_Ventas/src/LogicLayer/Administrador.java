@@ -52,6 +52,27 @@ public class Administrador extends Usuario{
 					break;
 				case 2:
 					JOptionPane.showMessageDialog(null, "Rendimiento Operativo\nRendimiento vendedor\nRendimiento de productos");
+					String[] ver = {
+							"Rendimiento:Operativo","Rendimiento:Vendedor","Rendimiento:Productos","Salir"};
+					int opcionVer;
+					do {
+						opcionVer= JOptionPane.showOptionDialog(null, "Elija que rendimiento quiere ver", 
+								"Rendimientos", 0, 0, null, ver, ver[0]);
+						switch (opcionVer) {
+						case 0:
+							
+							break;
+						case 1:
+							
+							break;
+						case 2:
+							
+							break;
+
+						default:
+							break;
+						}
+					} while (opcionVer!=3);
 					break;
 				case 3:
 					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");

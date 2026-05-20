@@ -47,4 +47,15 @@ public interface Validador {
 		return flag;
 
 }
+	static String ValidarString(String mensaje) {
+		
+		String dato;
+		
+		do {
+			dato = JOptionPane.showInputDialog(mensaje);
+		} while (dato.isEmpty());
+		
+		return dato;
+	}
+
 }
