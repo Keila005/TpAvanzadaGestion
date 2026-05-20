@@ -60,7 +60,37 @@ public class ControllerComentario {
 
 	     
 	        } catch (Exception e) {
-	        }
+	        }	 
 	}
 	 
+	public String generarReporteClima() {
+
+	    LinkedList<ComentarioAnonimo> comentarios = verComentarios();
+
+	    int positivos = 0;
+	    int neutros = 0;
+	    int negativos = 0;
+
+	    for(ComentarioAnonimo c : comentarios) {
+
+	        if(c.getSentimiento().equalsIgnoreCase("Positivo")) {
+
+	            positivos++;
+
+	        } else if(c.getSentimiento().equalsIgnoreCase("Neutro")) {
+
+	            neutros++;
+
+	        } else if(c.getSentimiento().equalsIgnoreCase("Negativo")) {
+
+	            negativos++;
+	        }
+	    }
+
+	    return "REPORTE DEL CLIMA LABORAL\n"
+	            + "Comentarios positivos: " + positivos
+	            + "\nComentarios neutros: " + neutros
+	            + "\nComentarios negativos: " + negativos
+	            + "\n\nTotal comentarios: " + comentarios.size();
+	}
 }

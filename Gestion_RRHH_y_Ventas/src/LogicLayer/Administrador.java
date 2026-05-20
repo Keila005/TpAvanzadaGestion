@@ -3,12 +3,15 @@ package LogicLayer;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+
+import DLL.ControllerComentario;
 import DLL.ControllerOperativo;
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
 	 private String areaEncargado;
 	 private static ControllerOperativo operativoController = new ControllerOperativo();
+	 private static ControllerComentario comentarioController = new ControllerComentario();
 	 
 	 
 	
@@ -57,7 +60,7 @@ public class Administrador extends Usuario{
 				case 2:
 					JOptionPane.showMessageDialog(null, "Rendimiento Operativo\nRendimiento vendedor\nRendimiento de productos");
 					String[] ver = {
-							"Rendimiento:Operativo","Rendimiento:Vendedor","Rendimiento:Productos","Salir"};
+							"Rendimiento:Operativo","Rendimiento:Vendedor","Rendimiento:Productos","Clima laboral","Salir"};
 					int opcionVer;
 					do {
 						opcionVer= JOptionPane.showOptionDialog(null, "Elija que rendimiento quiere ver", 
@@ -133,11 +136,35 @@ public class Administrador extends Usuario{
 						case 2: // productos
 							
 							break;
+						case 3: // comentarios
+			LinkedList<ComentarioAnonimo> comentarios =comentarioController.verComentarios();
+
+					    if(comentarios.isEmpty()) {
+
+					        JOptionPane.showMessageDialog(null,"No hay comentarios registrados");
+
+					    } else {
+					        String mensaje = "Comentarios laborales:\n";
+
+					        for(ComentarioAnonimo c : comentarios) {
+
+					     mensaje += "Comentario: " + c.getContenido()+ "\nFecha: " + c.getFecha()
+					             + "\nSentimiento: " + c.getSentimiento()
+					               + "\n----------------------\n";
+					        }
+
+					        JOptionPane.showMessageDialog(null, mensaje);
+					        
+					        String reporte = comentarioController.generarReporteClima();
+
+					        JOptionPane.showMessageDialog(null, reporte);
+					    }
+							break;
 
 						default:
 							break;
 						}
-					} while (opcionVer!=3);
+					} while (opcionVer!=4);
 					break;
 				case 3:
 					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");
