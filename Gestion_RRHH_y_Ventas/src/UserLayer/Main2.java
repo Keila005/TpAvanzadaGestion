@@ -15,7 +15,8 @@ public class Main2 {
 		String[] acciones = { "Login", "Salir" };
 	    int menu = 0;
 		 nuevo.mostrarUsuarios();
-		 System.out.println(Hashing.hash("1234"));
+		 
+		 //System.out.println(Hashing.hash("1234"));
 	    do {
 	    	menu = JOptionPane.showOptionDialog(null, "Bienvenidos al sistema de gestion de RRHH y Comerciales", null, 0, JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("../img/tienda.png")), acciones, acciones[0]);
 	        switch (menu) {
