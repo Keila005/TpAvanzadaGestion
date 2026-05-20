@@ -10,7 +10,7 @@ import DLL.ControllerEvaluacion;
 public class Operativo extends Empleado implements Validador {
 private int idOperativo;
 private Roles Rol;
-private double rendimiento;
+private int rendimiento;
 private LinkedList<Tarea> tareasAsignadas;
 private LinkedList<Evaluacion360> evaluacionesRecibidas;
 private static ControllerComentario comentarioController = new ControllerComentario();
@@ -30,7 +30,7 @@ public void setRol(Roles rol) {
 }
 
 
-public double getRendimiento() {
+public int getRendimiento() {
 	return rendimiento;
 }
 public void setRendimiento(int rendimiento) {
@@ -51,7 +51,7 @@ public void setEvaluacionesRecibidas(LinkedList<Evaluacion360> evaluacionesRecib
 }
 
 public Operativo(String nombre, String mail, String contrasenia, String apellido, int dni, double sueldoBase,
-		LocalDate fechaContratacion, int faltas, Roles rol, double rendimiento) {
+		LocalDate fechaContratacion, int faltas, Roles rol, int rendimiento) {
 	super(nombre, mail, contrasenia, apellido, dni, sueldoBase, fechaContratacion, faltas);
 	Rol = rol;
 	this.rendimiento = rendimiento; //ACA FALTA YA QUE NECESITO TENER EL RENDIMIENTO INDIVIDUAL,
@@ -65,7 +65,7 @@ public Operativo() {
 }
 
 public Operativo(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
-		LocalDate fechaContratacion, int faltas, int idOperativo, Roles rol, double rendimiento,
+		LocalDate fechaContratacion, int faltas, int idOperativo, Roles rol, int rendimiento,
 		LinkedList<Tarea> tareasAsignadas, LinkedList<Evaluacion360> evaluacionesRecibidas) {
 	super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
 	this.idOperativo = idOperativo;
@@ -75,9 +75,23 @@ public Operativo(String nombre, String apellido, String mail, String contrasenia
 	this.evaluacionesRecibidas =  new LinkedList<>();
 }
 
+
+public Operativo(int idOperativo, Roles rol, int rendimiento) {
+	super();
+	this.idOperativo = idOperativo;
+	Rol = rol;
+	this.rendimiento = rendimiento;
+}
 public void agregarEvaluacion(Evaluacion360 e) {
 
     evaluacionesRecibidas.add(e);
+}
+
+
+@Override
+public String toString() {
+	return "Operativo [idOperativo=" + idOperativo + ", Rol=" + Rol + ", rendimiento=" + rendimiento
+			+ ", tareasAsignadas=" + tareasAsignadas + ", evaluacionesRecibidas=" + evaluacionesRecibidas + "]";
 }
 @Override
 public void Menu() {
@@ -255,7 +269,7 @@ public void Menu() {
 }
 
 //CALCULAR OPERACIONES DE LOS RENDIMIENTOS
-public double calcularRendimientoIndividual() {
+public int calcularRendimientoIndividual() {
 	
 	 int total = this.tareasAsignadas.size();
 
@@ -278,7 +292,7 @@ public double calcularRendimientoIndividual() {
 }
 
 //RENDIMIENTO DE EVALUACION 360
-public double calcularRendimientoGrupal() {
+public int calcularRendimientoGrupal() {
 
     if(evaluacionesRecibidas.isEmpty()) {
     	JOptionPane.showMessageDialog(null, "Nadie hizo la evaluacion 360°");
@@ -292,17 +306,17 @@ public double calcularRendimientoGrupal() {
         suma += e.getPuntajeTotal();
     }
 
-    double promedio =(double)suma/evaluacionesRecibidas.size();
+    int promedio =suma/evaluacionesRecibidas.size();
 
-    return (promedio / 10.0) * 100;
+    return (int) ((promedio / 10.0) * 100);
 }
 
 //RENDIMIENTO DE LOS DOS TIPOS JUNTOS
-public double calcularRendimientoFinal() {
+public int calcularRendimientoFinal() {
 	
-    double individual =calcularRendimientoIndividual();
+    int individual =calcularRendimientoIndividual();
 
-    double grupal =calcularRendimientoGrupal();
+    int grupal =calcularRendimientoGrupal();
     
     if (individual==0 || grupal==0) {
 		JOptionPane.showMessageDialog(null, "El operativo no cumple con algún rendimiennto grupal o invidivual");
