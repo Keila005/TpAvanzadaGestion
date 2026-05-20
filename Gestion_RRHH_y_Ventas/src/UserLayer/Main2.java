@@ -1,5 +1,6 @@
 package UserLayer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import DLL.ControllerUsuario;
@@ -10,33 +11,20 @@ public class Main2 {
 		
 		
 		ControllerUsuario nuevo = new ControllerUsuario();
-		
-//		JOptionPane.showMessageDialog(null, nuevo.mostrarUsuarios());
 		String[] acciones = { "Login", "Salir" };
 	    int menu = 0;
-	    
+		 nuevo.mostrarUsuarios();
 	    do {
-	        menu = JOptionPane.showOptionDialog(null, "Bienvenido", null, 0, 0, null, acciones, acciones[0]);
-
+	    	menu = JOptionPane.showOptionDialog(null, "Bienvenidos al sistema de gestion de RRHH y Comerciales", null, 0, JOptionPane.DEFAULT_OPTION, new ImageIcon(Main.class.getResource("../img/tienda.png")), acciones, acciones[0]);
 	        switch (menu) {
+	        
 	            case 0:// login
-	                String mail = "";
-	                while (mail.isEmpty()) {
-	                	mail = JOptionPane.showInputDialog("Ingrese mail");
-	                    if (mail.isEmpty()) {
-	                        JOptionPane.showMessageDialog(null, "Incorrecto");
-	                    }
-	                }
-
-	                String contrasenia = "";
-	                while (contrasenia.isEmpty()) {
-	                    contrasenia = JOptionPane.showInputDialog("Ingrese contraseña");
-	                    if (contrasenia.isEmpty()) {
-	                        JOptionPane.showMessageDialog(null, "Incorrecto");
-	                    }
-	                }
-
-	                Usuario usuario= nuevo.login(mail, contrasenia);  
+	            	 Usuario usuario = Usuario.Login();
+	            	 if(usuario != null) {
+	            		    usuario.Menu();
+	            		} else {
+	            		    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+	            		}
 	                
 
 	              //REGISTRAR       case 1: 

@@ -58,9 +58,9 @@ public class Administrador extends Usuario{
 					JOptionPane.showMessageDialog(null, "Crear nuevo proyecto(se define nombre, asignacion de lider y fecha)\nVer proyecto existentes");
 					break;
 				case 2:
-					JOptionPane.showMessageDialog(null, "Rendimiento Operativo\nRendimiento vendedor\nRendimiento de productos");
-					String[] ver = {
-							"Rendimiento:Operativo","Rendimiento:Vendedor","Rendimiento:Productos","Clima laboral","Salir"};
+					
+					String[] ver = {"Rendimiento:Operativo","Rendimiento:Vendedor",
+							"Rendimiento:Productos","Clima laboral","Salir"};
 					int opcionVer;
 					do {
 						opcionVer= JOptionPane.showOptionDialog(null, "Elija que rendimiento quiere ver", 

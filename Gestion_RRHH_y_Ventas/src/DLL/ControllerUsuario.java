@@ -1,78 +1,138 @@
 package DLL;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.LinkedList;
 
-import com.mysql.jdbc.Connection;
-
-import LogicLayer.Usuario;
+import LogicLayer.*;
 
 public class ControllerUsuario {
-	private static Connection con = Conexion.getInstance().getConnection();
 
-	 public LinkedList<Usuario> mostrarUsuarios() {
-	        LinkedList<Usuario> usuarios = new LinkedList<>();
-	        try {
-	            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario");
-	            ResultSet rs = stmt.executeQuery();
+    private static Connection con = Conexion.getInstance().getConnection();
 
-	            while (rs.next()) {
-	                int id = rs.getInt("id_usuario");
-	                String nombre = rs.getString("nombre");
-	                String apellido = rs.getString("apellido");
-	                String email = rs.getString("email");
-	                String contrasenia = rs.getString("contrasenia");
-	                
-	                
-	                usuarios.add(new Usuario(nombre,apellido,email,contrasenia));
-	                
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	        return usuarios;
-	    }
-	 
-	 public void agregarUsuario(Usuario usuario) {
-	        try {
-	            PreparedStatement statement = con.prepareStatement(
-	            		"INSERT INTO `usuario`( `nombre`, `apellido`, `email`, `contrasenia`) VALUES (?,?,?,?)"
-	                );
-	            statement.setString(1, usuario.getNombre());
-	            statement.setString(2,usuario.getApellido());
-	            statement.setString(3, usuario.getMail());
-	            statement.setString(4, usuario.getContrasenia());
+    public Usuario login(String mail, String contrasenia) {
 
-	            int filas = statement.executeUpdate();
-	            if (filas > 0) {
-	                System.out.println("Usuario agregado correctamente.");
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	 public Usuario login(String nombre, String password) {
-	       Usuario usuario = null;
-	        try {
-	            PreparedStatement stmt = con.prepareStatement(
-	                "SELECT * FROM usuario WHERE nombre = ? AND password = ?"
-	            );
-	            stmt.setString(1, nombre);
-	            stmt.setString(2, password);
+        Usuario usuario = null;
 
-	            ResultSet rs = stmt.executeQuery();
+        try {
 
-	            if (rs.next()) {
-	                int id = rs.getInt("id");
-	                String email = rs.getString("email");
-	                String tipo = rs.getString("tipo");
+            PreparedStatement stmt = con.prepareStatement(
+                "SELECT * FROM usuario WHERE email = ? AND contrasenia = ?"
+            );
 
-	             
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	        return usuario;
-	    }
+            stmt.setString(1, mail);
+            stmt.setString(2, contrasenia);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) {
+
+                int idUsuario = rs.getInt("id_usuario");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String email = rs.getString("email");
+                String pass = rs.getString("contrasenia");
+                
+                // VER SI ES ADMIN
+                PreparedStatement adminStmt = con.prepareStatement(
+                    "SELECT * FROM admin_rrhh WHERE id_usuario = ?"
+                );
+
+                adminStmt.setInt(1, idUsuario);
+
+                ResultSet adminRs = adminStmt.executeQuery();
+
+                if(adminRs.next()) {
+
+                    String sector = adminRs.getString("sector");
+
+                    usuario = new Administrador(nombre,apellido,email,pass,idUsuario,sector
+                    );
+
+                    return usuario;
+                }
+
+                // VER SI ES OPERATIVO
+                PreparedStatement operativoStmt = con.prepareStatement(
+                    "SELECT * FROM operativo o"
+                    + " INNER JOIN empleado e"
+                    + " ON o.id_empleado = e.id_empleado"
+                    + " WHERE e.id_usuario = ?");
+
+                operativoStmt.setInt(1, idUsuario);
+
+                ResultSet opRs = operativoStmt.executeQuery();
+
+                if(opRs.next()) {
+
+                    String rolDB = opRs.getString("rol");
+
+                    Roles rol;
+
+                    if(rolDB.equalsIgnoreCase("Lider de Proyecto")) {
+                        rol = Roles.LIDER_PROYECTO;
+                    } else {
+                        rol = Roles.MIEMBRO_PROYECTO;
+                    }
+
+                    int rendimiento = opRs.getInt("rendimiento");
+
+                    usuario = new Operativo( nombre,apellido,email,pass,0, 0,null,0,
+                        opRs.getInt("id_empleado"),rol,rendimiento,null,null);
+                    return usuario;
+                }
+
+                // VER SI ES VENDEDOR
+
+                PreparedStatement vendedorStmt = con.prepareStatement(
+                    "  SELECT * FROM vendedor v"
+                    + " INNER JOIN empleado e"
+                    + " ON v.id_empleado = e.id_empleado"
+                    + " WHERE e.id_usuario = ?"
+                );
+
+                vendedorStmt.setInt(1, idUsuario);
+
+                ResultSet venRs = vendedorStmt.executeQuery();
+
+                if(venRs.next()) {
+
+                    usuario = new Vendedor( nombre,apellido,email, pass,0,
+                        0, null, 0,venRs.getDouble("comision"), venRs.getInt("ventas_totales"));
+
+                    return usuario;
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+    
+    public void mostrarUsuarios() {
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(
+                "SELECT * FROM usuario");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+
+                System.out.println(
+                    "ID: " + rs.getInt("id_usuario")
+                    + " | Nombre: " + rs.getString("nombre")
+                    + " | Apellido: " + rs.getString("apellido")
+                    + " | Email: " + rs.getString("email")
+                    + " | Contraseña: " + rs.getString("contrasenia")
+                );
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

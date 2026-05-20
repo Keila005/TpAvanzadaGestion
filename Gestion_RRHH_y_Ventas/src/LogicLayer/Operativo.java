@@ -287,8 +287,7 @@ public int calcularRendimientoIndividual() {
 	            completadas++;
 	        }
 	    }
-
-	    return (completadas/total)*100;
+	    return (int)((completadas /total) * 100);
 }
 
 //RENDIMIENTO DE EVALUACION 360
@@ -323,7 +322,7 @@ public int calcularRendimientoFinal() {
 		return 0;
 	}else {
 		
-		return ((individual + grupal) / 2)*100;
+		return (individual + grupal) / 2;
 	}
 }
 
