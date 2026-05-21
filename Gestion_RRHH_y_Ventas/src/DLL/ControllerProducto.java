@@ -33,6 +33,25 @@ private static Connection con = Conexion.getInstance().getConnection();
 	    }
 	}
 	
+	public void modificarProducto(Producto produc) {
+
+	    try {
+
+	        PreparedStatement stmt = con.prepareStatement(
+	        		"UPDATE producto SET nombre =?, precio =?" +
+	            "VALUES (?, ?) WHERE id_producto"
+	        );
+
+	        stmt.setString(1,produc.getNombre());
+	        stmt.setDouble(2,produc.getPrecio());
+	       
+
+	        stmt.executeUpdate();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 	
 	
 }// fin de clase controller producto
