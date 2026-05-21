@@ -74,6 +74,40 @@ public class ControllerTarea {
 	    return tablero;
 	}
 	
+	public String tareasEmpleado(int idEmpleado) {
+
+	    String tareas = "";
+
+	    try {
+
+	        PreparedStatement stmt = con.prepareStatement(
+
+	            "SELECT * FROM tarea "
+	            + "WHERE id_empleado = ?"
+	        );
+
+	        stmt.setInt(1, idEmpleado);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            tareas +=
+	                    rs.getString("descripcion")
+
+	                    + " | "
+
+	                    + rs.getString("estado")
+
+	                    + "\n";
+	        }
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return tareas;
+	}
 	
 	
 	
