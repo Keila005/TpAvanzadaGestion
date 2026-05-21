@@ -5,10 +5,15 @@ import javax.swing.JOptionPane;
 
 import DLL.ControllerUsuario;
 import DLL.Hashing;
+import LogicLayer.Empleado;
 import LogicLayer.Usuario;
+import LogicLayer.Vendedor;
 
 public class Main2 {
 	public static void main(String[] args) {
+		
+		
+		
 		
 		
 		ControllerUsuario nuevo = new ControllerUsuario();

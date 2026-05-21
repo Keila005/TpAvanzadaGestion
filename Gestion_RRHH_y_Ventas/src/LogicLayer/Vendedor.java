@@ -10,6 +10,7 @@ import DLL.ControllerEvaluacion;
 
 public class Vendedor extends Empleado {
 	
+	private int idVendedor;
 	private double comision;
 	private int ventasTotales;
 	private static LinkedList<Venta> historialVenta;
@@ -23,6 +24,18 @@ public class Vendedor extends Empleado {
 		this.comision = comision;
 		this.ventasTotales = ventasTotales;
 	}
+	
+	
+	
+public Vendedor(int idVendedor, double comision, int ventasTotales) {
+		super();
+		this.idVendedor = idVendedor;
+		this.comision = comision;
+		this.ventasTotales = ventasTotales;
+	}
+
+
+
 	public double getComision() {
 		return comision;
 	}
@@ -47,36 +60,79 @@ public class Vendedor extends Empleado {
 	public void Menu() {
 		
 		String[] opciones = {
-				"Stock","Venta","Historial de ventas","Salir"	
+				"Stock","Venta","Perfil Laboral","Historial de ventas","Salir"	
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "vendedor", 0, 0, null, opciones, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Menu de Vendedor", 0, 0, null, opciones, opciones);
 				switch (opcion) {
 				case 0:
 					
 					String[] menustock = {
-							"Stock","Venta","Historial de ventas","Salir"	
+							"Agregar Producto","Modificar Stock","Salir"	
 						};
 						int opcionstock;
 						do {
 							opcionstock = JOptionPane.showOptionDialog(null, "Menu de Stock", "Stock", 0, 0, null, menustock, menustock);
 							switch (opcionstock) {
 							case 0:
+								
+								//agregar producto
 							
 								break;
 							case 1:
 								
-								break;
-							case 2: 
+								//modificar producto
+								
 								break;// FIN DEL CASE 2 menustock
+							
 							}
-							}while(opcion!=3);//FIN DELmenu stock
+							}while(opcion!=2);//FIN DEL menu stock
 					break;
 				case 1:
 					
-					break;
+					String[] menupersonal = {
+							"Ver Perfil Laboral","Solicitar vacaciones/permisos","Comentar","Salir"	
+						};
+						int opcionpersonal;
+						do {
+							opcionpersonal = JOptionPane.showOptionDialog(null, "Menu de Perfil Laborar", "Perfil Laboral", 0, 0, null, menupersonal, menupersonal);
+							switch (opcionpersonal) {
+							case 0:
+								
+								//ver perfil laboral
+							
+								break;
+							case 1:
+								
+								//solicitar vacaciones o permisos
+								
+								break;
+							case 2: 
+								
+								String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");
+											LocalDate fechaComentario= LocalDate.now();
+											String[] sentimientos = {"Positivo","Neutro","Negativo"};
+
+											String sentimiento = (String)JOptionPane.showInputDialog(
+											        null,"Seleccione su sentimiento","Comentario Anónimo",
+											        JOptionPane.QUESTION_MESSAGE,
+											        null,sentimientos,sentimientos[0]
+											);
+										if(sentimiento != null) {
+												comentarioController.agregarComentarios(
+														new ComentarioAnonimo(comentario,fechaComentario,sentimiento));
+											}
+								
+								break;// FIN DEL CASE 2 menu personal
+							}
+							}while(opcion!=3);//FIN DEL menu personal
+					
+					break; // 
 				case 2: 
+					
+					//historial de ventas
+					
 					break;// FIN DEL CASE 2 principal
 				}
 				}while(opcion!=3);//FIN DEL MENU PRINCIPAL
