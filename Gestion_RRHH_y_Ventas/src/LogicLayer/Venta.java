@@ -8,19 +8,10 @@ public class Venta {
 	    private String prenda;
 	    private int cantidad;
 	    private double precioUnitario;
+	    private double subtotal;
+	    private double total;
 	    private LocalDate fecha;
 	    private int idVendedor;
-	    
-	    
-		public Venta(String prenda, int cantidad, double precioUnitario, LocalDate fecha, int idVendedor) {
-			super();
-			this.idVenta = contador++;;
-			this.prenda = prenda;
-			this.cantidad = cantidad;
-			this.precioUnitario = precioUnitario;
-			this.fecha = fecha;
-			this.idVendedor = idVendedor;
-		}
 		public static int getContador() {
 			return contador;
 		}
@@ -51,6 +42,18 @@ public class Venta {
 		public void setPrecioUnitario(double precioUnitario) {
 			this.precioUnitario = precioUnitario;
 		}
+		public double getSubtotal() {
+			return subtotal;
+		}
+		public void setSubtotal(double subtotal) {
+			this.subtotal = subtotal;
+		}
+		public double getTotal() {
+			return total;
+		}
+		public void setTotal(double total) {
+			this.total = total;
+		}
 		public LocalDate getFecha() {
 			return fecha;
 		}
@@ -63,5 +66,20 @@ public class Venta {
 		public void setIdVendedor(int idVendedor) {
 			this.idVendedor = idVendedor;
 		}
+		public Venta(int idVenta, String prenda, int cantidad, double precioUnitario, double subtotal, double total,
+				LocalDate fecha, int idVendedor) {
+			super();
+			this.idVenta = idVenta;
+			this.prenda = prenda;
+			this.cantidad = cantidad;
+			this.precioUnitario = precioUnitario;
+			this.subtotal = subtotal;
+			this.total = total;
+			this.fecha = fecha;
+			this.idVendedor = idVendedor;
+		}
+	    
+	    
+		
 	    
 }
