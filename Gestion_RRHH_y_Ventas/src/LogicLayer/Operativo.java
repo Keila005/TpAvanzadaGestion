@@ -322,7 +322,7 @@ public int calcularRendimientoFinal() {
 		return 0;
 	}else {
 		
-		return (individual + grupal) / 2;
+		return this.rendimiento=(individual + grupal) / 2;
 	}
 }
 
