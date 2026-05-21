@@ -135,4 +135,164 @@ public class ControllerUsuario {
             e.printStackTrace();
         }
     }
+    
+    public void crearOperativo(
+            String nombre,
+            String apellido,
+            String mail,
+            String contrasenia,
+            int dni,
+            double sueldoBase,
+            String rol) {
+
+        try {
+
+            PreparedStatement usuarioStmt = con.prepareStatement(
+                "INSERT INTO usuario(nombre, apellido, email, contrasenia) VALUES(?,?,?,?)",
+                PreparedStatement.RETURN_GENERATED_KEYS
+            );
+
+            usuarioStmt.setString(1, nombre);
+            usuarioStmt.setString(2, apellido);
+            usuarioStmt.setString(3, mail);
+            usuarioStmt.setString(4, contrasenia);
+
+            usuarioStmt.executeUpdate();
+
+            ResultSet rs = usuarioStmt.getGeneratedKeys();
+
+            int idUsuario = 0;
+
+            if(rs.next()) {
+                idUsuario = rs.getInt(1);
+            }
+
+            PreparedStatement empleadoStmt = con.prepareStatement(
+                "INSERT INTO empleado(id_usuario, dni, sueldo_base) VALUES(?,?,?)",
+                PreparedStatement.RETURN_GENERATED_KEYS
+            );
+
+            empleadoStmt.setInt(1, idUsuario);
+            empleadoStmt.setString(2, String.valueOf(dni));
+            empleadoStmt.setDouble(3, sueldoBase);
+
+            empleadoStmt.executeUpdate();
+
+            ResultSet rsEmpleado = empleadoStmt.getGeneratedKeys();
+
+            int idEmpleado = 0;
+
+            if(rsEmpleado.next()) {
+                idEmpleado = rsEmpleado.getInt(1);
+            }
+
+            PreparedStatement operativoStmt = con.prepareStatement(
+                "INSERT INTO operativo(id_empleado, rol, rendimiento) VALUES(?,?,?)"
+            );
+
+            operativoStmt.setInt(1, idEmpleado);
+            operativoStmt.setString(2, rol);
+            operativoStmt.setInt(3, 0);
+
+            operativoStmt.executeUpdate();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void crearVendedor(
+            String nombre,
+            String apellido,
+            String mail,
+            String contrasenia,
+            int dni,
+            double sueldoBase,
+            double comision) {
+
+        try {
+
+            PreparedStatement usuarioStmt = con.prepareStatement(
+                "INSERT INTO usuario(nombre, apellido, email, contrasenia) VALUES(?,?,?,?)",
+                PreparedStatement.RETURN_GENERATED_KEYS
+            );
+
+            usuarioStmt.setString(1, nombre);
+            usuarioStmt.setString(2, apellido);
+            usuarioStmt.setString(3, mail);
+            usuarioStmt.setString(4, contrasenia);
+
+            usuarioStmt.executeUpdate();
+
+            ResultSet rs = usuarioStmt.getGeneratedKeys();
+
+            int idUsuario = 0;
+
+            if(rs.next()) {
+                idUsuario = rs.getInt(1);
+            }
+
+            PreparedStatement empleadoStmt = con.prepareStatement(
+                "INSERT INTO empleado(id_usuario, dni, sueldo_base) VALUES(?,?,?)",
+                PreparedStatement.RETURN_GENERATED_KEYS
+            );
+
+            empleadoStmt.setInt(1, idUsuario);
+            empleadoStmt.setString(2, String.valueOf(dni));
+            empleadoStmt.setDouble(3, sueldoBase);
+
+            empleadoStmt.executeUpdate();
+
+            ResultSet rsEmpleado = empleadoStmt.getGeneratedKeys();
+
+            int idEmpleado = 0;
+
+            if(rsEmpleado.next()) {
+                idEmpleado = rsEmpleado.getInt(1);
+            }
+
+            PreparedStatement vendedorStmt = con.prepareStatement(
+                "INSERT INTO vendedor(id_empleado, comision, ventas_totales) VALUES(?,?,?)"
+            );
+
+            vendedorStmt.setInt(1, idEmpleado);
+            vendedorStmt.setDouble(2, comision);
+            vendedorStmt.setInt(3, 0);
+
+            vendedorStmt.executeUpdate();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+        
+  public void modificarEmpleado(
+		  int idEmpleado,
+		  String nuevoMail,
+		  double nuevoSueldo
+		  ) {
+	  try {
+		  PreparedStatement stmt = con.prepareStatement(
+
+		            "UPDATE usuario u "
+		            + "INNER JOIN empleado e "
+		            + "ON u.id_usuario = e.id_usuario "
+		            + "SET u.email = ?, "
+		            + "e.sueldo_base = ? "
+		            + "WHERE e.id_empleado = ?"
+		        );
+
+		        stmt.setString(1, nuevoMail);
+		        stmt.setDouble(2, nuevoSueldo);
+		        stmt.setInt(3, idEmpleado);
+
+		        stmt.executeUpdate();
+	  } catch(Exception e) {
+	        e.printStackTrace();
+	  }
+  }
+        
+    		
+    
 }

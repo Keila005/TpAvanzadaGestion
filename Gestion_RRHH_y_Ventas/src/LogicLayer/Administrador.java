@@ -1,17 +1,20 @@
 package LogicLayer;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
 import DLL.ControllerComentario;
 import DLL.ControllerOperativo;
+import DLL.ControllerUsuario;
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
 	 private String areaEncargado;
 	 private static ControllerOperativo operativoController = new ControllerOperativo();
 	 private static ControllerComentario comentarioController = new ControllerComentario();
+	 private static ControllerUsuario usuarioController = new ControllerUsuario();
 	 
 	 
 	
@@ -42,6 +45,109 @@ public class Administrador extends Usuario{
 		return "Administrador [idAdmin=" + idAdmin + ", areaEncargado=" + areaEncargado
 				+ "]";
 	}
+	
+	
+//	==CRUD==
+	
+	public void crearEmpleado() {
+
+	    String[] tipos = {"Operativo", "Vendedor"};
+
+	    int tipo = JOptionPane.showOptionDialog(
+	            null,
+	            "Seleccione tipo de empleado",
+	            "Nuevo empleado",
+	            0,
+	            0,
+	            null,
+	            tipos,
+	            tipos[0]);
+
+	    String nombre = JOptionPane.showInputDialog("Nombre:");
+	    String apellido = JOptionPane.showInputDialog("Apellido:");
+	    String mail = JOptionPane.showInputDialog("Mail:");
+	    String contrasenia = JOptionPane.showInputDialog("Contraseña:");
+
+	    int dni = Integer.parseInt(
+	            JOptionPane.showInputDialog("DNI:")
+	    );
+
+	    double sueldoBase = Double.parseDouble(
+	            JOptionPane.showInputDialog("Sueldo base:")
+	    );
+
+	    if(tipo == 0) {
+
+	        String[] roles = {"Lider de Proyecto", "Miembro de Proyecto"};
+
+	        int rolElegido = JOptionPane.showOptionDialog(
+	                null,
+	                "Seleccione rol",
+	                "Rol",
+	                0,
+	                0,
+	                null,
+	                roles,
+	                roles[0]);
+
+	        String rol;
+
+	        if(rolElegido == 0) {
+	            rol = "Lider de Proyecto";
+	        } else {
+	            rol = "Miembro de Proyecto";
+	        }
+
+	        usuarioController.crearOperativo(
+	                nombre,
+	                apellido,
+	                mail,
+	                contrasenia,
+	                dni,
+	                sueldoBase,
+	                rol
+	        );
+
+	    } else {
+
+	        double comision = Double.parseDouble(
+	                JOptionPane.showInputDialog("Comisión:")
+	        );
+
+	        usuarioController.crearVendedor(
+	                nombre,
+	                apellido,
+	                mail,
+	                contrasenia,
+	                dni,
+	                sueldoBase,
+	                comision
+	        );
+	    }
+
+	    JOptionPane.showMessageDialog(null,
+	            "Empleado creado correctamente");
+	}
+
+	public void modificarEmpleado() {
+		int idEmpleado = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del empleado"));
+		String nuevoMail = JOptionPane.showInputDialog("Nuevo Mail:");
+		double nuevoSueldo = Double.parseDouble(JOptionPane.showInputDialog("Nuevo sueldo:"));
+		
+		usuarioController.modificarEmpleado(
+				idEmpleado,
+				nuevoMail,
+				nuevoSueldo
+				);
+		
+		JOptionPane.showMessageDialog(null,
+	            "Empleado modificado correctamente");
+		
+		
+	}
+			
+			
+	
 	@Override
 	public void Menu() {
 		String[] opciones = {
