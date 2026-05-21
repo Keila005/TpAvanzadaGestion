@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import DLL.ControllerComentario;
 import DLL.ControllerOperativo;
+import DLL.ControllerProyecto;
 import DLL.ControllerUsuario;
 
 public class Administrador extends Usuario{
@@ -15,6 +16,7 @@ public class Administrador extends Usuario{
 	 private static ControllerOperativo operativoController = new ControllerOperativo();
 	 private static ControllerComentario comentarioController = new ControllerComentario();
 	 private static ControllerUsuario usuarioController = new ControllerUsuario();
+	 private static ControllerProyecto proyectoController = new ControllerProyecto();
 	 
 	 
 	
@@ -145,8 +147,48 @@ public class Administrador extends Usuario{
 		
 		
 	}
-			
-			
+	
+	public void eliminarEmpleado() {
+
+	    int idEmpleado = Integer.parseInt(
+	            JOptionPane.showInputDialog("Ingrese ID del empleado")
+	    );
+
+	    usuarioController.eliminarEmpleado(idEmpleado);
+
+	    JOptionPane.showMessageDialog(null,
+	            "Empleado eliminado");
+	}	
+		
+	
+	public void crearProyecto() {
+
+	    String nombre =
+	            JOptionPane.showInputDialog("Nombre proyecto");
+
+	    String descripcion =
+	            JOptionPane.showInputDialog("Descripción");
+
+	    int idLider = Integer.parseInt(
+	            JOptionPane.showInputDialog("ID líder")
+	    );
+
+	    int idEquipo = Integer.parseInt(
+	            JOptionPane.showInputDialog("ID equipo")
+	    );
+
+	    proyectoController.crearProyecto(
+	            nombre,
+	            descripcion,
+	            LocalDate.now(),
+	            LocalDate.now().plusMonths(1),
+	            idLider,
+	            idEquipo
+	    );
+
+	    JOptionPane.showMessageDialog(null,
+	            "Proyecto creado");
+	}
 	
 	@Override
 	public void Menu() {

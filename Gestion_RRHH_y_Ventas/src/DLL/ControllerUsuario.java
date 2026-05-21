@@ -293,7 +293,61 @@ public class ControllerUsuario {
 	        e.printStackTrace();
 	  }
   }
-        
+  
+  
+  public void eliminarEmpleado(int idEmpleado) {
+
+	    try {
+
+	        PreparedStatement buscarUsuario = con.prepareStatement(
+	            "SELECT id_usuario FROM empleado WHERE id_empleado = ?"
+	        );
+
+	        buscarUsuario.setInt(1, idEmpleado);
+
+	        ResultSet rs = buscarUsuario.executeQuery();
+
+	        int idUsuario = 0;
+
+	        if(rs.next()) {
+	            idUsuario = rs.getInt("id_usuario");
+	        }
+
+	        PreparedStatement deleteOperativo = con.prepareStatement(
+	            "DELETE FROM operativo WHERE id_empleado = ?"
+	        );
+
+	        deleteOperativo.setInt(1, idEmpleado);
+	        deleteOperativo.executeUpdate();
+
+	        PreparedStatement deleteVendedor = con.prepareStatement(
+	            "DELETE FROM vendedor WHERE id_empleado = ?"
+	        );
+
+	        deleteVendedor.setInt(1, idEmpleado);
+	        deleteVendedor.executeUpdate();
+
+	        PreparedStatement deleteEmpleado = con.prepareStatement(
+	            "DELETE FROM empleado WHERE id_empleado = ?"
+	        );
+
+	        deleteEmpleado.setInt(1, idEmpleado);
+	        deleteEmpleado.executeUpdate();
+
+	        PreparedStatement deleteUsuario = con.prepareStatement(
+	            "DELETE FROM usuario WHERE id_usuario = ?"
+	        );
+
+	        deleteUsuario.setInt(1, idUsuario);
+	        deleteUsuario.executeUpdate();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+	}  
+  
+  
+  
     		
     
 }
