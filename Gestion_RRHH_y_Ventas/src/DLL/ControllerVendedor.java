@@ -6,8 +6,7 @@ import java.util.LinkedList;
 
 import com.mysql.jdbc.Connection;
 
-import LogicLayer.Operativo;
-import LogicLayer.Roles;
+
 import LogicLayer.Vendedor;
 
 public class ControllerVendedor {
