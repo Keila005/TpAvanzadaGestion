@@ -3,6 +3,7 @@ package LogicLayer;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import DLL.ControllerComentario;
 import DLL.ControllerEvaluacion;
@@ -102,7 +103,7 @@ public void Menu() {
 		};
 		int opcion;
 		do {
-			opcion = JOptionPane.showOptionDialog(null, "Bienvenido operativo", "Operativo", 0, 0, null, opciones, opciones);
+			opcion = JOptionPane.showOptionDialog(null, "Bienvenido operativo:"+this.getNombre()+" "+ this.getNombre()+""+this.getApellido(), "Operativo", 0, 0, null, opciones, opciones);
 			switch (opcion) {
 			case 0:
 				JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo\nBonos\nRendimiento");
@@ -125,144 +126,132 @@ public void Menu() {
 							new ComentarioAnonimo(comentario,fechaComentario,sentimiento));
 				}
 				break;
-			case 3:
-				String cargo[]= {"Lider del proyecto","Miembro del proyecto","Volver"};
-	
-					int elige;
-					do {
-						elige=JOptionPane.showOptionDialog(null, "Ingrese su cargo:",
-								"Empleado-operativo", 0, 0, null, cargo, cargo[0]);
-						
-						//HAY VALIDAR EN EL FUTURO QUE EL EMPLEADO QUE ESTA REGISTRADO SI ES MIEMBRO
-						//Y PONE LIDER LE APAREZCA UN CARTEL DE QUE NO TIENE ESA POSIBILIDAD Y VICEVERSA
-						
-						switch (elige) {
-						case 0:// SI SE ELIGE LIDER
-							Roles lider=Roles.LIDER_PROYECTO;
-							 String[] subopciones1 = lider.getOpciones();
-							 int opcion1;
-							 do {
-								 opcion1=JOptionPane.showOptionDialog(null, "Realice una accion",
-											"Empleado-operativo_lider", 0, 0, null, subopciones1, subopciones1[0]);
-								 switch (opcion1) {
-//								 "Visualizar Kanban","Crear tareas","Registrar reunion","Evaluar compañero"
-								case 0:
-									JOptionPane.showMessageDialog(null, "Se ven las tareas pendientes\nEn procesos\nFinalizados");
-									break;
-								case 1:
-							JOptionPane.showMessageDialog(null, "Crear nombre y descripcion de la tarea");
-									break;
-								case 2:
-								JOptionPane.showMessageDialog(null, "Crear nombre de la reunion y una fecha");
-									break;
-								case 3:// EVALUAR COMPAÑERO
-					ControllerEvaluacion ce = new ControllerEvaluacion();
-					Operativo empleadoLogueado = this;
-					
-	LinkedList<Operativo> integrantes= ce.mostrarIntegrantesEquipo(empleadoLogueado.getIdOperativo());
-	
-	  String nombres[] = new String[integrantes.size()];
+			case 3://CARGO ROLES SI ES LIDE O MIEMBRO OTROS MENUS
+				if (this.Rol.equals(Roles.LIDER_PROYECTO)) {
+					Roles lider=Roles.LIDER_PROYECTO;
+					 String[] subopciones1 = lider.getOpciones();
+					 int opcion1;
+					 do {
+						 opcion1=JOptionPane.showOptionDialog(null, "Realice una accion",
+									"Empleado-operativo_lider", 0, 0, null, subopciones1, subopciones1[0]);
+						 switch (opcion1) {
+//						 "Visualizar Kanban","Crear tareas","Registrar reunion","Evaluar compañero"
+						case 0:
+							JOptionPane.showMessageDialog(null, "Se ven las tareas pendientes\nEn procesos\nFinalizados");
+							break;
+						case 1:
+					JOptionPane.showMessageDialog(null, "Crear nombre y descripcion de la tarea");
+							break;
+						case 2:
+						JOptionPane.showMessageDialog(null, "Crear nombre de la reunion y una fecha");
+							break;
+						case 3:// EVALUAR COMPAÑERO
+			ControllerEvaluacion ce = new ControllerEvaluacion();
+			Operativo empleadoLogueado = this;
+			
+LinkedList<Operativo> integrantes= ce.mostrarIntegrantesEquipo(empleadoLogueado.getIdOperativo());
 
-      for(int i = 0; i < integrantes.size(); i++) {
+String nombres[] = new String[integrantes.size()];
 
-          nombres[i] =integrantes.get(i).getNombre() + " " + integrantes.get(i).getApellido();
-      }
-   
-      String seleccionado = (String) JOptionPane.showInputDialog(
-    null, "Seleccione un integrante del equipo","Evaluacion 360", JOptionPane.QUESTION_MESSAGE, null,nombres,nombres[0]);
-      
-      if (seleccionado!=null) {
-		Operativo evaluado= null;
-		
-		for(Operativo op : integrantes) { 
-			String nombreCompleto = op.getNombre() + " " + op.getApellido(); 		
-			if(nombreCompleto.equals(seleccionado)) { 
-				evaluado = op; 
-				if(evaluado != null) {
+for(int i = 0; i < integrantes.size(); i++) {
 
-		    	    int[] respuestas = new int[10];
+ nombres[i] =integrantes.get(i).getNombre() + " " + integrantes.get(i).getApellido();
+}
 
-		    	    String[] preguntas = {
-		    	        "¿Cumple sus tareas a tiempo?",
-		    	        "¿Asiste regularmente al trabajo grupal?",
-		    	        "¿Apoya a sus compañeros cuando es necesario?",
-		    	        "¿Se comunica de forma clara?",
-		    	        "¿Escucha y respeta las opiniones de otros?",
-		    	        "¿Muestra iniciativa en su trabajo?",
-		    	        "¿Se adapta a cambios en el proyecto?",
-		    	        "¿Mantiene una actitud responsable?",
-		    	        "¿Cumple con su rol dentro del equipo?",
-		    	        "¿Contribuye positivamente al resultado del proyecto?"
-		    	    };
+String seleccionado = (String) JOptionPane.showInputDialog(
+null, "Seleccione un integrante del equipo","Evaluacion 360", JOptionPane.QUESTION_MESSAGE, null,nombres,nombres[0]);
 
-		    	    for(int i = 0; i < preguntas.length; i++) {
+if (seleccionado!=null) {
+Operativo evaluado= null;
 
-		    	        int btn = JOptionPane.showConfirmDialog(
-		    	                null,
-		    	                preguntas[i],
-		    	                "Evaluación 360",
-		    	                JOptionPane.YES_NO_OPTION
-		    	        );
+for(Operativo op : integrantes) { 
+	String nombreCompleto = op.getNombre() + " " + op.getApellido(); 		
+	if(nombreCompleto.equals(seleccionado)) { 
+		evaluado = op; 
+		if(evaluado != null) {
 
-		    	        if(btn == JOptionPane.YES_OPTION) {
-		    	            respuestas[i] = 1;
-		    	        } else {
-		    	            respuestas[i] = 0;
-		    	        }
-		    	    }
-		    	    String comentariOpcional= JOptionPane.showInputDialog("Ingrese algún comentario adicional");
- Evaluacion360 evaluacion =new Evaluacion360(empleadoLogueado, evaluado, respuestas,comentariOpcional);
-		   evaluado.agregarEvaluacion(evaluacion);
-		   ce.guardarEvaluacion(evaluacion);
-		   double rendimientoGrupal =evaluado.calcularRendimientoGrupal();
-		   
-		   JOptionPane.showMessageDialog( null, "Evaluación realizada correctamente" +"\nEvaluado: "
-			        + evaluado.getNombre() + "\nPuntaje otorgado: "
-			        + evaluacion.getPuntajeTotal()+ "/10"
-			);
+   	    int[] respuestas = new int[10];
 
-			//break;// si hay un evaluado termina de contestar y sale
-			}
-		}
+   	    String[] preguntas = {
+   	        "¿Cumple sus tareas a tiempo?",
+   	        "¿Asiste regularmente al trabajo grupal?",
+   	        "¿Apoya a sus compañeros cuando es necesario?",
+   	        "¿Se comunica de forma clara?",
+   	        "¿Escucha y respeta las opiniones de otros?",
+   	        "¿Muestra iniciativa en su trabajo?",
+   	        "¿Se adapta a cambios en el proyecto?",
+   	        "¿Mantiene una actitud responsable?",
+   	        "¿Cumple con su rol dentro del equipo?",
+   	        "¿Contribuye positivamente al resultado del proyecto?"
+   	    };
+
+   	    for(int i = 0; i < preguntas.length; i++) {
+
+   	        int btn = JOptionPane.showConfirmDialog(
+   	                null,
+   	                preguntas[i],
+   	                "Evaluación 360",
+   	                JOptionPane.YES_NO_OPTION
+   	        );
+
+   	        if(btn == JOptionPane.YES_OPTION) {
+   	            respuestas[i] = 1;
+   	        } else {
+   	            respuestas[i] = 0;
+   	        }
+   	    }
+   	    String comentariOpcional= JOptionPane.showInputDialog("Ingrese algún comentario adicional");
+Evaluacion360 evaluacion =new Evaluacion360(empleadoLogueado, evaluado, respuestas,comentariOpcional);
+  evaluado.agregarEvaluacion(evaluacion);
+  ce.guardarEvaluacion(evaluacion);
+  double rendimientoGrupal =evaluado.calcularRendimientoGrupal();
+  
+  JOptionPane.showMessageDialog( null, "Evaluación realizada correctamente" +"\nEvaluado: "
+	        + evaluado.getNombre() + "\nPuntaje otorgado: "
+	        + evaluacion.getPuntajeTotal()+ "/10"
+	);
+
+	//break;// si hay un evaluado termina de contestar y sale
 	}
-      
-    	}// SI SELECCIONO UN NOMBRE
-      else {
-			JOptionPane.showMessageDialog(null, "No se selecciono a nadie");
-		}
-     
-									break;// del caso 3
+}
+}
 
-								
-								}
-							} while (opcion1!=4);
-							break;
-						case 1:// SI SE ELGIGE MIEMBRO
-							Roles miembro=Roles.MIEMBRO_PROYECTO;
-							 String[] subopciones2 = miembro.getOpciones();
-							 int opcion2;
-							 do {
-								 opcion2=JOptionPane.showOptionDialog(null, "Realice una accion",
-											"Empleado-operativo_Miembro", 0, 0, null, subopciones2, subopciones2[0]);
-								 switch (opcion2) {
+}// SI SELECCIONO UN NOMBRE
+else {
+	JOptionPane.showMessageDialog(null, "No se selecciono a nadie");
+}
 
-								case 0:
-									JOptionPane.showMessageDialog(null, "Se ven las tareas pendientes\nEn procesos\nFinalizados\nBtn trabajar(en proceso)");
-									break;
-								case 1:
-							JOptionPane.showMessageDialog(null, "Ver reuniones que hay");
-									break;
-								case 2:
-								JOptionPane.showMessageDialog(null, "Elegir a un compañero y responder algunas preguntas");
-									break;
+							break;// del caso 3
 
-								
-								}
-							} while (opcion2!=3);
-							break;
+						
 						}
-	
-					}while(elige!=2);
+					} while (opcion1!=4);
+				}// FIN DEL IF SI ES LIDER
+				else if (this.Rol.equals(Roles.MIEMBRO_PROYECTO)) {
+					Roles miembro=Roles.MIEMBRO_PROYECTO;
+					 String[] subopciones2 = miembro.getOpciones();
+					 int opcion2;
+					 do {
+						 opcion2=JOptionPane.showOptionDialog(null, "Realice una accion",
+									"Empleado-operativo_Miembro", 0, 0, null, subopciones2, subopciones2[0]);
+						 switch (opcion2) {
+
+						case 0:
+							JOptionPane.showMessageDialog(null, "Se ven las tareas pendientes\nEn procesos\nFinalizados\nBtn trabajar(en proceso)");
+							break;
+						case 1:
+					JOptionPane.showMessageDialog(null, "Ver reuniones que hay");
+							break;
+						case 2:
+						JOptionPane.showMessageDialog(null, "Elegir a un compañero y responder algunas preguntas");
+							break;		
+						}
+					} while (opcion2!=3);
+				}//FIN DEL ELSE IF
+				else {
+					JOptionPane.showMessageDialog(null, "Error de usuario");
+				}
+				
 					break;// FIN DEL CASE 3
 			}
 			}while(opcion!=4);//FIN DEL MENU PRINCIPAL

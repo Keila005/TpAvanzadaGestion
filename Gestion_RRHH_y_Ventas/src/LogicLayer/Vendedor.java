@@ -48,7 +48,8 @@ public class Vendedor extends Empleado {
 			};
 		int opciones;
 		do {
-			opciones = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Vendedor", 0, 0, null, opcioneses, opcioneses);
+			opciones = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor:"+
+		this.getNombre()+" "+this.getApellido(), "Vendedor", 0, 0, null, opcioneses, opcioneses);
 			switch (opciones) {
 			case 0:
 				JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo\nBonos\nRendimiento");

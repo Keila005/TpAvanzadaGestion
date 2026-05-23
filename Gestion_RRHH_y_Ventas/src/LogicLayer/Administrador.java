@@ -49,7 +49,8 @@ public class Administrador extends Usuario{
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administrador", "", 0, 0, null, opciones, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administrador: "+
+			this.getNombre()+" "+this.getApellido(), "", 0, 0, null, opciones, opciones);
 				switch (opcion) {
 				case 0:
 					JOptionPane.showMessageDialog(null, "Ver datos del empleado\nEditar datos del empleado");
