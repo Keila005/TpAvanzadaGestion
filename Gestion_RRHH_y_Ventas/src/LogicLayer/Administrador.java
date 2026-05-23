@@ -1,10 +1,18 @@
 package LogicLayer;
 
+import java.util.LinkedList;
+
 import javax.swing.JOptionPane;
+
+import DLL.ControllerComentario;
+import DLL.ControllerOperativo;
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
 	 private String areaEncargado;
+	 private static ControllerOperativo operativoController = new ControllerOperativo();
+	 private static ControllerComentario comentarioController = new ControllerComentario();
+	 
 	 
 	
 	public Administrador(String nombre, String apellido, String mail, String contrasenia, int idAdmin,
@@ -41,7 +49,7 @@ public class Administrador extends Usuario{
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administardor", "", 0, 0, null, opciones, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administrador", "", 0, 0, null, opciones, opciones);
 				switch (opcion) {
 				case 0:
 					JOptionPane.showMessageDialog(null, "Ver datos del empleado\nEditar datos del empleado");
@@ -50,7 +58,113 @@ public class Administrador extends Usuario{
 					JOptionPane.showMessageDialog(null, "Crear nuevo proyecto(se define nombre, asignacion de lider y fecha)\nVer proyecto existentes");
 					break;
 				case 2:
-					JOptionPane.showMessageDialog(null, "Rendimiento Operativo\nRendimiento vendedor\nRendimiento de productos");
+					
+					String[] ver = {"Rendimiento:Operativo","Rendimiento:Vendedor",
+							"Rendimiento:Productos","Clima laboral","Salir"};
+					int opcionVer;
+					do {
+						opcionVer= JOptionPane.showOptionDialog(null, "Elija que rendimiento quiere ver", 
+								"Rendimientos", 0, 0, null, ver, ver[0]);
+						switch (opcionVer) {
+						case 0: // operativos
+							 
+				LinkedList<Operativo> operativos =operativoController.mostrarOperativos();
+
+					    if(operativos.isEmpty()) {
+
+					        JOptionPane.showMessageDialog(null,"No hay operativos");
+					        break;
+					    }
+
+					    String[] nombres =new String[operativos.size()];
+
+					    for(int i = 0; i < operativos.size(); i++) {
+
+			nombres[i] =operativos.get(i).getNombre()+ " "+ operativos.get(i).getApellido();
+					    }
+					    
+		String seleccionado =(String) JOptionPane.showInputDialog(null,"Seleccione un operativo",
+					   "Rendimiento Operativo",JOptionPane.QUESTION_MESSAGE,null,nombres,nombres[0]
+					            );
+
+					    if(seleccionado != null) {
+
+					        Operativo operativoSeleccionado = null;
+
+					        for(Operativo op : operativos) {
+
+					     String nombreCompleto =op.getNombre()+ " "+ op.getApellido();
+
+					            if(nombreCompleto.equals(seleccionado)) {
+
+					                operativoSeleccionado = op;
+					                break;
+					            }
+					        }
+
+					        if(operativoSeleccionado != null) {
+
+					int individual = operativoSeleccionado.calcularRendimientoIndividual();
+
+					int grupal =operativoSeleccionado.calcularRendimientoGrupal();
+					
+					int  finalRendimiento=operativoSeleccionado.getRendimiento();
+
+					            JOptionPane.showMessageDialog(
+					                    null,
+					                    "Empleado: "
+					                    + operativoSeleccionado.getNombre()
+
+					                    + "\nRol: "
+					                    + operativoSeleccionado.getRol()
+
+					                    + "\n\nRendimiento Individual: "
+					                    + individual + "%"
+
+					                    + "\nRendimiento 360°: "
+					                    + grupal + "%"
+
+					                    + "\nRendimiento Final: "
+					                    + finalRendimiento + "%"
+					            );
+					        }
+					    }
+							break;
+						case 1: //vendedor
+							
+							break;
+						case 2: // productos
+							
+							break;
+						case 3: // comentarios
+			LinkedList<ComentarioAnonimo> comentarios =comentarioController.verComentarios();
+
+					    if(comentarios.isEmpty()) {
+
+					        JOptionPane.showMessageDialog(null,"No hay comentarios registrados");
+
+					    } else {
+					        String mensaje = "Comentarios laborales:\n";
+
+					        for(ComentarioAnonimo c : comentarios) {
+
+					     mensaje += "Comentario: " + c.getContenido()+ "\nFecha: " + c.getFecha()
+					             + "\nSentimiento: " + c.getSentimiento()
+					               + "\n----------------------\n";
+					        }
+
+					        JOptionPane.showMessageDialog(null, mensaje);
+					        
+					        String reporte = comentarioController.generarReporteClima();
+
+					        JOptionPane.showMessageDialog(null, reporte);
+					    }
+							break;
+
+						default:
+							break;
+						}
+					} while (opcionVer!=4);
 					break;
 				case 3:
 					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");

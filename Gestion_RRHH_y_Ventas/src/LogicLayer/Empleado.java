@@ -2,15 +2,16 @@ package LogicLayer;
 
 import java.time.LocalDate;
 
-public abstract class Empleado extends Usuario { 
+public abstract class Empleado extends Usuario {
+	
 	private int dni;
 	private double sueldoBase;
 	private LocalDate fechaContratacion;
 	private int faltas;
 	
-
-	
-
+	public Empleado() {
+		super();
+	}
 
 	public Empleado(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
 			LocalDate fechaContratacion, int faltas) {
