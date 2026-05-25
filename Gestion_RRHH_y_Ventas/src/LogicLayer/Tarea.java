@@ -5,12 +5,14 @@ public class Tarea {
 	    private int idTarea;
 	    private String nombre, descripcion, estado;
 	    private int progreso, idProyecto, idEmpleadoAsignado;
+	    private boolean editable;
 	    
 	    // QUE SERIA ESTO DE PROGRESO?? A QUE SE REFIERE?
 	    public Tarea(String nombre, String descripcion, String estado, int progreso, int idProyecto, int idEmpleadoAsignado) {
 	    	this.idTarea = contador++;
 	    	this.nombre = nombre; this.descripcion = descripcion; this.estado = estado;
 	    	this.progreso = progreso; this.idProyecto = idProyecto; this.idEmpleadoAsignado = idEmpleadoAsignado;
+	    	this.editable = true;
 	    }
 	    public static int getContador() {
 			return contador;
@@ -75,7 +77,40 @@ public class Tarea {
 		public void setIdEmpleadoAsignado(int idEmpleadoAsignado) {
 			this.idEmpleadoAsignado = idEmpleadoAsignado;
 		}
+		
+		public boolean isEditable() {
+			return editable;
+		}
 
+		
+		
+		public void trabajar() {
+
+			if(estado.equals("COMPLETADA")) {
+
+				return;
+			}
+
+			if(progreso < 100) {
+
+				progreso += 33;
+			}
+
+			if(progreso >= 33 &&
+					estado.equals("POR_HACER")) {
+
+				estado = "EN_PROCESO";
+			}
+
+			if(progreso >= 99) {
+
+				progreso = 100;
+
+				estado = "COMPLETADA";
+
+				editable = false;
+			}
+		}
 //		 public void actualizarProgreso(int progreso) { 
 		//this.progreso = progreso; 
 		//if (progreso >= 100) this.estado = "COMPLETADA"; }

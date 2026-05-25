@@ -203,10 +203,105 @@ public class Administrador extends Usuario{
 				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administardor", "", 0, 0, null, opciones, opciones);
 				switch (opcion) {
 				case 0:
-					JOptionPane.showMessageDialog(null, "Ver datos del empleado\nEditar datos del empleado");
+
+					String[] gestion = {
+							"Crear empleado",
+							"Modificar empleado",
+							"Eliminar empleado",
+							"Volver"
+					};
+
+					int opcionGestion;
+
+					do {
+
+						opcionGestion = JOptionPane.showOptionDialog(
+								null,
+								"Gestión de empleados",
+								"Administrador",
+								0,
+								0,
+								null,
+								gestion,
+								gestion[0]);
+
+						switch (opcionGestion) {
+
+						case 0:
+
+							crearEmpleado();
+
+							break;
+
+						case 1:
+
+							modificarEmpleado();
+
+							break;
+
+						case 2:
+
+							eliminarEmpleado();
+
+							break;
+						}
+
+					} while(opcionGestion != 3);
+
 					break;
-				case 1:
-					JOptionPane.showMessageDialog(null, "Crear nuevo proyecto(se define nombre, asignacion de lider y fecha)\nVer proyecto existentes");
+				case 1:  
+
+					String[] proyectos = {
+							"Crear proyecto",
+							"Asignar líder",
+							"Volver"
+					};
+
+					int opcionProyecto;
+
+					do {
+
+						opcionProyecto = JOptionPane.showOptionDialog(
+								null,
+								"Gestión de proyectos",
+								"Administrador",
+								0,
+								0,
+								null,
+								proyectos,
+								proyectos[0]);
+
+						switch (opcionProyecto) {
+
+						case 0:
+
+							crearProyecto();
+
+							break;
+
+						case 1:
+
+							int idProyecto = Integer.parseInt(
+									JOptionPane.showInputDialog("ID proyecto")
+							);
+
+							int idLider = Integer.parseInt(
+									JOptionPane.showInputDialog("Nuevo líder")
+							);
+
+							proyectoController.asignarLider(
+									idProyecto,
+									idLider
+							);
+
+							JOptionPane.showMessageDialog(null,
+									"Líder asignado correctamente");
+
+							break;
+						}
+
+					} while(opcionProyecto != 2);
+
 					break;
 				case 2:
 					
