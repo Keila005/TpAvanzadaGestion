@@ -41,7 +41,9 @@ public class ControllerTarea {
 	
 	public String mostrarKanban(int idProyecto) {
 
-	    String tablero = "";
+		String pendientes = "";
+		String proceso = "";
+		String finalizadas = "";
 
 	    try {
 
@@ -57,23 +59,47 @@ public class ControllerTarea {
 
 	        while(rs.next()) {
 
-	            tablero +=
-	                    "TAREA: "
+	            String tarea =
+	                    rs.getString("nombre")
+	                    + " - "
 	                    + rs.getString("descripcion")
-
-	                    + "\nESTADO: "
-	                    + rs.getString("estado")
-
-	                    + "\nPROGRESO: "
+	                    + " ("
 	                    + rs.getInt("progreso")
-	                    + "%\n\n";
+	                    + "%)\n";
+
+	            String estado = rs.getString("estado");
+
+	            if(estado.equalsIgnoreCase("Pendiente")) {
+
+	                pendientes += tarea;
+
+	            }
+
+	            else if(estado.equalsIgnoreCase("EN PROCESO")) {
+
+	                proceso += tarea;
+
+	            }
+
+	            else if(estado.equalsIgnoreCase("FINALIZADA")) {
+
+	                finalizadas += tarea;
+	            }
 	        }
 
 	    } catch(Exception e) {
 	        e.printStackTrace();
 	    }
 
-	    return tablero;
+	    return
+	            "=== PENDIENTES ===\n"
+	            + pendientes
+
+	            + "\n=== EN PROCESO ===\n"
+	            + proceso
+
+	            + "\n=== FINALIZADAS ===\n"
+	            + finalizadas;
 	}
 	
 	public String tareasEmpleado(int idEmpleado) {
