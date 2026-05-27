@@ -1,11 +1,15 @@
 package LogicLayer;
 
+import javax.swing.JOptionPane;
+
 public class Tarea {
 	  private static int contador = 1;
 	    private int idTarea;
 	    private String nombre, descripcion, estado;
 	    private int progreso, idProyecto, idEmpleadoAsignado;
 	    private boolean editable;
+	    private int sesionesTrabajo;
+	    private boolean bloqueada;
 	    
 	    // QUE SERIA ESTO DE PROGRESO?? A QUE SE REFIERE?
 	    public Tarea(String nombre, String descripcion, String estado, int progreso, int idProyecto, int idEmpleadoAsignado) {
@@ -13,6 +17,8 @@ public class Tarea {
 	    	this.nombre = nombre; this.descripcion = descripcion; this.estado = estado;
 	    	this.progreso = progreso; this.idProyecto = idProyecto; this.idEmpleadoAsignado = idEmpleadoAsignado;
 	    	this.editable = true;
+	    	this.sesionesTrabajo = 0;
+	    	this.bloqueada = false;
 	    }
 	    public static int getContador() {
 			return contador;
@@ -81,6 +87,21 @@ public class Tarea {
 		public boolean isEditable() {
 			return editable;
 		}
+		public int getSesionesTrabajo() {
+			return sesionesTrabajo;
+		}
+
+		public void setSesionesTrabajo(int sesionesTrabajo) {
+			this.sesionesTrabajo = sesionesTrabajo;
+		}
+
+		public boolean isBloqueada() {
+			return bloqueada;
+		}
+
+		public void setBloqueada(boolean bloqueada) {
+			this.bloqueada = bloqueada;
+		}
 
 		
 		
@@ -111,6 +132,27 @@ public class Tarea {
 				editable = false;
 			}
 		}
+		
+		public void completarTarea() {
+
+			if(sesionesTrabajo < 3) {
+
+				JOptionPane.showMessageDialog(null,
+						"Necesita 3 sesiones de trabajo");
+
+				return;
+			}
+
+			estado = "FINALIZADA";
+
+			progreso = 100;
+
+			bloqueada = true;
+
+			JOptionPane.showMessageDialog(null,
+					"Tarea completada");
+		}
+		
 //		 public void actualizarProgreso(int progreso) { 
 		//this.progreso = progreso; 
 		//if (progreso >= 100) this.estado = "COMPLETADA"; }

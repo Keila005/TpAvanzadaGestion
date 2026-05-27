@@ -9,6 +9,7 @@ public class ControllerTarea {
             Conexion.getInstance().getConnection();
 	
 	public void crearTarea(
+			String nombre,
 			String descripcion,
 			int idProyecto,
 			int idEmpleado) {
@@ -17,16 +18,17 @@ public class ControllerTarea {
 			
 			PreparedStatement stmt = con.prepareStatement(
 					
-					"INSERT INT tarea("
-					+ "descripcion,estado,progreso"
-					+ "id_proyecto,id_empleado"
-					+ "VALUES (?,?,?,?,?");
+					"INSERT INTO tarea("
+					+ "nombre,descripcion,estado,progreso,"
+					+ "id_proyecto,id_empleado)"
+					+ "VALUES (?,?,?,?,?,?)");
 			
-			stmt.setString(1, descripcion);
-			stmt.setString(2, "Pendiente");
-			stmt.setInt(3, 0);
-			stmt.setInt(4, idProyecto);
-			stmt.setInt(5, idEmpleado);
+			stmt.setString(1, nombre);
+			stmt.setString(2, descripcion);
+			stmt.setString(3, "Pendiente");
+			stmt.setInt(4, 0);
+			stmt.setInt(5, idProyecto);
+			stmt.setInt(6, idEmpleado);
 			
 			stmt.executeUpdate();
 			
@@ -109,7 +111,57 @@ public class ControllerTarea {
 	    return tareas;
 	}
 	
+	public void trabajarTarea(int idTarea) {
+
+		try {
+
+			PreparedStatement stmt = con.prepareStatement(
+
+					"UPDATE tarea "
+					+ "SET progreso = progreso + 33, "
+					+ "estado = 'EN PROCESO' "
+					+ "WHERE id_tarea = ?"
+			);
+
+			stmt.setInt(1, idTarea);
+
+			stmt.executeUpdate();
+
+		} catch(Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+	public void completarTarea(int idTarea) {
+
+		try {
+
+			PreparedStatement stmt = con.prepareStatement(
+
+					"UPDATE tarea "
+					+ "SET estado = 'FINALIZADA', "
+					+ "progreso = 100 "
+					+ "WHERE id_tarea = ?"
+			);
+
+			stmt.setInt(1, idTarea);
+
+			stmt.executeUpdate();
+
+		} catch(Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
 	
 	
 	
 }
+
+//fin de controller

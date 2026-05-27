@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
+import DLL.ControllerTarea;
 import DLL.ControllerComentario;
 import DLL.ControllerEvaluacion;
 
@@ -14,6 +15,7 @@ private int rendimiento;
 private LinkedList<Tarea> tareasAsignadas;
 private LinkedList<Evaluacion360> evaluacionesRecibidas;
 private static ControllerComentario comentarioController = new ControllerComentario();
+private static ControllerTarea tareaController = new ControllerTarea();
 
 
 public int getIdOperativo() {
@@ -56,6 +58,8 @@ public Operativo(String nombre, String mail, String contrasenia, String apellido
 	Rol = rol;
 	this.rendimiento = rendimiento; //ACA FALTA YA QUE NECESITO TENER EL RENDIMIENTO INDIVIDUAL,
 									//EL RENDIMIENTO 360 Y HACER EL PROMEDIO *100
+	this.tareasAsignadas = new LinkedList<>();
+	this.evaluacionesRecibidas = new LinkedList<>();
 }
 
 public Operativo() {
@@ -82,6 +86,7 @@ public Operativo(int idOperativo, Roles rol, int rendimiento) {
 	Rol = rol;
 	this.rendimiento = rendimiento;
 }
+
 public void agregarEvaluacion(Evaluacion360 e) {
 
     evaluacionesRecibidas.add(e);
@@ -111,7 +116,7 @@ public void Menu() {
 				JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");
 				break;
 			case 2: //COMENTAR
-				String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");
+				String comentario = Validador.ValidarString("Escriba un comentario sobre el clima laboral");
 				LocalDate fechaComentario= LocalDate.now();
 				String[] sentimientos = {"Positivo","Neutro","Negativo"};
 
@@ -145,16 +150,170 @@ public void Menu() {
 								 opcion1=JOptionPane.showOptionDialog(null, "Realice una accion",
 											"Empleado-operativo_lider", 0, 0, null, subopciones1, subopciones1[0]);
 								 switch (opcion1) {
-//								 "Visualizar Kanban","Crear tareas","Registrar reunion","Evaluar compañero"
+//								 
+								 
+								 //VISUALIZAR TAREAS && KANBAN
 								case 0:
-									JOptionPane.showMessageDialog(null, "Se ven las tareas pendientes\nEn procesos\nFinalizados");
+									if(tareasAsignadas.isEmpty()) {
+
+										JOptionPane.showMessageDialog(null,
+												"No tiene tareas asignadas");
+										break;
+									}
+
+									String[] tareas = new String[tareasAsignadas.size()];
+
+									for(int i = 0; i < tareasAsignadas.size(); i++) {
+
+										Tarea t = tareasAsignadas.get(i);
+
+										tareas[i] =
+												t.getNombre()
+												+ " | "
+												+ t.getEstado()
+												+ " | "
+												+ t.getSesionesTrabajo()
+												+ "/3";
+									}
+
+									String seleccionada =
+											(String) JOptionPane.showInputDialog(
+													null,
+													"Seleccione una tarea",
+													"KANBAN",
+													JOptionPane.QUESTION_MESSAGE,
+													null,
+													tareas,
+													tareas[0]);
+
+									if(seleccionada != null) {
+
+										Tarea tareaElegida = null;
+
+										for(Tarea t : tareasAsignadas) {
+
+											String texto =
+													t.getNombre()
+													+ " | "
+													+ t.getEstado()
+													+ " | "
+													+ t.getSesionesTrabajo()
+													+ "/3";
+
+											if(texto.equals(seleccionada)) {
+
+												tareaElegida = t;
+												break;
+											}
+										}
+
+										if(tareaElegida != null) {
+
+											if(tareaElegida.isBloqueada()) {
+
+												JOptionPane.showMessageDialog(null,
+														"La tarea está completada");
+												break;
+											}
+
+											String[] acciones;
+
+											if(tareaElegida.getSesionesTrabajo() >= 3) {
+
+												acciones = new String[] {
+														"Trabajar",
+														"Completar",
+														"Volver"
+												};
+
+											} else {
+
+												acciones = new String[] {
+														"Trabajar",
+														"Volver"
+												};
+											}
+
+											int accion =
+													JOptionPane.showOptionDialog(
+															null,
+															"TAREA:\n"
+															+ tareaElegida.getDescripcion(),
+															"KANBAN",
+															0,
+															0,
+															null,
+															acciones,
+															acciones[0]);
+
+											if(accion == 0) {
+
+												tareaElegida.trabajar();
+
+												tareaController.trabajarTarea(
+														tareaElegida.getIdTarea());
+											}
+
+											else if(accion == 1
+													&& tareaElegida.getSesionesTrabajo() >= 3) {
+
+												tareaElegida.completarTarea();
+
+												tareaController.completarTarea(
+														tareaElegida.getIdTarea());
+											}
+										}
+									}
+
 									break;
+									
+									//REGISTRAR TAREA	
 								case 1:
-							JOptionPane.showMessageDialog(null, "Crear nombre y descripcion de la tarea");
-									break;
+									String nombreTarea =
+									JOptionPane.showInputDialog(
+											"Nombre de la tarea");
+
+							String descripcion =
+									JOptionPane.showInputDialog(
+											"Descripción");
+
+							int idProyecto =
+									Integer.parseInt(
+											JOptionPane.showInputDialog(
+													"ID proyecto"));
+
+							int idEmpleado =
+									Integer.parseInt(
+											JOptionPane.showInputDialog(
+													"ID empleado asignado"));
+
+							tareaController.crearTarea(
+									nombreTarea,
+									descripcion,
+									idProyecto,
+									idEmpleado);
+
+							JOptionPane.showMessageDialog(null,
+									"Tarea creada");
+							
+							//REGISTRAR REUNION
 								case 2:
-								JOptionPane.showMessageDialog(null, "Crear nombre de la reunion y una fecha");
-									break;
+									String nombreReunion =
+									JOptionPane.showInputDialog(
+											"Nombre de la reunión");
+
+							String fecha =
+									JOptionPane.showInputDialog(
+											"Fecha");
+
+							JOptionPane.showMessageDialog(
+									null,
+									"Reunión registrada\n"
+									+ nombreReunion
+									+ "\nFecha: "
+									+ fecha);
+							
+							
 								case 3:// EVALUAR COMPAÑERO
 					ControllerEvaluacion ce = new ControllerEvaluacion();
 					Operativo empleadoLogueado = this;
@@ -247,7 +406,117 @@ public void Menu() {
 								 switch (opcion2) {
 
 								case 0:
-									JOptionPane.showMessageDialog(null, "Se ven las tareas pendientes\nEn procesos\nFinalizados\nBtn trabajar(en proceso)");
+									if(tareasAsignadas.isEmpty()) {
+
+										JOptionPane.showMessageDialog(null,
+												"No tiene tareas asignadas");
+										break;
+									}
+
+									String[] tareas = new String[tareasAsignadas.size()];
+
+									for(int i = 0; i < tareasAsignadas.size(); i++) {
+
+										Tarea t = tareasAsignadas.get(i);
+
+										tareas[i] =
+												t.getNombre()
+												+ " | "
+												+ t.getEstado()
+												+ " | "
+												+ t.getSesionesTrabajo()
+												+ "/3";
+									}
+
+									String seleccionada =
+											(String) JOptionPane.showInputDialog(
+													null,
+													"Seleccione una tarea",
+													"KANBAN",
+													JOptionPane.QUESTION_MESSAGE,
+													null,
+													tareas,
+													tareas[0]);
+
+									if(seleccionada != null) {
+
+										Tarea tareaElegida = null;
+
+										for(Tarea t : tareasAsignadas) {
+
+											String texto =
+													t.getNombre()
+													+ " | "
+													+ t.getEstado()
+													+ " | "
+													+ t.getSesionesTrabajo()
+													+ "/3";
+
+											if(texto.equals(seleccionada)) {
+
+												tareaElegida = t;
+												break;
+											}
+										}
+
+										if(tareaElegida != null) {
+
+											if(tareaElegida.isBloqueada()) {
+
+												JOptionPane.showMessageDialog(null,
+														"La tarea está completada");
+												break;
+											}
+
+											String[] acciones;
+
+											if(tareaElegida.getSesionesTrabajo() >= 3) {
+
+												acciones = new String[] {
+														"Trabajar",
+														"Completar",
+														"Volver"
+												};
+
+											} else {
+
+												acciones = new String[] {
+														"Trabajar",
+														"Volver"
+												};
+											}
+
+											int accion =
+													JOptionPane.showOptionDialog(
+															null,
+															"TAREA:\n"
+															+ tareaElegida.getDescripcion(),
+															"KANBAN",
+															0,
+															0,
+															null,
+															acciones,
+															acciones[0]);
+
+											if(accion == 0) {
+
+												tareaElegida.trabajar();
+
+												tareaController.trabajarTarea(
+														tareaElegida.getIdTarea());
+											}
+
+											else if(accion == 1
+													&& tareaElegida.getSesionesTrabajo() >= 3) {
+
+												tareaElegida.completarTarea();
+
+												tareaController.completarTarea(
+														tareaElegida.getIdTarea());
+											}
+										}
+									}
+
 									break;
 								case 1:
 							JOptionPane.showMessageDialog(null, "Ver reuniones que hay");
