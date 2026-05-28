@@ -415,7 +415,7 @@ public class Administrador extends Usuario{
 					} while (opcionVer!=5);
 					break;
 				case 3:
-					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");
+				    gestionarSolicitudes();
 					break;
 			case 4:
 				String nombre = JOptionPane.showInputDialog("Nombre del empleado:");
@@ -495,6 +495,68 @@ public class Administrador extends Usuario{
 	    String motivo = JOptionPane.showInputDialog("Motivo del bono:");
 	    
 	    cb.registrarBono(idEmpleado, monto, motivo);
+	}
+	
+	public void gestionarSolicitudes() {
+	    DLL.ControllerSolicitud cs = new DLL.ControllerSolicitud();
+	    
+	    try {
+	        java.sql.ResultSet rs = cs.getSolicitudesPendientes();
+	        
+	        if (rs == null || !rs.isBeforeFirst()) {
+	            JOptionPane.showMessageDialog(null, "No hay solicitudes pendientes");
+	            return;
+	        }
+	        
+	        String[] mostrar = new String[100];
+	        int[] idsMostrar = new int[100];
+	        int count = 0;
+	        
+	        while (rs.next()) {
+	            idsMostrar[count] = rs.getInt("id_solicitud");
+	            mostrar[count] = rs.getString("nombre") + " " + rs.getString("apellido") +
+	                             " - " + rs.getString("tipo") +
+	                             " (" + rs.getString("fecha_inicio") + " a " + rs.getString("fecha_fin") + ")";
+	            count++;
+	        }
+	        
+	        String[] opcionesFinal = new String[count];
+	        int[] idsFinal = new int[count];
+	        for (int i = 0; i < count; i++) {
+	            opcionesFinal[i] = mostrar[i];
+	            idsFinal[i] = idsMostrar[i];
+	        }
+	        
+	        String seleccionado = (String) JOptionPane.showInputDialog(null, "Seleccione una solicitud:", 
+	                                "Aprobar/Rechazar", JOptionPane.QUESTION_MESSAGE, null, opcionesFinal, opcionesFinal[0]);
+	        
+	        if (seleccionado == null) return;
+	        
+	        int idx = -1;
+	        for (int i = 0; i < opcionesFinal.length; i++) {
+	            if (opcionesFinal[i].equals(seleccionado)) {
+	                idx = i;
+	                break;
+	            }
+	        }
+	        
+	        if (idx == -1) return;
+	        
+	        String[] opciones = {"Aprobar", "Rechazar"};
+	        int decision = JOptionPane.showOptionDialog(null, "¿Qué desea hacer?", "Decisión",
+	                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+	        
+	        if (decision == 0) {
+	            cs.actualizarEstado(idsFinal[idx], "aprobada");
+	            JOptionPane.showMessageDialog(null, "Solicitud aprobada");
+	        } else if (decision == 1) {
+	            cs.actualizarEstado(idsFinal[idx], "rechazada");
+	            JOptionPane.showMessageDialog(null, "Solicitud rechazada");
+	        }
+	        
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error");
+	    }
 	}
 	
 }
