@@ -197,7 +197,7 @@ public class Administrador extends Usuario{
 	@Override
 	public void Menu() {
 		String[] opciones = {
-				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos","Ver empleados", "Ver ausencias","Validar asistencia ","Salir"	
+				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos","Ver empleados", "Ver ausencias","Validar asistencia ","Modificar asistencia","Salir"	
 			};
 			int opcion;
 			do {
@@ -444,11 +444,14 @@ public class Administrador extends Usuario{
 			case 8:
 			    validarAsistencia();
 			    break;
+			case 9:
+			    modificarAsistencia();
+			    break;
 
 
 					
 				}
-			}while(opcion!= 9);
+			}while(opcion!= 10);
 	}
 	
 	public void verRankingOperativos() {
@@ -718,6 +721,81 @@ public void validarAsistencia() {
         String nuevaSalida = String.format("%02d:%02d:00", horaSalida, minutoSalida);
         
         asis.actualizarAsistencia(idsAsisFinal[idxAsis], nuevaEntrada, nuevaSalida);
+        JOptionPane.showMessageDialog(null, "Asistencia modificada");
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error");
+    }
+}
+public void modificarAsistencia() {
+    DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+    DLL.ControllerRendimiento cr = new DLL.ControllerRendimiento();
+    
+    try {
+        java.sql.ResultSet rsEmpleados = cr.getListaEmpleados();
+        
+        if (rsEmpleados == null || !rsEmpleados.isBeforeFirst()) {
+            JOptionPane.showMessageDialog(null, "No hay empleados");
+            return;
+        }
+        
+        String[] empleados = new String[100];
+        int[] idsEmpleados = new int[100];
+        int countEmp = 0;
+        
+        while (rsEmpleados.next()) {
+            idsEmpleados[countEmp] = rsEmpleados.getInt("id_empleado");
+            empleados[countEmp] = rsEmpleados.getString("nombre") + " " + rsEmpleados.getString("apellido");
+            countEmp++;
+        }
+        
+        String[] opcionesEmp = new String[countEmp];
+        int[] idsEmpFinal = new int[countEmp];
+        for (int i = 0; i < countEmp; i++) {
+            opcionesEmp[i] = empleados[i];
+            idsEmpFinal[i] = idsEmpleados[i];
+        }
+        
+        String empSeleccionado = (String) JOptionPane.showInputDialog(null, "Seleccione un empleado:", 
+                                "Modificar Asistencia", JOptionPane.QUESTION_MESSAGE, null, opcionesEmp, opcionesEmp[0]);
+        
+        if (empSeleccionado == null) return;
+        
+        int idxEmp = -1;
+        for (int i = 0; i < opcionesEmp.length; i++) {
+            if (opcionesEmp[i].equals(empSeleccionado)) {
+                idxEmp = i;
+                break;
+            }
+        }
+        
+        if (idxEmp == -1) return;
+        
+        int idEmpleado = idsEmpFinal[idxEmp];
+        
+        int dia = Integer.parseInt(JOptionPane.showInputDialog("Día:"));
+        int mes = Integer.parseInt(JOptionPane.showInputDialog("Mes:"));
+        int anio = Integer.parseInt(JOptionPane.showInputDialog("Año:"));
+        String fecha = String.format("%04d-%02d-%02d", anio, mes, dia);
+        
+        java.sql.ResultSet rsAsis = asis.getAsistenciaPorFecha(idEmpleado, fecha);
+        
+        if (rsAsis == null || !rsAsis.next()) {
+            JOptionPane.showMessageDialog(null, "No hay asistencia para esa fecha");
+            return;
+        }
+        
+        int idAsistencia = rsAsis.getInt("id_asistencia");
+        
+        int horaEntrada = Integer.parseInt(JOptionPane.showInputDialog("Hora de entrada:"));
+        int minutoEntrada = Integer.parseInt(JOptionPane.showInputDialog("Minuto de entrada:"));
+        String nuevaEntrada = String.format("%02d:%02d:00", horaEntrada, minutoEntrada);
+        
+        int horaSalida = Integer.parseInt(JOptionPane.showInputDialog("Hora de salida:"));
+        int minutoSalida = Integer.parseInt(JOptionPane.showInputDialog("Minuto de salida:"));
+        String nuevaSalida = String.format("%02d:%02d:00", horaSalida, minutoSalida);
+        
+        asis.actualizarAsistencia(idAsistencia, nuevaEntrada, nuevaSalida);
         JOptionPane.showMessageDialog(null, "Asistencia modificada");
         
     } catch (Exception e) {

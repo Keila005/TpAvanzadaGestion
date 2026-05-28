@@ -186,5 +186,16 @@ public class ControllerAsistencia {
             return null;
         }
     }
+    public ResultSet getAsistenciaPorFecha(int idEmpleado, String fecha) {
+        String sql = "SELECT id_asistencia, hora_entrada, hora_salida FROM asistencia WHERE id_empleado = ? AND fecha = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEmpleado);
+            ps.setString(2, fecha);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
     
