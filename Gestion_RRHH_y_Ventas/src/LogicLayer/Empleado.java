@@ -197,7 +197,28 @@ public abstract class Empleado extends Usuario {
 	    } catch (Exception e) {
 	    }
 	}
-
+	public void verAusencias() {
+	    DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+	    int idEmpleado = asis.getIdEmpleadoByUsuario(this.getIdUsuario());
+	    
+	    try {
+	        java.sql.ResultSet rs = asis.getAusenciasPorEmpleado(idEmpleado);
+	        
+	        if (rs == null || !rs.isBeforeFirst()) {
+	            JOptionPane.showMessageDialog(null, "No tiene ausencias registradas");
+	            return;
+	        }
+	        
+	        String mensaje = "=== MIS AUSENCIAS ===\n\n";
+	        while (rs.next()) {
+	            mensaje += "Fecha: " + rs.getString("fecha") + "\n";
+	        }
+	        
+	        JOptionPane.showMessageDialog(null, mensaje, "Ausencias", JOptionPane.INFORMATION_MESSAGE);
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error");
+	    }
+	}
 	@Override
 	public abstract void Menu();
 	

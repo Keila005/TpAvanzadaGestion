@@ -104,7 +104,7 @@ public void Menu() {
 	
 	
 	String[] opciones = {
-			"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Cargo","Ver mi sueldo","Salir"	
+			"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Cargo","Ver mi sueldo","Ver ausencias","Salir"	
 		};
 		int opcion;
 		do {
@@ -538,9 +538,10 @@ public void Menu() {
 			    verSueldo();
 				break;
 			case 5:
+			    verAusencias();
 				break;
 			}
-			}while(opcion!=5);//FIN DEL MENU PRINCIPAL
+			}while(opcion!=6);//FIN DEL MENU PRINCIPAL
 }
 
 //CALCULAR OPERACIONES DE LOS RENDIMIENTOS
