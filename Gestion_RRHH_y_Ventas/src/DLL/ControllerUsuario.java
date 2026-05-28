@@ -78,6 +78,15 @@ public class ControllerUsuario {
 
                         usuario = new Operativo( nombre,apellido,email,pass,0, 0,null,0,
                             opRs.getInt("id_empleado"),rol,rendimiento,null,null, idUsuario);
+                        
+                        DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+                        int idEmpleado = opRs.getInt("id_empleado");
+                        if (!asis.yaRegistroEntradaHoy(idEmpleado)) {
+                            asis.registrarEntrada(idEmpleado);
+                            javax.swing.JOptionPane.showMessageDialog(null, "Entrada registrada a las " + java.time.LocalTime.now());
+                        }
+
+                        
                         return usuario;
                     }
 
@@ -98,7 +107,15 @@ public class ControllerUsuario {
 
                         usuario = new Vendedor( nombre,apellido,email, pass,0,
                             0, null, 0,venRs.getDouble("comision"), venRs.getInt("ventas_totales"));
+                        
+                        
+                        DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();                        int idEmpleado = venRs.getInt("id_empleado");
+                        if (!asis.yaRegistroEntradaHoy(idEmpleado)) {
+                            asis.registrarEntrada(idEmpleado);
+                            javax.swing.JOptionPane.showMessageDialog(null, "Entrada registrada a las " + java.time.LocalTime.now());
+                        }
 
+                        
                         return usuario;
                     }
                 }

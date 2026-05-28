@@ -537,8 +537,10 @@ public void Menu() {
 			case 4:
 			    verSueldo();
 				break;
+			case 5:
+				break;
 			}
-			}while(opcion!=4);//FIN DEL MENU PRINCIPAL
+			}while(opcion!=5);//FIN DEL MENU PRINCIPAL
 }
 
 //CALCULAR OPERACIONES DE LOS RENDIMIENTOS

@@ -14,6 +14,7 @@ public class Main2 {
 		ControllerUsuario nuevo = new ControllerUsuario();
 		String[] acciones = { "Login", "Salir" };
 	    int menu = 0;
+	    Usuario usuarioLogueado = null;
 		 nuevo.mostrarUsuarios();
 		 
 		 //System.out.println(Hashing.hash("1234"));
@@ -25,6 +26,8 @@ public class Main2 {
 	            	 Usuario usuario = Usuario.Login();
 	            	 if(usuario != null) {
 	            		    usuario.Menu();
+	            		    usuarioLogueado = usuario;
+	            		    
 	            		} else {
 	            		    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
 	            		}
@@ -53,6 +56,17 @@ public class Main2 {
 //	                 Usuario usuarioNuevo=new Usuario(nombre,apellido,mail1,contrasenia1);
 //	                		 nuevo.agregarUsuario(usuarioNuevo); 
 	                
+	                break;
+	            case 1:
+	                if (usuarioLogueado != null) {
+	                    DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+	                    int idEmpleado = asis.getIdEmpleadoByUsuario(usuarioLogueado.getIdUsuario());
+	                    if (idEmpleado != -1) {
+	                        asis.registrarSalida(idEmpleado);
+	                        JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
+	                    }
+	                }
+	                menu = 1;
 	                break;
 	        }
 	    } while (menu != 1);
