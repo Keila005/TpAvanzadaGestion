@@ -6,22 +6,27 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import DLL.ControllerComentario;
-import DLL.ControllerEvaluacion;
+import DLL.ControllerProducto;
+
 
 public class Vendedor extends Empleado {
 	
 	private int idVendedor;
-	private double comision;
 	private int ventasTotales;
-	private static LinkedList<Venta> historialVenta;
-	private static ControllerComentario comentarioController = new ControllerComentario();
+	private static LinkedList<Venta> historialVentas;
+	
+	private static ControllerComentario comentarioController =
+	        new ControllerComentario();
+	
+	private static ControllerProducto controller =
+	        new ControllerProducto();
+
 	
 	
 	
 	public Vendedor(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
 			LocalDate fechaContratacion, int faltas, double comision, int ventasTotales) {
 		super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
-		this.comision = comision;
 		this.ventasTotales = ventasTotales;
 	}
 	
@@ -30,29 +35,36 @@ public class Vendedor extends Empleado {
 public Vendedor(int idVendedor, double comision, int ventasTotales) {
 		super();
 		this.idVendedor = idVendedor;
-		this.comision = comision;
 		this.ventasTotales = ventasTotales;
 	}
 
 
 
-	public double getComision() {
-		return comision;
-	}
-	public void setComision(double comision) {
-		this.comision = comision;
-	}
+
+	public static ControllerProducto getController() {
+	return controller;
+}
+
+
+
+public static void setController(ControllerProducto controller) {
+	Vendedor.controller = controller;
+}
+
+
+
 	public int getVentasTotales() {
 		return ventasTotales;
 	}
 	public void setVentasTotales(int ventasTotales) {
 		this.ventasTotales = ventasTotales;
 	}
-	public static LinkedList<Venta> getHistorialVenta() {
-		return historialVenta;
+	public static LinkedList<Venta> getHistorialVentas() {
+	    return historialVentas;
 	}
-	public static void setHistorialVenta(LinkedList<Venta> historialVenta) {
-		Vendedor.historialVenta = historialVenta;
+
+	public static void setHistorialVentas(LinkedList<Venta> historialVentas) {
+	    Vendedor.historialVentas = historialVentas;
 	}
 	
 	
@@ -69,7 +81,7 @@ public Vendedor(int idVendedor, double comision, int ventasTotales) {
 				case 0:
 					
 					String[] menustock = {
-							"Agregar Producto","Modificar Stock","Salir"	
+							"Agregar Producto","Modificar producto","eliminar producto","Salir"	
 						};
 						int opcionstock;
 						do {
@@ -77,19 +89,96 @@ public Vendedor(int idVendedor, double comision, int ventasTotales) {
 							switch (opcionstock) {
 							case 0:
 								
-								//agregar producto
+								String nombre = JOptionPane.showInputDialog(
+								        "Ingrese el nombre del producto"
+								);
+
+								double precio = Double.parseDouble(
+								        JOptionPane.showInputDialog(
+								                "Ingrese el precio"
+								        )
+								);
+
+								Producto producto = new Producto(
+								        0,
+								        nombre,
+								        precio
+								);
+
+								ControllerProducto controllerProducto = new ControllerProducto();
+
+								controllerProducto.agregarProducto(producto);
+
+								JOptionPane.showMessageDialog(
+								        null,
+								        "Producto agregado correctamente"
+								);
 							
-								break;
+								break; //fin de agregar producto
 							case 1:
 								
-								//modificar producto
+
+							    Producto elegidoM =
+							            controller.BuscarProducto();
+
+							    if(elegidoM != null) {
+
+							        String nuevoNombre = JOptionPane.showInputDialog(
+							                "Ingrese el nuevo nombre",
+							                elegidoM.getNombre()
+							        );
+
+							        double nuevoPrecio = Double.parseDouble(
+							                JOptionPane.showInputDialog(
+							                        "Ingrese el nuevo precio",
+							                        elegidoM.getPrecio()
+							                )
+							        );
+
+							        elegidoM.setNombre(nuevoNombre);
+							        elegidoM.setPrecio(nuevoPrecio);
+
+							        controller.modificarProducto(elegidoM);
+
+							        JOptionPane.showMessageDialog(
+							                null,
+							                "Producto modificado correctamente"
+							        );
+							    }
+
+							  
 								
-								break;// FIN DEL CASE 2 menustock
+								break;// fin de modificar producto
+								
+								
+							case 2:
+
+								Producto elegidoE =
+						        controller.BuscarProducto();
+
+						int confir = JOptionPane.showConfirmDialog(
+						        null,
+						        "¿Está seguro de eliminar: "
+						        + elegidoE.getNombre() + "?"
+						);
+
+						if(confir == JOptionPane.YES_OPTION) {
+
+						    controller.eliminarProducto(elegidoE);
+						}								
+								break;// fin de eliminar producto
 							
 							}
-							}while(opcion!=2);//FIN DEL menu stock
+							}while(opcionstock!=3);//FIN DEL menu stock
 					break;
-				case 1:
+					
+				case 1: 
+					
+					//venta
+					
+					break;
+					
+				case 2:
 					
 					String[] menupersonal = {
 							"Ver Perfil Laboral","Solicitar vacaciones/permisos","Comentar","Salir"	
@@ -126,17 +215,18 @@ public Vendedor(int idVendedor, double comision, int ventasTotales) {
 								
 								break;// FIN DEL CASE 2 menu personal
 							}
-							}while(opcion!=3);//FIN DEL menu personal
+							}while(opcionpersonal!=3);//FIN DEL menu personal
 					
 					break; // 
-				case 2: 
+				case 3: 
 					
 					//historial de ventas
 					
 					break;// FIN DEL CASE 2 principal
 				}
-				}while(opcion!=3);//FIN DEL MENU PRINCIPAL
+				}while(opcion!=4);//FIN DEL MENU PRINCIPAL
 	}
+
 	
 		
 	

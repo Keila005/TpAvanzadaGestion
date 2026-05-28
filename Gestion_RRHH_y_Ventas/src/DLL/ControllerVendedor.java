@@ -22,15 +22,15 @@ public class ControllerVendedor {
 
 	          PreparedStatement stmt = con.prepareStatement
 	        		  (" SELECT v.id_empleado,"
-	        		  		+ "v.comision,"
-	        		  		+ "v.ventas_totales,"
-	        		  		+ "u.nombre,"
-	        		  		+ "u.apellido"
-	        		  		+ "FROM vendedor v"
-	        		  		+ "INNER JOIN empleado e"
-	        		  		+ "ON v.id_empleado = e.id_empleado"
-	        		  		+ "INNER JOIN usuario u"
-	        		  		+ "ON e.id_usuario = u.id_usuario");
+	        		  		+"v.comision,"
+	        		  		+"v.ventas_totales,"
+	        		  		+"u.nombre,"
+	        		  		+"u.apellido"+
+	        		  		"FROM vendedor v"
+	        		  		+"INNER JOIN empleado e"
+	        		  		+"ON v.id_empleado = e.id_empleado"
+	        		  		+"INNER JOIN usuario u"
+	        		  		+"ON e.id_usuario = u.id_usuario");
 	              ResultSet rs = stmt.executeQuery();
 
 	              while(rs.next()) {
@@ -56,6 +56,7 @@ public class ControllerVendedor {
 	                  miembrosVendedor.add(ven);
 	              }
 	          } catch(Exception e) {
+	        	  e.printStackTrace();
 	          }
 
 	          return miembrosVendedor;

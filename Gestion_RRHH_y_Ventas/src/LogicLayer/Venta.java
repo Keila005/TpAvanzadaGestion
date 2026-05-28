@@ -3,32 +3,30 @@ package LogicLayer;
 import java.time.LocalDate;
 
 public class Venta {
-	  private static int contador = 1;
+	  
 	    private int idVenta;
-	    private String prenda;
+	    private Producto producto;
 	    private int cantidad;
 	    private double precioUnitario;
 	    private double subtotal;
 	    private double total;
 	    private LocalDate fecha;
 	    private int idVendedor;
-		public static int getContador() {
-			return contador;
-		}
-		public static void setContador(int contador) {
-			Venta.contador = contador;
-		}
+		
+	    
+	     
 		public int getIdVenta() {
 			return idVenta;
 		}
 		public void setIdVenta(int idVenta) {
 			this.idVenta = idVenta;
 		}
-		public String getPrenda() {
-			return prenda;
+		
+		public Producto getProducto() {
+			return producto;
 		}
-		public void setPrenda(String prenda) {
-			this.prenda = prenda;
+		public void setProducto(Producto producto) {
+			this.producto = producto;
 		}
 		public int getCantidad() {
 			return cantidad;
@@ -66,11 +64,11 @@ public class Venta {
 		public void setIdVendedor(int idVendedor) {
 			this.idVendedor = idVendedor;
 		}
-		public Venta(int idVenta, String prenda, int cantidad, double precioUnitario, double subtotal, double total,
+		public Venta(int idVenta, Producto producto, int cantidad, double precioUnitario, double subtotal, double total,
 				LocalDate fecha, int idVendedor) {
 			super();
 			this.idVenta = idVenta;
-			this.prenda = prenda;
+			this.producto = producto;
 			this.cantidad = cantidad;
 			this.precioUnitario = precioUnitario;
 			this.subtotal = subtotal;
@@ -78,7 +76,9 @@ public class Venta {
 			this.fecha = fecha;
 			this.idVendedor = idVendedor;
 		}
-	    
+		
+		
+		
 	    
 		
 	    

@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 
 import com.mysql.jdbc.Connection;
 
-import LogicLayer.Evaluacion360;
 import LogicLayer.Venta;
 
 public class ControllerVenta {

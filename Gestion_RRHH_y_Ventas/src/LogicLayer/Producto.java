@@ -1,24 +1,24 @@
 package LogicLayer;
 
 public class Producto {
-	private int idproducto;
+	private int idProducto;
 	private String nombre;
 	private double precio;
 	
 	
 	public Producto(int idproducto, String nombre, double precio) {
 		super();
-		this.idproducto = idproducto;
+		this.idProducto = idproducto;
 		this.nombre = nombre;
 		this.precio = precio;
 	}
 	
 	
 	public int getIdproducto() {
-		return idproducto;
+		return idProducto;
 	}
 	public void setIdproducto(int idproducto) {
-		this.idproducto = idproducto;
+		this.idProducto = idproducto;
 	}
 	public String getNombre() {
 		return nombre;
