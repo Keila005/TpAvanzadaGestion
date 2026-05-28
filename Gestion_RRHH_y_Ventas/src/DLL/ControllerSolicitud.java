@@ -41,4 +41,29 @@ public class ControllerSolicitud {
         } catch (Exception e) {
         }
     }
+    public ResultSet getSolicitudesPendientes() {
+        String sql = "SELECT s.id_solicitud, s.tipo, s.fecha_inicio, s.fecha_fin, u.nombre, u.apellido " +
+                     "FROM solicitudes s " +
+                     "JOIN empleado e ON s.id_empleado = e.id_empleado " +
+                     "JOIN usuario u ON e.id_usuario = u.id_usuario " +
+                     "WHERE s.estado = 'pendiente'";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void actualizarEstado(int idSolicitud, String estado) {
+        String sql = "UPDATE solicitudes SET estado = ? WHERE id_solicitud = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, estado);
+            ps.setInt(2, idSolicitud);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+        }
+    }
 }
