@@ -19,11 +19,12 @@ public class ControllerProyecto {
 		
 		try {
 			 PreparedStatement stmt = con.prepareStatement(
-
-		                "INSERT INTO proyecto("
-		                + "nombre,descripcion,fecha_inicio,"
-		                + "fecha_fin,id_lider,id_equipo)"
-		                + " VALUES(?,?,?,?,?,?)"
+//					 INSERT INTO `mensaje_anonimo`(`contenido`, `fecha`,`sentimiento`,`id_reporte`) "
+//	            				+ "VALUES (?,?,?,?)"
+					 
+		  "INSERT INTO `proyecto`(`nombre`,`descripcion`,`fecha_inicio`,"
+		  + "`fecha_fin`,`id_lider`,`id_equipo`) "
+		                		+ "VALUES(?,?,?,?,?,?)"
 		            );
 			 
 			 stmt.setString(1, nombre);
