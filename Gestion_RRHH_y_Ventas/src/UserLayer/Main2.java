@@ -31,31 +31,7 @@ public class Main2 {
 	            		} else {
 	            		    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
 	            		}
-	                
-
-	              //REGISTRAR       case 1: 
-	            	
-//	            	 String nombre =JOptionPane.showInputDialog("Ingrese nombre");
-//	            	 String apellido =JOptionPane.showInputDialog("Ingrese apellido");
-//	            	 String mail1 = "";
-//	                 while (mail1.isEmpty()) {
-//	                 	mail = JOptionPane.showInputDialog("Ingrese mail");
-//	                     if (mail.isEmpty()) {
-//	                         JOptionPane.showMessageDialog(null, "Incorrecto");
-//	                     }
-//	                 }
-//
-//	                 String contrasenia1 = "";
-//	                 while (contrasenia1.isEmpty()) {
-//	                     contrasenia = JOptionPane.showInputDialog("Ingrese contraseña");
-//	                     if (contrasenia.isEmpty()) {
-//	                         JOptionPane.showMessageDialog(null, "Incorrecto");
-//	                     }
-//	                 }
-//	                
-//	                 Usuario usuarioNuevo=new Usuario(nombre,apellido,mail1,contrasenia1);
-//	                		 nuevo.agregarUsuario(usuarioNuevo); 
-	                
+	                     
 	                break;
 	            case 1:
 	                if (usuarioLogueado != null) {
