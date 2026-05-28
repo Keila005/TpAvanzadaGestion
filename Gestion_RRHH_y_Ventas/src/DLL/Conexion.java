@@ -14,13 +14,13 @@ public class Conexion {
 	private static String PASSWORD ="";
 	
 	private static Connection conect;
-	private static Conexion instance;
+	private static Conexion instance; 
 	private Conexion() {
 		try {
 			conect =  (Connection) DriverManager.getConnection(URL,USER,PASSWORD);
 			System.out.println("Se conectó");
 		} catch (SQLException e) {
-			System.out.println("No se conectó");
+			System.out.println("No se conectó uaaaaaa :'c");
 
 		}
 	}
