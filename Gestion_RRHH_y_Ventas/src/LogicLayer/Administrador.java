@@ -420,7 +420,19 @@ public class Administrador extends Usuario{
 					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");
 					break;
 			case 4:
-				JOptionPane.showMessageDialog(null, "Busca al empleado y le asigna las horas extras trabajadas, para calcular el sueldo");
+				String nombre = JOptionPane.showInputDialog("Nombre del empleado:");
+			    String apellido = JOptionPane.showInputDialog("Apellido del empleado:");
+			    
+			    DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+			    int idEmpleado = asis.getIdEmpleadoByNombreApellido(nombre, apellido);
+			    
+			    if (idEmpleado == -1) {
+			        JOptionPane.showMessageDialog(null, "Empleado no encontrado");
+			    } else {
+			        int horas = Integer.parseInt(JOptionPane.showInputDialog("Cantidad de horas extra:"));
+			        String motivo = JOptionPane.showInputDialog("Motivo:");
+			        asis.registrarHorasExtra(idEmpleado, horas, motivo);
+			    }
 				break;
 					
 				}
