@@ -1,17 +1,22 @@
 package LogicLayer;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
 import DLL.ControllerComentario;
 import DLL.ControllerOperativo;
+import DLL.ControllerProyecto;
+import DLL.ControllerUsuario;
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
 	 private String areaEncargado;
 	 private static ControllerOperativo operativoController = new ControllerOperativo();
 	 private static ControllerComentario comentarioController = new ControllerComentario();
+	 private static ControllerUsuario usuarioController = new ControllerUsuario();
+	 private static ControllerProyecto proyectoController = new ControllerProyecto();
 	 
 	 
 	
@@ -42,6 +47,152 @@ public class Administrador extends Usuario{
 		return "Administrador [idAdmin=" + idAdmin + ", areaEncargado=" + areaEncargado
 				+ "]";
 	}
+	
+	
+//	==CRUD==
+	
+	public void crearEmpleado() {
+
+	    String[] tipos = {"Operativo", "Vendedor"};
+
+	    int tipo = JOptionPane.showOptionDialog(
+	            null,
+	            "Seleccione tipo de empleado",
+	            "Nuevo empleado",
+	            0,
+	            0,
+	            null,
+	            tipos,
+	            tipos[0]);
+
+	    String nombre = JOptionPane.showInputDialog("Nombre:");
+	    String apellido = JOptionPane.showInputDialog("Apellido:");
+	    String mail = JOptionPane.showInputDialog("Mail:");
+	    String contrasenia = JOptionPane.showInputDialog("Contraseña:");
+
+	    int dni = Integer.parseInt(
+	            JOptionPane.showInputDialog("DNI:")
+	    );
+
+	    double sueldoBase = Double.parseDouble(
+	            JOptionPane.showInputDialog("Sueldo base:")
+	    );
+
+	    if(tipo == 0) {
+
+	        String[] roles = {"Lider de Proyecto", "Miembro de Proyecto"};
+
+	        int rolElegido = JOptionPane.showOptionDialog(
+	                null,
+	                "Seleccione rol",
+	                "Rol",
+	                0,
+	                0,
+	                null,
+	                roles,
+	                roles[0]);
+
+	        String rol;
+
+	        if(rolElegido == 0) {
+	            rol = "Lider de Proyecto";
+	        } else {
+	            rol = "Miembro de Proyecto";
+	        }
+
+	        usuarioController.crearOperativo(
+	                nombre,
+	                apellido,
+	                mail,
+	                contrasenia,
+	                dni,
+	                sueldoBase,
+	                rol
+	        );
+
+	    } else {
+
+	        double comision = Double.parseDouble(
+	                JOptionPane.showInputDialog("Comisión:")
+	        );
+
+	        usuarioController.crearVendedor(
+	                nombre,
+	                apellido,
+	                mail,
+	                contrasenia,
+	                dni,
+	                sueldoBase,
+	                comision
+	        );
+	    }
+
+	    JOptionPane.showMessageDialog(null,
+	            "Empleado creado correctamente");
+	}
+
+	public void modificarEmpleado() {
+		int idEmpleado = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del empleado"));
+		String nuevoMail = JOptionPane.showInputDialog("Nuevo Mail:");
+		double nuevoSueldo = Double.parseDouble(JOptionPane.showInputDialog("Nuevo sueldo:"));
+		
+		usuarioController.modificarEmpleado(
+				idEmpleado,
+				nuevoMail,
+				nuevoSueldo
+				);
+		
+		JOptionPane.showMessageDialog(null,
+	            "Empleado modificado correctamente");
+		
+		
+	}
+	
+	public void eliminarEmpleado() {
+
+	    int idEmpleado = Integer.parseInt(
+	            JOptionPane.showInputDialog("Ingrese ID del empleado")
+	    );
+
+	    usuarioController.eliminarEmpleado(idEmpleado);
+
+	    JOptionPane.showMessageDialog(null,
+	            "Empleado eliminado");
+	}	
+		
+	
+	public void crearProyecto() {
+
+	    String nombre =
+	            JOptionPane.showInputDialog("Nombre proyecto");
+
+	    String descripcion =
+	            JOptionPane.showInputDialog("Descripción");
+
+	    int idLider = Integer.parseInt(
+	            JOptionPane.showInputDialog("ID líder")
+	    );
+
+	    int idEquipo = Integer.parseInt(
+	            JOptionPane.showInputDialog("ID equipo")
+	    );
+
+	    proyectoController.crearProyecto(
+	            nombre,
+	            descripcion,
+	            LocalDate.now(),
+	            LocalDate.now().plusMonths(1),
+	            idLider,
+	            idEquipo
+	    );
+
+	    JOptionPane.showMessageDialog(null,
+	            "Proyecto creado");
+	}
+	
+	
+	
+	
 	@Override
 	public void Menu() {
 		String[] opciones = {
@@ -52,10 +203,105 @@ public class Administrador extends Usuario{
 				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administrador", "", 0, 0, null, opciones, opciones);
 				switch (opcion) {
 				case 0:
-					JOptionPane.showMessageDialog(null, "Ver datos del empleado\nEditar datos del empleado");
+
+					String[] gestion = {
+							"Crear empleado",
+							"Modificar empleado",
+							"Eliminar empleado",
+							"Volver"
+					};
+
+					int opcionGestion;
+
+					do {
+
+						opcionGestion = JOptionPane.showOptionDialog(
+								null,
+								"Gestión de empleados",
+								"Administrador",
+								0,
+								0,
+								null,
+								gestion,
+								gestion[0]);
+
+						switch (opcionGestion) {
+
+						case 0:
+
+							crearEmpleado();
+
+							break;
+
+						case 1:
+
+							modificarEmpleado();
+
+							break;
+
+						case 2:
+
+							eliminarEmpleado();
+
+							break;
+						}
+
+					} while(opcionGestion != 3);
+
 					break;
-				case 1:
-					JOptionPane.showMessageDialog(null, "Crear nuevo proyecto(se define nombre, asignacion de lider y fecha)\nVer proyecto existentes");
+				case 1:  
+
+					String[] proyectos = {
+							"Crear proyecto",
+							"Asignar líder",
+							"Volver"
+					};
+
+					int opcionProyecto;
+
+					do {
+
+						opcionProyecto = JOptionPane.showOptionDialog(
+								null,
+								"Gestión de proyectos",
+								"Administrador",
+								0,
+								0,
+								null,
+								proyectos,
+								proyectos[0]);
+
+						switch (opcionProyecto) {
+
+						case 0:
+
+							crearProyecto();
+
+							break;
+
+						case 1:
+
+							int idProyecto = Integer.parseInt(
+									JOptionPane.showInputDialog("ID proyecto")
+							);
+
+							int idLider = Integer.parseInt(
+									JOptionPane.showInputDialog("Nuevo líder")
+							);
+
+							proyectoController.asignarLider(
+									idProyecto,
+									idLider
+							);
+
+							JOptionPane.showMessageDialog(null,
+									"Líder asignado correctamente");
+
+							break;
+						}
+
+					} while(opcionProyecto != 2);
+
 					break;
 				case 2:
 					
