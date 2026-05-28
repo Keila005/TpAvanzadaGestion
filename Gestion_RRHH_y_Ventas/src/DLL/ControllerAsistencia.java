@@ -148,5 +148,43 @@ public class ControllerAsistencia {
             return null;
         }
     }
+    public ResultSet getAsistenciasPorEmpleado(int idEmpleado, String fechaInicio, String fechaFin) {
+        String sql = "SELECT id_asistencia, fecha, hora_entrada, hora_salida, presente " +
+                     "FROM asistencia WHERE id_empleado = ? AND fecha BETWEEN ? AND ? " +
+                     "ORDER BY fecha DESC";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEmpleado);
+            ps.setString(2, fechaInicio);
+            ps.setString(3, fechaFin);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void actualizarAsistencia(int idAsistencia, String horaEntrada, String horaSalida) {
+        String sql = "UPDATE asistencia SET hora_entrada = ?, hora_salida = ? WHERE id_asistencia = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, horaEntrada);
+            ps.setString(2, horaSalida);
+            ps.setInt(3, idAsistencia);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+        }
+    }
+    public ResultSet getAsistenciasPorEmpleadoSimple(int idEmpleado) {
+        String sql = "SELECT id_asistencia, fecha, hora_entrada, hora_salida, presente " +
+                     "FROM asistencia WHERE id_empleado = ? ORDER BY fecha DESC";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEmpleado);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
     
