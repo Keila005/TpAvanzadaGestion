@@ -9,6 +9,7 @@ import DLL.ControllerComentario;
 import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerUsuario;
+import DLL.ControllerRendimiento;
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
@@ -306,7 +307,7 @@ public class Administrador extends Usuario{
 				case 2:
 					
 					String[] ver = {"Rendimiento:Operativo","Rendimiento:Vendedor",
-							"Rendimiento:Productos","Clima laboral","Salir"};
+							"Rendimiento:Productos","Clima laboral","Ranking Operativos","Salir"};
 					int opcionVer;
 					do {
 						opcionVer= JOptionPane.showOptionDialog(null, "Elija que rendimiento quiere ver", 
@@ -406,11 +407,14 @@ public class Administrador extends Usuario{
 					        JOptionPane.showMessageDialog(null, reporte);
 					    }
 							break;
+						case 4:
+							verRankingOperativos();
+							break;
 
 						default:
 							break;
 						}
-					} while (opcionVer!=4);
+					} while (opcionVer!=5);
 					break;
 				case 3:
 					JOptionPane.showMessageDialog(null, "Aceptar\nRechazar");
@@ -422,6 +426,24 @@ public class Administrador extends Usuario{
 				}
 			}while(opcion!=5);
 	}
-	 
+	
+	public void verRankingOperativos() {
+	    DLL.ControllerRendimiento cr = new DLL.ControllerRendimiento();
+	    LinkedList<Operativo> operativos = cr.getTodosOperativos();
+	    
+	    if (operativos.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "No hay operativos registrados");
+	        return;
+	    }
+	    
+	    String mensaje = "=== RANKING DE RENDIMIENTO ===\n\n";
+	    for (int i = 0; i < operativos.size(); i++) {
+	        Operativo op = operativos.get(i);
+	        mensaje += (i + 1) + ". " + op.getNombre() + " " + op.getApellido();
+	        mensaje += " - Rendimiento: " + op.getRendimiento() + "%\n";
+	    }
+	    
+	    JOptionPane.showMessageDialog(null, mensaje, "Rendimiento Operativos", JOptionPane.INFORMATION_MESSAGE);
+	}
 	
 }
