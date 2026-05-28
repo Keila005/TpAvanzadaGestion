@@ -125,5 +125,28 @@ public class ControllerAsistencia {
             javax.swing.JOptionPane.showMessageDialog(null, "Error al registrar horas extra");
         }
     }
+    public ResultSet getAusenciasPorEmpleado(int idEmpleado) {
+        String sql = "SELECT fecha FROM asistencia WHERE id_empleado = ? AND presente = 0";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEmpleado);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public ResultSet getAusenciasTodos() {
+        String sql = "SELECT a.fecha, u.nombre, u.apellido FROM asistencia a " +
+                     "JOIN empleado e ON a.id_empleado = e.id_empleado " +
+                     "JOIN usuario u ON e.id_usuario = u.id_usuario " +
+                     "WHERE a.presente = 0";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
     
