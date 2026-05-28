@@ -86,13 +86,49 @@ public static void setController(ControllerProducto controller) {
 				case 0:
 					
 					String[] menustock = {
-							"Agregar Producto","Modificar producto","eliminar producto","Salir"	
+							"Ver Productos","Agregar Producto","Modificar producto","eliminar producto","Salir"	
 						};
 						int opcionstock;
 						do {
 							opcionstock = JOptionPane.showOptionDialog(null, "Menu de Stock", "Stock", 0, 0, null, menustock, menustock);
 							switch (opcionstock) {
+							
 							case 0:
+
+							    LinkedList<Producto> productos =
+							            controller.mostrarProductos();
+
+							    if(productos.isEmpty()) {
+
+							        JOptionPane.showMessageDialog(
+							                null,
+							                "No hay productos registrados"
+							        );
+
+							    } else {
+
+							        String lista = "";
+
+							        for(Producto p : productos) {
+
+							            lista +=
+							                    "ID: "
+							                    + p.getIdproducto()
+							                    + "\nNombre: "
+							                    + p.getNombre()
+							                    + "\nPrecio: $"
+							                    + p.getPrecio()
+							                    + "\n\n";
+							        }
+
+							        JOptionPane.showMessageDialog(
+							                null,
+							                lista
+							        );
+							    }
+
+							    break;
+							case 1:
 								
 								String nombre = JOptionPane.showInputDialog(
 								        "Ingrese el nombre del producto"
@@ -120,7 +156,7 @@ public static void setController(ControllerProducto controller) {
 								);
 							
 								break; //fin de agregar producto
-							case 1:
+							case 2:
 								
 
 							    Producto elegidoM =
@@ -156,7 +192,7 @@ public static void setController(ControllerProducto controller) {
 								break;// fin de modificar producto
 								
 								
-							case 2:
+							case 3:
 
 								Producto elegidoE =
 						        controller.BuscarProducto();
@@ -174,7 +210,7 @@ public static void setController(ControllerProducto controller) {
 								break;// fin de eliminar producto
 							
 							}
-							}while(opcionstock!=3);//FIN DEL menu stock
+							}while(opcionstock!=4);//FIN DEL menu stock
 					break;
 					
 			
@@ -280,39 +316,47 @@ public static void setController(ControllerProducto controller) {
 							}while(opcionpersonal!=3);//FIN DEL menu personal
 					
 					break; // 
-				case 3: 
-					
-					ControllerVenta controllerVenta =
-			        new ControllerVenta();
+				case 3:
 
-			LinkedList<Venta> ventas =
+				    ControllerVenta controllerVenta =
+				            new ControllerVenta();
 
-			        controllerVenta.mostrarVentas(
-			                this.getIdUsuario()
-			        );
+				    LinkedList<Venta> ventas =
 
-			String historial = "";
+				            controllerVenta.mostrarVentas(
+				                    this.getIdEmpleado()
+				            );
 
-			for(Venta v : ventas) {
+				    if(ventas.isEmpty()) {
 
-			    historial +=
-			            "ID Venta: "
-			            + v.getIdVenta()
-			            + "\nFecha: "
-			            + v.getFecha()
-			            + "\nTotal: $"
-			            + v.getTotal()
-			            + "\n\n";
-			}
+				        JOptionPane.showMessageDialog(
+				                null,
+				                "No hay ventas registradas"
+				        );
 
-			JOptionPane.showMessageDialog(
-			        null,
-			        historial
-			);
+				    } else {
 
-			
-					
-					break;// FIN DEL CASE 3 principal
+				        String historial = "";
+
+				        for(Venta v : ventas) {
+
+				            historial +=
+				                    "ID Venta: "
+				                    + v.getIdVenta()
+				                    + "\nFecha: "
+				                    + v.getFecha()
+				                    + "\nTotal: $"
+				                    + v.getTotal()
+				                    + "\n\n";
+				        }
+
+				        JOptionPane.showMessageDialog(
+				                null,
+				                historial
+				        );
+				    }
+
+				    break;
 				}
 				}while(opcion!=4);//FIN DEL MENU PRINCIPAL
 	}
