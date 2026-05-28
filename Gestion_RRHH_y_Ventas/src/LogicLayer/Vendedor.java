@@ -218,6 +218,11 @@ public static void setController(ControllerProducto controller) {
 				case 1: 
 
 				    Venta venta = new Venta();
+				    
+				    venta.setIdVendedor(
+				            this.getIdEmpleado()
+				    );
+
 
 				    int seguir = 0;
 
@@ -270,7 +275,17 @@ public static void setController(ControllerProducto controller) {
 				            resumen
 				    );
 
-			
+				    ControllerVenta controllerVenta =
+				            new ControllerVenta();
+
+				    controllerVenta.generarVenta(venta);
+
+				    JOptionPane.showMessageDialog(
+				            null,
+				            "Venta registrada correctamente"
+				    );
+
+				   
 					
 					
 					
@@ -318,12 +333,12 @@ public static void setController(ControllerProducto controller) {
 					break; // 
 				case 3:
 
-				    ControllerVenta controllerVenta =
-				            new ControllerVenta();
+					ControllerVenta controllerHistorial =
+			        new ControllerVenta();
 
 				    LinkedList<Venta> ventas =
 
-				            controllerVenta.mostrarVentas(
+				    		controllerHistorial.mostrarVentas(
 				                    this.getIdEmpleado()
 				            );
 
