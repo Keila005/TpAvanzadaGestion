@@ -105,6 +105,7 @@ public class ControllerUsuario {
 
                     if(venRs.next()) {
 
+<<<<<<< HEAD
                         usuario = new Vendedor( nombre,apellido,email, pass,0,
                             0, null, 0,venRs.getDouble("comision"), venRs.getInt("ventas_totales"));
                         
@@ -114,6 +115,15 @@ public class ControllerUsuario {
                             asis.registrarEntrada(idEmpleado);
                             javax.swing.JOptionPane.showMessageDialog(null, "Entrada registrada a las " + java.time.LocalTime.now());
                         }
+=======
+                        usuario = new Vendedor(nombre,apellido,email,pass,0,0,null,0,                          
+                            venRs.getInt("ventas_totales")
+                        );
+
+                        ((Vendedor) usuario).setIdEmpleado(
+                                venRs.getInt("id_empleado")
+                        );
+>>>>>>> enni
 
                         
                         return usuario;
