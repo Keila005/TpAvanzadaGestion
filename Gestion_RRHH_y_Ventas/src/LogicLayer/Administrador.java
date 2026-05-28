@@ -197,7 +197,7 @@ public class Administrador extends Usuario{
 	@Override
 	public void Menu() {
 		String[] opciones = {
-				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Salir"	
+				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos", "Salir"	
 			};
 			int opcion;
 			do {
@@ -409,10 +409,8 @@ public class Administrador extends Usuario{
 							break;
 						case 4:
 							verRankingOperativos();
-							break;
+							break;	
 
-						default:
-							break;
 						}
 					} while (opcionVer!=5);
 					break;
@@ -434,9 +432,13 @@ public class Administrador extends Usuario{
 			        asis.registrarHorasExtra(idEmpleado, horas, motivo);
 			    }
 				break;
+			case 5:
+			    gestionarBonos();
+			    break;
+
 					
 				}
-			}while(opcion!=5);
+			}while(opcion!= 6);
 	}
 	
 	public void verRankingOperativos() {
@@ -456,6 +458,43 @@ public class Administrador extends Usuario{
 	    }
 	    
 	    JOptionPane.showMessageDialog(null, mensaje, "Rendimiento Operativos", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void gestionarBonos() {
+	    DLL.ControllerBono cb = new DLL.ControllerBono();
+	    
+	    java.util.LinkedList<String> empleados = cb.getListaEmpleados();
+	    
+	    if (empleados.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "No hay empleados registrados");
+	        return;
+	    }
+	    
+	    String[] listaEmpleados = empleados.toArray(new String[0]);
+	    
+	    String seleccionado = (String) JOptionPane.showInputDialog(
+	        null,
+	        "Seleccione un empleado:",
+	        "Asignar Bono",
+	        JOptionPane.QUESTION_MESSAGE,
+	        null,
+	        listaEmpleados,
+	        listaEmpleados[0]
+	    );
+	    
+	    if (seleccionado == null) return;
+	    
+	    int idEmpleado = cb.getIdEmpleadoByNombre(seleccionado);
+	    
+	    if (idEmpleado == -1) {
+	        JOptionPane.showMessageDialog(null, "Empleado no encontrado");
+	        return;
+	    }
+	    
+	    double monto = Double.parseDouble(JOptionPane.showInputDialog("Monto del bono:"));
+	    String motivo = JOptionPane.showInputDialog("Motivo del bono:");
+	    
+	    cb.registrarBono(idEmpleado, monto, motivo);
 	}
 	
 }
