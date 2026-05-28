@@ -21,23 +21,21 @@ public class ControllerVendedor {
 		 try {
 
 	          PreparedStatement stmt = con.prepareStatement
-	        		  (" SELECT v.id_empleado,"
-	        		  		+"v.comision,"
-	        		  		+"v.ventas_totales,"
-	        		  		+"u.nombre,"
-	        		  		+"u.apellido"+
-	        		  		"FROM vendedor v"
-	        		  		+"INNER JOIN empleado e"
-	        		  		+"ON v.id_empleado = e.id_empleado"
-	        		  		+"INNER JOIN usuario u"
-	        		  		+"ON e.id_usuario = u.id_usuario");
+	        		  (" SELECT v.id_empleado," + 
+	        				  "v.ventas_totales," +
+	        		  		"u.nombre," + 
+	        		  		"u.apellido" +
+	        		  		"FROM vendedor v" +
+	        		  		"INNER JOIN empleado e" + 
+	        		  		"ON v.id_empleado = e.id_empleado" + 
+	        		  		"INNER JOIN usuario u" + 
+	        		  		"ON e.id_usuario = u.id_usuario");
 	              ResultSet rs = stmt.executeQuery();
 
 	              while(rs.next()) {
 	            	  
 	            	  int idEmpleado =rs.getInt("id_empleado");
 
-	                  Double comision =rs.getDouble("comision");
 
 	                  int ventas_totales =rs.getInt("ventas_totales");
 
@@ -48,7 +46,7 @@ public class ControllerVendedor {
 	  
 	            	  
 	            	 
-	            	  Vendedor ven = new Vendedor(idEmpleado,comision,ventas_totales);
+	            	  Vendedor ven = new Vendedor(idEmpleado,ventas_totales);
 
 	                  ven.setNombre(nombre);
 	                  ven.setApellido(apellido);

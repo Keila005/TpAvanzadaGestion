@@ -7,11 +7,14 @@ import javax.swing.JOptionPane;
 
 import DLL.ControllerComentario;
 import DLL.ControllerProducto;
+import DLL.ControllerVenta;
+import LogicLayer.detalle_venta;
 
 
 public class Vendedor extends Empleado {
 	
 	private int idVendedor;
+	private Venta venta;
 	private int ventasTotales;
 	private static LinkedList<Venta> historialVentas;
 	
@@ -25,18 +28,20 @@ public class Vendedor extends Empleado {
 	
 	
 	public Vendedor(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
-			LocalDate fechaContratacion, int faltas, double comision, int ventasTotales) {
+			LocalDate fechaContratacion, int faltas, int ventasTotales) {
 		super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
 		this.ventasTotales = ventasTotales;
 	}
 	
 	
 	
-public Vendedor(int idVendedor, double comision, int ventasTotales) {
+public Vendedor(int idVendedor, int ventasTotales) {
 		super();
 		this.idVendedor = idVendedor;
 		this.ventasTotales = ventasTotales;
 	}
+
+
 
 
 
@@ -172,11 +177,68 @@ public static void setController(ControllerProducto controller) {
 							}while(opcionstock!=3);//FIN DEL menu stock
 					break;
 					
+			
+					
 				case 1: 
+
+				    Venta venta = new Venta();
+
+				    int seguir = 0;
+
+				    do {
+
+				        Producto producto =
+				                controller.BuscarProducto();
+
+				        int cantidad = Integer.parseInt(
+				                JOptionPane.showInputDialog(
+				                        "Ingrese cantidad"
+				                )
+				        );
+
+				        detalle_venta detalle =
+				                new detalle_venta(
+				                        producto,
+				                        cantidad
+				                );
+
+				        venta.agregarDetalle(detalle);
+
+				        seguir = JOptionPane.showConfirmDialog(
+				                null,
+				                "¿Agregar otra prenda?"
+				        );
+
+				    } while(seguir == JOptionPane.YES_OPTION);
+
+				    
+				    String resumen = "";
+
+				    for(detalle_venta d : venta.getDetalles()) {
+
+				        resumen +=
+				                d.getProducto().getNombre()
+				                + " x "
+				                + d.getCantidad()
+				                + " = $"
+				                + d.getSubtotal()
+				                + "\n";
+				    }
+
+				    resumen +=
+				            "\nTOTAL: $" +
+				            venta.calcularTotal();
+
+				    JOptionPane.showMessageDialog(
+				            null,
+				            resumen
+				    );
+
+			
 					
-					//venta
 					
-					break;
+					
+					break;  //fin de venta
 					
 				case 2:
 					
@@ -220,9 +282,37 @@ public static void setController(ControllerProducto controller) {
 					break; // 
 				case 3: 
 					
-					//historial de ventas
+					ControllerVenta controllerVenta =
+			        new ControllerVenta();
+
+			LinkedList<Venta> ventas =
+
+			        controllerVenta.mostrarVentas(
+			                this.getIdUsuario()
+			        );
+
+			String historial = "";
+
+			for(Venta v : ventas) {
+
+			    historial +=
+			            "ID Venta: "
+			            + v.getIdVenta()
+			            + "\nFecha: "
+			            + v.getFecha()
+			            + "\nTotal: $"
+			            + v.getTotal()
+			            + "\n\n";
+			}
+
+			JOptionPane.showMessageDialog(
+			        null,
+			        historial
+			);
+
+			
 					
-					break;// FIN DEL CASE 2 principal
+					break;// FIN DEL CASE 3 principal
 				}
 				}while(opcion!=4);//FIN DEL MENU PRINCIPAL
 	}

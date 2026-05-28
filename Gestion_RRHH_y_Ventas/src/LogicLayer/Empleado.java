@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public abstract class Empleado extends Usuario {
 	
+	private int idEmpleado;
 	private int dni;
 	private double sueldoBase;
 	private LocalDate fechaContratacion;
@@ -19,6 +20,37 @@ public abstract class Empleado extends Usuario {
 		this.dni = dni;
 		this.sueldoBase = sueldoBase;
 		this.fechaContratacion = fechaContratacion;
+		this.faltas = faltas;
+	}
+	
+	
+
+	public Empleado(String nombre, String apellido, String mail, String contrasenia, int idEmpleado, int dni,
+			double sueldoBase, LocalDate fechaContratacion, int faltas) {
+		super(nombre, apellido, mail, contrasenia);
+		this.idEmpleado = idEmpleado;
+		this.dni = dni;
+		this.sueldoBase = sueldoBase;
+		this.fechaContratacion = fechaContratacion;
+		this.faltas = faltas;
+	}
+	
+	
+	
+
+	public int getIdEmpleado() {
+		return idEmpleado;
+	}
+
+	public void setIdEmpleado(int idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
+
+	public int getFaltas() {
+		return faltas;
+	}
+
+	public void setFaltas(int faltas) {
 		this.faltas = faltas;
 	}
 

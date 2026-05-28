@@ -1,20 +1,42 @@
 package LogicLayer;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 public class Venta {
 	  
 	    private int idVenta;
-	    private Producto producto;
-	    private int cantidad;
-	    private double precioUnitario;
-	    private double subtotal;
+	    private LinkedList<detalle_venta> detalles;
 	    private double total;
 	    private LocalDate fecha;
 	    private int idVendedor;
 		
 	    
 	     
+		public Venta(int idVenta, LinkedList<detalle_venta> detalles, double total, LocalDate fecha, int idVendedor) {
+			super();
+			this.idVenta = idVenta;
+			this.detalles = detalles;
+			this.total = total;
+			this.fecha = fecha;
+			this.idVendedor = idVendedor;
+		}
+		
+		
+		public Venta() {
+
+		    this.detalles = new LinkedList<>();
+		    this.fecha = LocalDate.now();
+		}
+		
+		
+		
+		public LinkedList<detalle_venta> getDetalles() {
+			return detalles;
+		}
+		public void setDetalles(LinkedList<detalle_venta> detalles) {
+			this.detalles = detalles;
+		}
 		public int getIdVenta() {
 			return idVenta;
 		}
@@ -22,30 +44,7 @@ public class Venta {
 			this.idVenta = idVenta;
 		}
 		
-		public Producto getProducto() {
-			return producto;
-		}
-		public void setProducto(Producto producto) {
-			this.producto = producto;
-		}
-		public int getCantidad() {
-			return cantidad;
-		}
-		public void setCantidad(int cantidad) {
-			this.cantidad = cantidad;
-		}
-		public double getPrecioUnitario() {
-			return precioUnitario;
-		}
-		public void setPrecioUnitario(double precioUnitario) {
-			this.precioUnitario = precioUnitario;
-		}
-		public double getSubtotal() {
-			return subtotal;
-		}
-		public void setSubtotal(double subtotal) {
-			this.subtotal = subtotal;
-		}
+	
 		public double getTotal() {
 			return total;
 		}
@@ -64,17 +63,27 @@ public class Venta {
 		public void setIdVendedor(int idVendedor) {
 			this.idVendedor = idVendedor;
 		}
-		public Venta(int idVenta, Producto producto, int cantidad, double precioUnitario, double subtotal, double total,
-				LocalDate fecha, int idVendedor) {
-			super();
-			this.idVenta = idVenta;
-			this.producto = producto;
-			this.cantidad = cantidad;
-			this.precioUnitario = precioUnitario;
-			this.subtotal = subtotal;
-			this.total = total;
-			this.fecha = fecha;
-			this.idVendedor = idVendedor;
+		
+		
+		public void agregarDetalle(
+		        detalle_venta detalle
+		) {
+
+		    detalles.add(detalle);
+		}
+		
+		
+		
+		public double calcularTotal() {
+
+		    double total = 0;
+
+		    for(detalle_venta d : detalles) {
+
+		        total += d.getSubtotal();
+		    }
+
+		    return total;
 		}
 		
 		
