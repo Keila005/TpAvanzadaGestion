@@ -77,7 +77,7 @@ public class ControllerUsuario {
                         int rendimiento = opRs.getInt("rendimiento");
 
                         usuario = new Operativo( nombre,apellido,email,pass,0, 0,null,0,
-                            opRs.getInt("id_empleado"),rol,rendimiento,null,null);
+                            opRs.getInt("id_empleado"),rol,rendimiento,null,null, idUsuario);
                         return usuario;
                     }
 

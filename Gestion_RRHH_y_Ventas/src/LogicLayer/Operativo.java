@@ -70,13 +70,14 @@ public Operativo() {
 
 public Operativo(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
 		LocalDate fechaContratacion, int faltas, int idOperativo, Roles rol, int rendimiento,
-		LinkedList<Tarea> tareasAsignadas, LinkedList<Evaluacion360> evaluacionesRecibidas) {
+		LinkedList<Tarea> tareasAsignadas, LinkedList<Evaluacion360> evaluacionesRecibidas, int idUsuario) {
 	super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
 	this.idOperativo = idOperativo;
 	Rol = rol;
 	this.rendimiento = rendimiento;
 	this.tareasAsignadas =  new LinkedList<>(); 	
 	this.evaluacionesRecibidas =  new LinkedList<>();
+	setIdUsuario(idUsuario);
 }
 
 
@@ -103,7 +104,7 @@ public void Menu() {
 	
 	
 	String[] opciones = {
-			"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Cargo","Salir"	
+			"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Cargo","Ver mi sueldo","Salir"	
 		};
 		int opcion;
 		do {
@@ -533,6 +534,9 @@ public void Menu() {
 	
 					}while(elige!=2);
 					break;// FIN DEL CASE 3
+			case 4:
+			    verSueldo();
+				break;
 			}
 			}while(opcion!=4);//FIN DEL MENU PRINCIPAL
 }
