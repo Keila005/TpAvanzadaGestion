@@ -54,7 +54,7 @@ public class Vendedor extends Empleado {
 				JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo\nBonos\nRendimiento");
 				break;
 			case 1:
-				JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");
+			    SolicitarPermiso();
 				break;
 			case 2:// COMENTAR
 				String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");

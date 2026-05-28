@@ -1,6 +1,7 @@
 package LogicLayer;
 
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 public abstract class Empleado extends Usuario {
 	
@@ -50,7 +51,67 @@ public abstract class Empleado extends Usuario {
 //		+verSueldo();
 //		+verAsistencia();
 	}
-	public void SolicitarPermiso() {}
+	public void SolicitarPermiso() {
+    String[] tipos = {"Vacaciones", "Permiso", "Licencia medica"};
+    String tipo = (String) JOptionPane.showInputDialog(null, "Tipo de solicitud:", "Solicitud", 
+                    JOptionPane.QUESTION_MESSAGE, null, tipos, tipos[0]);
+    if (tipo == null) return;
+    
+    LocalDate hoy = LocalDate.now();
+    
+    int dia = 0, mes = 0, anio = 0;
+    boolean fechaValida = false;
+    
+    while (!fechaValida) {
+        try {
+            dia = Integer.parseInt(JOptionPane.showInputDialog("Día de inicio:"));
+            mes = Integer.parseInt(JOptionPane.showInputDialog("Mes de inicio:"));
+            anio = Integer.parseInt(JOptionPane.showInputDialog("Año de inicio:"));
+            
+            LocalDate fechaInicio = LocalDate.of(anio, mes, dia);
+            
+            if (fechaInicio.isBefore(hoy)) {
+                JOptionPane.showMessageDialog(null, "La fecha no puede ser anterior a hoy");
+            } else {
+                fechaValida = true;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Fecha inválida");
+        }
+    }
+    
+    String fechaInicio = anio + "-" + String.format("%02d", mes) + "-" + String.format("%02d", dia);
+    
+    int diaFin = 0, mesFin = 0, anioFin = 0;
+    boolean fechaFinValida = false;
+    
+    while (!fechaFinValida) {
+        try {
+            diaFin = Integer.parseInt(JOptionPane.showInputDialog("Día de fin:"));
+            mesFin = Integer.parseInt(JOptionPane.showInputDialog("Mes de fin:"));
+            anioFin = Integer.parseInt(JOptionPane.showInputDialog("Año de fin:"));
+            
+            LocalDate fechaFinLocal = LocalDate.of(anioFin, mesFin, diaFin);
+            LocalDate fechaInicioLocal = LocalDate.of(anio, mes, dia);
+            
+            if (fechaFinLocal.isBefore(fechaInicioLocal)) {
+                JOptionPane.showMessageDialog(null, "La fecha fin no puede ser anterior a la fecha inicio");
+            } else {
+                fechaFinValida = true;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Fecha inválida");
+        }
+    }
+    
+    String fechaFin = anioFin + "-" + String.format("%02d", mesFin) + "-" + String.format("%02d", diaFin);
+    
+    DLL.ControllerSolicitud cs = new DLL.ControllerSolicitud();
+    cs.guardarSolicitud(this.getIdUsuario(), tipo, fechaInicio, fechaFin);
+    
+    JOptionPane.showMessageDialog(null, "Registrado");	
+    }	
+	
 	
 	public void verSueldo() {
 		
