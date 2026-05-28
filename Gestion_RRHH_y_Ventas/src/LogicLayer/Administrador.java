@@ -197,7 +197,7 @@ public class Administrador extends Usuario{
 	@Override
 	public void Menu() {
 		String[] opciones = {
-				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos", "Salir"	
+				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos","Ver empleados", "Salir"	
 			};
 			int opcion;
 			do {
@@ -435,10 +435,13 @@ public class Administrador extends Usuario{
 			case 5:
 			    gestionarBonos();
 			    break;
+			case 6:
+			    verListaEmpleados();
+			    break;
 
 					
 				}
-			}while(opcion!= 6);
+			}while(opcion!= 7);
 	}
 	
 	public void verRankingOperativos() {
@@ -556,6 +559,35 @@ public class Administrador extends Usuario{
 	        
 	    } catch (Exception e) {
 	        JOptionPane.showMessageDialog(null, "Error");
+	    }
+	}
+	
+	public void verListaEmpleados() {
+	    DLL.ControllerRendimiento cr = new DLL.ControllerRendimiento();
+	    
+	    try {
+	        java.sql.ResultSet rs = cr.getListaEmpleados();
+	        
+	        if (rs == null || !rs.isBeforeFirst()) {
+	            JOptionPane.showMessageDialog(null, "No hay empleados registrados");
+	            return;
+	        }
+	        
+	        String mensaje = "=== LISTA DE EMPLEADOS ===\n\n";
+	        
+	        while (rs.next()) {
+	            mensaje += "ID: " + rs.getInt("id_empleado") + "\n";
+	            mensaje += "Nombre: " + rs.getString("nombre") + " " + rs.getString("apellido") + "\n";
+	            mensaje += "Email: " + rs.getString("email") + "\n";
+	            mensaje += "DNI: " + rs.getString("dni") + "\n";
+	            mensaje += "Sueldo Base: $" + rs.getDouble("sueldo_base") + "\n";
+	            mensaje += "------------------------\n";
+	        }
+	        
+	        JOptionPane.showMessageDialog(null, mensaje, "Empleados", JOptionPane.INFORMATION_MESSAGE);
+	        
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error al cargar empleados");
 	    }
 	}
 	

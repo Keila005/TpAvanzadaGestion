@@ -61,4 +61,15 @@ public class ControllerRendimiento {
         }
         return lista;
     }
+    public ResultSet getListaEmpleados() {
+        String sql = "SELECT e.id_empleado, u.nombre, u.apellido, u.email, e.dni, e.sueldo_base " +
+                     "FROM empleado e " +
+                     "JOIN usuario u ON e.id_usuario = u.id_usuario";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
