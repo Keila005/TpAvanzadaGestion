@@ -73,4 +73,57 @@ public class ControllerAsistencia {
         }
         return -1;
     }
+    
+    public double getSueldoBase(int idEmpleado) {
+        String sql = "SELECT sueldo_base FROM empleado WHERE id_empleado = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEmpleado);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("sueldo_base");
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+    public int getIdEmpleadoByNombreApellido(String nombre, String apellido) {
+        String sql = "SELECT e.id_empleado FROM empleado e " +
+                     "JOIN usuario u ON e.id_usuario = u.id_usuario " +
+                     "WHERE u.nombre = ? AND u.apellido = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setString(2, apellido);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id_empleado");
+            }
+        } catch (Exception e) {
+        }
+        return -1;
+    }
+
+    public void registrarHorasExtra(int idEmpleado, int horas, String motivo) {
+        String sql = "INSERT INTO horas_extra (id_empleado, fecha, horas, valor_hora, motivo) VALUES (?, CURDATE(), ?, ?, ?)";
+        try {
+            double sueldoBase = getSueldoBase(idEmpleado);
+            double valorHora = (sueldoBase / 30) / 8;
+            double valorHoraExtra = valorHora * 1.5;
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEmpleado);
+            ps.setInt(2, horas);
+            ps.setDouble(3, valorHoraExtra);
+            ps.setString(4, motivo);
+            ps.executeUpdate();
+            ps.close();
+            
+            javax.swing.JOptionPane.showMessageDialog(null, "Horas extra registradas: " + horas + " horas");
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al registrar horas extra");
+        }
+    }
 }
+    
