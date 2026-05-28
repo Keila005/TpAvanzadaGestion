@@ -33,6 +33,7 @@ public class ControllerProyecto {
 			 stmt.setInt(5, idLider);
 			 stmt.setInt(6, idEquipo);
 			 
+			 stmt.executeUpdate();
 
 		} catch(Exception e) {
 			 e.printStackTrace();
