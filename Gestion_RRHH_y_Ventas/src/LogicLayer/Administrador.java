@@ -197,7 +197,7 @@ public class Administrador extends Usuario{
 	@Override
 	public void Menu() {
 		String[] opciones = {
-				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos","Ver empleados", "Salir"	
+				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos","Ver empleados", "Ver ausencias","Validar asistencia ","Salir"	
 			};
 			int opcion;
 			do {
@@ -438,10 +438,17 @@ public class Administrador extends Usuario{
 			case 6:
 			    verListaEmpleados();
 			    break;
+			case 7:
+			    verAusenciasTodos();
+			    break;
+			case 8:
+			    validarAsistencia();
+			    break;
+
 
 					
 				}
-			}while(opcion!= 7);
+			}while(opcion!= 9);
 	}
 	
 	public void verRankingOperativos() {
@@ -591,4 +598,130 @@ public class Administrador extends Usuario{
 	    }
 	}
 	
+	public void verAusenciasTodos() {
+	    DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+	    
+	    try {
+	        java.sql.ResultSet rs = asis.getAusenciasTodos();
+	        
+	        if (rs == null || !rs.isBeforeFirst()) {
+	            JOptionPane.showMessageDialog(null, "No hay ausencias registradas");
+	            return;
+	        }
+	        
+	        String mensaje = "=== AUSENCIAS DE EMPLEADOS ===\n\n";
+	        while (rs.next()) {
+	            mensaje += rs.getString("nombre") + " " + rs.getString("apellido") + "\n";
+	            mensaje += "Fecha: " + rs.getString("fecha") + "\n";
+	            mensaje += "------------------------\n";
+	        }
+	        
+	        JOptionPane.showMessageDialog(null, mensaje, "Ausencias", JOptionPane.INFORMATION_MESSAGE);
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error");
+	    }
+	}
+	
+public void validarAsistencia() {
+    DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+    DLL.ControllerRendimiento cr = new DLL.ControllerRendimiento();
+    
+    try {
+        java.sql.ResultSet rsEmpleados = cr.getListaEmpleados();
+        
+        if (rsEmpleados == null || !rsEmpleados.isBeforeFirst()) {
+            JOptionPane.showMessageDialog(null, "No hay empleados");
+            return;
+        }
+        
+        String[] empleados = new String[100];
+        int[] idsEmpleados = new int[100];
+        int countEmp = 0;
+        
+        while (rsEmpleados.next()) {
+            idsEmpleados[countEmp] = rsEmpleados.getInt("id_empleado");
+            empleados[countEmp] = rsEmpleados.getString("nombre") + " " + rsEmpleados.getString("apellido");
+            countEmp++;
+        }
+        
+        String[] opcionesEmp = new String[countEmp];
+        int[] idsEmpFinal = new int[countEmp];
+        for (int i = 0; i < countEmp; i++) {
+            opcionesEmp[i] = empleados[i];
+            idsEmpFinal[i] = idsEmpleados[i];
+        }
+        
+        String empSeleccionado = (String) JOptionPane.showInputDialog(null, "Seleccione un empleado:", 
+                                "Validar Asistencia", JOptionPane.QUESTION_MESSAGE, null, opcionesEmp, opcionesEmp[0]);
+        
+        if (empSeleccionado == null) return;
+        
+        int idxEmp = -1;
+        for (int i = 0; i < opcionesEmp.length; i++) {
+            if (opcionesEmp[i].equals(empSeleccionado)) {
+                idxEmp = i;
+                break;
+            }
+        }
+        
+        if (idxEmp == -1) return;
+        
+        int idEmpleado = idsEmpFinal[idxEmp];
+        
+        java.sql.ResultSet rsAsis = asis.getAsistenciasPorEmpleadoSimple(idEmpleado);
+        
+        if (rsAsis == null || !rsAsis.isBeforeFirst()) {
+            JOptionPane.showMessageDialog(null, "No hay asistencias para este empleado");
+            return;
+        }
+        
+        String[] asistencias = new String[100];
+        int[] idsAsis = new int[100];
+        int countAsis = 0;
+        
+        while (rsAsis.next()) {
+            idsAsis[countAsis] = rsAsis.getInt("id_asistencia");
+            String entrada = rsAsis.getString("hora_entrada") != null ? rsAsis.getString("hora_entrada") : "sin registro";
+            String salida = rsAsis.getString("hora_salida") != null ? rsAsis.getString("hora_salida") : "sin registro";
+            asistencias[countAsis] = rsAsis.getString("fecha") + " - Entrada: " + entrada + " - Salida: " + salida;
+            countAsis++;
+        }
+        
+        String[] opcionesAsis = new String[countAsis];
+        int[] idsAsisFinal = new int[countAsis];
+        for (int i = 0; i < countAsis; i++) {
+            opcionesAsis[i] = asistencias[i];
+            idsAsisFinal[i] = idsAsis[i];
+        }
+        
+        String asisSeleccionada = (String) JOptionPane.showInputDialog(null, "Seleccione una asistencia:", 
+                                "Modificar", JOptionPane.QUESTION_MESSAGE, null, opcionesAsis, opcionesAsis[0]);
+        
+        if (asisSeleccionada == null) return;
+        
+        int idxAsis = -1;
+        for (int i = 0; i < opcionesAsis.length; i++) {
+            if (opcionesAsis[i].equals(asisSeleccionada)) {
+                idxAsis = i;
+                break;
+            }
+        }
+        
+        if (idxAsis == -1) return;
+        
+        int horaEntrada = Integer.parseInt(JOptionPane.showInputDialog("Hora de entrada:"));
+        int minutoEntrada = Integer.parseInt(JOptionPane.showInputDialog("Minuto de entrada:"));
+        String nuevaEntrada = String.format("%02d:%02d:00", horaEntrada, minutoEntrada);
+        
+        int horaSalida = Integer.parseInt(JOptionPane.showInputDialog("Hora de salida:"));
+        int minutoSalida = Integer.parseInt(JOptionPane.showInputDialog("Minuto de salida:"));
+        String nuevaSalida = String.format("%02d:%02d:00", horaSalida, minutoSalida);
+        
+        asis.actualizarAsistencia(idsAsisFinal[idxAsis], nuevaEntrada, nuevaSalida);
+        JOptionPane.showMessageDialog(null, "Asistencia modificada");
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error");
+    }
+}
 }
