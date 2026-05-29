@@ -15,6 +15,7 @@ public class Vendedor extends Empleado {
 	
 	private int idVendedor;
 	private Venta venta;
+	private double comision;
 	private int ventasTotales;
 	private static LinkedList<Venta> historialVentas;
 	
@@ -33,18 +34,18 @@ public class Vendedor extends Empleado {
 		this.ventasTotales = ventasTotales;
 	}
 	
-	
-	
+	public Vendedor(String nombre, String apellido, String mail,
+	        String contrasenia, int dni, double sueldoBase,
+	        LocalDate fechaContratacion, int faltas,
+	        double comision, int ventasTotales) {
+		this.comision = comision;
+	}
+
 public Vendedor(int idVendedor, int ventasTotales) {
 		super();
 		this.idVendedor = idVendedor;
 		this.ventasTotales = ventasTotales;
 	}
-
-
-
-
-
 
 	public static ControllerProducto getController() {
 	return controller;
@@ -75,68 +76,7 @@ public static void setController(ControllerProducto controller) {
 	
 	@Override
 	public void Menu() {
-<<<<<<< HEAD
-		String[] opcioneses = {
-				"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Vender","Salir"
-//				"Productos disponibles","Ingreso/Egreso del producto","Configurar stock","Historial prendas","Historial ventas","Salir"	
-			};
-		int opciones;
-		do {
-			opciones = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Vendedor", 0, 0, null, opcioneses, opcioneses);
-			switch (opciones) {
-			case 0:
-				JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo\nBonos\nRendimiento");
-				break;
-			case 1:
-			    SolicitarPermiso();
-				break;
-			case 2:// COMENTAR
-				String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");
-				LocalDate fechaComentario= LocalDate.now();
-				String[] sentimientos = {"Positivo","Neutro","Negativo"};
 
-				String sentimiento = (String)JOptionPane.showInputDialog(
-				        null,"Seleccione su sentimiento","Comentario Anónimo",
-				        JOptionPane.QUESTION_MESSAGE,
-				        null,sentimientos,sentimientos[0]
-				);
-				if(sentimiento != null) {
-					comentarioController.agregarComentarios(
-							new ComentarioAnonimo(comentario,fechaComentario,sentimiento));
-				}
-				break;
-			case 3:
-				String vender[]= {"Ver productos","Ingreso del producto","Registrar venta",
-			"Ver historial de ventas","Ver historial de productos","Volver"};
-				int elegir;
-				do {
-					elegir=JOptionPane.showOptionDialog(null, "Elige la accion que quiere realizar","Vendedor", 
-							0, 0, null, vender, vender[0]);
-					switch (elegir) {
-					case 0:
-						JOptionPane.showMessageDialog(null, "Se ven todos los productos");
-						break;
-					case 1:
-						JOptionPane.showMessageDialog(null, "Agregar productos");
-						break;
-					case 2:
-						JOptionPane.showMessageDialog(null, "Realizar una venta donde se descuenta la cantidad "
-								+ "y genera un comprobante");
-						break;
-					case 3:
-						JOptionPane.showMessageDialog(null, "Se ve el historia de ventas que hizo el vendedor");
-						break;
-					case 4:
-						JOptionPane.showMessageDialog(null, "Se ve el historial de todos los productos vendidos");
-						break;
-
-					
-					}
-				} while (elegir!=5);
-			}// FIN DEL SWITCH
-			}while(opciones!=4);
-=======
->>>>>>> enni
 		
 		String[] opciones = {
 				"Stock","Venta","Perfil Laboral","Historial de ventas","Salir"	
@@ -436,85 +376,9 @@ public static void setController(ControllerProducto controller) {
 				    break;
 				}
 				}while(opcion!=4);//FIN DEL MENU PRINCIPAL
-	}
-
-	
-		
-	
-		
-		
-			
+	}		
 	}
 	
 	
 	
 	
-	
-	
-	
-	//@Override
-//	public void Menu() {
-	//	String[] opcioneses = {
-		//		"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Vender","Salir"
-//				"Productos disponibles","Ingreso/Egreso del producto","Configurar stock","Historial prendas","Historial ventas","Salir"	
-		//	};
-	//	int opciones;
-//		do {
-	//		opciones = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Vendedor", 0, 0, null, opcioneses, opcioneses);
-//			switch (opciones) {
-//			case 0:
-//				JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo\nBonos\nRendimiento");
-//				break;
-//			case 1:
-			//	JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");
-	//			break;
-	//		case 2:// COMENTAR
-	//			String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");
-	//			LocalDate fechaComentario= LocalDate.now();
-	//			String[] sentimientos = {"Positivo","Neutro","Negativo"};
-
-	//			String sentimiento = (String)JOptionPane.showInputDialog(
-	//			        null,"Seleccione su sentimiento","Comentario Anónimo",
-	//			        JOptionPane.QUESTION_MESSAGE,
-	//			        null,sentimientos,sentimientos[0]
-	//			);
-//				if(sentimiento != null) {
-		//			comentarioController.agregarComentarios(
-		//					new ComentarioAnonimo(comentario,fechaComentario,sentimiento));
-			//	}
-		//		break;
-		//	case 3:
-		//		String vender[]= {"Ver productos","Ingreso del producto","Registrar venta",
-		//	"Ver historial de ventas","Ver historial de productos","Volver"};
-		//		int elegir;
-			//	do {
-		//			elegir=JOptionPane.showOptionDialog(null, "Elige la accion que quiere realizar","Vendedor", 
-		//					0, 0, null, vender, vender[0]);
-		///			switch (elegir) {
-		//			case 0:
-		//				JOptionPane.showMessageDialog(null, "Se ven todos los productos");
-		//				break;
-		//			case 1:
-	//					JOptionPane.showMessageDialog(null, "Agregar productos");
-	//					break;
-			//		case 2:
-		//				JOptionPane.showMessageDialog(null, "Realizar una venta donde se descuenta la cantidad "
-		//						+ "y genera un comprobante");
-		//				break;
-		//			case 3:
-		//				JOptionPane.showMessageDialog(null, "Se ve el historia de ventas que hizo el vendedor");
-		//				break;
-	//				case 4:
-	//					JOptionPane.showMessageDialog(null, "Se ve el historial de todos los productos vendidos");
-	//					break;
-//
-					
-	//				}
-	//			} while (elegir!=5);
-	//		}// FIN DEL SWITCH
-	//		}while(opciones!=4);
-		
-	// FIN DEL MENU
-
-	
-// FIN DE LA CLASE

@@ -3,6 +3,7 @@ package DLL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import LogicLayer.Operativo;
 import LogicLayer.Vendedor;
@@ -37,7 +38,7 @@ public class ControllerRendimiento {
     }
     
     public LinkedList<Vendedor> getTodosVendedores() {
-        LinkedList<Vendedor> lista = new LinkedList<>();
+    	LinkedList<Vendedor> lista = new LinkedList<>();
         String sql = "SELECT v.id_empleado, v.comision, v.ventas_totales, u.nombre, u.apellido " +
                      "FROM vendedor v " +
                      "JOIN empleado e ON v.id_empleado = e.id_empleado " +
@@ -52,7 +53,9 @@ public class ControllerRendimiento {
                 double comision = rs.getDouble("comision");
                 int ventasTotales = rs.getInt("ventas_totales");
                 
-                Vendedor ven = new Vendedor(nombre, apellido, "", "", 0, 0, null, 0, comision, ventasTotales);
+         Vendedor ven = new Vendedor(nombre, apellido, "", "", 0, 0, null, 0, comision, ventasTotales);
+         
+         
                 lista.add(ven);
             }
             rs.close();

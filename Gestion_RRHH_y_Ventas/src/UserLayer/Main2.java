@@ -11,11 +11,6 @@ import LogicLayer.Vendedor;
 
 public class Main2 {
 	public static void main(String[] args) {
-		
-		
-		
-		
-		
 		ControllerUsuario nuevo = new ControllerUsuario();
 		String[] acciones = { "Login", "Salir" };
 	    int menu = 0;

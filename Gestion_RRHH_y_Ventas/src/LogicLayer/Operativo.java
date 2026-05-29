@@ -144,393 +144,403 @@ public void Menu() {
 						
 						switch (elige) {
 						case 0:// SI SE ELIGE LIDER
-							Roles lider=Roles.LIDER_PROYECTO;
-							 String[] subopciones1 = lider.getOpciones();
-							 int opcion1;
-							 do {
-								 opcion1=JOptionPane.showOptionDialog(null, "Realice una accion",
-											"Empleado-operativo_lider", 0, 0, null, subopciones1, subopciones1[0]);
-								 switch (opcion1) {
-//								 
-								 
-								 //VISUALIZAR TAREAS && KANBAN
-								case 0:
-									if(tareasAsignadas.isEmpty()) {
+							if (this.Rol.equals(Roles.LIDER_PROYECTO)) {
+								Roles lider=Roles.LIDER_PROYECTO;
+								 String[] subopciones1 = lider.getOpciones();
+								 int opcion1;
+								 do {
+									 opcion1=JOptionPane.showOptionDialog(null, "Realice una accion",
+												"Empleado-operativo_lider", 0, 0, null, subopciones1, subopciones1[0]);
+									 switch (opcion1) {
+//									 
+									 
+									 //VISUALIZAR TAREAS && KANBAN
+									case 0:
+										if(tareasAsignadas.isEmpty()) {
 
-										JOptionPane.showMessageDialog(null,
-												"No tiene tareas asignadas");
-										break;
-									}
+											JOptionPane.showMessageDialog(null,
+													"No tiene tareas asignadas");
+											break;
+										}
 
-									String[] tareas = new String[tareasAsignadas.size()];
+										String[] tareas = new String[tareasAsignadas.size()];
 
-									for(int i = 0; i < tareasAsignadas.size(); i++) {
+										for(int i = 0; i < tareasAsignadas.size(); i++) {
 
-										Tarea t = tareasAsignadas.get(i);
+											Tarea t = tareasAsignadas.get(i);
 
-										tareas[i] =
-												t.getNombre()
-												+ " | "
-												+ t.getEstado()
-												+ " | "
-												+ t.getSesionesTrabajo()
-												+ "/3";
-									}
-
-									String seleccionada =
-											(String) JOptionPane.showInputDialog(
-													null,
-													"Seleccione una tarea",
-													"KANBAN",
-													JOptionPane.QUESTION_MESSAGE,
-													null,
-													tareas,
-													tareas[0]);
-
-									if(seleccionada != null) {
-
-										Tarea tareaElegida = null;
-
-										for(Tarea t : tareasAsignadas) {
-
-											String texto =
+											tareas[i] =
 													t.getNombre()
 													+ " | "
 													+ t.getEstado()
 													+ " | "
 													+ t.getSesionesTrabajo()
 													+ "/3";
+										}
 
-											if(texto.equals(seleccionada)) {
+										String seleccionada =
+												(String) JOptionPane.showInputDialog(
+														null,
+														"Seleccione una tarea",
+														"KANBAN",
+														JOptionPane.QUESTION_MESSAGE,
+														null,
+														tareas,
+														tareas[0]);
 
-												tareaElegida = t;
-												break;
+										if(seleccionada != null) {
+
+											Tarea tareaElegida = null;
+
+											for(Tarea t : tareasAsignadas) {
+
+												String texto =
+														t.getNombre()
+														+ " | "
+														+ t.getEstado()
+														+ " | "
+														+ t.getSesionesTrabajo()
+														+ "/3";
+
+												if(texto.equals(seleccionada)) {
+
+													tareaElegida = t;
+													break;
+												}
+											}
+
+											if(tareaElegida != null) {
+
+												if(tareaElegida.isBloqueada()) {
+
+													JOptionPane.showMessageDialog(null,
+															"La tarea está completada");
+													break;
+												}
+
+												String[] acciones;
+
+												if(tareaElegida.getSesionesTrabajo() >= 3) {
+
+													acciones = new String[] {
+															"Trabajar",
+															"Completar",
+															"Volver"
+													};
+
+												} else {
+
+													acciones = new String[] {
+															"Trabajar",
+															"Volver"
+													};
+												}
+
+												int accion =
+														JOptionPane.showOptionDialog(
+																null,
+																"TAREA:\n"
+																+ tareaElegida.getDescripcion(),
+																"KANBAN",
+																0,
+																0,
+																null,
+																acciones,
+																acciones[0]);
+
+												if(accion == 0) {
+
+													tareaElegida.trabajar();
+
+													tareaController.trabajarTarea(
+															tareaElegida.getIdTarea());
+												}
+
+												else if(accion == 1
+														&& tareaElegida.getSesionesTrabajo() >= 3) {
+
+													tareaElegida.completarTarea();
+
+													tareaController.completarTarea(
+															tareaElegida.getIdTarea());
+												}
 											}
 										}
 
-										if(tareaElegida != null) {
+										break;
+										
+										//REGISTRAR TAREA	
+									case 1:
+										String nombreTarea =
+										JOptionPane.showInputDialog(
+												"Nombre de la tarea");
 
-											if(tareaElegida.isBloqueada()) {
+								String descripcion =
+										JOptionPane.showInputDialog(
+												"Descripción");
 
-												JOptionPane.showMessageDialog(null,
-														"La tarea está completada");
-												break;
-											}
+								int idProyecto =
+										Integer.parseInt(
+												JOptionPane.showInputDialog(
+														"ID proyecto"));
 
-											String[] acciones;
+								int idEmpleado =
+										Integer.parseInt(
+												JOptionPane.showInputDialog(
+														"ID empleado asignado"));
 
-											if(tareaElegida.getSesionesTrabajo() >= 3) {
+								tareaController.crearTarea(
+										nombreTarea,
+										descripcion,
+										idProyecto,
+										idEmpleado);
 
-												acciones = new String[] {
-														"Trabajar",
-														"Completar",
-														"Volver"
-												};
+								JOptionPane.showMessageDialog(null,
+										"Tarea creada");
+								
+								//REGISTRAR REUNION
+									case 2:
+										String nombreReunion =
+										JOptionPane.showInputDialog(
+												"Nombre de la reunión");
 
-											} else {
+								String fecha =
+										JOptionPane.showInputDialog(
+												"Fecha");
 
-												acciones = new String[] {
-														"Trabajar",
-														"Volver"
-												};
-											}
-
-											int accion =
-													JOptionPane.showOptionDialog(
-															null,
-															"TAREA:\n"
-															+ tareaElegida.getDescripcion(),
-															"KANBAN",
-															0,
-															0,
-															null,
-															acciones,
-															acciones[0]);
-
-											if(accion == 0) {
-
-												tareaElegida.trabajar();
-
-												tareaController.trabajarTarea(
-														tareaElegida.getIdTarea());
-											}
-
-											else if(accion == 1
-													&& tareaElegida.getSesionesTrabajo() >= 3) {
-
-												tareaElegida.completarTarea();
-
-												tareaController.completarTarea(
-														tareaElegida.getIdTarea());
-											}
-										}
-									}
-
-									break;
-									
-									//REGISTRAR TAREA	
-								case 1:
-									String nombreTarea =
-									JOptionPane.showInputDialog(
-											"Nombre de la tarea");
-
-							String descripcion =
-									JOptionPane.showInputDialog(
-											"Descripción");
-
-							int idProyecto =
-									Integer.parseInt(
-											JOptionPane.showInputDialog(
-													"ID proyecto"));
-
-							int idEmpleado =
-									Integer.parseInt(
-											JOptionPane.showInputDialog(
-													"ID empleado asignado"));
-
-							tareaController.crearTarea(
-									nombreTarea,
-									descripcion,
-									idProyecto,
-									idEmpleado);
-
-							JOptionPane.showMessageDialog(null,
-									"Tarea creada");
-							
-							//REGISTRAR REUNION
-								case 2:
-									String nombreReunion =
-									JOptionPane.showInputDialog(
-											"Nombre de la reunión");
-
-							String fecha =
-									JOptionPane.showInputDialog(
-											"Fecha");
-
-							JOptionPane.showMessageDialog(
-									null,
-									"Reunión registrada\n"
-									+ nombreReunion
-									+ "\nFecha: "
-									+ fecha);
-							
-							
-								case 3:// EVALUAR COMPAÑERO
-					ControllerEvaluacion ce = new ControllerEvaluacion();
-					Operativo empleadoLogueado = this;
-					
-	LinkedList<Operativo> integrantes= ce.mostrarIntegrantesEquipo(empleadoLogueado.getIdOperativo());
-	
-	  String nombres[] = new String[integrantes.size()];
-
-      for(int i = 0; i < integrantes.size(); i++) {
-
-          nombres[i] =integrantes.get(i).getNombre() + " " + integrantes.get(i).getApellido();
-      }
-   
-      String seleccionado = (String) JOptionPane.showInputDialog(
-    null, "Seleccione un integrante del equipo","Evaluacion 360", JOptionPane.QUESTION_MESSAGE, null,nombres,nombres[0]);
-      
-      if (seleccionado!=null) {
-		Operativo evaluado= null;
+								JOptionPane.showMessageDialog(
+										null,
+										"Reunión registrada\n"
+										+ nombreReunion
+										+ "\nFecha: "
+										+ fecha);
+								
+								
+									case 3:// EVALUAR COMPAÑERO
+						ControllerEvaluacion ce = new ControllerEvaluacion();
+						Operativo empleadoLogueado = this;
+						
+		LinkedList<Operativo> integrantes= ce.mostrarIntegrantesEquipo(empleadoLogueado.getIdOperativo());
 		
-		for(Operativo op : integrantes) { 
-			String nombreCompleto = op.getNombre() + " " + op.getApellido(); 		
-			if(nombreCompleto.equals(seleccionado)) { 
-				evaluado = op; 
-				if(evaluado != null) {
+		  String nombres[] = new String[integrantes.size()];
 
-		    	    int[] respuestas = new int[10];
+	      for(int i = 0; i < integrantes.size(); i++) {
 
-		    	    String[] preguntas = {
-		    	        "¿Cumple sus tareas a tiempo?",
-		    	        "¿Asiste regularmente al trabajo grupal?",
-		    	        "¿Apoya a sus compañeros cuando es necesario?",
-		    	        "¿Se comunica de forma clara?",
-		    	        "¿Escucha y respeta las opiniones de otros?",
-		    	        "¿Muestra iniciativa en su trabajo?",
-		    	        "¿Se adapta a cambios en el proyecto?",
-		    	        "¿Mantiene una actitud responsable?",
-		    	        "¿Cumple con su rol dentro del equipo?",
-		    	        "¿Contribuye positivamente al resultado del proyecto?"
-		    	    };
+	          nombres[i] =integrantes.get(i).getNombre() + " " + integrantes.get(i).getApellido();
+	      }
+	   
+	      String seleccionado = (String) JOptionPane.showInputDialog(
+	    null, "Seleccione un integrante del equipo","Evaluacion 360", JOptionPane.QUESTION_MESSAGE, null,nombres,nombres[0]);
+	      
+	      if (seleccionado!=null) {
+			Operativo evaluado= null;
+			
+			for(Operativo op : integrantes) { 
+				String nombreCompleto = op.getNombre() + " " + op.getApellido(); 		
+				if(nombreCompleto.equals(seleccionado)) { 
+					evaluado = op; 
+					if(evaluado != null) {
 
-		    	    for(int i = 0; i < preguntas.length; i++) {
+			    	    int[] respuestas = new int[10];
 
-		    	        int btn = JOptionPane.showConfirmDialog(
-		    	                null,
-		    	                preguntas[i],
-		    	                "Evaluación 360",
-		    	                JOptionPane.YES_NO_OPTION
-		    	        );
+			    	    String[] preguntas = {
+			    	        "¿Cumple sus tareas a tiempo?",
+			    	        "¿Asiste regularmente al trabajo grupal?",
+			    	        "¿Apoya a sus compañeros cuando es necesario?",
+			    	        "¿Se comunica de forma clara?",
+			    	        "¿Escucha y respeta las opiniones de otros?",
+			    	        "¿Muestra iniciativa en su trabajo?",
+			    	        "¿Se adapta a cambios en el proyecto?",
+			    	        "¿Mantiene una actitud responsable?",
+			    	        "¿Cumple con su rol dentro del equipo?",
+			    	        "¿Contribuye positivamente al resultado del proyecto?"
+			    	    };
 
-		    	        if(btn == JOptionPane.YES_OPTION) {
-		    	            respuestas[i] = 1;
-		    	        } else {
-		    	            respuestas[i] = 0;
-		    	        }
-		    	    }
-		    	    String comentariOpcional= JOptionPane.showInputDialog("Ingrese algún comentario adicional");
- Evaluacion360 evaluacion =new Evaluacion360(empleadoLogueado, evaluado, respuestas,comentariOpcional);
-		   evaluado.agregarEvaluacion(evaluacion);
-		   ce.guardarEvaluacion(evaluacion);
-		   double rendimientoGrupal =evaluado.calcularRendimientoGrupal();
-		   
-		   JOptionPane.showMessageDialog( null, "Evaluación realizada correctamente" +"\nEvaluado: "
-			        + evaluado.getNombre() + "\nPuntaje otorgado: "
-			        + evaluacion.getPuntajeTotal()+ "/10"
-			);
+			    	    for(int i = 0; i < preguntas.length; i++) {
 
-			//break;// si hay un evaluado termina de contestar y sale
+			    	        int btn = JOptionPane.showConfirmDialog(
+			    	                null,
+			    	                preguntas[i],
+			    	                "Evaluación 360",
+			    	                JOptionPane.YES_NO_OPTION
+			    	        );
+
+			    	        if(btn == JOptionPane.YES_OPTION) {
+			    	            respuestas[i] = 1;
+			    	        } else {
+			    	            respuestas[i] = 0;
+			    	        }
+			    	    }
+			    	    String comentariOpcional= JOptionPane.showInputDialog("Ingrese algún comentario adicional");
+	 Evaluacion360 evaluacion =new Evaluacion360(empleadoLogueado, evaluado, respuestas,comentariOpcional);
+			   evaluado.agregarEvaluacion(evaluacion);
+			   ce.guardarEvaluacion(evaluacion);
+			   double rendimientoGrupal =evaluado.calcularRendimientoGrupal();
+			   
+			   JOptionPane.showMessageDialog( null, "Evaluación realizada correctamente" +"\nEvaluado: "
+				        + evaluado.getNombre() + "\nPuntaje otorgado: "
+				        + evaluacion.getPuntajeTotal()+ "/10"
+				);
+
+				//break;// si hay un evaluado termina de contestar y sale
+				}
 			}
 		}
-	}
-      
-    	}// SI SELECCIONO UN NOMBRE
-      else {
-			JOptionPane.showMessageDialog(null, "No se selecciono a nadie");
-		}
-     
-									break;// del caso 3
+	      
+	    	}// SI SELECCIONO UN NOMBRE
+	      else {
+				JOptionPane.showMessageDialog(null, "No se selecciono a nadie");
+			}
+	     
+										break;// del caso 3
 
-								
-								}
-							} while (opcion1!=4);
-							break;
+									
+									}
+								} while (opcion1!=4);
+
+							}else {
+								JOptionPane.showMessageDialog(null, "Su cargo no responde a  este puesto");
+							}
+														break;
 						case 1:// SI SE ELGIGE MIEMBRO
-							Roles miembro=Roles.MIEMBRO_PROYECTO;
-							 String[] subopciones2 = miembro.getOpciones();
-							 int opcion2;
-							 do {
-								 opcion2=JOptionPane.showOptionDialog(null, "Realice una accion",
-											"Empleado-operativo_Miembro", 0, 0, null, subopciones2, subopciones2[0]);
-								 switch (opcion2) {
+							if (this.Rol.equals(Roles.MIEMBRO_PROYECTO)) {
+								Roles miembro=Roles.MIEMBRO_PROYECTO;
+								 String[] subopciones2 = miembro.getOpciones();
+								 int opcion2;
+								 do {
+									 opcion2=JOptionPane.showOptionDialog(null, "Realice una accion",
+												"Empleado-operativo_Miembro", 0, 0, null, subopciones2, subopciones2[0]);
+									 switch (opcion2) {
 
-								case 0:
-									if(tareasAsignadas.isEmpty()) {
+									case 0:
+										if(tareasAsignadas.isEmpty()) {
 
-										JOptionPane.showMessageDialog(null,
-												"No tiene tareas asignadas");
-										break;
-									}
+											JOptionPane.showMessageDialog(null,
+													"No tiene tareas asignadas");
+											break;
+										}
 
-									String[] tareas = new String[tareasAsignadas.size()];
+										String[] tareas = new String[tareasAsignadas.size()];
 
-									for(int i = 0; i < tareasAsignadas.size(); i++) {
+										for(int i = 0; i < tareasAsignadas.size(); i++) {
 
-										Tarea t = tareasAsignadas.get(i);
+											Tarea t = tareasAsignadas.get(i);
 
-										tareas[i] =
-												t.getNombre()
-												+ " | "
-												+ t.getEstado()
-												+ " | "
-												+ t.getSesionesTrabajo()
-												+ "/3";
-									}
-
-									String seleccionada =
-											(String) JOptionPane.showInputDialog(
-													null,
-													"Seleccione una tarea",
-													"KANBAN",
-													JOptionPane.QUESTION_MESSAGE,
-													null,
-													tareas,
-													tareas[0]);
-
-									if(seleccionada != null) {
-
-										Tarea tareaElegida = null;
-
-										for(Tarea t : tareasAsignadas) {
-
-											String texto =
+											tareas[i] =
 													t.getNombre()
 													+ " | "
 													+ t.getEstado()
 													+ " | "
 													+ t.getSesionesTrabajo()
 													+ "/3";
+										}
 
-											if(texto.equals(seleccionada)) {
+										String seleccionada =
+												(String) JOptionPane.showInputDialog(
+														null,
+														"Seleccione una tarea",
+														"KANBAN",
+														JOptionPane.QUESTION_MESSAGE,
+														null,
+														tareas,
+														tareas[0]);
 
-												tareaElegida = t;
-												break;
+										if(seleccionada != null) {
+
+											Tarea tareaElegida = null;
+
+											for(Tarea t : tareasAsignadas) {
+
+												String texto =
+														t.getNombre()
+														+ " | "
+														+ t.getEstado()
+														+ " | "
+														+ t.getSesionesTrabajo()
+														+ "/3";
+
+												if(texto.equals(seleccionada)) {
+
+													tareaElegida = t;
+													break;
+												}
+											}
+
+											if(tareaElegida != null) {
+
+												if(tareaElegida.isBloqueada()) {
+
+													JOptionPane.showMessageDialog(null,
+															"La tarea está completada");
+													break;
+												}
+
+												String[] acciones;
+
+												if(tareaElegida.getSesionesTrabajo() >= 3) {
+
+													acciones = new String[] {
+															"Trabajar",
+															"Completar",
+															"Volver"
+													};
+
+												} else {
+
+													acciones = new String[] {
+															"Trabajar",
+															"Volver"
+													};
+												}
+
+												int accion =
+														JOptionPane.showOptionDialog(
+																null,
+																"TAREA:\n"
+																+ tareaElegida.getDescripcion(),
+																"KANBAN",
+																0,
+																0,
+																null,
+																acciones,
+																acciones[0]);
+
+												if(accion == 0) {
+
+													tareaElegida.trabajar();
+
+													tareaController.trabajarTarea(
+															tareaElegida.getIdTarea());
+												}
+
+												else if(accion == 1
+														&& tareaElegida.getSesionesTrabajo() >= 3) {
+
+													tareaElegida.completarTarea();
+
+													tareaController.completarTarea(
+															tareaElegida.getIdTarea());
+												}
 											}
 										}
 
-										if(tareaElegida != null) {
+										break;
+									case 1:
+								JOptionPane.showMessageDialog(null, "Ver reuniones que hay");
+										break;
+									case 2:
+									JOptionPane.showMessageDialog(null, "Elegir a un compañero y responder algunas preguntas");
+										break;
 
-											if(tareaElegida.isBloqueada()) {
-
-												JOptionPane.showMessageDialog(null,
-														"La tarea está completada");
-												break;
-											}
-
-											String[] acciones;
-
-											if(tareaElegida.getSesionesTrabajo() >= 3) {
-
-												acciones = new String[] {
-														"Trabajar",
-														"Completar",
-														"Volver"
-												};
-
-											} else {
-
-												acciones = new String[] {
-														"Trabajar",
-														"Volver"
-												};
-											}
-
-											int accion =
-													JOptionPane.showOptionDialog(
-															null,
-															"TAREA:\n"
-															+ tareaElegida.getDescripcion(),
-															"KANBAN",
-															0,
-															0,
-															null,
-															acciones,
-															acciones[0]);
-
-											if(accion == 0) {
-
-												tareaElegida.trabajar();
-
-												tareaController.trabajarTarea(
-														tareaElegida.getIdTarea());
-											}
-
-											else if(accion == 1
-													&& tareaElegida.getSesionesTrabajo() >= 3) {
-
-												tareaElegida.completarTarea();
-
-												tareaController.completarTarea(
-														tareaElegida.getIdTarea());
-											}
-										}
+									
 									}
+								} while (opcion2!=3); // FIN DE LA OPCION DEL MIEMBRO
 
-									break;
-								case 1:
-							JOptionPane.showMessageDialog(null, "Ver reuniones que hay");
-									break;
-								case 2:
-								JOptionPane.showMessageDialog(null, "Elegir a un compañero y responder algunas preguntas");
-									break;
-
-								
-								}
-							} while (opcion2!=3);
-							break;
-						}
+							}else {
+								JOptionPane.showMessageDialog(null, "Usted no corresponde a este cargo");
+							}
+						break;
+						}//FIN  DEL SWITCH SOBRE SU CARGO
 	
 					}while(elige!=2);
 					break;// FIN DEL CASE 3

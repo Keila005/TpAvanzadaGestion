@@ -9,6 +9,7 @@ import DLL.ControllerComentario;
 import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerUsuario;
+import DLL.Hashing;
 import DLL.ControllerRendimiento;
 
 public class Administrador extends Usuario{
@@ -66,10 +67,10 @@ public class Administrador extends Usuario{
 	            tipos,
 	            tipos[0]);
 
-	    String nombre = JOptionPane.showInputDialog("Nombre:");
-	    String apellido = JOptionPane.showInputDialog("Apellido:");
-	    String mail = JOptionPane.showInputDialog("Mail:");
-	    String contrasenia = JOptionPane.showInputDialog("Contraseña:");
+	    String nombre =  Validador.ValidarString("Nombre:");
+	    String apellido =  Validador.ValidarString("Apellido:");
+	    String mail =  Validador.ValidarString("Mail:");
+	    String contrasenia = Validador.ValidarString("Contraseña:");
 
 	    int dni = Integer.parseInt(
 	            JOptionPane.showInputDialog("DNI:")
@@ -105,7 +106,7 @@ public class Administrador extends Usuario{
 	                nombre,
 	                apellido,
 	                mail,
-	                contrasenia,
+	               Hashing.hash(contrasenia),
 	                dni,
 	                sueldoBase,
 	                rol
@@ -121,7 +122,7 @@ public class Administrador extends Usuario{
 	                nombre,
 	                apellido,
 	                mail,
-	                contrasenia,
+	                Hashing.hash(contrasenia),
 	                dni,
 	                sueldoBase,
 	                comision
@@ -612,7 +613,7 @@ public class Administrador extends Usuario{
 	            return;
 	        }
 	        
-	        String mensaje = "=== AUSENCIAS DE EMPLEADOS ===\n\n";
+	        String mensaje = "=== AUSENCIAS DE EMPLEADOS ===\n";
 	        while (rs.next()) {
 	            mensaje += rs.getString("nombre") + " " + rs.getString("apellido") + "\n";
 	            mensaje += "Fecha: " + rs.getString("fecha") + "\n";
