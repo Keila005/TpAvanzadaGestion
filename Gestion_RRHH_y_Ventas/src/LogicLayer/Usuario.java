@@ -83,7 +83,7 @@ public abstract class Usuario {
 	public static Usuario Login() {
 		String email = "";
         while (email.isEmpty()) {
-        	email = JOptionPane.showInputDialog("Ingrese su cuenta: example@gmail.com");
+        	email = JOptionPane.showInputDialog("Ingrese el mail del usuario");
             if (email.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Incorrecto");
             }

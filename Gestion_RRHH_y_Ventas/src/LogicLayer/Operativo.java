@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import DLL.ControllerTarea;
 import DLL.ControllerComentario;
 import DLL.ControllerEvaluacion;
 
@@ -15,6 +16,7 @@ private int rendimiento;
 private LinkedList<Tarea> tareasAsignadas;
 private LinkedList<Evaluacion360> evaluacionesRecibidas;
 private static ControllerComentario comentarioController = new ControllerComentario();
+private static ControllerTarea tareaController = new ControllerTarea();
 
 
 public int getIdOperativo() {
@@ -57,6 +59,8 @@ public Operativo(String nombre, String mail, String contrasenia, String apellido
 	Rol = rol;
 	this.rendimiento = rendimiento; //ACA FALTA YA QUE NECESITO TENER EL RENDIMIENTO INDIVIDUAL,
 									//EL RENDIMIENTO 360 Y HACER EL PROMEDIO *100
+	this.tareasAsignadas = new LinkedList<>();
+	this.evaluacionesRecibidas = new LinkedList<>();
 }
 
 public Operativo() {
@@ -67,13 +71,14 @@ public Operativo() {
 
 public Operativo(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
 		LocalDate fechaContratacion, int faltas, int idOperativo, Roles rol, int rendimiento,
-		LinkedList<Tarea> tareasAsignadas, LinkedList<Evaluacion360> evaluacionesRecibidas) {
+		LinkedList<Tarea> tareasAsignadas, LinkedList<Evaluacion360> evaluacionesRecibidas, int idUsuario) {
 	super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
 	this.idOperativo = idOperativo;
 	Rol = rol;
 	this.rendimiento = rendimiento;
 	this.tareasAsignadas =  new LinkedList<>(); 	
 	this.evaluacionesRecibidas =  new LinkedList<>();
+	setIdUsuario(idUsuario);
 }
 
 
@@ -83,6 +88,7 @@ public Operativo(int idOperativo, Roles rol, int rendimiento) {
 	Rol = rol;
 	this.rendimiento = rendimiento;
 }
+
 public void agregarEvaluacion(Evaluacion360 e) {
 
     evaluacionesRecibidas.add(e);
@@ -99,7 +105,7 @@ public void Menu() {
 	
 	
 	String[] opciones = {
-			"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Cargo","Salir"	
+			"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Cargo","Ver mi sueldo","Ver ausencias","Salir"	
 		};
 		int opcion;
 		do {
@@ -109,10 +115,10 @@ public void Menu() {
 				JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo\nBonos\nRendimiento");
 				break;
 			case 1:
-				JOptionPane.showMessageDialog(null, "Se solicita vacaciones o permisos");
+			    SolicitarPermiso();
 				break;
 			case 2: //COMENTAR
-				String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");
+				String comentario = Validador.ValidarString("Escriba un comentario sobre el clima laboral");
 				LocalDate fechaComentario= LocalDate.now();
 				String[] sentimientos = {"Positivo","Neutro","Negativo"};
 
@@ -253,8 +259,14 @@ else {
 				}
 				
 					break;// FIN DEL CASE 3
+			case 4:
+			    verSueldo();
+				break;
+			case 5:
+			    verAusencias();
+				break;
 			}
-			}while(opcion!=4);//FIN DEL MENU PRINCIPAL
+			}while(opcion!=6);//FIN DEL MENU PRINCIPAL
 }
 
 //CALCULAR OPERACIONES DE LOS RENDIMIENTOS
