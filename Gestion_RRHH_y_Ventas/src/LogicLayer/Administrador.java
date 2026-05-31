@@ -1,11 +1,13 @@
 package LogicLayer;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
 import DLL.ControllerComentario;
+import DLL.ControllerEquipo;
 import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerUsuario;
@@ -52,7 +54,61 @@ public class Administrador extends Usuario{
 	
 	
 //	==CRUD==
-	
+	private int seleccionarEmpleado() {
+
+	    try { ResultSet rs =usuarioController.getListaEmpleados();
+
+	        if(rs == null || !rs.isBeforeFirst()) {
+
+	            JOptionPane.showMessageDialog(null,"No hay empleados");
+	            return -1;
+	            }
+
+	        String[] nombres =new String[100];
+
+	        int[] ids =new int[100];
+
+	        int contador = 0;
+
+	        while(rs.next()) {
+
+	            ids[contador] =rs.getInt("id_empleado");
+
+	            nombres[contador] =rs.getString("nombre")+ " "+ rs.getString("apellido");
+
+	            contador++;
+	        }
+
+	        String[] opciones =new String[contador];
+
+	        for(int i = 0; i < contador; i++) {
+
+	            opciones[i] = nombres[i];
+	        }
+
+	        String seleccionado =(String) JOptionPane.showInputDialog(
+	                        null,"Seleccione un empleado","Empleados",
+	                        JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]);
+
+	        if(seleccionado == null) {
+	            return -1;
+	        }
+
+	        for(int i = 0; i < contador; i++) {
+
+	            if(nombres[i].equals(seleccionado)) {
+
+	                return ids[i];
+	            }
+	        }
+
+	    } catch(Exception e) {
+
+	        e.printStackTrace();
+	    }
+
+	    return -1;
+	} // FIN DE SELECCION DE EMPLEADOS
 	public void crearEmpleado() {
 
 	    String[] tipos = {"Operativo", "Vendedor"};
@@ -134,7 +190,10 @@ public class Administrador extends Usuario{
 	}
 
 	public void modificarEmpleado() {
-		int idEmpleado = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del empleado"));
+		int idEmpleado = seleccionarEmpleado();
+	    if(idEmpleado == -1) {
+	        return;
+	    }
 		String nuevoMail = JOptionPane.showInputDialog("Nuevo Mail:");
 		double nuevoSueldo = Double.parseDouble(JOptionPane.showInputDialog("Nuevo sueldo:"));
 		
@@ -152,15 +211,20 @@ public class Administrador extends Usuario{
 	
 	public void eliminarEmpleado() {
 
-	    int idEmpleado = Integer.parseInt(
-	            JOptionPane.showInputDialog("Ingrese ID del empleado")
-	    );
+	    int idEmpleado = seleccionarEmpleado();
 
-	    usuarioController.eliminarEmpleado(idEmpleado);
+	    if(idEmpleado == -1) {
+	        return;
+	    }
 
-	    JOptionPane.showMessageDialog(null,
-	            "Empleado eliminado");
-	}	
+	    int opcion =JOptionPane.showConfirmDialog(null,
+	                    "¿Está seguro de eliminar este empleado?","Confirmación",JOptionPane.YES_NO_OPTION);
+
+	    if(opcion == JOptionPane.YES_OPTION) {
+	        usuarioController.eliminarEmpleado(
+	                idEmpleado);
+	    }
+	}
 		
 	
 	public void crearProyecto() {
@@ -170,16 +234,63 @@ public class Administrador extends Usuario{
 
 	    String descripcion =
 	            JOptionPane.showInputDialog("Descripción");
+	    
+	    LinkedList<Operativo> lideres = operativoController.obtenerLideres();
 
-	    int idLider = Integer.parseInt(
-	            JOptionPane.showInputDialog("ID líder")
-	    );
+	    String[] nombres = new String[lideres.size()];
 
-	    int idEquipo = Integer.parseInt(
-	            JOptionPane.showInputDialog("ID equipo")
-	    );
+	    for(int i = 0; i < lideres.size(); i++) {
 
-	    proyectoController.crearProyecto(
+	        nombres[i] = lideres.get(i).getNombre()+ " "+ lideres.get(i).getApellido();
+	    }
+
+	    String seleccionado =(String) JOptionPane.showInputDialog(
+	                    null,"Seleccione un líder","Líder del proyecto",
+	                    JOptionPane.QUESTION_MESSAGE,null,nombres,nombres[0]);
+
+	    int idLider = -1;
+
+	    for(Operativo op : lideres) {
+
+	        String nombreCompleto =op.getNombre()+ " "+ op.getApellido();
+
+	        if(nombreCompleto.equals(seleccionado)) {
+	            idLider = op.getIdOperativo();
+	            break;
+	        }
+	    }
+	    //ELEGIR UN EQUIPO QUE YA EXISTE EN LA BD
+	    ControllerEquipo equipoController = new ControllerEquipo();
+
+	    LinkedList<Equipo> equipos = equipoController.mostrarEquipo();
+
+	    String[] nombresEquipo = new String[equipos.size()];
+
+	    for(int i = 0; i < equipos.size(); i++) {
+
+	    	nombresEquipo[i] =equipos.get(i).getNombre();
+	    }
+
+	    String selec =(String) JOptionPane.showInputDialog(
+	                    null,
+	                    "Seleccione un equipo",
+	                    "Equipo",
+	                    JOptionPane.QUESTION_MESSAGE,null,nombresEquipo,nombresEquipo[0]
+	            );
+
+	    int idEquipo = -1;
+
+	    for(Equipo eq : equipos) {
+	        if(eq.getNombre().equals(selec)) {
+
+	        	idEquipo = eq.getId_equipo();
+	            break;
+	        }
+	    }
+	 
+	    System.out.println("ID Lider: " + idLider);
+	    System.out.println("ID Equipo: " + idEquipo);
+	    proyectoController.crearProyecto(	
 	            nombre,
 	            descripcion,
 	            LocalDate.now(),
@@ -198,11 +309,12 @@ public class Administrador extends Usuario{
 	@Override
 	public void Menu() {
 		String[] opciones = {
-				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos","Ver empleados", "Ver ausencias","Validar asistencia ","Modificar asistencia","Salir"	
+				"Gestionar empleados","Registrar proyectos","Ver estadisticas del rendimiento","Solicitudes","Horas extras","Gestionar bonos","Asistencias","Salir"	
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administrador", "", 0, 0, null, opciones, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido administrador: "+this.getNombre()+" "+this.getApellido(), 
+						"Administrador", 0, 0, null, opciones, opciones);
 				switch (opcion) {
 				case 0:
 
@@ -210,6 +322,7 @@ public class Administrador extends Usuario{
 							"Crear empleado",
 							"Modificar empleado",
 							"Eliminar empleado",
+							"Ver empleados",
 							"Volver"
 					};
 
@@ -246,16 +359,19 @@ public class Administrador extends Usuario{
 							eliminarEmpleado();
 
 							break;
+						case 3:
+							verListaEmpleados();
+							break;
 						}
 
-					} while(opcionGestion != 3);
+					} while(opcionGestion != 4);
 
 					break;
 				case 1:  
 
 					String[] proyectos = {
 							"Crear proyecto",
-							"Asignar líder",
+							"Ver proyectos",
 							"Volver"
 					};
 
@@ -282,23 +398,7 @@ public class Administrador extends Usuario{
 							break;
 
 						case 1:
-
-							int idProyecto = Integer.parseInt(
-									JOptionPane.showInputDialog("ID proyecto")
-							);
-
-							int idLider = Integer.parseInt(
-									JOptionPane.showInputDialog("Nuevo líder")
-							);
-
-							proyectoController.asignarLider(
-									idProyecto,
-									idLider
-							);
-
-							JOptionPane.showMessageDialog(null,
-									"Líder asignado correctamente");
-
+				JOptionPane.showMessageDialog(null,proyectoController.obtenerProyectos());
 							break;
 						}
 
@@ -352,11 +452,11 @@ public class Administrador extends Usuario{
 
 					        if(operativoSeleccionado != null) {
 
-					int individual = operativoSeleccionado.calcularRendimientoIndividual();
+					        	double individual = operativoSeleccionado.calcularRendimientoIndividual();
 
-					int grupal =operativoSeleccionado.calcularRendimientoGrupal();
+					double grupal =operativoSeleccionado.calcularRendimientoGrupal();
 					
-					int  finalRendimiento=operativoSeleccionado.getRendimiento();
+					double  finalRendimiento=operativoSeleccionado.getRendimiento();
 
 					            JOptionPane.showMessageDialog(
 					                    null,
@@ -437,22 +537,29 @@ public class Administrador extends Usuario{
 			    gestionarBonos();
 			    break;
 			case 6:
-			    verListaEmpleados();
-			    break;
-			case 7:
-			    verAusenciasTodos();
-			    break;
-			case 8:
-			    validarAsistencia();
-			    break;
-			case 9:
-			    modificarAsistencia();
-			    break;
-
-
+				String[] subopcion= {"Ver ausencias","Validar asistencia ","Modificar asistencia","Volver"};
+				int subElegir=-1;
+				do {
+					subElegir=JOptionPane.showOptionDialog(null, "Elige asistencia:", "Asistencia", 
+							0, 0, null, subopcion, subopcion[0]);
 					
+					switch (subElegir) {
+					case 0:
+						verAusenciasTodos();
+						break;
+					case 1:
+						validarAsistencia();
+						break;
+					case 2:
+						 modificarAsistencia();
+						break;
+					
+					}
+				} while (subElegir!=3);
+			    
+			    break;
 				}
-			}while(opcion!= 10);
+			}while(opcion!= 7);
 	}
 	
 	public void verRankingOperativos() {

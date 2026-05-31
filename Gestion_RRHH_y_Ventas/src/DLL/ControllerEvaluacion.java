@@ -13,67 +13,116 @@ public class ControllerEvaluacion {
 	private static Connection con = Conexion.getInstance().getConnection();
 	
 	
-	 public LinkedList<Operativo> mostrarIntegrantesEquipo(int idOperativoLog) {
-		 
-		 LinkedList<Operativo> integrantes = new LinkedList<>();
-		 
-		 try {
+	public LinkedList<Operativo> mostrarIntegrantesEquipo(int idOperativoLog) {
 
-	          PreparedStatement stmt = con.prepareStatement(
-	        		  
-	        		  // consultar los id del operativo
-	        		  "SELECT o.id_empleado, u.nombre, u.apellido"
-	        		  + "FROM equipo_miembro em"
-	        		  + "JOIN operativo o ON em.id_operativo = o.id_empleado"
-	        		  + "JOIN empleado e ON o.id_empleado = e.id_empleado"
-	        		  + "JOIN usuario u ON e.id_usuario = u.id_usuario"
-	        		  + "WHERE em.id_equipo = (SELECT id_equipo FROM equipo_miembro"
-	        		  + " WHERE id_operativo = ?)"
-	        		  + "AND o.id_empleado <> ?" +
+	    LinkedList<Operativo> integrantes = new LinkedList<>();
 
-	                  "UNION " +
+	    try {
 
-	                  //Y que el LIDER
-	                  // tambien buscar el idLider sea igual al de tab equipo
-	                  "SELECT DISTINCT o.id_empleado, u.nombre, u.apellido " +
-	                  "FROM equipo eq " +
+	        int idEquipo = -1;
 
-	                  "JOIN operativo o ON eq.id_lider = o.id_empleado " +
-	                  "JOIN empleado e ON o.id_empleado = e.id_empleado " +
-	                  "JOIN usuario u ON e.id_usuario = u.id_usuario " +
+	        // Buscar si es miembro
+	        PreparedStatement stmtEquipo = con.prepareStatement(
+	                "SELECT id_equipo " +
+	                "FROM equipo_miembro " +
+	                "WHERE id_operativo = ?");
 
-	                  "WHERE eq.id_equipo = (SELECT id_equipo FROM equipo_miembro " +
-	                      "WHERE id_operativo = ? " +
-	                  ") AND o.id_empleado <> ? "
+	        stmtEquipo.setInt(1, idOperativoLog);
 
-	              );
+	        ResultSet rsEquipo = stmtEquipo.executeQuery();
 
-	              stmt.setInt(1, idOperativoLog);
-	              stmt.setInt(2, idOperativoLog);
-	              stmt.setInt(3, idOperativoLog);
-	              stmt.setInt(4, idOperativoLog);
+	        if(rsEquipo.next()) {
 
-	              ResultSet rs = stmt.executeQuery();
+	            idEquipo = rsEquipo.getInt("id_equipo");
 
-	              while(rs.next()) {
-	            	  int idEmpleado=rs.getInt("id_empleado");
-	            	  String nombre= rs.getString("nombre");
-	            	  String apellido= rs.getString("apellido");
+	        } else {
 
-	                  Operativo op =new Operativo();
-	                  op.setIdOperativo(idEmpleado);
-	                  op.setNombre(nombre);
-	                  op.setApellido(apellido);
-	                  integrantes.add(op);
-	              }
+	            // Buscar si es líder
+	            PreparedStatement stmtLider = con.prepareStatement(
+	                    "SELECT id_equipo " +
+	                    "FROM equipo " +
+	                    "WHERE id_lider = ?");
 
+	            stmtLider.setInt(1, idOperativoLog);
 
-	          } catch(Exception e) {
-	              e.printStackTrace();
-	          }
+	            ResultSet rsLider = stmtLider.executeQuery();
 
-	          return integrantes;
-	      }
+	            if(rsLider.next()) {
+
+	                idEquipo = rsLider.getInt("id_equipo");
+	            }
+	        }
+
+	        if(idEquipo == -1) {
+
+	            return integrantes;
+	        }
+
+	        // Miembros del equipo
+	        PreparedStatement stmt = con.prepareStatement(
+
+	            "SELECT o.id_empleado, u.nombre, u.apellido " +
+	            "FROM equipo_miembro em " +
+	            "JOIN operativo o ON em.id_operativo = o.id_empleado " +
+	            "JOIN empleado e ON o.id_empleado = e.id_empleado " +
+	            "JOIN usuario u ON e.id_usuario = u.id_usuario " +
+	            "WHERE em.id_equipo = ? " +
+	            "AND o.id_empleado <> ?"
+
+	        );
+
+	        stmt.setInt(1, idEquipo);
+	        stmt.setInt(2, idOperativoLog);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            Operativo op = new Operativo();
+
+	            op.setIdOperativo(rs.getInt("id_empleado"));
+	            op.setNombre(rs.getString("nombre"));
+	            op.setApellido(rs.getString("apellido"));
+
+	            integrantes.add(op);
+	        }
+
+	        // Agregar líder si no es el logueado
+	        PreparedStatement stmtLider = con.prepareStatement(
+
+	            "SELECT o.id_empleado, u.nombre, u.apellido " +
+	            "FROM equipo eq " +
+	            "JOIN operativo o ON eq.id_lider = o.id_empleado " +
+	            "JOIN empleado e ON o.id_empleado = e.id_empleado " +
+	            "JOIN usuario u ON e.id_usuario = u.id_usuario " +
+	            "WHERE eq.id_equipo = ? " +
+	            "AND o.id_empleado <> ?"
+
+	        );
+
+	        stmtLider.setInt(1, idEquipo);
+	        stmtLider.setInt(2, idOperativoLog);
+
+	        ResultSet rsLider = stmtLider.executeQuery();
+
+	        while(rsLider.next()) {
+
+	            Operativo op = new Operativo();
+
+	            op.setIdOperativo(rsLider.getInt("id_empleado"));
+	            op.setNombre(rsLider.getString("nombre"));
+	            op.setApellido(rsLider.getString("apellido"));
+
+	            integrantes.add(op);
+	        }
+
+	    } catch(Exception e) {
+
+	        e.printStackTrace();
+	    }
+
+	    return integrantes;
+	}
 	public void guardarEvaluacion(Evaluacion360 eva) {
 
 	    try {

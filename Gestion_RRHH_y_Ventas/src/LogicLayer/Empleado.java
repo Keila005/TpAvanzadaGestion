@@ -78,11 +78,6 @@ public abstract class Empleado extends Usuario {
 	public void setFechaContratacion(LocalDate fechaContratacion) {
 		this.fechaContratacion = fechaContratacion;
 	}
-	public void VerInformacion() {
-//		+verDatos();
-//		+verSueldo();
-//		+verAsistencia();
-	}
 	public void SolicitarPermiso() {
     String[] tipos = {"Vacaciones", "Permiso", "Licencia medica"};
     String tipo = (String) JOptionPane.showInputDialog(null, "Tipo de solicitud:", "Solicitud", 

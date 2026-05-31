@@ -21,6 +21,13 @@ public class Proyecto {
 		this.tareas = new LinkedList<>();
 		this.miembros = new LinkedList<>();
 	}
+	
+	public Proyecto(int idProyecto, String nombre) {
+		super();
+		this.idProyecto = idProyecto;
+		this.nombre = nombre;
+	}
+
 
 	public static int getContador() {
 		return contador;

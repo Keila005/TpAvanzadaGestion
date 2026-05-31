@@ -83,7 +83,7 @@ public static void setController(ControllerProducto controller) {
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Menu de Vendedor", 0, 0, null, opciones, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor: "+this.getNombre()+" "+this.getApellido(), "Menu de Vendedor", 0, 0, null, opciones, opciones);
 				switch (opcion) {
 				case 0:
 					
@@ -182,11 +182,6 @@ public static void setController(ControllerProducto controller) {
 							        elegidoM.setPrecio(nuevoPrecio);
 
 							        controller.modificarProducto(elegidoM);
-
-							        JOptionPane.showMessageDialog(
-							                null,
-							                "Producto modificado correctamente"
-							        );
 							    }
 
 							  
@@ -310,6 +305,7 @@ public static void setController(ControllerProducto controller) {
 							case 1:
 								
 								//solicitar vacaciones o permisos
+								 SolicitarPermiso();
 								
 								break;
 							case 2: 
