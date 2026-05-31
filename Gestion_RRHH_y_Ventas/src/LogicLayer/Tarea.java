@@ -109,9 +109,15 @@ public class Tarea {
 		public void setBloqueada(boolean bloqueada) {
 			this.bloqueada = bloqueada;
 		}
+		
+		
+		@Override
+		public String toString() {
+			return "\n-"+nombre + "\nDescripcion:" + descripcion + "\nEstado=" + estado + ", progreso="
+					+ progreso + "\n";
+		}
 
-		
-		
+
 		public void trabajar() {
 
 			if(estado.equals("COMPLETADA")) {
