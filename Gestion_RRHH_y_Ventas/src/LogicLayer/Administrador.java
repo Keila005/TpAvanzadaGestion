@@ -537,26 +537,41 @@ public class Administrador extends Usuario{
 			    gestionarBonos();
 			    break;
 			case 6:
-				String[] subopcion= {"Ver ausencias","Validar asistencia ","Modificar asistencia","Volver"};
-				int subElegir=-1;
-				do {
-					subElegir=JOptionPane.showOptionDialog(null, "Elige asistencia:", "Asistencia", 
-							0, 0, null, subopcion, subopcion[0]);
-					
-					switch (subElegir) {
-					case 0:
-						verAusenciasTodos();
-						break;
-					case 1:
-						validarAsistencia();
-						break;
-					case 2:
-						 modificarAsistencia();
-						break;
-					
-					}
-				} while (subElegir!=3);
-			    
+			case 6:
+
+			    String[] subopcion = {
+			            "Ver ausencias",
+			            "Validar asistencia",
+			            "Volver"
+			    };
+
+			    int subElegir = -1;
+
+			    do {
+
+			        subElegir = JOptionPane.showOptionDialog(
+			                null,
+			                "Elige asistencia:",
+			                "Asistencia",
+			                0,
+			                0,
+			                null,
+			                subopcion,
+			                subopcion[0]);
+
+			        switch (subElegir) {
+
+			        case 0:
+			            verAusenciasTodos();
+			            break;
+
+			        case 1:
+			            validarAsistencia();
+			            break;
+			        }
+
+			    } while (subElegir != 2);
+
 			    break;
 				}
 			}while(opcion!= 7);
