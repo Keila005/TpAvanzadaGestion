@@ -6,22 +6,27 @@ public class Reunion {
 
     private int idReunion;
     private String titulo;
-    private String descripcion;
     private LocalDate fecha;
+    private String descripcion;
     private int idProyecto;
 
     public Reunion() {
     }
 
-    public Reunion(
-            String titulo,
-            String descripcion,
-            LocalDate fecha,
-            int idProyecto) {
-
+    public Reunion(String titulo, LocalDate fecha, String descripcion, int idProyecto) {
         this.titulo = titulo;
-        this.descripcion = descripcion;
         this.fecha = fecha;
+        this.descripcion = descripcion;
+        this.idProyecto = idProyecto;
+    }
+
+    public Reunion(int idReunion, String titulo, LocalDate fecha,
+                   String descripcion, int idProyecto) {
+
+        this.idReunion = idReunion;
+        this.titulo = titulo;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
         this.idProyecto = idProyecto;
     }
 
@@ -41,14 +46,6 @@ public class Reunion {
         this.titulo = titulo;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public LocalDate getFecha() {
         return fecha;
     }
@@ -57,11 +54,28 @@ public class Reunion {
         this.fecha = fecha;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public int getIdProyecto() {
         return idProyecto;
     }
 
     public void setIdProyecto(int idProyecto) {
         this.idProyecto = idProyecto;
+    }
+
+    @Override
+    public String toString() {
+        return "Reunion [idReunion=" + idReunion
+                + ", titulo=" + titulo
+                + ", fecha=" + fecha
+                + ", descripcion=" + descripcion
+                + ", idProyecto=" + idProyecto + "]";
     }
 }
