@@ -113,8 +113,7 @@ public void agregarEvaluacion(Evaluacion360 e) {
 
 @Override
 public String toString() {
-	return "Operativo:\niID=" + idOperativo + "\nRol=" + Rol + "\nRendimiento=" + rendimiento+" %"
-			+ "\nTareasAsignadas=" + (tareasAsignadas.isEmpty() ? "No hay tareas asignadas" : tareasAsignadas) + "\n";
+	return "Operativo:\niID=" + idOperativo + "\nRol=" + Rol + "\nRendimiento=" + rendimiento+" %";
 }
 @Override
 public void Menu() {

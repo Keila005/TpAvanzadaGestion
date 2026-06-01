@@ -170,9 +170,7 @@ public class Administrador extends Usuario{
 
 	    } else {
 
-	        double comision = Double.parseDouble(
-	                JOptionPane.showInputDialog("Comisión:")
-	        );
+	       
 
 	        usuarioController.crearVendedor(
 	                nombre,
@@ -180,8 +178,8 @@ public class Administrador extends Usuario{
 	                mail,
 	                Hashing.hash(contrasenia),
 	                dni,
-	                sueldoBase,
-	                comision
+	                sueldoBase
+	                
 	        );
 	    }
 
@@ -537,7 +535,7 @@ public class Administrador extends Usuario{
 			    gestionarBonos();
 			    break;
 			case 6:
-				String[] subopcion= {"Ver ausencias","Validar asistencia ","Modificar asistencia","Volver"};
+				String[] subopcion= {"Ver ausencias","Validar asistencia ","Volver"};
 				int subElegir=-1;
 				do {
 					subElegir=JOptionPane.showOptionDialog(null, "Elige asistencia:", "Asistencia", 
@@ -550,12 +548,9 @@ public class Administrador extends Usuario{
 					case 1:
 						validarAsistencia();
 						break;
-					case 2:
-						 modificarAsistencia();
-						break;
 					
 					}
-				} while (subElegir!=3);
+				} while (subElegir!=2);
 			    
 			    break;
 				}

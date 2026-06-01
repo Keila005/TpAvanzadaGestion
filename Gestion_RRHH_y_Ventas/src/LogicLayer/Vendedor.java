@@ -15,7 +15,7 @@ public class Vendedor extends Empleado {
 	
 	private int idVendedor;
 	private Venta venta;
-	private double comision;
+//	private double comision;
 	private int ventasTotales;
 	private static LinkedList<Venta> historialVentas;
 	
@@ -34,12 +34,6 @@ public class Vendedor extends Empleado {
 		this.ventasTotales = ventasTotales;
 	}
 	
-	public Vendedor(String nombre, String apellido, String mail,
-	        String contrasenia, int dni, double sueldoBase,
-	        LocalDate fechaContratacion, int faltas,
-	        double comision, int ventasTotales) {
-		this.comision = comision;
-	}
 
 public Vendedor(int idVendedor, int ventasTotales) {
 		super();
