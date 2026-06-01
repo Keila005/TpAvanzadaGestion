@@ -129,15 +129,15 @@ public class ControllerUsuario {
                             asis.registrarEntrada(idEmpleado);
                             javax.swing.JOptionPane.showMessageDialog(null, "Entrada registrada a las " + fechaHora);
                         }
-//=======
-//                        usuario = new Vendedor(nombre,apellido,email,pass,0,0,null,0,                          
-//                            venRs.getInt("ventas_totales")
-//                        );
-//
-//                        ((Vendedor) usuario).setIdEmpleado(
-//                                venRs.getInt("id_empleado")
-//                        );
-//>>>>>>> enni
+
+                       usuario = new Vendedor(nombre,apellido,email,pass,0,0,null,0,                          
+                            venRs.getInt("ventas_totales")
+                        );
+
+                        ((Vendedor) usuario).setIdEmpleado(
+                                venRs.getInt("id_empleado")
+                        );
+
 
                         
                         return usuario;

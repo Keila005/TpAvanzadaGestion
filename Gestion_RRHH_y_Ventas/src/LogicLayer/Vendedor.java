@@ -71,9 +71,10 @@ public static void setController(ControllerProducto controller) {
 	@Override
 	public void Menu() {
 
+
 		String[] opcioneses = {
 				"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Vender","Salir"
-//				"Productos disponibles","Ingreso/Egreso del producto","Configurar stock","Historial prendas","Historial ventas","Salir"	
+//				
 			};
 		int opciones;
 		do {
@@ -138,8 +139,7 @@ public static void setController(ControllerProducto controller) {
 			};
 			int opcion;
 			do {
-
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor: "+this.getNombre()+" "+this.getApellido(), "Menu de Vendedor", 0, 0, null, opciones2, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Menu de Vendedor", 0, 0, null, opciones2, opciones);
 
 				switch (opcion) {
 				case 0:
