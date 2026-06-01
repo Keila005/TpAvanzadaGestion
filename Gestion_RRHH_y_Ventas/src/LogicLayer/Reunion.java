@@ -13,20 +13,17 @@ public class Reunion {
     public Reunion() {
     }
 
-    public Reunion(String titulo, LocalDate fecha, String descripcion, int idProyecto) {
+    public Reunion(String titulo, LocalDate fecha, int idProyecto) {
         this.titulo = titulo;
         this.fecha = fecha;
-        this.descripcion = descripcion;
         this.idProyecto = idProyecto;
     }
 
-    public Reunion(int idReunion, String titulo, LocalDate fecha,
-                   String descripcion, int idProyecto) {
+    public Reunion(int idReunion, String titulo, LocalDate fecha, int idProyecto) {
 
         this.idReunion = idReunion;
         this.titulo = titulo;
         this.fecha = fecha;
-        this.descripcion = descripcion;
         this.idProyecto = idProyecto;
     }
 
