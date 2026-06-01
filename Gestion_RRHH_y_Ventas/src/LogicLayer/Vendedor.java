@@ -71,8 +71,6 @@ public static void setController(ControllerProducto controller) {
 	@Override
 	public void Menu() {
 
-<<<<<<< HEAD
-=======
 		String[] opcioneses = {
 				"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Vender","Salir"
 //				"Productos disponibles","Ingreso/Egreso del producto","Configurar stock","Historial prendas","Historial ventas","Salir"	
@@ -133,19 +131,16 @@ public static void setController(ControllerProducto controller) {
 			}// FIN DEL SWITCH
 			}while(opciones!=4);
 
->>>>>>> origin/enni
+
 		
-		String[] opciones = {
 		String[] opciones2 = {
 				"Stock","Venta","Perfil Laboral","Historial de ventas","Salir"	
 			};
 			int opcion;
 			do {
-<<<<<<< HEAD
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor: "+this.getNombre()+" "+this.getApellido(), "Menu de Vendedor", 0, 0, null, opciones, opciones);
-=======
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Menu de Vendedor", 0, 0, null, opciones2, opciones);
->>>>>>> origin/enni
+
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor: "+this.getNombre()+" "+this.getApellido(), "Menu de Vendedor", 0, 0, null, opciones2, opciones);
+
 				switch (opcion) {
 				case 0:
 					
