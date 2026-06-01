@@ -1,7 +1,11 @@
 package DLL;
 
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+
 import com.mysql.jdbc.Connection;
+
+import LogicLayer.Reunion;
 
 public class ControllerReunion {
 
@@ -10,7 +14,7 @@ public class ControllerReunion {
 
     public void crearReunion(
             String titulo,
-            String fecha,
+            LocalDate fechaReunion,
             int idProyecto) {
 
         try {
@@ -20,11 +24,11 @@ public class ControllerReunion {
 
                     "INSERT INTO reunion "
                     + "(titulo,fecha,id_proyecto) "
-                    + "VALUES (?,?,?,?)"
+                    + "VALUES (?,?,?)"
             );
 
             stmt.setString(1, titulo);
-            stmt.setString(2, fecha);
+            stmt.setDate(2, java.sql.Date.valueOf(fechaReunion));
             stmt.setInt(3, idProyecto);
 
             stmt.executeUpdate();

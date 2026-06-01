@@ -6,24 +6,15 @@ public class Reunion {
 
     private int idReunion;
     private String titulo;
-    private LocalDate fecha;
-    private String descripcion;
+    private LocalDate fechaReunion;
     private int idProyecto;
 
-    public Reunion() {
-    }
 
-    public Reunion(String titulo, LocalDate fecha, int idProyecto) {
-        this.titulo = titulo;
-        this.fecha = fecha;
-        this.idProyecto = idProyecto;
-    }
-
-    public Reunion(int idReunion, String titulo, LocalDate fecha, int idProyecto) {
+    public Reunion(int idReunion, String titulo, LocalDate fechaReunion, int idProyecto) {
 
         this.idReunion = idReunion;
         this.titulo = titulo;
-        this.fecha = fecha;
+        this.fechaReunion = fechaReunion;
         this.idProyecto = idProyecto;
     }
 
@@ -43,20 +34,12 @@ public class Reunion {
         this.titulo = titulo;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDate getFechaReunion() {
+        return fechaReunion;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setFechaReunion(LocalDate fechaReunion) {
+        this.fechaReunion = fechaReunion;
     }
 
     public int getIdProyecto() {
@@ -71,8 +54,7 @@ public class Reunion {
     public String toString() {
         return "Reunion [idReunion=" + idReunion
                 + ", titulo=" + titulo
-                + ", fecha=" + fecha
-                + ", descripcion=" + descripcion
+                + ", fecha=" + fechaReunion
                 + ", idProyecto=" + idProyecto + "]";
     }
 }

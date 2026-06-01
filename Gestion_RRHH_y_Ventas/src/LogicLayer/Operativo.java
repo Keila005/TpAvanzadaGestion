@@ -446,10 +446,9 @@ public void Menu() {
 									            new Reunion(
 									                    titulo,
 									                    fechaReunion,
-									                    descripcionReunion,
 									                    idProyectoReunion);
 
-									    reunionController.crearReunion(titulo, descripcionReunion, sentimiento, idProyectoReunion);
+									    reunionController.crearReunion(titulo, fechaReunion, idProyectoReunion);
 
 									    JOptionPane.showMessageDialog(
 									            null,
