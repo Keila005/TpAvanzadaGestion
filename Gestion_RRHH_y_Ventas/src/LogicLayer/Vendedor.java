@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import DLL.ControllerComentario;
 import DLL.ControllerProducto;
 import DLL.ControllerVenta;
+import DLL.ControllerStock;
 import LogicLayer.detalle_venta;
 
 
@@ -131,39 +132,52 @@ public static void setController(ControllerProducto controller) {
 
 							    break;
 							case 1:
-								
-								String nombre = JOptionPane.showInputDialog(
-								        "Ingrese el nombre del producto"
-								);
-								if(nombre == null) {
-								    break;
-								}
-								
-								String precioTexto = JOptionPane.showInputDialog(
-								        "Ingrese el precio"
-								);
+							
 
-								if(precioTexto == null) {
-								    break;
-								}
+							    String nombre = JOptionPane.showInputDialog(
+							            "Ingrese el nombre del producto"
+							    );
 
-								double precio = Double.parseDouble(precioTexto);
-								
-								
-								Producto producto = new Producto(
-								        0,
-								        nombre,
-								        precio
-								);
+							    if(nombre == null) {
+							        break;
+							    }
 
-								ControllerProducto controllerProducto = new ControllerProducto();
+							    String precioTexto = JOptionPane.showInputDialog(
+							            "Ingrese el precio"
+							    );
 
-								controllerProducto.agregarProducto(producto);
+							    if(precioTexto == null) {
+							        break;
+							    }
 
-								JOptionPane.showMessageDialog(
-								        null,
-								        "Producto agregado correctamente"
-								);
+							    double precio = Double.parseDouble(
+							            precioTexto
+							    );
+
+							    String cantidadTexto = JOptionPane.showInputDialog(
+							            "Ingrese stock inicial"
+							    );
+
+							    if(cantidadTexto == null) {
+							        break;
+							    }
+
+							    int cantidad = Integer.parseInt(
+							            cantidadTexto
+							    );
+
+							    Producto producto = new Producto(
+							            0,
+							            nombre,
+							            precio
+							    );
+
+							    ControllerProducto controllerProducto =
+							            new ControllerProducto();
+
+							    controllerProducto.agregarProducto(
+							            producto
+							    );
 							
 								break; //fin de agregar producto
 							case 2:
@@ -270,6 +284,21 @@ public static void setController(ControllerProducto controller) {
 
 				        int cantidad =
 				                Integer.parseInt(cantidadTexto);
+				        
+				        ControllerStock controllerStock =
+				                new ControllerStock();
+
+				        if(!controllerStock.hayStock(
+				                producto.getIdproducto(),
+				                cantidad)) {
+
+				            JOptionPane.showMessageDialog(
+				                    null,
+				                    "No hay stock suficiente"
+				            );
+
+				            break;
+				        }
 
 				        detalle_venta detalle =
 				                new detalle_venta(
@@ -278,6 +307,19 @@ public static void setController(ControllerProducto controller) {
 				                );
 
 				        venta.agregarDetalle(detalle);
+				        
+				        ControllerStock registroStock =
+				                new ControllerStock();
+
+				        registroStock.registrarMovimiento(
+
+				            new Stock(
+				                producto,
+				                cantidad,
+				                LocalDate.now(),
+				                "VENTA"
+				            )
+				        );
 
 				        seguir = JOptionPane.showConfirmDialog(
 				                null,
@@ -295,6 +337,7 @@ public static void setController(ControllerProducto controller) {
 
 				    	break;
 				    }
+				    
 				    
 				    String resumen = "";
 
@@ -327,6 +370,7 @@ public static void setController(ControllerProducto controller) {
 				            null,
 				            "Venta registrada correctamente"
 				    );
+				    
 
 				   
 					

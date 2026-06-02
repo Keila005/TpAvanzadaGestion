@@ -96,7 +96,7 @@ public Producto BuscarProducto() {
 	
 	
 	
-	public void agregarProducto(Producto producto) {
+	public int agregarProducto(Producto producto) {
 
 	    try {
 
