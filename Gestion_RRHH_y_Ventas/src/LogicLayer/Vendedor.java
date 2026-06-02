@@ -70,76 +70,16 @@ public static void setController(ControllerProducto controller) {
 	
 	@Override
 	public void Menu() {
-
-
-		String[] opcioneses = {
-				"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Vender","Salir"
-//				
-			};
-		int opciones;
-		do {
-			opciones = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Vendedor", 0, 0, null, opcioneses, opcioneses);
-			switch (opciones) {
-			case 0:
-				JOptionPane.showMessageDialog(null, "Datos personales\nFaltas\nSueldo\nBonos\nRendimiento");
-				break;
-			case 1:
-			    SolicitarPermiso();
-				break;
-			case 2:// COMENTAR
-				String comentario=Validador.ValidarString("Escriba un comentario sobre el clima laboral");
-				LocalDate fechaComentario= LocalDate.now();
-				String[] sentimientos = {"Positivo","Neutro","Negativo"};
-
-				String sentimiento = (String)JOptionPane.showInputDialog(
-				        null,"Seleccione su sentimiento","Comentario Anónimo",
-				        JOptionPane.QUESTION_MESSAGE,
-				        null,sentimientos,sentimientos[0]
-				);
-				if(sentimiento != null) {
-					comentarioController.agregarComentarios(
-							new ComentarioAnonimo(comentario,fechaComentario,sentimiento));
-				}
-				break;
-			case 3:
-				String vender[]= {"Ver productos","Ingreso del producto","Registrar venta",
-			"Ver historial de ventas","Ver historial de productos","Volver"};
-				int elegir;
-				do {
-					elegir=JOptionPane.showOptionDialog(null, "Elige la accion que quiere realizar","Vendedor", 
-							0, 0, null, vender, vender[0]);
-					switch (elegir) {
-					case 0:
-						JOptionPane.showMessageDialog(null, "Se ven todos los productos");
-						break;
-					case 1:
-						JOptionPane.showMessageDialog(null, "Agregar productos");
-						break;
-					case 2:
-						JOptionPane.showMessageDialog(null, "Realizar una venta donde se descuenta la cantidad "
-								+ "y genera un comprobante");
-						break;
-					case 3:
-						JOptionPane.showMessageDialog(null, "Se ve el historia de ventas que hizo el vendedor");
-						break;
-					case 4:
-						JOptionPane.showMessageDialog(null, "Se ve el historial de todos los productos vendidos");
-						break;
-
-					
-					}
-				} while (elegir!=5);
-			}// FIN DEL SWITCH
-			}while(opciones!=4);
-
-
 		
 		String[] opciones2 = {
 				"Stock","Venta","Perfil Laboral","Historial de ventas","Salir"	
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Menu de Vendedor", 0, 0, null, opciones2, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Menu de Vendedor", 0, 0, null, opciones2, opciones2);
+				if(opcion == -1) {
+				    opcion = 4; // Salir
+				}
 
 				switch (opcion) {
 				case 0:
@@ -150,6 +90,9 @@ public static void setController(ControllerProducto controller) {
 						int opcionstock;
 						do {
 							opcionstock = JOptionPane.showOptionDialog(null, "Menu de Stock", "Stock", 0, 0, null, menustock, menustock);
+							if(opcionstock == -1) {
+							    opcionstock = 4;
+							}
 							switch (opcionstock) {
 							
 							case 0:
@@ -192,13 +135,21 @@ public static void setController(ControllerProducto controller) {
 								String nombre = JOptionPane.showInputDialog(
 								        "Ingrese el nombre del producto"
 								);
-
-								double precio = Double.parseDouble(
-								        JOptionPane.showInputDialog(
-								                "Ingrese el precio"
-								        )
+								if(nombre == null) {
+								    break;
+								}
+								
+								String precioTexto = JOptionPane.showInputDialog(
+								        "Ingrese el precio"
 								);
 
+								if(precioTexto == null) {
+								    break;
+								}
+
+								double precio = Double.parseDouble(precioTexto);
+								
+								
 								Producto producto = new Producto(
 								        0,
 								        nombre,
@@ -220,20 +171,34 @@ public static void setController(ControllerProducto controller) {
 
 							    Producto elegidoM =
 							            controller.BuscarProducto();
+							    
+							    if(elegidoM == null) {
+							        break;
+							    }
 
 							    if(elegidoM != null) {
+							    	
+							    	String nuevoNombre = JOptionPane.showInputDialog(
+							    	        "Ingrese el nuevo nombre",
+							    	        elegidoM.getNombre()
+							    	);
 
-							        String nuevoNombre = JOptionPane.showInputDialog(
-							                "Ingrese el nuevo nombre",
-							                elegidoM.getNombre()
-							        );
+							    	if(nuevoNombre == null) {
+							    	    break;
+							    	}
 
-							        double nuevoPrecio = Double.parseDouble(
-							                JOptionPane.showInputDialog(
-							                        "Ingrese el nuevo precio",
-							                        elegidoM.getPrecio()
-							                )
-							        );
+							    	String nuevoprecioTexto = JOptionPane.showInputDialog(
+							    	        "Ingrese el nuevo precio",
+							    	        elegidoM.getPrecio()
+							    	);
+
+							    	if(nuevoprecioTexto == null) {
+							    	    break;
+							    	}
+
+							    	double nuevoPrecio =
+							    	        Double.parseDouble(nuevoprecioTexto);
+
 
 							        elegidoM.setNombre(nuevoNombre);
 							        elegidoM.setPrecio(nuevoPrecio);
@@ -250,6 +215,11 @@ public static void setController(ControllerProducto controller) {
 
 								Producto elegidoE =
 						        controller.BuscarProducto();
+								
+
+								if(elegidoE == null) {
+								    break;
+								}
 
 						int confir = JOptionPane.showConfirmDialog(
 						        null,
@@ -284,12 +254,22 @@ public static void setController(ControllerProducto controller) {
 
 				        Producto producto =
 				                controller.BuscarProducto();
+				        
+				        if(producto == null) {
+				            break;
+				        }
 
-				        int cantidad = Integer.parseInt(
+				        String cantidadTexto =
 				                JOptionPane.showInputDialog(
 				                        "Ingrese cantidad"
-				                )
-				        );
+				                );
+
+				        if(cantidadTexto == null) {
+				            break;
+				        }
+
+				        int cantidad =
+				                Integer.parseInt(cantidadTexto);
 
 				        detalle_venta detalle =
 				                new detalle_venta(
@@ -353,6 +333,10 @@ public static void setController(ControllerProducto controller) {
 						int opcionpersonal;
 						do {
 							opcionpersonal = JOptionPane.showOptionDialog(null, "Menu de Perfil Laborar", "Perfil Laboral", 0, 0, null, menupersonal, menupersonal);
+							if(opcionpersonal == -1) {
+							    opcionpersonal = 3;
+							}
+							
 							switch (opcionpersonal) {
 							case 0:
 								
