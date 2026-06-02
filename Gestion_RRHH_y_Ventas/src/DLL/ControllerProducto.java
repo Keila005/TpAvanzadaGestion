@@ -26,6 +26,16 @@ public Producto BuscarProducto() {
         LinkedList<Producto> productos =
                 mostrarProductos();
 
+        if(productos.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No hay productos registrados"
+            );
+
+            return null;
+        }
+
         String lista = "";
 
         for(Producto p : productos) {
@@ -42,27 +52,47 @@ public Producto BuscarProducto() {
                 lista
         );
 
-        int id = Integer.parseInt(
-                JOptionPane.showInputDialog(
-                        "Ingrese el ID del producto"
-                )
+        String texto = JOptionPane.showInputDialog(
+                "Ingrese el ID del producto"
         );
+
+        if(texto == null || texto.trim().isEmpty()) {
+            return null;
+        }
+
+        int id = Integer.parseInt(texto);
 
         for(Producto p : productos) {
 
             if(p.getIdproducto() == id) {
 
                 elegido = p;
+                break;
             }
         }
 
+        if(elegido == null) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No existe un producto con ese ID"
+            );
+        }
+
+    } catch(NumberFormatException e) {
+
+        JOptionPane.showMessageDialog(
+                null,
+                "Debe ingresar un número válido"
+        );
+
     } catch(Exception e) {
+
         e.printStackTrace();
     }
 
     return elegido;
 }
-	
 	
 	
 	

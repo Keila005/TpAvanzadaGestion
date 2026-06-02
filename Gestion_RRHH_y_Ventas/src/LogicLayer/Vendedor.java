@@ -284,8 +284,17 @@ public static void setController(ControllerProducto controller) {
 				                "¿Agregar otra prenda?"
 				        );
 
-				    } while(seguir == JOptionPane.YES_OPTION);
+				    }  while(seguir == JOptionPane.YES_OPTION);
 
+				    if(venta.getDetalles().isEmpty()) {
+
+				    	JOptionPane.showMessageDialog(
+				    			null,
+				    			"Venta cancelada"
+				    			);
+
+				    	break;
+				    }
 				    
 				    String resumen = "";
 
