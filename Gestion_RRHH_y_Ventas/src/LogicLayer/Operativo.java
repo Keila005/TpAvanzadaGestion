@@ -3,7 +3,6 @@ package LogicLayer;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-import LogicLayer.Reunion;
 
 import DLL.ControllerTarea;
 import DLL.ControllerComentario;
@@ -442,12 +441,6 @@ public void Menu() {
 									                            "Fecha (AAAA-MM-DD)")
 									            );
 
-									    Reunion reunion =
-									            new Reunion(
-									                    titulo,
-									                    fechaReunion,
-									                    idProyectoReunion);
-
 									    reunionController.crearReunion(titulo, fechaReunion, idProyectoReunion);
 
 									    JOptionPane.showMessageDialog(
@@ -669,7 +662,12 @@ public void Menu() {
 
 										break;
 									case 1:
-								JOptionPane.showMessageDialog(null, "Ver reuniones que hay");
+										ControllerReunion cr =
+								        new ControllerReunion();
+
+								LinkedList<Proyecto> proyectos =
+								        proyectoController.obtenerProyectosMiembro(
+								                this.getIdOperativo());
 										break;
 									case 2:
 										ControllerEvaluacion ce = new ControllerEvaluacion();
@@ -797,7 +795,7 @@ public double calcularRendimientoGrupal() {
 
     if(evaluacionesRecibidas.isEmpty()) {
     	JOptionPane.showMessageDialog(null, "Nadie hizo la evaluacion 360°");
-        return 0;
+        return 0;   
     }
 
     int suma = 0;
