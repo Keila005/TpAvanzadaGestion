@@ -166,7 +166,7 @@ public class ControllerVenta {
 	                    + rs.getString("apellido")
 	                    + " - Ventas realizadas: "
 	                    + rs.getInt("totalVentas")
-	                    + "\n- - - - - - - - -\n";
+	                    + "\n- - - - - - - - -s\n";
 
 	            posicion++;
 	        }
@@ -180,6 +180,85 @@ public class ControllerVenta {
 	    return ranking;
 	}
 	
+	
+	public String obtenerProductoMasVendido() {
+
+	    String resultado = "";
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT p.nombre, " +
+	            "SUM(d.cantidad) AS totalVendido " +
+	            "FROM detalle_venta d " +
+	            "INNER JOIN producto p " +
+	            "ON d.id_producto = p.id_producto " +
+	            "GROUP BY p.id_producto, p.nombre " +
+	            "ORDER BY totalVendido DESC " +
+	            "LIMIT 1"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+
+	            resultado =
+	                    "Producto más vendido:\n\n"
+	                    + rs.getString("nombre")
+	                    + "\nCantidad vendida: "
+	                    + rs.getInt("totalVendido");
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return resultado;
+	}
+	
+	
+	public String obtenerProductoMenosVendido() {
+
+	    String resultado = "";
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT p.nombre, " +
+	            "SUM(d.cantidad) AS totalVendido " +
+	            "FROM detalle_venta d " +
+	            "INNER JOIN producto p " +
+	            "ON d.id_producto = p.id_producto " +
+	            "GROUP BY p.id_producto, p.nombre " +
+	            "ORDER BY totalVendido ASC " +
+	            "LIMIT 1"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+
+	            resultado =
+	                    "Producto menos vendido:\n\n"
+	                    + rs.getString("nombre")
+	                    + "\nCantidad vendida: "
+	                    + rs.getInt("totalVendido");
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return resultado;
+	}
 	
 	
 }// fin de clase controller
