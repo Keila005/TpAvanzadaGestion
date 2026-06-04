@@ -181,7 +181,7 @@ public int agregarProducto(Producto producto) {
 	    try {
 
 	        PreparedStatement stmt = con.prepareStatement(
-	            "SELECT * FROM producto"
+	        		"SELECT * FROM producto WHERE activo = 1"
 	        );
 
 	        ResultSet rs = stmt.executeQuery();
@@ -216,19 +216,27 @@ public int agregarProducto(Producto producto) {
 
 	    try {
 
-	        PreparedStatement statement = con.prepareStatement(
-	            "DELETE FROM producto WHERE id_producto = ?"
+	        PreparedStatement statement =
+	                con.prepareStatement(
+
+	            "UPDATE producto " +
+	            "SET activo = 0 " +
+	            "WHERE id_producto = ?"
 	        );
 
-	        statement.setInt(1, producto.getIdproducto());
+	        statement.setInt(
+	                1,
+	                producto.getIdproducto()
+	        );
 
-	        int filas = statement.executeUpdate();
+	        int filas =
+	                statement.executeUpdate();
 
 	        if(filas > 0) {
 
 	            JOptionPane.showMessageDialog(
-	                null,
-	                "Producto eliminado correctamente."
+	                    null,
+	                    "Producto eliminado correctamente."
 	            );
 	        }
 
