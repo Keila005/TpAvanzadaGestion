@@ -407,7 +407,7 @@ public class Administrador extends Usuario{
 				case 2:
 					
 					String[] ver = {"Rendimiento:Operativo","Rendimiento:Vendedor",
-							"Rendimiento:Productos","Clima laboral","Salir"};
+							"Rendimiento:Productos","ver todas las ventas","Clima laboral","Salir"};
 					int opcionVer;
 					do {
 						opcionVer= JOptionPane.showOptionDialog(null, "Elija que rendimiento quiere ver", 
@@ -496,7 +496,37 @@ public class Administrador extends Usuario{
 							
 							
 							break;
-						case 3: // comentarios
+							
+							
+						case 3:
+
+						    ControllerVenta lista =
+						            new ControllerVenta();
+
+						    String ventas =
+						            lista.mostrarTodasLasVentas();
+
+						    if(ventas.isEmpty()) {
+
+						        JOptionPane.showMessageDialog(
+						                null,
+						                "No hay ventas registradas"
+						        );
+
+						    } else {
+
+						        JOptionPane.showMessageDialog(
+						                null,
+						                ventas,
+						                "Todas las ventas",
+						                JOptionPane.INFORMATION_MESSAGE
+						        );
+						    }
+
+						    break;
+							
+							
+						case 4: // comentarios
 			LinkedList<ComentarioAnonimo> comentarios =comentarioController.verComentarios();
 
 					    if(comentarios.isEmpty()) {
@@ -521,7 +551,7 @@ public class Administrador extends Usuario{
 					    }
 							break;
 						}
-					} while (opcionVer!=4);
+					} while (opcionVer!=5);
 					break;
 				case 3:
 				    gestionarSolicitudes();

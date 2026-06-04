@@ -260,6 +260,55 @@ public class ControllerVenta {
 	    return resultado;
 	}
 	
+	public String mostrarTodasLasVentas() {
+
+	    String ventas = "";
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT v.id_venta, " +
+	            "v.fecha, " +
+	            "v.total, " +
+	            "u.nombre, " +
+	            "u.apellido " +
+	            "FROM venta v " +
+	            "INNER JOIN empleado e " +
+	            "ON v.id_vendedor = e.id_empleado " +
+	            "INNER JOIN usuario u " +
+	            "ON e.id_usuario = u.id_usuario " +
+	            "ORDER BY v.fecha DESC"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            ventas +=
+	                    "ID Venta: "
+	                    + rs.getInt("id_venta")
+	                    + "\nVendedor: "
+	                    + rs.getString("nombre")
+	                    + " "
+	                    + rs.getString("apellido")
+	                    + "\nFecha: "
+	                    + rs.getDate("fecha")
+	                    + "\nTotal: $"
+	                    + rs.getDouble("total")
+	                    + "\n----------------------\n";
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return ventas;
+	}
+	
 	
 }// fin de clase controller
 	

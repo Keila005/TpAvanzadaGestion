@@ -57,5 +57,74 @@ public interface Validador {
 		
 		return dato;
 	}
+	
+	public static int ValidarInt(String mensaje) {
+
+	    while(true) {
+
+	        try {
+
+	            String texto =
+	                    JOptionPane.showInputDialog(
+	                            mensaje
+	                    );
+
+	            if(texto == null) {
+	                throw new RuntimeException(
+	                        "Cancelado"
+	                );
+	            }
+
+	            return Integer.parseInt(
+	                    texto
+	            );
+
+	        } catch(NumberFormatException e) {
+
+	            JOptionPane.showMessageDialog(
+	                    null,
+	                    "Debe ingresar un número entero"
+	            );
+	        }
+	    }
+	}
+	
+	
+	
+	public static double ValidarDouble(
+	        String mensaje
+	) {
+
+	    while(true) {
+
+	        try {
+
+	            String texto =
+	                    JOptionPane.showInputDialog(
+	                            mensaje
+	                    );
+
+	            if(texto == null) {
+	                throw new RuntimeException(
+	                        "Cancelado"
+	                );
+	            }
+
+	            return Double.parseDouble(
+	                    texto
+	            );
+
+	        } catch(NumberFormatException e) {
+
+	            JOptionPane.showMessageDialog(
+	                    null,
+	                    "Debe ingresar el precio correctamente"
+	            );
+	        }
+	    }
+	}
+	
+	
+	
 
 }
