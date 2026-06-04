@@ -133,6 +133,8 @@ public class ControllerUsuario {
                        usuario = new Vendedor(nombre,apellido,email,pass,0,0,null,0,                          
                             venRs.getInt("ventas_totales")
                         );
+                       
+                       usuario.setIdUsuario(idUsuario);
 
                         ((Vendedor) usuario).setIdEmpleado(
                                 venRs.getInt("id_empleado")
