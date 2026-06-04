@@ -154,29 +154,15 @@ public static void setController(ControllerProducto controller) {
 							        break;
 							    }
 
-							    String precioTexto = JOptionPane.showInputDialog(
-							            "Ingrese el precio"
-							    );
+							    double precio =
+							            Validador.ValidarDouble(
+							                    "Ingrese el precio"
+							            );
 
-							    if(precioTexto == null) {
-							        break;
-							    }
-
-							    double precio = Double.parseDouble(
-							            precioTexto
-							    );
-
-							    String cantidadTexto = JOptionPane.showInputDialog(
-							            "Ingrese stock inicial"
-							    );
-
-							    if(cantidadTexto == null) {
-							        break;
-							    }
-
-							    int cantidad = Integer.parseInt(
-							            cantidadTexto
-							    );
+							    int cantidad =
+							            Validador.ValidarInt(
+							                    "Ingrese cantidad de stock inicial"
+							            );
 
 							    Producto producto = new Producto(
 							            0,
@@ -223,19 +209,10 @@ public static void setController(ControllerProducto controller) {
 							        break;
 							    }
 
-							    String cantidadStockTexto =
-							            JOptionPane.showInputDialog(
-							                    "Ingrese la cantidad a agregar"
-							            );
-
-							    if(cantidadStockTexto == null) {
-							        break;
-							    }
-
 							    int cantidadStock =
-							            Integer.parseInt(
-							                    cantidadStockTexto
-							            );
+							            Validador.ValidarInt(
+							                    "Ingrese cantidad de stock inicial"
+							            ); 
 
 							    ControllerStock controllerIngreso =
 							            new ControllerStock();
@@ -277,17 +254,10 @@ public static void setController(ControllerProducto controller) {
 							    	    break;
 							    	}
 
-							    	String nuevoprecioTexto = JOptionPane.showInputDialog(
-							    	        "Ingrese el nuevo precio",
-							    	        elegidoM.getPrecio()
-							    	);
-
-							    	if(nuevoprecioTexto == null) {
-							    	    break;
-							    	}
-
 							    	double nuevoPrecio =
-							    	        Double.parseDouble(nuevoprecioTexto);
+								            Validador.ValidarDouble(
+								                    "Ingrese el precio"
+								            );
 
 
 							        elegidoM.setNombre(nuevoNombre);
