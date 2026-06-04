@@ -125,5 +125,33 @@ public class ControllerProyecto {
 
 	    return listaProyectos;
 		}
+	public int obtenerProyectoMiembro(int idOperativo) {
+
+	    int idProyecto = -1;
+
+	    try {
+
+	        String sql =
+	            "SELECT p.id_proyecto " +
+	            "FROM proyecto p " +
+	            "JOIN equipo e ON p.id_equipo = e.id_equipo " +
+	            "JOIN equipo_operativo eo ON eo.id_equipo = e.id_equipo " +
+	            "WHERE eo.id_operativo = ?";
+
+	        PreparedStatement stmt = con.prepareStatement(sql);
+	        stmt.setInt(1, idOperativo);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+	            idProyecto = rs.getInt("id_proyecto");
+	        }
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return idProyecto;
+	}
 	
 }

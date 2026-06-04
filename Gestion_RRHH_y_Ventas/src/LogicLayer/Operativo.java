@@ -9,6 +9,7 @@ import DLL.ControllerComentario;
 import DLL.ControllerEvaluacion;
 import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
+import DLL.ControllerReunion;
 
 public class Operativo extends Empleado implements Validador {
 private int idOperativo;
@@ -397,21 +398,66 @@ public void Menu() {
 								break;
 								//REGISTRAR REUNION
 									case 2:
+										ControllerReunion controllerReunion = new ControllerReunion();
+
 										String nombreReunion =
-												Validador.ValidarString(
-												"Nombre de la reunión");
+										        Validador.ValidarString("Nombre de la reunión");
 
-								String fecha =
-										Validador.ValidarString(
-												"Fecha");
+										String fechaTexto =
+										        Validador.ValidarString(
+										                "Fecha de la reunión (AAAA-MM-DD)");
 
-								JOptionPane.showMessageDialog(
-										null,
-										"Reunión registrada\n"
-										+ nombreReunion
-										+ "\nFecha: "
-										+ fecha);
-								
+										LocalDate fechaReunion =
+										        LocalDate.parse(fechaTexto);
+
+										if(fechaReunion.isBefore(LocalDate.now())) {
+
+										    JOptionPane.showMessageDialog(
+										            null,"La fecha no puede ser anterior a hoy");
+										    
+										    LinkedList<Proyecto> proyec =
+										            proyectoController.obtenerProyectosLider(
+										                    this.getIdOperativo());
+
+										    String[] nombresProyecto =
+										            new String[proyec.size()];
+
+										    for(int i=0;i<proyec.size();i++) {
+
+										        nombresProyecto[i] =
+										        		proyec.get(i).getNombre();
+										    }
+
+										    String proyectoSeleccionado =
+										            (String) JOptionPane.showInputDialog(
+										                    null,
+										                    "Seleccione proyecto",
+										                    "Proyecto",
+										                    JOptionPane.QUESTION_MESSAGE,
+										                    null,
+										                    nombresProyecto,
+										                    nombresProyecto[0]);
+										    
+										    int idProyect = -1;
+
+										    for(Proyecto p : proyec){
+
+										        if(p.getNombre().equals(proyectoSeleccionado)){
+
+										        	idProyect = p.getIdProyecto();
+										        	
+										        	controllerReunion.crearReunion(
+										        	        nombreReunion,
+										        	        fechaReunion,
+										        	        idProyect);
+
+					JOptionPane.showMessageDialog(null,"Reunión registrada correctamente");
+										            break;
+										        }
+										    }
+
+										    break;
+										}
 								break;
 									case 3:// EVALUAR COMPAÑERO
 						ControllerEvaluacion ce = new ControllerEvaluacion();
@@ -631,7 +677,44 @@ public void Menu() {
 
 										break;
 									case 1:
-								JOptionPane.showMessageDialog(null, "Ver reuniones que hay");
+									    ControllerProyecto cp = new ControllerProyecto();
+									    ControllerReunion cr = new ControllerReunion();
+
+									    int idProyecto =
+									            cp.obtenerProyectoMiembro(this.getIdOperativo());
+
+									    if(idProyecto == -1) {
+
+									        JOptionPane.showMessageDialog(
+									                null,
+									                "No pertenece a ningún proyecto");
+									        break;
+									    }
+
+									    LinkedList<Reunion> reuniones =
+									            cr.obtenerReunionesProyecto(idProyecto);
+
+									    if(reuniones.isEmpty()) {
+
+									        JOptionPane.showMessageDialog(
+									                null,
+									                "No hay reuniones registradas");
+									        break;
+									    }
+
+									    String mensaje = "REUNIONES:\n\n";
+
+									    for(Reunion r : reuniones) {
+
+									        mensaje +=
+									                r.getTitulo()
+									                + " - "
+									                + r.getFechaReunion()
+									                + "\n";
+									    }
+
+									    JOptionPane.showMessageDialog(null, mensaje);
+
 										break;
 									case 2:
 										ControllerEvaluacion ce = new ControllerEvaluacion();
