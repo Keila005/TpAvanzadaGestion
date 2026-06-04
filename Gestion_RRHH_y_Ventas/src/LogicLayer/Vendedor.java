@@ -97,7 +97,7 @@ public static void setController(ControllerProducto controller) {
 						do {
 							opcionstock = JOptionPane.showOptionDialog(null, "Menu de Stock", "Stock", 0, 0, null, menustock, menustock);
 							if(opcionstock == -1) {
-							    opcionstock = 4;
+							    opcionstock = 5;
 							}
 							switch (opcionstock) {
 							
@@ -445,8 +445,10 @@ public static void setController(ControllerProducto controller) {
 									elegir=JOptionPane.showOptionDialog(null, "Ver información personal", "Informacion", 0, 0, null, personal, personal);
 									switch (elegir) {
 									case 0:
+										
 										verSueldo();
 										break;
+										
 									case 1:
 										verAusencias();
 										break;
