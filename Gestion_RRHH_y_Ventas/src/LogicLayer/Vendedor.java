@@ -320,17 +320,11 @@ public static void setController(ControllerProducto controller) {
 				            break;
 				        }
 
-				        String cantidadTexto =
-				                JOptionPane.showInputDialog(
-				                        "Ingrese cantidad"
-				                );
-
-				        if(cantidadTexto == null) {
-				            break;
-				        }
-
+				        
 				        int cantidad =
-				                Integer.parseInt(cantidadTexto);
+					            Validador.ValidarInt(
+					                    "Ingrese cantidad"
+					            ); 
 				        
 				        ControllerStock controllerStock =
 				                new ControllerStock();				        
@@ -431,7 +425,7 @@ public static void setController(ControllerProducto controller) {
 				case 2:
 					
 					String[] menupersonal = {
-							"Ver Perfil Laboral","Solicitar vacaciones/permisos","Comentar","Salir"	
+							"Ver informacion personal","Solicitar vacaciones/permisos","Comentar","Salir"	
 						};
 						int opcionpersonal;
 						do {
