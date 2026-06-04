@@ -443,7 +443,57 @@ public class Administrador extends Usuario{
 					}
 							
 						    break;
-						case 2: // productos
+						case 2: // productos rendimientos
+							
+							
+							String[] productos = {
+							        "Producto más vendido",
+							        "Producto menos vendido",
+							        "Volver"
+							};
+
+							int opcionProducto;
+
+							do {
+
+							    opcionProducto =
+							            JOptionPane.showOptionDialog(
+							                    null,
+							                    "Seleccione una opción",
+							                    "Rendimiento de Productos",
+							                    0,
+							                    0,
+							                    null,
+							                    productos,
+							                    productos[0]
+							            );
+
+							    ControllerVenta cp =
+							            new ControllerVenta();
+
+							    switch(opcionProducto) {
+
+							    case 0:
+
+							        JOptionPane.showMessageDialog(
+							                null,
+							                cp.obtenerProductoMasVendido()
+							        );
+
+							        break;
+
+							    case 1:
+
+							        JOptionPane.showMessageDialog(
+							                null,
+							                cp.obtenerProductoMenosVendido()
+							        );
+
+							        break;
+							    }
+
+							} while(opcionProducto != 2);
+							
 							
 							break;
 						case 3: // comentarios
