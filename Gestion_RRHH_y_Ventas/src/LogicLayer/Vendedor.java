@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import DLL.ControllerComentario;
+import DLL.ControllerEvaluacion;
 import DLL.ControllerProducto;
 import DLL.ControllerVenta;
 import DLL.ControllerStock;
@@ -443,6 +444,25 @@ public static void setController(ControllerProducto controller) {
 							case 0:
 								
 								//ver perfil laboral
+								
+								String[] personal = {"Ver mi sueldo","Ver ausencias","Mis datos","Atrás"};
+								int elegir;
+								do {
+									elegir=JOptionPane.showOptionDialog(null, "Ver información personal", "Informacion", 0, 0, null, personal, personal);
+									switch (elegir) {
+									case 0:
+										verSueldo();
+										break;
+									case 1:
+										verAusencias();
+										break;
+
+									case 2:
+										JOptionPane.showMessageDialog(null, this);
+										break;
+									}
+								}while(elegir!=3);
+								
 							
 								break;
 							case 1:
