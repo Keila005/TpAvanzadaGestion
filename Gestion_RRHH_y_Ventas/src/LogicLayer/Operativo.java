@@ -791,8 +791,8 @@ public void Menu() {
 									    }
 
 									    car.registrarAsistencia(
-									            idReunion,
-									            this.getIdOperativo());
+									    	    idReunion,
+									    	    this.getIdEmpleado());
 
 									    JOptionPane.showMessageDialog(
 									            null,
