@@ -12,7 +12,6 @@ import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerUsuario;
 import DLL.Hashing;
-import DLL.ControllerRendimiento;
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
@@ -21,7 +20,6 @@ public class Administrador extends Usuario{
 	 private static ControllerComentario comentarioController = new ControllerComentario();
 	 private static ControllerUsuario usuarioController = new ControllerUsuario();
 	 private static ControllerProyecto proyectoController = new ControllerProyecto();
-	 
 	 
 	
 	public Administrador(String nombre, String apellido, String mail, String contrasenia, int idAdmin,
@@ -529,7 +527,7 @@ public class Administrador extends Usuario{
 			        JOptionPane.showMessageDialog(null, "Empleado no encontrado");
 			    } else {
 			        int horas = Integer.parseInt(JOptionPane.showInputDialog("Cantidad de horas extra:"));
-			        String motivo = JOptionPane.showInputDialog("Motivo: ");
+			        String motivo = JOptionPane.showInputDialog("Motivo:");
 			        asis.registrarHorasExtra(idEmpleado, horas, motivo);
 			    }
 				break;

@@ -2,13 +2,11 @@ package DLL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
+
 import java.util.LinkedList;
 
 import com.mysql.jdbc.Connection;
 
-import LogicLayer.ComentarioAnonimo;
-import LogicLayer.Empleado;
 import LogicLayer.Equipo;
 
 
