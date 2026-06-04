@@ -16,7 +16,6 @@ public class Vendedor extends Empleado {
 	
 	private int idVendedor;
 	private Venta venta;
-//	private double comision;
 	private int ventasTotales;
 	private static LinkedList<Venta> historialVentas;
 	
@@ -175,8 +174,26 @@ public static void setController(ControllerProducto controller) {
 							    ControllerProducto controllerProducto =
 							            new ControllerProducto();
 
-							    controllerProducto.agregarProducto(
-							            producto
+							    int idGenerado =
+							            controllerProducto.agregarProducto(
+							                    producto
+							            );
+
+							    producto.setIdproducto(
+							            idGenerado
+							    );
+							    
+							    ControllerStock controllerStock =
+							            new ControllerStock();
+
+							    controllerStock.registrarMovimiento(
+
+							        new Stock(
+							            producto,
+							            cantidad,
+							            LocalDate.now(),
+							            "INGRESO"
+							        )
 							    );
 							
 								break; //fin de agregar producto

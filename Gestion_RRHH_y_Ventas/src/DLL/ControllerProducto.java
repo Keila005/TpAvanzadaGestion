@@ -96,31 +96,43 @@ public Producto BuscarProducto() {
 	
 	
 	
-	public int agregarProducto(Producto producto) {
+public int agregarProducto(Producto producto) {
 
-	    try {
+    try {
 
-	        PreparedStatement statement = con.prepareStatement(
-	            "INSERT INTO producto(nombre, precio) VALUES (?, ?)"
-	        );
+        PreparedStatement statement = con.prepareStatement(
+            "INSERT INTO producto(nombre, precio) VALUES (?, ?)",
+            PreparedStatement.RETURN_GENERATED_KEYS
+        );
 
-	        statement.setString(1, producto.getNombre());
-	        statement.setDouble(2, producto.getPrecio());
+        statement.setString(1, producto.getNombre());
+        statement.setDouble(2, producto.getPrecio());
 
-	        int filas = statement.executeUpdate();
+        int filas = statement.executeUpdate();
 
-	        if(filas > 0) {
+        if(filas > 0) {
 
-	            JOptionPane.showMessageDialog(
-	                null,
-	                "Producto agregado correctamente."
-	            );
-	        }
+            ResultSet rs = statement.getGeneratedKeys();
 
-	    } catch(Exception e) {
-	        e.printStackTrace();
-	    }
-	}
+            if(rs.next()) {
+
+                int idGenerado = rs.getInt(1);
+
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Producto agregado correctamente."
+                );
+
+                return idGenerado;
+            }
+        }
+
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+
+    return 0;
+}
 	
 	
 	
