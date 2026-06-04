@@ -794,8 +794,8 @@ public double calcularRendimientoIndividual() {
 public double calcularRendimientoGrupal() {
 
     if(evaluacionesRecibidas.isEmpty()) {
-    	JOptionPane.showMessageDialog(null, "Nadie hizo la evaluacion 360°");
         return 0;   
+
     }
 
     int suma = 0;

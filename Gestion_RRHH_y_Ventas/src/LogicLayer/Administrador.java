@@ -97,7 +97,7 @@ public class Administrador extends Usuario{
 	            if(nombres[i].equals(seleccionado)) {
 
 	                return ids[i];
-	            }
+	            } 
 	        }
 
 	    } catch(Exception e) {
@@ -535,7 +535,6 @@ public class Administrador extends Usuario{
 			    gestionarBonos();
 			    break;
 			case 6:
-
 			    String[] subopcion = {
 			            "Ver ausencias",
 			            "Validar asistencia",
