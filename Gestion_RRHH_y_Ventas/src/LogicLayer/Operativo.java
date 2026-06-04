@@ -9,6 +9,8 @@ import DLL.ControllerComentario;
 import DLL.ControllerEvaluacion;
 import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
+import DLL.ControllerReunion;
+import DLL.ControllerAsistenciaReunion;
 
 public class Operativo extends Empleado implements Validador {
 private int idOperativo;
@@ -21,6 +23,7 @@ private LinkedList<Evaluacion360> evaluacionesRecibidas;
 private static ControllerComentario comentarioController = new ControllerComentario();
 private static ControllerTarea tareaController = new ControllerTarea();
 private static ControllerProyecto proyectoController = new ControllerProyecto();
+private static ControllerReunion reunionController = new ControllerReunion();
 
 
 public int getIdOperativo() {
@@ -397,22 +400,77 @@ public void Menu() {
 								break;
 								//REGISTRAR REUNION
 									case 2:
-										String nombreReunion =
-												Validador.ValidarString(
-												"Nombre de la reunión");
 
-								String fecha =
-										Validador.ValidarString(
-												"Fecha");
+									    String titulo =
+									            Validador.ValidarString(
+									                    "Título de la reunión");
 
-								JOptionPane.showMessageDialog(
-										null,
-										"Reunión registrada\n"
-										+ nombreReunion
-										+ "\nFecha: "
-										+ fecha);
-								
-								break;
+									    String descripcionReunion =
+									            Validador.ValidarString(
+									                    "Descripción");
+
+									    LinkedList<Proyecto> proyectosReunion =
+									            proyectoController.obtenerProyectosLider(
+									                    this.getIdOperativo());
+
+									    if(proyectosReunion.isEmpty()) {
+
+									        JOptionPane.showMessageDialog(
+									                null,
+									                "No tiene proyectos asignados");
+
+									        break;
+									    }
+
+									    String[] nombresProyecto =
+									            new String[proyectosReunion.size()];
+
+									    for(int i = 0; i < proyectosReunion.size(); i++) {
+
+									        nombresProyecto[i] =
+									                proyectosReunion.get(i).getNombre();
+									    }
+
+									    String seleccionadoProyecto =
+									            (String) JOptionPane.showInputDialog(
+									                    null,
+									                    "Seleccione un proyecto",
+									                    "Proyecto",
+									                    JOptionPane.QUESTION_MESSAGE,
+									                    null,
+									                    nombresProyecto,
+									                    nombresProyecto[0]);
+
+									    if(seleccionadoProyecto == null) {
+									        break;
+									    }
+
+									    int idProyectoReunion = -1;
+
+									    for(Proyecto p : proyectosReunion) {
+
+									        if(p.getNombre().equals(seleccionadoProyecto)) {
+
+									            idProyectoReunion =
+									                    p.getIdProyecto();
+
+									            break;
+									        }
+									    }
+
+									    LocalDate fechaReunion =
+									            LocalDate.parse(
+									                    JOptionPane.showInputDialog(
+									                            "Fecha (AAAA-MM-DD)")
+									            );
+
+									    reunionController.crearReunion(titulo, fechaReunion, idProyectoReunion);
+
+									    JOptionPane.showMessageDialog(
+									            null,
+									            "Reunión registrada correctamente");
+
+									    break;
 									case 3:// EVALUAR COMPAÑERO
 						ControllerEvaluacion ce = new ControllerEvaluacion();
 						Operativo empleadoLogueado = this;
@@ -631,8 +689,116 @@ public void Menu() {
 
 										break;
 									case 1:
-								JOptionPane.showMessageDialog(null, "Ver reuniones que hay");
-										break;
+
+									    ControllerReunion cr = new ControllerReunion();
+									    ControllerAsistenciaReunion car =
+									            new ControllerAsistenciaReunion();
+
+									    LinkedList<Proyecto> proyectos =
+									            proyectoController.obtenerProyectosMiembro(
+									                    this.getIdOperativo());
+
+									    if(proyectos.isEmpty()) {
+
+									        JOptionPane.showMessageDialog(
+									                null,
+									                "No tiene proyectos asignados");
+
+									        break;
+									    }
+
+									    String[] nombresProyectos =
+									            new String[proyectos.size()];
+
+									    for(int i = 0; i < proyectos.size(); i++) {
+
+									        nombresProyectos[i] =
+									                proyectos.get(i).getNombre();
+									    }
+
+									    String proyectoSeleccionado =
+									            (String) JOptionPane.showInputDialog(
+									                    null,
+									                    "Seleccione un proyecto",
+									                    "Proyectos",
+									                    JOptionPane.QUESTION_MESSAGE,
+									                    null,
+									                    nombresProyectos,
+									                    nombresProyectos[0]);
+
+									    if(proyectoSeleccionado == null) {
+									        break;
+									    }
+
+									    int idProyecto = -1;
+
+									    for(Proyecto p : proyectos) {
+
+									        if(p.getNombre().equals(
+									                proyectoSeleccionado)) {
+
+									            idProyecto = p.getIdProyecto();
+									            break;
+									        }
+									    }
+
+									    LinkedList<Reunion> reuniones =
+									            cr.obtenerReunionesProyecto(
+									                    idProyecto);
+
+									    if(reuniones.isEmpty()) {
+
+									        JOptionPane.showMessageDialog(
+									                null,
+									                "No hay reuniones");
+
+									        break;
+									    }
+
+									    String[] opcionesReunion =
+									            new String[reuniones.size()];
+
+									    for(int i = 0; i < reuniones.size(); i++) {
+
+									        opcionesReunion[i] =
+									                reuniones.get(i).getTitulo();
+									    }
+
+									    String reunionSeleccionada =
+									            (String) JOptionPane.showInputDialog(
+									                    null,
+									                    "Seleccione una reunión",
+									                    "Reuniones",
+									                    JOptionPane.QUESTION_MESSAGE,
+									                    null,
+									                    opcionesReunion,
+									                    opcionesReunion[0]);
+
+									    if(reunionSeleccionada == null) {
+									        break;
+									    }
+
+									    int idReunion = -1;
+
+									    for(Reunion r : reuniones) {
+
+									        if(r.getTitulo().equals(
+									                reunionSeleccionada)) {
+
+									            idReunion = r.getIdReunion();
+									            break;
+									        }
+									    }
+
+									    car.registrarAsistencia(
+									    	    idReunion,
+									    	    this.getIdEmpleado());
+
+									    JOptionPane.showMessageDialog(
+									            null,
+									            "Asistencia registrada");
+
+									    break;
 									case 2:
 										ControllerEvaluacion ce = new ControllerEvaluacion();
 										Operativo empleadoLogueado = this;
@@ -760,7 +926,10 @@ public double calcularRendimientoIndividual() {
 public double calcularRendimientoGrupal() {
 
     if(evaluacionesRecibidas.isEmpty()) {
-        return 0;
+
+    	JOptionPane.showMessageDialog(null, "Nadie hizo la evaluacion 360°");
+        return 0;   
+
     }
 
     int suma = 0;

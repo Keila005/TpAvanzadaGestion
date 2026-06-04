@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.swing.JOptionPane;
+
 public class ControllerAsistencia {
     
     private Connection con = Conexion.getInstance().getConnection();
@@ -122,7 +124,8 @@ public class ControllerAsistencia {
             
             javax.swing.JOptionPane.showMessageDialog(null, "Horas extra registradas: " + horas + " horas");
         } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al registrar horas extra");
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
     public ResultSet getAusenciasPorEmpleado(int idEmpleado) {
