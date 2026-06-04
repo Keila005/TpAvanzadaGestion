@@ -126,4 +126,40 @@ public class ControllerProyecto {
 	    return listaProyectos;
 		}
 	
+	public LinkedList<Proyecto> obtenerProyectosMiembro(int idOperativo) {
+
+	    LinkedList<Proyecto> proyectos = new LinkedList<>();
+
+	    try {
+
+	        PreparedStatement stmt = con.prepareStatement(
+
+	            "SELECT DISTINCT p.id_proyecto, p.nombre " +
+	            "FROM proyecto p " +
+	            "JOIN equipo_miembro em ON p.id_equipo = em.id_equipo " +
+	            "WHERE em.id_operativo = ?"
+	        );
+
+	        stmt.setInt(1, idOperativo);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            proyectos.add(
+	                new Proyecto(
+	                    rs.getInt("id_proyecto"),
+	                    rs.getString("nombre")
+	                )
+	            );
+	        }
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return proyectos;
+	}
+	
+	
 }
