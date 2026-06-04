@@ -69,7 +69,7 @@ public class ControllerReunion {
 
                         rs.getInt("id_reunion"),
                         rs.getString("titulo"),
-                        rs.getDate("fecha").toLocalDate(),
+                        rs.getDate("fechaReunion").toLocalDate(),
                         rs.getInt("id_proyecto")
                     )
                 );
