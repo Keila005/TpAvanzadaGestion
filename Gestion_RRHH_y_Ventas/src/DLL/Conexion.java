@@ -19,6 +19,9 @@ public class Conexion {
 		try {
 			conect =  (Connection) DriverManager.getConnection(URL,USER,PASSWORD);
 			System.out.println("Se conectó");
+			ControllerUsuario cu = new ControllerUsuario();
+	        cu.mostrarUsuarios();
+			
 		}catch (SQLException e) {
 		    System.out.println("No se conectó uaaaaaa :'c");
 		    
