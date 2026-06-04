@@ -166,7 +166,7 @@ public class ControllerVenta {
 	                    + rs.getString("apellido")
 	                    + " - Ventas realizadas: "
 	                    + rs.getInt("totalVentas")
-	                    + "\n";
+	                    + "\n- - - - - - - - -\n";
 
 	            posicion++;
 	        }
