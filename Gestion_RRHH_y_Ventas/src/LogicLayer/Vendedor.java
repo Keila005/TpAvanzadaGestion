@@ -113,14 +113,21 @@ public static void setController(ControllerProducto controller) {
 
 							        for(Producto p : productos) {
 
-							            lista +=
-							                    "ID: "
-							                    + p.getIdproducto()
-							                    + "\nNombre: "
-							                    + p.getNombre()
-							                    + "\nPrecio: $"
-							                    + p.getPrecio()
-							                    + "\n\n";
+							        	ControllerStock controllerStock =
+							        	        new ControllerStock();
+
+							        	lista +=
+							        	        "ID: "
+							        	        + p.getIdproducto()
+							        	        + "\nNombre: "
+							        	        + p.getNombre()
+							        	        + "\nPrecio: $"
+							        	        + p.getPrecio()
+							        	        + "\nStock: "
+							        	        + controllerStock.obtenerStockActual(
+							        	                p.getIdproducto()
+							        	        )
+							        	        + "\n- - - - - - -\n";
 							        }
 
 							        JOptionPane.showMessageDialog(
@@ -303,11 +310,12 @@ public static void setController(ControllerProducto controller) {
 				                Integer.parseInt(cantidadTexto);
 				        
 				        ControllerStock controllerStock =
-				                new ControllerStock();
+				                new ControllerStock();				        
 
 				        if(!controllerStock.hayStock(
 				                producto.getIdproducto(),
-				                cantidad)) {
+				                cantidad
+				        )) {
 
 				            JOptionPane.showMessageDialog(
 				                    null,
@@ -344,6 +352,8 @@ public static void setController(ControllerProducto controller) {
 				        );
 
 				    }  while(seguir == JOptionPane.YES_OPTION);
+				    
+				    
 
 				    if(venta.getDetalles().isEmpty()) {
 

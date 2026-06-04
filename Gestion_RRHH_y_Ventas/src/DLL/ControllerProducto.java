@@ -40,11 +40,18 @@ public Producto BuscarProducto() {
 
         for(Producto p : productos) {
 
-            lista +=
-                    "ID: " + p.getIdproducto() +
-                    " | Nombre: " + p.getNombre() +
-                    " | Precio: $" + p.getPrecio() +
-                    "\n";
+        	ControllerStock controllerStock =
+        	        new ControllerStock();
+
+        	lista +=
+        	    "ID: " + p.getIdproducto() +
+        	    " | Nombre: " + p.getNombre() +
+        	    " | Precio: $" + p.getPrecio() +
+        	    " | Stock: " +
+        	    controllerStock.obtenerStockActual(
+        	            p.getIdproducto()
+        	    ) +
+        	    "\n";
         }
 
         JOptionPane.showMessageDialog(
