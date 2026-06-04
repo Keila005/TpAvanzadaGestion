@@ -529,7 +529,7 @@ public class Administrador extends Usuario{
 			        JOptionPane.showMessageDialog(null, "Empleado no encontrado");
 			    } else {
 			        int horas = Integer.parseInt(JOptionPane.showInputDialog("Cantidad de horas extra:"));
-			        String motivo = JOptionPane.showInputDialog("Motivo:");
+			        String motivo = JOptionPane.showInputDialog("Motivo: ");
 			        asis.registrarHorasExtra(idEmpleado, horas, motivo);
 			    }
 				break;
