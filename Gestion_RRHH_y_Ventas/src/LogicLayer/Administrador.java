@@ -12,14 +12,7 @@ import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerUsuario;
 import DLL.Hashing;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> main
-=======
-import DLL.ControllerRendimiento;
->>>>>>> parent of 35286a6 (otro commit de admin y controllers)
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
@@ -28,7 +21,6 @@ public class Administrador extends Usuario{
 	 private static ControllerComentario comentarioController = new ControllerComentario();
 	 private static ControllerUsuario usuarioController = new ControllerUsuario();
 	 private static ControllerProyecto proyectoController = new ControllerProyecto();
-	 
 	 
 	
 	public Administrador(String nombre, String apellido, String mail, String contrasenia, int idAdmin,
@@ -106,7 +98,7 @@ public class Administrador extends Usuario{
 	            if(nombres[i].equals(seleccionado)) {
 
 	                return ids[i];
-	            }
+	            } 
 	        }
 
 	    } catch(Exception e) {
@@ -470,7 +462,7 @@ public class Administrador extends Usuario{
 			        JOptionPane.showMessageDialog(null, "Empleado no encontrado");
 			    } else {
 			        int horas = Integer.parseInt(JOptionPane.showInputDialog("Cantidad de horas extra:"));
-			        String motivo = JOptionPane.showInputDialog("Motivo: ");
+			        String motivo = JOptionPane.showInputDialog("Motivo:");
 			        asis.registrarHorasExtra(idEmpleado, horas, motivo);
 			    }
 				break;
@@ -478,42 +470,7 @@ public class Administrador extends Usuario{
 			    gestionarBonos();
 			    break;
 			case 6:
-<<<<<<< HEAD
 
-			    String[] subopcion = {
-			            "Ver ausencias",
-			            "Validar asistencia",
-			            "Volver"
-			    };
-
-			    int subElegir = -1;
-
-			    do {
-
-			        subElegir = JOptionPane.showOptionDialog(
-			                null,
-			                "Elige asistencia:",
-			                "Asistencia",
-			                0,
-			                0,
-			                null,
-			                subopcion,
-			                subopcion[0]);
-
-			        switch (subElegir) {
-
-			        case 0:
-			            verAusenciasTodos();
-			            break;
-
-			        case 1:
-			            validarAsistencia();
-			            break;
-			        }
-
-			    } while (subElegir != 2);
-
-=======
 				String[] subopcion= {"Ver ausencias","Validar asistencia ","Volver"};
 				int subElegir=-1;
 				do {
@@ -531,7 +488,6 @@ public class Administrador extends Usuario{
 					}
 				} while (subElegir!=2);
 			    
->>>>>>> main
 			    break;
 				}
 			}while(opcion!= 7);
