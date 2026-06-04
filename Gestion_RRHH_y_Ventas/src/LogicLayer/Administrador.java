@@ -12,10 +12,6 @@ import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerUsuario;
 import DLL.Hashing;
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 
 public class Administrador extends Usuario{
 	 private int idAdmin;
@@ -172,7 +168,9 @@ public class Administrador extends Usuario{
 
 	    } else {
 
-	       
+	        double comision = Double.parseDouble(
+	                JOptionPane.showInputDialog("Comisión:")
+	        );
 
 	        usuarioController.crearVendedor(
 	                nombre,
@@ -180,8 +178,8 @@ public class Administrador extends Usuario{
 	                mail,
 	                Hashing.hash(contrasenia),
 	                dni,
-	                sueldoBase
-	                
+	                sueldoBase,
+	                comision
 	        );
 	    }
 
@@ -408,15 +406,75 @@ public class Administrador extends Usuario{
 				case 2:
 					
 					String[] ver = {"Rendimiento:Operativo","Rendimiento:Vendedor",
-							"Rendimiento:Productos","Clima laboral","Salir"};
+							"Rendimiento:Productos","Clima laboral","Ranking Operativos","Salir"};
 					int opcionVer;
 					do {
 						opcionVer= JOptionPane.showOptionDialog(null, "Elija que rendimiento quiere ver", 
 								"Rendimientos", 0, 0, null, ver, ver[0]);
 						switch (opcionVer) {
 						case 0: // operativos
-							 verRankingOperativos();
+							 
+				LinkedList<Operativo> operativos =operativoController.mostrarOperativos();
 
+					    if(operativos.isEmpty()) {
+
+					        JOptionPane.showMessageDialog(null,"No hay operativos");
+					        break;
+					    }
+
+					    String[] nombres =new String[operativos.size()];
+
+					    for(int i = 0; i < operativos.size(); i++) {
+
+			nombres[i] =operativos.get(i).getNombre()+ " "+ operativos.get(i).getApellido();
+					    }
+					    
+		String seleccionado =(String) JOptionPane.showInputDialog(null,"Seleccione un operativo",
+					   "Rendimiento Operativo",JOptionPane.QUESTION_MESSAGE,null,nombres,nombres[0]
+					            );
+
+					    if(seleccionado != null) {
+
+					        Operativo operativoSeleccionado = null;
+
+					        for(Operativo op : operativos) {
+
+					     String nombreCompleto =op.getNombre()+ " "+ op.getApellido();
+
+					            if(nombreCompleto.equals(seleccionado)) {
+
+					                operativoSeleccionado = op;
+					                break;
+					            }
+					        }
+
+					        if(operativoSeleccionado != null) {
+
+					        	double individual = operativoSeleccionado.calcularRendimientoIndividual();
+
+					double grupal =operativoSeleccionado.calcularRendimientoGrupal();
+					
+					double  finalRendimiento=operativoSeleccionado.getRendimiento();
+
+					            JOptionPane.showMessageDialog(
+					                    null,
+					                    "Empleado: "
+					                    + operativoSeleccionado.getNombre()
+
+					                    + "\nRol: "
+					                    + operativoSeleccionado.getRol()
+
+					                    + "\n\nRendimiento Individual: "
+					                    + individual + "%"
+
+					                    + "\nRendimiento 360°: "
+					                    + grupal + "%"
+
+					                    + "\nRendimiento Final: "
+					                    + finalRendimiento + "%"
+					            );
+					        }
+					    }
 							break;
 						case 1: //vendedor
 							
@@ -448,8 +506,12 @@ public class Administrador extends Usuario{
 					        JOptionPane.showMessageDialog(null, reporte);
 					    }
 							break;
+						case 4:
+							verRankingOperativos();
+							break;	
+
 						}
-					} while (opcionVer!=4);
+					} while (opcionVer!=5);
 					break;
 				case 3:
 				    gestionarSolicitudes();
@@ -473,7 +535,6 @@ public class Administrador extends Usuario{
 			    gestionarBonos();
 			    break;
 			case 6:
-<<<<<<< HEAD
 
 			    String[] subopcion = {
 			            "Ver ausencias",
@@ -508,25 +569,6 @@ public class Administrador extends Usuario{
 
 			    } while (subElegir != 2);
 
-=======
-				String[] subopcion= {"Ver ausencias","Validar asistencia ","Volver"};
-				int subElegir=-1;
-				do {
-					subElegir=JOptionPane.showOptionDialog(null, "Elige asistencia:", "Asistencia", 
-							0, 0, null, subopcion, subopcion[0]);
-					
-					switch (subElegir) {
-					case 0:
-						verAusenciasTodos();
-						break;
-					case 1:
-						validarAsistencia();
-						break;
-					
-					}
-				} while (subElegir!=2);
-			    
->>>>>>> main
 			    break;
 				}
 			}while(opcion!= 7);

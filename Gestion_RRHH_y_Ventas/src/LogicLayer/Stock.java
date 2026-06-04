@@ -3,43 +3,20 @@ package LogicLayer;
 import java.time.LocalDate;
 
 public class Stock {	
-		private int idStock;
+
 	    private Producto producto;
 	    private int cantidad;
 	    private LocalDate fecha;
 	    private String tipoMovimiento;
 
-	    
-	    
 	   
 
-	    public Stock(int idStock, Producto producto, int cantidad, LocalDate fecha, String tipoMovimiento) {
-			super();
-			this.idStock = idStock;
-			this.producto = producto;
-			this.cantidad = cantidad;
-			this.fecha = fecha;
-			this.tipoMovimiento = tipoMovimiento;
-		}
-
-		public Stock(Producto producto, int cantidad, LocalDate fecha, String tipoMovimiento) {
+	    public Stock(Producto producto, int cantidad, LocalDate fecha, String tipoMovimiento) {
 			super();
 			this.producto = producto;
 			this.cantidad = cantidad;
 			this.fecha = fecha;
 			this.tipoMovimiento = tipoMovimiento;
-		}
-		
-		
-		
-		
-
-		public int getIdStock() {
-			return idStock;
-		}
-
-		public void setIdStock(int idStock) {
-			this.idStock = idStock;
 		}
 
 		public Producto getProducto() {

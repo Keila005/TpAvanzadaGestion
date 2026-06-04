@@ -7,6 +7,7 @@ import com.mysql.jdbc.Connection;
 
 import LogicLayer.Evaluacion360;
 import LogicLayer.Operativo;
+import LogicLayer.Usuario;
 
 public class ControllerEvaluacion {
 	private static Connection con = Conexion.getInstance().getConnection();
@@ -142,27 +143,6 @@ public class ControllerEvaluacion {
 	        e.printStackTrace();
 	    }
 	}
-	public double obtenerRendimientoGrupal(int idOperativo) {
-	    double resultado = 0;
-
-	    try {
-	        PreparedStatement stmt = con.prepareStatement(
-	            "SELECT AVG(puntaje) FROM evaluacion_360 WHERE id_evaluado = ?"
-	        );
-	        stmt.setInt(1, idOperativo);
-
-	        ResultSet rs = stmt.executeQuery();
-
-	        if(rs.next()) {
-	            double promedio = rs.getDouble(1);
-	            resultado = (promedio / 10.0) * 100;
-	        }
-
-	    } catch(Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return resultado;
-	}
+	 
 
 	 }

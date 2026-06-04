@@ -115,7 +115,8 @@ public void agregarEvaluacion(Evaluacion360 e) {
 
 @Override
 public String toString() {
-	return "Operativo:\nID=" + idOperativo + "\nRol=" + Rol + "\nRendimiento=" + rendimiento+" %";
+	return "Operativo:\niID=" + idOperativo + "\nRol=" + Rol + "\nRendimiento=" + rendimiento+" %"
+			+ "\nTareasAsignadas=" + (tareasAsignadas.isEmpty() ? "No hay tareas asignadas" : tareasAsignadas) + "\n";
 }
 @Override
 public void Menu() {
@@ -140,30 +141,8 @@ public void Menu() {
 					case 1:
 						verAusencias();
 						break;
-					case 2:
-						ControllerEvaluacion ce = new ControllerEvaluacion();
-
-						double individual = calcularRendimientoIndividual();
-						double grupal = ce.obtenerRendimientoGrupal(this.getIdOperativo());
-						
-						String mensaje ="Rendimiento Individual: " + individual + "%\n"
-						        + "Rendimiento Grupal: " + grupal + "%\n";
-
-						if(individual == 0 && grupal == 0) {
-
-						    mensaje += "\nAún no hay suficientes actividades o evaluaciones para recalcular el rendimiento."
-						             + "\nÚltimo rendimiento registrado: "
-						             + this.getRendimiento() + "%";
-
-						} else {
-
-						    mensaje += "\nRendimiento Final: "
-						             + calcularRendimientoFinal() + "%";
-						}
-
-						JOptionPane.showMessageDialog(null, mensaje);
+					case 2: //FALTA RENDIMIENTO
 						break;
-
 					case 3:
 						JOptionPane.showMessageDialog(null, this);
 						break;
@@ -318,7 +297,6 @@ public void Menu() {
 
 													tareaController.completarTarea(
 															tareaElegida.getIdTarea());
-													this.calcularRendimientoFinal();
 												}
 											}
 										}
@@ -533,10 +511,7 @@ public void Menu() {
 	 Evaluacion360 evaluacion =new Evaluacion360(empleadoLogueado, evaluado, respuestas,comentariOpcional);
 			   evaluado.agregarEvaluacion(evaluacion);
 			   ce.guardarEvaluacion(evaluacion);
-//
-//			   evaluado.setRendimientoGrupal(evaluado.calcularRendimientoGrupal());
-//
-//			   evaluado.calcularRendimientoFinal();
+			   this.rendimientoGrupal =evaluado.calcularRendimientoGrupal();
 			   
 			   JOptionPane.showMessageDialog( null, "Evaluación realizada correctamente" +"\nEvaluado: "
 				        + evaluado.getNombre() + "\nPuntaje otorgado: "
@@ -681,7 +656,6 @@ public void Menu() {
 
 													tareaController.completarTarea(
 															tareaElegida.getIdTarea());
-													this.calcularRendimientoFinal();
 												}
 											}
 										}
@@ -759,10 +733,7 @@ public void Menu() {
 					 Evaluacion360 evaluacion =new Evaluacion360(empleadoLogueado, evaluado, respuestas,comentariOpcional);
 							   evaluado.agregarEvaluacion(evaluacion);
 							   ce.guardarEvaluacion(evaluacion);
-
-//							   evaluado.setRendimientoGrupal(evaluado.calcularRendimientoGrupal());
-//
-//							   evaluado.calcularRendimientoFinal();
+							   this.rendimientoGrupal =evaluado.calcularRendimientoGrupal();
 							   
 							   JOptionPane.showMessageDialog( null, "Evaluación realizada correctamente" +"\nEvaluado: "
 								        + evaluado.getNombre() + "\nPuntaje otorgado: "
@@ -803,7 +774,8 @@ public double calcularRendimientoIndividual() {
 	 int total = this.tareasAsignadas.size();
 
 	    if(total == 0) {
-	    	return 0;
+	    	JOptionPane.showMessageDialog(null, "El operativo no tiene tareas asignadas para poder calcular su rendimiento individual");
+	        return 0;
 	    }
 
 	    int completadas = 0;
@@ -815,19 +787,15 @@ public double calcularRendimientoIndividual() {
 	            completadas++;
 	        }
 	    }
-	    return ((double) completadas / total) * 100;
+	    return ((completadas /total) * 100);
 }
 
 //RENDIMIENTO DE EVALUACION 360
 public double calcularRendimientoGrupal() {
 
     if(evaluacionesRecibidas.isEmpty()) {
-<<<<<<< HEAD
     	JOptionPane.showMessageDialog(null, "Nadie hizo la evaluacion 360°");
         return 0;   
-=======
-        return 0;
->>>>>>> main
     }
 
     int suma = 0;
@@ -843,16 +811,19 @@ public double calcularRendimientoGrupal() {
 }
 
 //RENDIMIENTO DE LOS DOS TIPOS JUNTOS
-
 public double calcularRendimientoFinal() {
-    ControllerEvaluacion ce = new ControllerEvaluacion();
+	
+	double individual =calcularRendimientoIndividual();
 
-    double individual = calcularRendimientoIndividual();
-    double grupal = ce.obtenerRendimientoGrupal(this.idOperativo);
-
-    this.rendimiento = (individual + grupal) / 2;
-
-    return this.rendimiento;
+	double grupal =calcularRendimientoGrupal();
+    
+    if (individual==0 || grupal==0) {
+		JOptionPane.showMessageDialog(null, "El operativo no cumple con algún rendimiennto grupal o invidivual");
+		return 0;
+	}else {
+		
+		return this.rendimiento=(individual + grupal) / 2;
+	}
 }
 
 	
