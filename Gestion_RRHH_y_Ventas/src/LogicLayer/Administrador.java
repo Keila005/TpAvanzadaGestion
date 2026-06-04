@@ -11,6 +11,7 @@ import DLL.ControllerEquipo;
 import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerUsuario;
+import DLL.ControllerVenta;
 import DLL.Hashing;
 
 
@@ -416,9 +417,32 @@ public class Administrador extends Usuario{
 							 verRankingOperativos();
 
 							break;
-						case 1: //vendedor
+						case 1:
+
+							ControllerVenta cv =
+					        new ControllerVenta();
+
+					String ranking =
+					        cv.obtenerRankingVendedores();
+
+					if(ranking.isEmpty()) {
+
+					    JOptionPane.showMessageDialog(
+					            null,
+					            "No hay vendedores registrados"
+					    );
+
+					} else {
+
+					    JOptionPane.showMessageDialog(
+					            null,
+					            ranking,
+					            "Ranking de Vendedores",
+					            JOptionPane.INFORMATION_MESSAGE
+					    );
+					}
 							
-							break;
+						    break;
 						case 2: // productos
 							
 							break;
@@ -511,6 +535,12 @@ public class Administrador extends Usuario{
 	    
 	    JOptionPane.showMessageDialog(null, mensaje, "Rendimiento Operativos", JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	
+	
+	
+	
+	
 	
 	public void gestionarBonos() {
 	    DLL.ControllerBono cb = new DLL.ControllerBono();

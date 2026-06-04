@@ -76,7 +76,7 @@ public static void setController(ControllerProducto controller) {
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Menu de Vendedor", 0, 0, null, opciones2, opciones2);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido vendedor: "+ this.getNombre()+" "+this.getApellido(), "Vendedor", 0, 0, null, opciones2, opciones2);
 				if(opcion == -1) {
 				    opcion = 4; // Salir
 				}

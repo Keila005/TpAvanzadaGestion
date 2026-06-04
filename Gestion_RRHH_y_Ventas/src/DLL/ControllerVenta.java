@@ -131,6 +131,56 @@ public class ControllerVenta {
 	}
 	
 	
+	public String obtenerRankingVendedores() {
+
+	    String ranking = "";
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT u.nombre, u.apellido, " +
+	            "COUNT(v.id_venta) AS totalVentas " +
+	            "FROM vendedor ve " +
+	            "INNER JOIN empleado e " +
+	            "ON ve.id_empleado = e.id_empleado " +
+	            "INNER JOIN usuario u " +
+	            "ON e.id_usuario = u.id_usuario " +
+	            "LEFT JOIN venta v " +
+	            "ON e.id_empleado = v.id_vendedor " +
+	            "GROUP BY e.id_empleado, u.nombre, u.apellido " +
+	            "ORDER BY totalVentas DESC"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        int posicion = 1;
+
+	        while(rs.next()) {
+
+	            ranking +=
+	                    posicion + ". "
+	                    + rs.getString("nombre")
+	                    + " "
+	                    + rs.getString("apellido")
+	                    + " - Ventas realizadas: "
+	                    + rs.getInt("totalVentas")
+	                    + "\n";
+
+	            posicion++;
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return ranking;
+	}
+	
+	
 	
 }// fin de clase controller
 	
