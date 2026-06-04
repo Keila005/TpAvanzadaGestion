@@ -124,6 +124,7 @@ public class ControllerAsistencia {
             
             javax.swing.JOptionPane.showMessageDialog(null, "Horas extra registradas: " + horas + " horas");
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
