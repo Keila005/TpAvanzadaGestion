@@ -211,7 +211,7 @@ public static void setController(ControllerProducto controller) {
 
 							    int cantidadStock =
 							            Validador.ValidarInt(
-							                    "Ingrese cantidad de stock inicial"
+							                    "Ingrese nueva cantidad de stock"
 							            ); 
 
 							    ControllerStock controllerIngreso =
@@ -256,7 +256,7 @@ public static void setController(ControllerProducto controller) {
 
 							    	double nuevoPrecio =
 								            Validador.ValidarDouble(
-								                    "Ingrese el precio"
+								                    "Ingrese el precio nuevo"
 								            );
 
 
