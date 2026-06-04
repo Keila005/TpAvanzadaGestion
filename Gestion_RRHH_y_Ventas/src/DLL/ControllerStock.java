@@ -142,17 +142,21 @@ public class ControllerStock {
                             "cantidad"
                         );
 
-                if(tipo.equalsIgnoreCase(
-                        "INGRESO")) {
+                if(
+                	    tipo.equalsIgnoreCase("INGRESO")
+                	    ||
+                	    tipo.equalsIgnoreCase("AGREGACION")
+                	) {
 
-                    stock += cantidad;
+                	    stock += cantidad;
 
-                } else if(
-                        tipo.equalsIgnoreCase(
-                                "VENTA")) {
+                	}
+                	else if(
+                	    tipo.equalsIgnoreCase("VENTA")
+                	) {
 
-                    stock -= cantidad;
-                }
+                	    stock -= cantidad;
+                	}
             }
 
         } catch(Exception e) {
