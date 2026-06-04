@@ -26,15 +26,32 @@ public Producto BuscarProducto() {
         LinkedList<Producto> productos =
                 mostrarProductos();
 
+        if(productos.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No hay productos registrados"
+            );
+
+            return null;
+        }
+
         String lista = "";
 
         for(Producto p : productos) {
 
-            lista +=
-                    "ID: " + p.getIdproducto() +
-                    " | Nombre: " + p.getNombre() +
-                    " | Precio: $" + p.getPrecio() +
-                    "\n";
+        	ControllerStock controllerStock =
+        	        new ControllerStock();
+
+        	lista +=
+        	    "ID: " + p.getIdproducto() +
+        	    " | Nombre: " + p.getNombre() +
+        	    " | Precio: $" + p.getPrecio() +
+        	    " | Stock: " +
+        	    controllerStock.obtenerStockActual(
+        	            p.getIdproducto()
+        	    ) +
+        	    "\n";
         }
 
         JOptionPane.showMessageDialog(
@@ -42,21 +59,42 @@ public Producto BuscarProducto() {
                 lista
         );
 
-        int id = Integer.parseInt(
-                JOptionPane.showInputDialog(
-                        "Ingrese el ID del producto"
-                )
+        String texto = JOptionPane.showInputDialog(
+                "Ingrese el ID del producto"
         );
+
+        if(texto == null || texto.trim().isEmpty()) {
+            return null;
+        }
+
+        int id = Integer.parseInt(texto);
 
         for(Producto p : productos) {
 
             if(p.getIdproducto() == id) {
 
                 elegido = p;
+                break;
             }
         }
 
+        if(elegido == null) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No existe un producto con ese ID"
+            );
+        }
+
+    } catch(NumberFormatException e) {
+
+        JOptionPane.showMessageDialog(
+                null,
+                "Debe ingresar un número válido"
+        );
+
     } catch(Exception e) {
+
         e.printStackTrace();
     }
 
@@ -65,32 +103,43 @@ public Producto BuscarProducto() {
 	
 	
 	
-	
-	public void agregarProducto(Producto producto) {
+public int agregarProducto(Producto producto) {
 
-	    try {
+    try {
 
-	        PreparedStatement statement = con.prepareStatement(
-	            "INSERT INTO producto(nombre, precio) VALUES (?, ?)"
-	        );
+        PreparedStatement statement = con.prepareStatement(
+            "INSERT INTO producto(nombre, precio) VALUES (?, ?)",
+            PreparedStatement.RETURN_GENERATED_KEYS
+        );
 
-	        statement.setString(1, producto.getNombre());
-	        statement.setDouble(2, producto.getPrecio());
+        statement.setString(1, producto.getNombre());
+        statement.setDouble(2, producto.getPrecio());
 
-	        int filas = statement.executeUpdate();
+        int filas = statement.executeUpdate();
 
-	        if(filas > 0) {
+        if(filas > 0) {
 
-	            JOptionPane.showMessageDialog(
-	                null,
-	                "Producto agregado correctamente."
-	            );
-	        }
+            ResultSet rs = statement.getGeneratedKeys();
 
-	    } catch(Exception e) {
-	        e.printStackTrace();
-	    }
-	}
+            if(rs.next()) {
+
+                int idGenerado = rs.getInt(1);
+
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Producto agregado correctamente."
+                );
+
+                return idGenerado;
+            }
+        }
+
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+
+    return 0;
+}
 	
 	
 	

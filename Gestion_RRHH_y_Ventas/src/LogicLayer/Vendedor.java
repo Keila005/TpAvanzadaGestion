@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import DLL.ControllerComentario;
 import DLL.ControllerProducto;
 import DLL.ControllerVenta;
+import DLL.ControllerStock;
 import LogicLayer.detalle_venta;
 
 
@@ -15,7 +16,6 @@ public class Vendedor extends Empleado {
 	
 	private int idVendedor;
 	private Venta venta;
-	private double comision;
 	private int ventasTotales;
 	private static LinkedList<Venta> historialVentas;
 	
@@ -34,12 +34,6 @@ public class Vendedor extends Empleado {
 		this.ventasTotales = ventasTotales;
 	}
 	
-	public Vendedor(String nombre, String apellido, String mail,
-	        String contrasenia, int dni, double sueldoBase,
-	        LocalDate fechaContratacion, int faltas,
-	        double comision, int ventasTotales) {
-		this.comision = comision;
-	}
 
 public Vendedor(int idVendedor, int ventasTotales) {
 		super();
@@ -76,26 +70,37 @@ public static void setController(ControllerProducto controller) {
 	
 	@Override
 	public void Menu() {
-
 		
-		String[] opciones = {
+		String[] opciones2 = {
 				"Stock","Venta","Perfil Laboral","Historial de ventas","Salir"	
 			};
 			int opcion;
 			do {
-				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor: "+this.getNombre()+" "+this.getApellido(), "Menu de Vendedor", 0, 0, null, opciones, opciones);
+				opcion = JOptionPane.showOptionDialog(null, "Bienvenido Vendedor", "Menu de Vendedor", 0, 0, null, opciones2, opciones2);
+				if(opcion == -1) {
+				    opcion = 4; // Salir
+				}
+
 				switch (opcion) {
 				case 0:
 					
 					String[] menustock = {
-							"Ver Productos","Agregar Producto","Modificar producto","eliminar producto","Salir"	
+						    "Ver Productos",
+						    "Agregar Producto",
+						    "Agregar Stock",
+						    "Modificar producto",
+						    "Eliminar producto",
+						    "Salir"
 						};
 						int opcionstock;
 						do {
 							opcionstock = JOptionPane.showOptionDialog(null, "Menu de Stock", "Stock", 0, 0, null, menustock, menustock);
+							if(opcionstock == -1) {
+							    opcionstock = 4;
+							}
 							switch (opcionstock) {
 							
-							case 0:
+							case 0: // ver productos
 
 							    LinkedList<Producto> productos =
 							            controller.mostrarProductos();
@@ -113,14 +118,21 @@ public static void setController(ControllerProducto controller) {
 
 							        for(Producto p : productos) {
 
-							            lista +=
-							                    "ID: "
-							                    + p.getIdproducto()
-							                    + "\nNombre: "
-							                    + p.getNombre()
-							                    + "\nPrecio: $"
-							                    + p.getPrecio()
-							                    + "\n\n";
+							        	ControllerStock controllerStock =
+							        	        new ControllerStock();
+
+							        	lista +=
+							        	        "ID: "
+							        	        + p.getIdproducto()
+							        	        + "\nNombre: "
+							        	        + p.getNombre()
+							        	        + "\nPrecio: $"
+							        	        + p.getPrecio()
+							        	        + "\nStock: "
+							        	        + controllerStock.obtenerStockActual(
+							        	                p.getIdproducto()
+							        	        )
+							        	        + "\n- - - - - - -\n";
 							        }
 
 							        JOptionPane.showMessageDialog(
@@ -130,53 +142,153 @@ public static void setController(ControllerProducto controller) {
 							    }
 
 							    break;
+							
 							case 1:
-								
-								String nombre = JOptionPane.showInputDialog(
-								        "Ingrese el nombre del producto"
-								);
+							
 
-								double precio = Double.parseDouble(
-								        JOptionPane.showInputDialog(
-								                "Ingrese el precio"
-								        )
-								);
+							    String nombre = JOptionPane.showInputDialog(
+							            "Ingrese el nombre del producto"
+							    );
 
-								Producto producto = new Producto(
-								        0,
-								        nombre,
-								        precio
-								);
+							    if(nombre == null) {
+							        break;
+							    }
 
-								ControllerProducto controllerProducto = new ControllerProducto();
+							    String precioTexto = JOptionPane.showInputDialog(
+							            "Ingrese el precio"
+							    );
 
-								controllerProducto.agregarProducto(producto);
+							    if(precioTexto == null) {
+							        break;
+							    }
 
-								JOptionPane.showMessageDialog(
-								        null,
-								        "Producto agregado correctamente"
-								);
+							    double precio = Double.parseDouble(
+							            precioTexto
+							    );
+
+							    String cantidadTexto = JOptionPane.showInputDialog(
+							            "Ingrese stock inicial"
+							    );
+
+							    if(cantidadTexto == null) {
+							        break;
+							    }
+
+							    int cantidad = Integer.parseInt(
+							            cantidadTexto
+							    );
+
+							    Producto producto = new Producto(
+							            0,
+							            nombre,
+							            precio
+							    );
+
+							    ControllerProducto controllerProducto =
+							            new ControllerProducto();
+
+							    int idGenerado =
+							            controllerProducto.agregarProducto(
+							                    producto
+							            );
+
+							    producto.setIdproducto(
+							            idGenerado
+							    );
+							    
+							    ControllerStock controllerStock =
+							            new ControllerStock();
+
+							    controllerStock.registrarMovimiento(
+
+							        new Stock(
+							            producto,
+							            cantidad,
+							            LocalDate.now(),
+							            "INGRESO"
+							        )
+							    );
 							
 								break; //fin de agregar producto
-							case 2:
+								
+							case 2:// agregar stock
+								
+								
+						
+
+							    Producto productoStock =
+							            controller.BuscarProducto();
+
+							    if(productoStock == null) {
+							        break;
+							    }
+
+							    String cantidadStockTexto =
+							            JOptionPane.showInputDialog(
+							                    "Ingrese la cantidad a agregar"
+							            );
+
+							    if(cantidadStockTexto == null) {
+							        break;
+							    }
+
+							    int cantidadStock =
+							            Integer.parseInt(
+							                    cantidadStockTexto
+							            );
+
+							    ControllerStock controllerIngreso =
+							            new ControllerStock();
+
+							    controllerIngreso.registrarMovimiento(
+
+							        new Stock(
+							            productoStock,
+							            cantidadStock,
+							            LocalDate.now(),
+							            "AGREGACION"
+							        )
+							    );
+
+							    JOptionPane.showMessageDialog(
+							            null,
+							            "Stock agregado correctamente"
+							    );							  
+								
+								break;// fin de agregar stock
+							case 3:// modificar producto
 								
 
 							    Producto elegidoM =
 							            controller.BuscarProducto();
+							    
+							    if(elegidoM == null) {
+							        break;
+							    }
 
 							    if(elegidoM != null) {
+							    	
+							    	String nuevoNombre = JOptionPane.showInputDialog(
+							    	        "Ingrese el nuevo nombre",
+							    	        elegidoM.getNombre()
+							    	);
 
-							        String nuevoNombre = JOptionPane.showInputDialog(
-							                "Ingrese el nuevo nombre",
-							                elegidoM.getNombre()
-							        );
+							    	if(nuevoNombre == null) {
+							    	    break;
+							    	}
 
-							        double nuevoPrecio = Double.parseDouble(
-							                JOptionPane.showInputDialog(
-							                        "Ingrese el nuevo precio",
-							                        elegidoM.getPrecio()
-							                )
-							        );
+							    	String nuevoprecioTexto = JOptionPane.showInputDialog(
+							    	        "Ingrese el nuevo precio",
+							    	        elegidoM.getPrecio()
+							    	);
+
+							    	if(nuevoprecioTexto == null) {
+							    	    break;
+							    	}
+
+							    	double nuevoPrecio =
+							    	        Double.parseDouble(nuevoprecioTexto);
+
 
 							        elegidoM.setNombre(nuevoNombre);
 							        elegidoM.setPrecio(nuevoPrecio);
@@ -189,10 +301,15 @@ public static void setController(ControllerProducto controller) {
 								break;// fin de modificar producto
 								
 								
-							case 3:
+							case 4:
 
 								Producto elegidoE =
 						        controller.BuscarProducto();
+								
+
+								if(elegidoE == null) {
+								    break;
+								}
 
 						int confir = JOptionPane.showConfirmDialog(
 						        null,
@@ -207,7 +324,7 @@ public static void setController(ControllerProducto controller) {
 								break;// fin de eliminar producto
 							
 							}
-							}while(opcionstock!=4);//FIN DEL menu stock
+							}while(opcionstock!=5);//FIN DEL menu stock
 					break;
 					
 			
@@ -227,12 +344,38 @@ public static void setController(ControllerProducto controller) {
 
 				        Producto producto =
 				                controller.BuscarProducto();
+				        
+				        if(producto == null) {
+				            break;
+				        }
 
-				        int cantidad = Integer.parseInt(
+				        String cantidadTexto =
 				                JOptionPane.showInputDialog(
 				                        "Ingrese cantidad"
-				                )
-				        );
+				                );
+
+				        if(cantidadTexto == null) {
+				            break;
+				        }
+
+				        int cantidad =
+				                Integer.parseInt(cantidadTexto);
+				        
+				        ControllerStock controllerStock =
+				                new ControllerStock();				        
+
+				        if(!controllerStock.hayStock(
+				                producto.getIdproducto(),
+				                cantidad
+				        )) {
+
+				            JOptionPane.showMessageDialog(
+				                    null,
+				                    "No hay stock suficiente"
+				            );
+
+				            break;
+				        }
 
 				        detalle_venta detalle =
 				                new detalle_venta(
@@ -241,14 +384,39 @@ public static void setController(ControllerProducto controller) {
 				                );
 
 				        venta.agregarDetalle(detalle);
+				        
+				        ControllerStock registroStock =
+				                new ControllerStock();
+
+				        registroStock.registrarMovimiento(
+
+				            new Stock(
+				                producto,
+				                cantidad,
+				                LocalDate.now(),
+				                "VENTA"
+				            )
+				        );
 
 				        seguir = JOptionPane.showConfirmDialog(
 				                null,
 				                "¿Agregar otra prenda?"
 				        );
 
-				    } while(seguir == JOptionPane.YES_OPTION);
+				    }  while(seguir == JOptionPane.YES_OPTION);
+				    
+				    
 
+				    if(venta.getDetalles().isEmpty()) {
+
+				    	JOptionPane.showMessageDialog(
+				    			null,
+				    			"Venta cancelada"
+				    			);
+
+				    	break;
+				    }
+				    
 				    
 				    String resumen = "";
 
@@ -281,6 +449,7 @@ public static void setController(ControllerProducto controller) {
 				            null,
 				            "Venta registrada correctamente"
 				    );
+				    
 
 				   
 					
@@ -296,6 +465,10 @@ public static void setController(ControllerProducto controller) {
 						int opcionpersonal;
 						do {
 							opcionpersonal = JOptionPane.showOptionDialog(null, "Menu de Perfil Laborar", "Perfil Laboral", 0, 0, null, menupersonal, menupersonal);
+							if(opcionpersonal == -1) {
+							    opcionpersonal = 3;
+							}
+							
 							switch (opcionpersonal) {
 							case 0:
 								

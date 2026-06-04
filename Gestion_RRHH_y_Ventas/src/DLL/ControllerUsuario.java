@@ -129,15 +129,15 @@ public class ControllerUsuario {
                             asis.registrarEntrada(idEmpleado);
                             javax.swing.JOptionPane.showMessageDialog(null, "Entrada registrada a las " + fechaHora);
                         }
-//=======
-//                        usuario = new Vendedor(nombre,apellido,email,pass,0,0,null,0,                          
-//                            venRs.getInt("ventas_totales")
-//                        );
-//
-//                        ((Vendedor) usuario).setIdEmpleado(
-//                                venRs.getInt("id_empleado")
-//                        );
-//>>>>>>> enni
+
+                       usuario = new Vendedor(nombre,apellido,email,pass,0,0,null,0,                          
+                            venRs.getInt("ventas_totales")
+                        );
+
+                        ((Vendedor) usuario).setIdEmpleado(
+                                venRs.getInt("id_empleado")
+                        );
+
 
                         
                         return usuario;
@@ -249,8 +249,8 @@ public class ControllerUsuario {
             String mail,
             String contrasenia,
             int dni,
-            double sueldoBase,
-            double comision) {
+            double sueldoBase
+           ) {
 
         try {
 
@@ -294,12 +294,11 @@ public class ControllerUsuario {
             }
 
             PreparedStatement vendedorStmt = con.prepareStatement(
-                "INSERT INTO vendedor(id_empleado, comision, ventas_totales) VALUES(?,?,?)"
+                "INSERT INTO vendedor(id_empleado, ventas_totales) VALUES(?,?)"
             );
 
             vendedorStmt.setInt(1, idEmpleado);
-            vendedorStmt.setDouble(2, comision);
-            vendedorStmt.setInt(3, 0);
+            vendedorStmt.setInt(2, 0);
 
             vendedorStmt.executeUpdate();
 
