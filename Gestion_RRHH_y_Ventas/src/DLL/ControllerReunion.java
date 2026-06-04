@@ -25,7 +25,7 @@ public class ControllerReunion {
                     con.prepareStatement(
 
                     "INSERT INTO reunion "
-                    + "(titulo,fechaReunion,id_proyecto) "
+                    + "(titulo,fecha,id_proyecto) "
                     + "VALUES (?,?,?)"
             );
 
@@ -69,7 +69,7 @@ public class ControllerReunion {
 
                         rs.getInt("id_reunion"),
                         rs.getString("titulo"),
-                        rs.getDate("fechaReunion").toLocalDate(),
+                        rs.getDate("fecha").toLocalDate(),
                         rs.getInt("id_proyecto")
                     )
                 );
