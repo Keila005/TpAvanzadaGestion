@@ -85,7 +85,12 @@ public static void setController(ControllerProducto controller) {
 				case 0:
 					
 					String[] menustock = {
-							"Ver Productos","Agregar Producto","Modificar producto","eliminar producto","Salir"	
+						    "Ver Productos",
+						    "Agregar Producto",
+						    "Agregar Stock",
+						    "Modificar producto",
+						    "Eliminar producto",
+						    "Salir"
 						};
 						int opcionstock;
 						do {
@@ -95,7 +100,7 @@ public static void setController(ControllerProducto controller) {
 							}
 							switch (opcionstock) {
 							
-							case 0:
+							case 0: // ver productos
 
 							    LinkedList<Producto> productos =
 							            controller.mostrarProductos();
@@ -137,6 +142,7 @@ public static void setController(ControllerProducto controller) {
 							    }
 
 							    break;
+							
 							case 1:
 							
 
@@ -204,7 +210,53 @@ public static void setController(ControllerProducto controller) {
 							    );
 							
 								break; //fin de agregar producto
-							case 2:
+								
+							case 2:// agregar stock
+								
+								
+						
+
+							    Producto productoStock =
+							            controller.BuscarProducto();
+
+							    if(productoStock == null) {
+							        break;
+							    }
+
+							    String cantidadStockTexto =
+							            JOptionPane.showInputDialog(
+							                    "Ingrese la cantidad a agregar"
+							            );
+
+							    if(cantidadStockTexto == null) {
+							        break;
+							    }
+
+							    int cantidadStock =
+							            Integer.parseInt(
+							                    cantidadStockTexto
+							            );
+
+							    ControllerStock controllerIngreso =
+							            new ControllerStock();
+
+							    controllerIngreso.registrarMovimiento(
+
+							        new Stock(
+							            productoStock,
+							            cantidadStock,
+							            LocalDate.now(),
+							            "AGREGACION"
+							        )
+							    );
+
+							    JOptionPane.showMessageDialog(
+							            null,
+							            "Stock agregado correctamente"
+							    );							  
+								
+								break;// fin de agregar stock
+							case 3:// modificar producto
 								
 
 							    Producto elegidoM =
@@ -249,7 +301,7 @@ public static void setController(ControllerProducto controller) {
 								break;// fin de modificar producto
 								
 								
-							case 3:
+							case 4:
 
 								Producto elegidoE =
 						        controller.BuscarProducto();
@@ -272,7 +324,7 @@ public static void setController(ControllerProducto controller) {
 								break;// fin de eliminar producto
 							
 							}
-							}while(opcionstock!=4);//FIN DEL menu stock
+							}while(opcionstock!=5);//FIN DEL menu stock
 					break;
 					
 			
