@@ -50,9 +50,9 @@ public Vendedor(int idVendedor, int ventasTotales) {
 
 @Override
 	public String toString() {
-		return  "VentasTotales=" + ventasTotales
-				+ "\nSueldo Base:" + getSueldoBase() + "\nNombre()=" + getNombre()+" " + getApellido()
-				+ "\nMail:" + getMail();
+		return  "VentasTotales: " + ventasTotales
+				+ "\nNombre: " + getNombre()+" " + getApellido()
+				+ "\nMail: " + getMail();
 	}
 
 
