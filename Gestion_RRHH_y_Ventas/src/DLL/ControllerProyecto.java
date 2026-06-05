@@ -126,24 +126,18 @@ public class ControllerProyecto {
 	    return listaProyectos;
 		}
 	
-	public LinkedList<Proyecto> obtenerProyectosMiembro(
-	        int idOperativo) {
+	public LinkedList<Proyecto> obtenerProyectosMiembro(int idOperativo) {
 
-	    LinkedList<Proyecto> proyectos =
-	            new LinkedList<>();
+	    LinkedList<Proyecto> proyectos = new LinkedList<>();
 
 	    try {
 
-	        PreparedStatement stmt =
-	                con.prepareStatement(
+	        PreparedStatement stmt = con.prepareStatement(
 
-	                "SELECT p.id_proyecto, p.nombre "
-	                + "FROM proyecto p "
-	                + "INNER JOIN equipo e "
-	                + "ON p.id_equipo = e.id_equipo "
-	                + "INNER JOIN equipo_operativo eo "
-	                + "ON e.id_equipo = eo.id_equipo "
-	                + "WHERE eo.id_operativo = ?"
+	            "SELECT DISTINCT p.id_proyecto, p.nombre " +
+	            "FROM proyecto p " +
+	            "JOIN equipo_miembro em ON p.id_equipo = em.id_equipo " +
+	            "WHERE em.id_operativo = ?"
 	        );
 
 	        stmt.setInt(1, idOperativo);
@@ -153,9 +147,7 @@ public class ControllerProyecto {
 	        while(rs.next()) {
 
 	            proyectos.add(
-
 	                new Proyecto(
-
 	                    rs.getInt("id_proyecto"),
 	                    rs.getString("nombre")
 	                )
@@ -163,7 +155,6 @@ public class ControllerProyecto {
 	        }
 
 	    } catch(Exception e) {
-
 	        e.printStackTrace();
 	    }
 

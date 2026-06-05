@@ -25,7 +25,7 @@ public class ControllerReunion {
                     con.prepareStatement(
 
                     "INSERT INTO reunion "
-                    + "(titulo,fechaReunion,id_proyecto) "
+                    + "(titulo,fecha,id_proyecto) "
                     + "VALUES (?,?,?)"
             );
 

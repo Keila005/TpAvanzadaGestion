@@ -10,6 +10,7 @@ import DLL.ControllerEvaluacion;
 import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerReunion;
+import DLL.ControllerAsistenciaReunion;
 
 public class Operativo extends Empleado implements Validador {
 private int idOperativo;
@@ -688,13 +689,116 @@ public void Menu() {
 
 										break;
 									case 1:
-										ControllerReunion cr =
-								        new ControllerReunion();
 
-								LinkedList<Proyecto> proyectos =
-								        proyectoController.obtenerProyectosMiembro(
-								                this.getIdOperativo());
-										break;
+									    ControllerReunion cr = new ControllerReunion();
+									    ControllerAsistenciaReunion car =
+									            new ControllerAsistenciaReunion();
+
+									    LinkedList<Proyecto> proyectos =
+									            proyectoController.obtenerProyectosMiembro(
+									                    this.getIdOperativo());
+
+									    if(proyectos.isEmpty()) {
+
+									        JOptionPane.showMessageDialog(
+									                null,
+									                "No tiene proyectos asignados");
+
+									        break;
+									    }
+
+									    String[] nombresProyectos =
+									            new String[proyectos.size()];
+
+									    for(int i = 0; i < proyectos.size(); i++) {
+
+									        nombresProyectos[i] =
+									                proyectos.get(i).getNombre();
+									    }
+
+									    String proyectoSeleccionado =
+									            (String) JOptionPane.showInputDialog(
+									                    null,
+									                    "Seleccione un proyecto",
+									                    "Proyectos",
+									                    JOptionPane.QUESTION_MESSAGE,
+									                    null,
+									                    nombresProyectos,
+									                    nombresProyectos[0]);
+
+									    if(proyectoSeleccionado == null) {
+									        break;
+									    }
+
+									    int idProyecto = -1;
+
+									    for(Proyecto p : proyectos) {
+
+									        if(p.getNombre().equals(
+									                proyectoSeleccionado)) {
+
+									            idProyecto = p.getIdProyecto();
+									            break;
+									        }
+									    }
+
+									    LinkedList<Reunion> reuniones =
+									            cr.obtenerReunionesProyecto(
+									                    idProyecto);
+
+									    if(reuniones.isEmpty()) {
+
+									        JOptionPane.showMessageDialog(
+									                null,
+									                "No hay reuniones");
+
+									        break;
+									    }
+
+									    String[] opcionesReunion =
+									            new String[reuniones.size()];
+
+									    for(int i = 0; i < reuniones.size(); i++) {
+
+									        opcionesReunion[i] =
+									                reuniones.get(i).getTitulo();
+									    }
+
+									    String reunionSeleccionada =
+									            (String) JOptionPane.showInputDialog(
+									                    null,
+									                    "Seleccione una reunión",
+									                    "Reuniones",
+									                    JOptionPane.QUESTION_MESSAGE,
+									                    null,
+									                    opcionesReunion,
+									                    opcionesReunion[0]);
+
+									    if(reunionSeleccionada == null) {
+									        break;
+									    }
+
+									    int idReunion = -1;
+
+									    for(Reunion r : reuniones) {
+
+									        if(r.getTitulo().equals(
+									                reunionSeleccionada)) {
+
+									            idReunion = r.getIdReunion();
+									            break;
+									        }
+									    }
+
+									    car.registrarAsistencia(
+									    	    idReunion,
+									    	    this.getIdEmpleado());
+
+									    JOptionPane.showMessageDialog(
+									            null,
+									            "Asistencia registrada");
+
+									    break;
 									case 2:
 										ControllerEvaluacion ce = new ControllerEvaluacion();
 										Operativo empleadoLogueado = this;
