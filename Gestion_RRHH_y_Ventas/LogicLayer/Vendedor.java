@@ -48,6 +48,14 @@ public Vendedor(int idVendedor, int ventasTotales) {
 
 
 
+@Override
+	public String toString() {
+		return "ID=" + idVendedor + "\nVentasTotales=" + ventasTotales
+				+ "\nSueldo Base:" + getSueldoBase() + "\nNombre()=" + getNombre()+" " + getApellido()
+				+ "\nMail:" + getMail();
+	}
+
+
 public static void setController(ControllerProducto controller) {
 	Vendedor.controller = controller;
 }
