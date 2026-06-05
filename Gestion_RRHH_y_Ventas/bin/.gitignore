@@ -1,5 +1,4 @@
-/.project
-/LogicLayer/
+/src/
 /DLL/
+/LogicLayer/
 /UserLayer/
-/bin/
