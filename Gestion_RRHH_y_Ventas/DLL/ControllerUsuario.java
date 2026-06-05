@@ -115,21 +115,23 @@ public class ControllerUsuario {
 
                     if(venRs.next()) {
 
-                        usuario = new Vendedor(nombre,apellido,email,pass,0,0,null,0,                          
-                              venRs.getInt("ventas_totales")
-                          );
-  
-                          ((Vendedor) usuario).setIdEmpleado(
-                                  venRs.getInt("id_empleado")
-                          );
-                        
-                        DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();                        
-                        int idEmpleado = venRs.getInt("id_empleado");
-                        if (!asis.yaRegistroEntradaHoy(idEmpleado)) {
-                            asis.registrarEntrada(idEmpleado);
-                            javax.swing.JOptionPane.showMessageDialog(null, "Entrada registrada a las " + fechaHora);
-                        }
+                        usuario = new Vendedor(
+                            nombre,
+                            apellido,
+                            email,
+                            pass,
+                            0,
+                            0,
+                            null,
+                            0,
+                            venRs.getInt("ventas_totales")
+                        );
 
+                        usuario.setIdUsuario(idUsuario);
+
+                        ((Vendedor) usuario).setIdEmpleado(
+                                venRs.getInt("id_empleado")
+                        );
                        
 
 
