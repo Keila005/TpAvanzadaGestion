@@ -51,8 +51,7 @@ public class ControllerUsuario {
 
                         String sector = adminRs.getString("sector");
 
-                        usuario = new Administrador(nombre,apellido,email,pass,idUsuario,sector
-                        );
+                       usuario = new Administrador(nombre,apellido,email,pass,idUsuario,sector);
 
                         return usuario;
                     }
@@ -84,6 +83,11 @@ public class ControllerUsuario {
 
                         usuario = new Operativo( nombre,apellido,email,pass,0, 0,null,0,
                             opRs.getInt("id_empleado"),rol,rendimiento,null,null, idUsuario);
+                        ControllerTarea controllerTarea = new ControllerTarea();
+                        
+                        //DESPUES DE LOGIN HAY QUE GUARDAR EN LA LISTA SUS TAREAS
+                        ((Operativo) usuario).setTareasAsignadas(
+                        		controllerTarea.obtenerTareasEmpleado(opRs.getInt("id_empleado")));
                         
                         DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
                         int idEmpleado = opRs.getInt("id_empleado");
@@ -125,15 +129,9 @@ public class ControllerUsuario {
                             asis.registrarEntrada(idEmpleado);
                             javax.swing.JOptionPane.showMessageDialog(null, "Entrada registrada a las " + fechaHora);
                         }
-//=======
-//                        usuario = new Vendedor(nombre,apellido,email,pass,0,0,null,0,                          
-//                            venRs.getInt("ventas_totales")
-//                        );
-//
-//                        ((Vendedor) usuario).setIdEmpleado(
-//                                venRs.getInt("id_empleado")
-//                        );
-//>>>>>>> enni
+
+                       
+
 
                         
                         return usuario;
@@ -245,8 +243,8 @@ public class ControllerUsuario {
             String mail,
             String contrasenia,
             int dni,
-            double sueldoBase,
-            double comision) {
+            double sueldoBase
+           ) {
 
         try {
 
@@ -290,12 +288,11 @@ public class ControllerUsuario {
             }
 
             PreparedStatement vendedorStmt = con.prepareStatement(
-                "INSERT INTO vendedor(id_empleado, comision, ventas_totales) VALUES(?,?,?)"
+                "INSERT INTO vendedor(id_empleado, ventas_totales) VALUES(?,?)"
             );
 
             vendedorStmt.setInt(1, idEmpleado);
-            vendedorStmt.setDouble(2, comision);
-            vendedorStmt.setInt(3, 0);
+            vendedorStmt.setInt(2, 0);
 
             vendedorStmt.executeUpdate();
 
@@ -383,7 +380,29 @@ public class ControllerUsuario {
 	    }
 	}  
   
-  
+  public ResultSet getListaEmpleados() {
+
+	    try {
+
+	        PreparedStatement stmt = con.prepareStatement(
+
+	            "SELECT e.id_empleado, "
+	            + "u.nombre, "
+	            + "u.apellido "
+	            + "FROM empleado e "
+	            + "INNER JOIN usuario u "
+	            + "ON e.id_usuario = u.id_usuario"
+	        );
+
+	        return stmt.executeQuery();
+
+	    } catch(Exception e) {
+
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
   
     		
     

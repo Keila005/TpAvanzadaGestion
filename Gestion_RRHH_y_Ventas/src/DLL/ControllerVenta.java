@@ -131,6 +131,184 @@ public class ControllerVenta {
 	}
 	
 	
+	public String obtenerRankingVendedores() {
+
+	    String ranking = "";
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT u.nombre, u.apellido, " +
+	            "COUNT(v.id_venta) AS totalVentas " +
+	            "FROM vendedor ve " +
+	            "INNER JOIN empleado e " +
+	            "ON ve.id_empleado = e.id_empleado " +
+	            "INNER JOIN usuario u " +
+	            "ON e.id_usuario = u.id_usuario " +
+	            "LEFT JOIN venta v " +
+	            "ON e.id_empleado = v.id_vendedor " +
+	            "GROUP BY e.id_empleado, u.nombre, u.apellido " +
+	            "ORDER BY totalVentas DESC"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        int posicion = 1;
+
+	        while(rs.next()) {
+
+	            ranking +=
+	                    posicion + ". "
+	                    + rs.getString("nombre")
+	                    + " "
+	                    + rs.getString("apellido")
+	                    + " - Ventas realizadas: "
+	                    + rs.getInt("totalVentas")
+	                    + "\n- - - - - - - - -s\n";
+
+	            posicion++;
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return ranking;
+	}
+	
+	
+	public String obtenerProductoMasVendido() {
+
+	    String resultado = "";
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT p.nombre, " +
+	            "SUM(d.cantidad) AS totalVendido " +
+	            "FROM detalle_venta d " +
+	            "INNER JOIN producto p " +
+	            "ON d.id_producto = p.id_producto " +
+	            "GROUP BY p.id_producto, p.nombre " +
+	            "ORDER BY totalVendido DESC " +
+	            "LIMIT 1"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+
+	            resultado =
+	                    "Producto más vendido:\n\n"
+	                    + rs.getString("nombre")
+	                    + "\nCantidad vendida: "
+	                    + rs.getInt("totalVendido");
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return resultado;
+	}
+	
+	
+	public String obtenerProductoMenosVendido() {
+
+	    String resultado = "";
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT p.nombre, " +
+	            "SUM(d.cantidad) AS totalVendido " +
+	            "FROM detalle_venta d " +
+	            "INNER JOIN producto p " +
+	            "ON d.id_producto = p.id_producto " +
+	            "GROUP BY p.id_producto, p.nombre " +
+	            "ORDER BY totalVendido ASC " +
+	            "LIMIT 1"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+
+	            resultado =
+	                    "Producto menos vendido:\n\n"
+	                    + rs.getString("nombre")
+	                    + "\nCantidad vendida: "
+	                    + rs.getInt("totalVendido");
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return resultado;
+	}
+	
+	public String mostrarTodasLasVentas() {
+
+	    String ventas = "";
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT v.id_venta, " +
+	            "v.fecha, " +
+	            "v.total, " +
+	            "u.nombre, " +
+	            "u.apellido " +
+	            "FROM venta v " +
+	            "INNER JOIN empleado e " +
+	            "ON v.id_vendedor = e.id_empleado " +
+	            "INNER JOIN usuario u " +
+	            "ON e.id_usuario = u.id_usuario " +
+	            "ORDER BY v.fecha DESC"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            ventas +=
+	                    "ID Venta: "
+	                    + rs.getInt("id_venta")
+	                    + "\nVendedor: "
+	                    + rs.getString("nombre")
+	                    + " "
+	                    + rs.getString("apellido")
+	                    + "\nFecha: "
+	                    + rs.getDate("fecha")
+	                    + "\nTotal: $"
+	                    + rs.getDouble("total")
+	                    + "\n----------------------\n";
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return ventas;
+	}
+	
 	
 }// fin de clase controller
 	

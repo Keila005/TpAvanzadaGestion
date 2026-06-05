@@ -39,7 +39,7 @@ public class ControllerRendimiento {
     
     public LinkedList<Vendedor> getTodosVendedores() {
     	LinkedList<Vendedor> lista = new LinkedList<>();
-        String sql = "SELECT v.id_empleado, v.comision, v.ventas_totales, u.nombre, u.apellido " +
+        String sql = "SELECT v.id_empleado, v.ventas_totales, u.nombre, u.apellido " +
                      "FROM vendedor v " +
                      "JOIN empleado e ON v.id_empleado = e.id_empleado " +
                      "JOIN usuario u ON e.id_usuario = u.id_usuario";
@@ -50,10 +50,9 @@ public class ControllerRendimiento {
             while (rs.next()) {
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
-                double comision = rs.getDouble("comision");
                 int ventasTotales = rs.getInt("ventas_totales");
                 
-         Vendedor ven = new Vendedor(nombre, apellido, "", "", 0, 0, null, 0, comision, ventasTotales);
+         Vendedor ven = new Vendedor(nombre, apellido, "", "", 0, 0, null, 0, ventasTotales);
          
          
                 lista.add(ven);

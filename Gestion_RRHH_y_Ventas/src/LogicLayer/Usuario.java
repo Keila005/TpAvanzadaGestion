@@ -98,20 +98,10 @@ public abstract class Usuario {
         }
 
         Usuario usuario = controller.login(email, contrasenia);
+        
 		return usuario;
 	}
-	
-public static void Registrarse() {
 		
-		String nombre = Validador.ValidarString("Ingrese nombre");
-			String mail=Validador.ValidarString("Ingrese mail");
-		
-//		String contrasenia	= Validador.ValidarString("Ingrese contraseña");
-//		controller.agregarUsuario(new Empleado(
-//				nombre,mail,"Empleado",Hashing.hash(contrasenia)));
-		
-	}
-	
 	public abstract void Menu();	
 	
 }

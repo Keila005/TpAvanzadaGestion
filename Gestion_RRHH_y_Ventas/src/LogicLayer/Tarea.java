@@ -11,7 +11,7 @@ public class Tarea {
 	    private int sesionesTrabajo;
 	    private boolean bloqueada;
 	    
-	    // QUE SERIA ESTO DE PROGRESO?? A QUE SE REFIERE?
+	    
 	    public Tarea(String nombre, String descripcion, String estado, int progreso, int idProyecto, int idEmpleadoAsignado) {
 	    	this.idTarea = contador++;
 	    	this.nombre = nombre; this.descripcion = descripcion; this.estado = estado;
@@ -20,7 +20,14 @@ public class Tarea {
 	    	this.sesionesTrabajo = 0;
 	    	this.bloqueada = false;
 	    }
-	    public static int getContador() {
+	    
+	    
+	    public Tarea() {
+			super();
+		}
+
+
+		public static int getContador() {
 			return contador;
 		}
 
@@ -102,9 +109,15 @@ public class Tarea {
 		public void setBloqueada(boolean bloqueada) {
 			this.bloqueada = bloqueada;
 		}
+		
+		
+		@Override
+		public String toString() {
+			return "\n-"+nombre + "\nDescripcion:" + descripcion + "\nEstado=" + estado + ", progreso="
+					+ progreso + "\n";
+		}
 
-		
-		
+
 		public void trabajar() {
 
 			if(estado.equals("COMPLETADA")) {

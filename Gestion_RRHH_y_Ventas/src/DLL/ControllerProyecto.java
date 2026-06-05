@@ -2,7 +2,11 @@ package DLL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.LinkedList;
+
+import LogicLayer.Proyecto;
 
 public class ControllerProyecto {
 
@@ -19,8 +23,6 @@ public class ControllerProyecto {
 		
 		try {
 			 PreparedStatement stmt = con.prepareStatement(
-//					 INSERT INTO `mensaje_anonimo`(`contenido`, `fecha`,`sentimiento`,`id_reporte`) "
-//	            				+ "VALUES (?,?,?,?)"
 					 
 		  "INSERT INTO `proyecto`(`nombre`,`descripcion`,`fecha_inicio`,"
 		  + "`fecha_fin`,`id_lider`,`id_equipo`) "
@@ -42,27 +44,121 @@ public class ControllerProyecto {
 		
 	}
 	
-	public void asignarLider(
-	        int idProyecto,
-	        int nuevoLider) {
+	public String obtenerProyectos() {
+
+	    String mensaje = "PROYECTOS:\n";
+
+	    try {
+
+	        PreparedStatement stmt = con.prepareStatement(
+	                "SELECT nombre FROM proyecto"
+	        );
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            mensaje += rs.getString("nombre") + "\n";
+	        }
+
+	    } catch(Exception e) {
+
+	        e.printStackTrace();
+	    }
+
+	    return mensaje;
+	}
+	
+//	public void asignarLider(
+//	        int idProyecto,
+//	        int nuevoLider) {
+//
+//	    try {
+//
+//	        PreparedStatement stmt = con.prepareStatement(
+//
+//	            "UPDATE proyecto "
+//	            + "SET id_lider = ? "
+//	            + "WHERE id_proyecto = ?"
+//	        );
+//
+//	        stmt.setInt(1, nuevoLider);
+//	        stmt.setInt(2, idProyecto);
+//
+//	        stmt.executeUpdate();
+//
+//	    } catch(Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	}
+	
+	public LinkedList<Proyecto> obtenerProyectosLider(int idLider) {
+
+	    LinkedList<Proyecto> listaProyectos = new LinkedList<>();
+
+	    try {
+
+	        String sql =
+	            "SELECT p.id_proyecto, p.nombre " +
+	            "FROM proyecto p " +
+	            "JOIN equipo e ON p.id_equipo = e.id_equipo " +
+	            "WHERE e.id_lider = ?";
+
+	        PreparedStatement stmt = con.prepareStatement(sql);
+	        stmt.setInt(1, idLider);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            listaProyectos.add(
+	                new Proyecto(
+	                    rs.getInt("id_proyecto"),
+	                    rs.getString("nombre")
+	                )
+	            );
+	        }
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return listaProyectos;
+		}
+	
+	public LinkedList<Proyecto> obtenerProyectosMiembro(int idOperativo) {
+
+	    LinkedList<Proyecto> proyectos = new LinkedList<>();
 
 	    try {
 
 	        PreparedStatement stmt = con.prepareStatement(
 
-	            "UPDATE proyecto "
-	            + "SET id_lider = ? "
-	            + "WHERE id_proyecto = ?"
+	            "SELECT DISTINCT p.id_proyecto, p.nombre " +
+	            "FROM proyecto p " +
+	            "JOIN equipo_miembro em ON p.id_equipo = em.id_equipo " +
+	            "WHERE em.id_operativo = ?"
 	        );
 
-	        stmt.setInt(1, nuevoLider);
-	        stmt.setInt(2, idProyecto);
+	        stmt.setInt(1, idOperativo);
 
-	        stmt.executeUpdate();
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            proyectos.add(
+	                new Proyecto(
+	                    rs.getInt("id_proyecto"),
+	                    rs.getString("nombre")
+	                )
+	            );
+	        }
 
 	    } catch(Exception e) {
 	        e.printStackTrace();
 	    }
+
+	    return proyectos;
 	}
 	
 	

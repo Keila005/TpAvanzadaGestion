@@ -3,6 +3,9 @@ package DLL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.LinkedList;
+
+import LogicLayer.Tarea;
 
 public class ControllerTarea {
 	private static Connection con =
@@ -182,12 +185,40 @@ public class ControllerTarea {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-}
+	public LinkedList<Tarea> obtenerTareasEmpleado(int idEmpleado){
 
-//fin de controller
+	    LinkedList<Tarea> lista = new LinkedList<>();
+
+	    try {
+
+	        PreparedStatement stmt = con.prepareStatement(
+	            "SELECT * FROM tarea WHERE id_empleado = ?");
+
+	        stmt.setInt(1, idEmpleado);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()){
+
+	            Tarea t = new Tarea();
+
+	            t.setIdTarea(rs.getInt("id_tarea"));
+	            t.setNombre(rs.getString("nombre"));
+	            t.setDescripcion(rs.getString("descripcion"));
+	            t.setEstado(rs.getString("estado"));
+
+	            lista.add(t);
+	        }
+
+	    } catch(Exception e){
+	        e.printStackTrace();
+	    }
+
+	    return lista;
+	}
+	
+	
+	
+	
+	
+}//fin de controller
