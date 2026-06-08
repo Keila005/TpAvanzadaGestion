@@ -77,6 +77,7 @@ public class Login extends JFrame {
 		JButton btnNewButton = new JButton("Iniciar sesión");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			//codigo del login btn Iniciar sesion
 				 Usuario usuarioLogueado = null;
 				 Usuario usuario = Usuario.Login();
