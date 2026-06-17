@@ -80,24 +80,18 @@ public abstract class Usuario {
 		this.apellido = apellido;
 	}
 	
-	public static Usuario Login() {
-		String email = "";
-        while (email.isEmpty()) {
-        	email = JOptionPane.showInputDialog("Ingrese el mail del usuario");
-            if (email.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Incorrecto");
-            }
-        }
+	public static Usuario Login(String email,String contrasenia) {
+		  if (email == null || email.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "El mail no puede estar vacío");
+		        return null;
+		    }
 
-        String contrasenia = "";
-        while (contrasenia.isEmpty()) {
-            contrasenia = JOptionPane.showInputDialog("Ingrese la contraseña");
-            if (contrasenia.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Incorrecto");
-            }
-        }
+		    if (contrasenia == null || contrasenia.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "La contraseña no puede estar vacía");
+		        return null;
+		    }
 
-        Usuario usuario = controller.login(email, contrasenia);
+		    Usuario usuario = controller.login(email, contrasenia);
         
 		return usuario;
 	}
