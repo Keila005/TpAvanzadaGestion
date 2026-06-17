@@ -2,6 +2,9 @@ package UserLayer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import LogicLayer.Administrador;
+import LogicLayer.Operativo;
 import LogicLayer.Usuario;
 
 import javax.swing.JLabel;
@@ -90,15 +93,26 @@ public class Login extends JFrame {
 			        Usuario usuarioLogueado = Usuario.Login(email, password);
 
 			        if (usuarioLogueado != null) {
-			            usuarioLogueado.Menu();
+			        	 if (usuarioLogueado instanceof Administrador) {
 
-			            DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
-			            int idEmpleado = asis.getIdEmpleadoByUsuario(usuarioLogueado.getIdUsuario());
-
-			            if (idEmpleado != -1) {
-			                asis.registrarSalida(idEmpleado);
-			                JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
-			            }
+			        	        MenuAdministrador menuAdmin = new MenuAdministrador(usuarioLogueado);
+			        	        menuAdmin.setVisible(true);
+			        	        
+			        	 }else if(usuarioLogueado instanceof Operativo){
+			        		 MenuOperativo menuOperativo= new MenuOperativo(usuarioLogueado);
+			        		 menuOperativo.setVisible(true);
+			        	        
+			        	 }else {
+			        		 MenuVendedor menuVendedor = new MenuVendedor(usuarioLogueado);
+			        		 menuVendedor.setVisible(true);
+						}
+//			            DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+//			            int idEmpleado = asis.getIdEmpleadoByUsuario(usuarioLogueado.getIdUsuario());
+//
+//			            if (idEmpleado != -1) {
+//			                asis.registrarSalida(idEmpleado);
+//			                JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
+//			            }
 
 			        } else {
 			            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");

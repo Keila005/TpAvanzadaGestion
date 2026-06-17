@@ -24,6 +24,8 @@ public abstract class Usuario {
 	public  Usuario() {
 		
 	}
+	
+
 	public Usuario(int idUsuario, String nombre, String apellido, String mail, String contrasenia) {
 		super();
 		this.idUsuario = idUsuario;
@@ -68,8 +70,7 @@ public abstract class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario: nombre=" + nombre + ", apellido=" + apellido + ", mail=" + mail + ", contrasenia="
-				+ contrasenia + "\n";
+		return "Usuario: nombre=" + nombre + ", apellido=" + apellido + ", mail=" + mail ;
 	}
 
 	public String getApellido() {
