@@ -3,7 +3,7 @@ package LogicLayer;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
-public abstract class Empleado extends Usuario {
+public class Empleado extends Usuario {
 	
 	private int idEmpleado;
 	private int dni;
@@ -247,7 +247,8 @@ public abstract class Empleado extends Usuario {
 	    }
 	}
 	@Override
-	public abstract void Menu();
+	public  void Menu() {
+	}
 	
 	
 	

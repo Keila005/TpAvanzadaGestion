@@ -1,6 +1,5 @@
 package UserLayer;
 
-import java.awt.EventQueue;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -120,7 +119,6 @@ public class MenuGestionar extends JFrame {
 	    model.setRowCount(0);
 
 	    ControllerEmpleado contEmpleado = new ControllerEmpleado();
-
 	    LinkedList<Empleado> empleados = contEmpleado.mostrarEmpleados();
 
 	    for (Empleado e : empleados) {

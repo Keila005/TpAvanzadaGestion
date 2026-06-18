@@ -30,7 +30,7 @@ public class ControllerEmpleado {
 
 	        while(rs.next()) {
 
-	            Empleado e =null;
+	            Empleado e =new Empleado();
 
 	            e.setIdEmpleado(rs.getInt("id_empleado"));
 	            e.setNombre(rs.getString("nombre"));
