@@ -97,6 +97,7 @@ public class Login extends JFrame {
 
 			        	        MenuAdministrador menuAdmin = new MenuAdministrador(usuarioLogueado);
 			        	        menuAdmin.setVisible(true);
+			        	        dispose();
 			        	        
 			        	 }else if(usuarioLogueado instanceof Operativo){
 			        		 MenuOperativo menuOperativo= new MenuOperativo(usuarioLogueado);
