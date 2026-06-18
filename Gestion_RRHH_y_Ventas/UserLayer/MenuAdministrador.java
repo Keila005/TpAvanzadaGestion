@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import LogicLayer.Administrador;
 import LogicLayer.Usuario;
 
@@ -12,6 +11,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -55,7 +55,9 @@ public class MenuAdministrador extends JFrame {
 		JButton btnEmpleados = new JButton("Gestionar empleados");
 		btnEmpleados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuGestionar menugestion=new MenuGestionar();
+				MenuGestionar menugestion=new MenuGestionar(admin);
+				menugestion.setVisible(true);
+				dispose();
 			}
 		});
 		btnEmpleados.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -66,7 +68,9 @@ public class MenuAdministrador extends JFrame {
 		btnSalir.setForeground(new Color(255, 0, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Saludos chau= new Saludos();
+				chau.setVisible(true);
+				dispose();
 				 DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
 	            int idEmpleado = asis.getIdEmpleadoByUsuario(usuario.getIdUsuario());
 	            if (idEmpleado != -1) {
@@ -122,4 +126,5 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnAsistencia);
 
 	}
+
 }
