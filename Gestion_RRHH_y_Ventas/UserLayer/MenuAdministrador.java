@@ -1,6 +1,7 @@
 package UserLayer;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,7 +20,6 @@ public class MenuAdministrador extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtBienvenidoAdministrador;
 	private Usuario usuario;
 
 //	public static void main(String[] args) {
@@ -44,13 +44,10 @@ public class MenuAdministrador extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		txtBienvenidoAdministrador = new JTextField();
-		txtBienvenidoAdministrador.setFont(new Font("Tahoma", Font.BOLD, 18));
-		txtBienvenidoAdministrador.setText("Bienvenido administrador: "+ usuario.getNombre());
-		txtBienvenidoAdministrador.setBounds(289, 25, 380, 28);
-		contentPane.add(txtBienvenidoAdministrador);
-		txtBienvenidoAdministrador.setColumns(10);
+		JLabel lblbienvenida = new JLabel("Bienvenido administrador: "+ usuario.getNombre());
+		lblbienvenida.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblbienvenida.setBounds(289, 25, 380, 28);
+		contentPane.add(lblbienvenida);
 		
 		JButton btnEmpleados = new JButton("Gestionar empleados");
 		btnEmpleados.addActionListener(new ActionListener() {

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import DLL.ControllerEmpleado;
 import LogicLayer.Administrador;
 import LogicLayer.Empleado;
+import LogicLayer.Usuario;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -52,7 +53,7 @@ public class MenuGestionar extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		 JLabel lblSeleccionado = new JLabel("Seleccionando a:");
+		 JLabel lblSeleccionado = new JLabel();
 	        lblSeleccionado.setBounds(10, 10, 760, 20);
 	        contentPane.add(lblSeleccionado);
 	        //si lo adapto, primero cambio las columnas -> depende de cada tabla 
@@ -66,6 +67,23 @@ public class MenuGestionar extends JFrame {
 	        scrollPane.setBounds(10, 40, 691, 200);
 	        contentPane.add(scrollPane);
 	        cargarTabla(); 
+	        
+	        // Acción al seleccionar fila
+	        table.getSelectionModel().addListSelectionListener(e -> {
+	            if (!e.getValueIsAdjusting()) {
+	           
+	                int row = table.getSelectedRow();
+	                if (row != -1) {
+	                	 lblSeleccionado.setText(
+	                		        "Seleccionado a: ID=" + model.getValueAt(row, 0)
+	                		        + ", Nombre=" + model.getValueAt(row, 1)
+	                		        + ", Apellido=" + model.getValueAt(row, 2)
+	                		        + ", Email=" + model.getValueAt(row, 3)
+	                		    );
+	                    
+	                }
+	            }
+	        });
 	        //botones
 	        JButton btnAgregar = new JButton("Agregar");
 	        btnAgregar.addActionListener(new ActionListener() {
@@ -106,6 +124,7 @@ public class MenuGestionar extends JFrame {
 	        	public void actionPerformed(ActionEvent e) {
 	        		MenuAdministrador menuAdmin= new MenuAdministrador(admin);
 	        		menuAdmin.setVisible(true);
+	        		dispose();
 	        	}
 	        });
 	        btnVolverAtrs.setBounds(488, 270, 150, 40);

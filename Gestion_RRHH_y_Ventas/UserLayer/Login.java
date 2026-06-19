@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import DLL.ControllerUsuario;
+
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +35,8 @@ public class Login extends JFrame {
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
+					ControllerUsuario nuevo = new ControllerUsuario();
+					 nuevo.mostrarUsuarios();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
