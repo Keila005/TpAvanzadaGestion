@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class verInformacionPersonal extends JFrame {
 
@@ -50,17 +52,17 @@ public class verInformacionPersonal extends JFrame {
 		
 		JButton btnNewButton = new JButton("Ver mi sueldo");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton.setBackground(new Color(172, 238, 123));
+		btnNewButton.setBackground(UIManager.getColor("Button.background"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(10, 64, 200, 44);
+		btnNewButton.setBounds(10, 72, 187, 44);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Rendimiento");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton_1.setBounds(10, 129, 214, 44);
+		btnNewButton_1.setBounds(10, 137, 187, 44);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Mis datos");
@@ -69,17 +71,22 @@ public class verInformacionPersonal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_2.setBounds(249, 129, 177, 44);
+		btnNewButton_2.setBounds(239, 137, 187, 44);
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Ver ausencias");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton_3.setBounds(226, 64, 200, 44);
+		btnNewButton_3.setBounds(239, 72, 187, 44);
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Volver");
 		btnNewButton_4.setBounds(325, 211, 101, 31);
 		contentPane.add(btnNewButton_4);
+		
+		JLabel lblNewLabel = new JLabel("Ver informacion personal");
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblNewLabel.setBounds(89, 10, 266, 33);
+		contentPane.add(lblNewLabel);
 
 	}
 }
