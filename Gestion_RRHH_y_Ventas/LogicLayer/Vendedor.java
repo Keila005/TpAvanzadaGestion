@@ -26,15 +26,19 @@ public class Vendedor extends Empleado {
 	private static ControllerProducto controller =
 	        new ControllerProducto();
 
-	
-	
+	public Vendedor(int idEmpleado, String nombre, String apellido, int ventasTotales) {
+	    super();
+	    this.setIdEmpleado(idEmpleado); 
+	    this.ventasTotales = ventasTotales;
+	    this.setNombre(nombre);
+	    this.setApellido(apellido);
+	}
 	
 	public Vendedor(String nombre, String apellido, String mail, String contrasenia, int dni, double sueldoBase,
 			LocalDate fechaContratacion, int faltas, int ventasTotales) {
 		super(nombre, apellido, mail, contrasenia, dni, sueldoBase, fechaContratacion, faltas);
 		this.ventasTotales = ventasTotales;
 	}
-	
 
 public Vendedor(int idVendedor, int ventasTotales) {
 		super();

@@ -3,7 +3,6 @@ package DLL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.LinkedList;
 import LogicLayer.Operativo;
 import LogicLayer.Vendedor;
@@ -24,7 +23,7 @@ public class ControllerRendimiento {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Operativo op = new Operativo();
-                op.setIdOperativo(rs.getInt("id_empleado"));
+                op.setIdEmpleado(rs.getInt("id_empleado"));
                 op.setNombre(rs.getString("nombre"));
                 op.setApellido(rs.getString("apellido"));
                 op.setRendimiento(rs.getInt("rendimiento"));
@@ -48,11 +47,11 @@ public class ControllerRendimiento {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+            	int id_empleado=rs.getInt("id_empleado");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
                 int ventasTotales = rs.getInt("ventas_totales");
-                
-         Vendedor ven = new Vendedor(nombre, apellido, "", "", 0, 0, null, 0, ventasTotales);
+         Vendedor ven = new Vendedor(id_empleado,nombre, apellido,ventasTotales);
          
          
                 lista.add(ven);

@@ -46,9 +46,7 @@ public class MenuGestionar extends JFrame {
 		 JLabel lblSeleccionado = new JLabel();
 	        lblSeleccionado.setBounds(10, 10, 760, 20);
 	        contentPane.add(lblSeleccionado);
-	        //si lo adapto, primero cambio las columnas -> depende de cada tabla 
-	        
-	        //defino el nombre qeu va a tener cada columna
+	      
 	       model = new DefaultTableModel(new String[]{"ID", "Nombre","Apellido",
 	        		"Email","Dni","Sueldo"}, 0);
 	        

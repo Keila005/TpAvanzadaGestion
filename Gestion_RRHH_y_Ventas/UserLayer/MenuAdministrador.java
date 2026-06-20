@@ -39,14 +39,14 @@ public class MenuAdministrador extends JFrame {
 		Administrador admin = (Administrador) usuario;
 		  this.usuario = usuario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 997, 672);
+		setBounds(100, 100, 904, 672);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JLabel lblbienvenida = new JLabel("Bienvenido administrador: "+ usuario.getNombre());
 		lblbienvenida.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblbienvenida.setBounds(289, 25, 380, 28);
+		lblbienvenida.setBounds(157, 25, 380, 28);
 		contentPane.add(lblbienvenida);
 		
 		JButton btnEmpleados = new JButton("Gestionar empleados");
@@ -77,17 +77,24 @@ public class MenuAdministrador extends JFrame {
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnSalir.setBounds(719, 21, 151, 38);
+		btnSalir.setBounds(622, 25, 151, 38);
 		contentPane.add(btnSalir);
 		
 		JButton btnProyectos = new JButton("Registrar Proyectos");
 		btnProyectos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnProyectos.setBounds(709, 171, 200, 38);
+		btnProyectos.setBounds(264, 315, 200, 38);
 		contentPane.add(btnProyectos);
 		
-		JButton btnEstadisticas = new JButton("Ver estadisticas de rendimiento");
+		JButton btnEstadisticas = new JButton("Rendimiento empleado");
+		btnEstadisticas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RendimientoEmpleado rendimientoEmpleado= new RendimientoEmpleado();
+				rendimientoEmpleado.setVisible(true);
+				dispose();
+			}
+		});
 		btnEstadisticas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnEstadisticas.setBounds(340, 171, 271, 38);
+		btnEstadisticas.setBounds(264, 171, 200, 38);
 		contentPane.add(btnEstadisticas);
 		
 		JButton btnSolicitudes = new JButton("Solicitudes");
@@ -96,7 +103,7 @@ public class MenuAdministrador extends JFrame {
 			}
 		});
 		btnSolicitudes.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnSolicitudes.setBounds(289, 266, 200, 38);
+		btnSolicitudes.setBounds(264, 245, 200, 38);
 		contentPane.add(btnSolicitudes);
 		
 		JButton btnHorasExtras = new JButton("Horas Extras");
@@ -105,12 +112,12 @@ public class MenuAdministrador extends JFrame {
 			}
 		});
 		btnHorasExtras.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnHorasExtras.setBounds(40, 266, 200, 38);
+		btnHorasExtras.setBounds(40, 245, 200, 38);
 		contentPane.add(btnHorasExtras);
 		
 		JButton btnGestionarBonos = new JButton("Gestionar Bonos");
 		btnGestionarBonos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnGestionarBonos.setBounds(543, 266, 200, 38);
+		btnGestionarBonos.setBounds(497, 245, 200, 38);
 		contentPane.add(btnGestionarBonos);
 		
 		JButton btnAsistencia = new JButton("Asistencia");
@@ -119,8 +126,18 @@ public class MenuAdministrador extends JFrame {
 			}
 		});
 		btnAsistencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnAsistencia.setBounds(773, 266, 200, 38);
+		btnAsistencia.setBounds(497, 315, 200, 38);
 		contentPane.add(btnAsistencia);
+		
+		JButton btnRendimientoProductos = new JButton("Ver ventas");
+		btnRendimientoProductos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRendimientoProductos.setBounds(497, 171, 200, 38);
+		contentPane.add(btnRendimientoProductos);
+		
+		JButton btnProyectos_1 = new JButton("Clima laboral");
+		btnProyectos_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnProyectos_1.setBounds(40, 315, 200, 38);
+		contentPane.add(btnProyectos_1);
 
 	}
 
