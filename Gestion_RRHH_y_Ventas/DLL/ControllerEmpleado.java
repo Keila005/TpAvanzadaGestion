@@ -20,7 +20,7 @@ public class ControllerEmpleado {
 	    try {
 
 	        String sql =
-	                "SELECT e.id_empleado, u.nombre, u.apellido, u.email " +
+	                "SELECT e.id_empleado, u.nombre, u.apellido, u.email, e.dni, e.sueldo_base " +
 	                "FROM empleado e " +
 	                "JOIN usuario u ON e.id_usuario = u.id_usuario";
 
@@ -36,6 +36,8 @@ public class ControllerEmpleado {
 	            e.setNombre(rs.getString("nombre"));
 	            e.setApellido(rs.getString("apellido"));
 	            e.setMail(rs.getString("email"));
+	            e.setDni(rs.getInt("dni"));
+	            e.setSueldoBase(rs.getDouble("sueldo_base"));
 
 	            empleados.add(e);
 	        }

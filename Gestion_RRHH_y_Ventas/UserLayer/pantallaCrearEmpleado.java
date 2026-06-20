@@ -186,27 +186,29 @@ public class pantallaCrearEmpleado extends JFrame {
 				  if (rdbtnCrearOperativo.isSelected()) {
 
 			            if (rdbtnLider.isSelected()) {
-			                
 			            	usuarioController.crearOperativo(
 			            			inpName.getText(),
 			            			inpApellido.getText(),
 			            			inpEmail.getText(),
-			            			Hashing.hash(inpContra.getPassword()),
-			            			inpDni.getText(),
-			            			inpSueldo.getText(),
-			            			"Lider de Proyecto"
-			            			);
+			            			Hashing.hash(new String(inpContra.getPassword())),
+			            			Integer.parseInt(inpDni.getText()),
+			            			Double.parseDouble(inpSueldo.getText()),
+			            			"Lider de Proyecto");
+			            	dispose();
+			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Lider");
 
 			            } else if (rdbtnMiembro.isSelected()) {
-			            	 usuarioController.crearOperativo(
-				     	                inpName.getText(),
-				     	               inpApellido.getText(),
-				     	              inpEmail.getText(),
-				     	               Hashing.hash(inpContra.getPassword()),
-				     	                inpDni.getText(),
-				     	                inpSueldo.getText(),
-				     	                "Miembro de Proyecto"
-				     	        );
+			            	usuarioController.crearOperativo(
+			            			inpName.getText(),
+			            			inpApellido.getText(),
+			            			inpEmail.getText(),
+			            			Hashing.hash(new String(inpContra.getPassword())),
+			            			Integer.parseInt(inpDni.getText()),
+			            			Double.parseDouble(inpSueldo.getText()),
+			            			"Miembro de Proyecto");
+			            	dispose();
+			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Miembro");
+				     	                
 			            } else {
 			                JOptionPane.showMessageDialog(null,
 			                        "Debes elegir Líder o Miembro");
@@ -217,11 +219,11 @@ public class pantallaCrearEmpleado extends JFrame {
 			     	                inpName.getText(),
 			     	               inpApellido.getText(),
 			     	              inpEmail.getText(),
-			     	               Hashing.hash(inpContra.getPassword()),
-			     	                inpDni.getText(),
-			     	                inpSueldo.getText(),
-			     	                "Lider de Proyecto"
-			     	        );
+			     	             Hashing.hash(new String(inpContra.getPassword())),
+			     	            Integer.parseInt(inpDni.getText()),
+		            			Double.parseDouble(inpSueldo.getText()));
+			        	 dispose();
+			        	 JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Vendedor");
 
 
 

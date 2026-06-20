@@ -2,6 +2,7 @@ package UserLayer;
 
 import java.util.LinkedList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,43 +11,32 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DLL.ControllerEmpleado;
+import DLL.ControllerUsuario;
 import LogicLayer.Administrador;
 import LogicLayer.Empleado;
-import LogicLayer.Usuario;
-
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.Color;
 
 public class MenuGestionar extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
-	 private DefaultTableModel model;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MenuGestionar frame = new MenuGestionar();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
+	private DefaultTableModel model;
+	private Empleado empleadoSeleccionado; 
+	private JTextField textField;
+	
 	public MenuGestionar(Administrador admin) {
+		ControllerUsuario usuarioController = new ControllerUsuario();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 662, 522);
+		setBounds(100, 100, 777, 536);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -60,11 +50,11 @@ public class MenuGestionar extends JFrame {
 	        
 	        //defino el nombre qeu va a tener cada columna
 	       model = new DefaultTableModel(new String[]{"ID", "Nombre","Apellido",
-	        		"Email"}, 0);
+	        		"Email","Dni","Sueldo"}, 0);
 	        
 	        table = new JTable(model);
 	        JScrollPane scrollPane = new JScrollPane(table);
-	        scrollPane.setBounds(10, 40, 691, 200);
+	        scrollPane.setBounds(10, 40, 572, 202);
 	        contentPane.add(scrollPane);
 	        cargarTabla(); 
 	        
@@ -74,49 +64,82 @@ public class MenuGestionar extends JFrame {
 	           
 	                int row = table.getSelectedRow();
 	                if (row != -1) {
+	                	empleadoSeleccionado = new Empleado(
+	                		    (String) model.getValueAt(row, 1),
+	                		    (String) model.getValueAt(row, 2),
+	                		    (String) model.getValueAt(row, 3), 
+	                		    "",                               
+	                		    (int) model.getValueAt(row, 0),    
+	                		    (int) model.getValueAt(row, 4),    
+	                		    (double) model.getValueAt(row, 5)  
+	                		);
 	                	 lblSeleccionado.setText(
-	                		        "Seleccionado a: ID=" + model.getValueAt(row, 0)
-	                		        + ", Nombre=" + model.getValueAt(row, 1)
-	                		        + ", Apellido=" + model.getValueAt(row, 2)
-	                		        + ", Email=" + model.getValueAt(row, 3)
+	                		        "Seleccionado a: ID=" + empleadoSeleccionado.getIdEmpleado()
+	                		        + ", Nombre=" + empleadoSeleccionado.getNombre()
+	                		        + ", Apellido=" + empleadoSeleccionado.getApellido()
+	                		        + ", Email=" + empleadoSeleccionado.getMail()
 	                		    );
 	                    
 	                }
 	            }
 	        });
 	        //botones
-	        JButton btnAgregar = new JButton("Agregar");
+	        JButton btnAgregar = new JButton("Agregar +");
 	        btnAgregar.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-	        		admin.crearEmpleado();
+	        		pantallaCrearEmpleado crearEmpleado= new pantallaCrearEmpleado();
+	        		crearEmpleado.setVisible(true);
 	        		cargarTabla();
 	        	}
 	        });
-	        btnAgregar.setBounds(10, 270, 150, 40);
+	        btnAgregar.setBounds(10, 272, 150, 40);
 	        contentPane.add(btnAgregar);
 
 	        JButton btnEditar = new JButton("Editar");
-	        btnEditar.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		admin.modificarEmpleado();
-	        		cargarTabla();
-	        	}
+	        //seleccionnar fila y poder editar
+	        btnEditar.addActionListener(e -> {
+	        	cargarTabla();
+	            if (empleadoSeleccionado != null) {
+	             
+	            	EditarUsuario selectEditar =new EditarUsuario(empleadoSeleccionado,admin);
+	            	selectEditar.setVisible(true);
+	            	dispose();
+	            	
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Seleccione un empleado",
+							"Eliminar", JOptionPane.DEFAULT_OPTION,
+							new ImageIcon(MenuGestionar.class.getResource("/img/nohay.png")));
+	            }
 	        });
-	        btnEditar.setBounds(170, 270, 150, 40);
+	        btnEditar.setBounds(170, 272, 150, 40);
 	        contentPane.add(btnEditar);
 
 	        JButton btnEliminar = new JButton("Eliminar");
-	        btnEliminar.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		admin.eliminarEmpleado();
-	        		cargarTabla();
-	        	}
-	        });
-	        btnEliminar.setBounds(330, 270, 150, 40);
+	        btnEliminar.setBounds(330, 272, 150, 40);
 	        contentPane.add(btnEliminar);
+	    
+	        btnEliminar.addActionListener(e -> {
+	            if (empleadoSeleccionado != null) {
+	                int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar a " + empleadoSeleccionado.getNombre() + "?", 
+	                		"Confirmar", JOptionPane.YES_NO_OPTION);
+	                if (confirm == JOptionPane.YES_OPTION) {
+	                  usuarioController.eliminarEmpleado(empleadoSeleccionado.getIdEmpleado());
+	                  cargarTabla();
+	                  JOptionPane.showMessageDialog(null, "Borrado correctamente :)",
+								"Eliminar", JOptionPane.DEFAULT_OPTION,
+								new ImageIcon(MenuGestionar.class.getResource("/img/correcto.png")));
+
+	                }
+	            } else {
+	            	JOptionPane.showMessageDialog(null, "Seleccione un empleado",
+							"Seleccion", JOptionPane.DEFAULT_OPTION,
+							new ImageIcon(MenuGestionar.class.getResource("/img/nohay.png")));
+	            }
+	        });
+	    
 	 
-	        JLabel lblNewLabel = new JLabel("filtro");
-	        lblNewLabel.setBounds(668, 270, 46, 14);
+	        JLabel lblNewLabel = new JLabel("Filtro:");
+	        lblNewLabel.setBounds(32, 366, 46, 14);
 	        contentPane.add(lblNewLabel);
 	        
 	        JButton btnVolverAtrs = new JButton("Volver atrás");
@@ -127,8 +150,29 @@ public class MenuGestionar extends JFrame {
 	        		dispose();
 	        	}
 	        });
-	        btnVolverAtrs.setBounds(488, 270, 150, 40);
+	        btnVolverAtrs.setBounds(488, 272, 150, 40);
 	        contentPane.add(btnVolverAtrs);
+	        
+	        JLabel lblImg = new JLabel("");
+	        lblImg.setBounds(606, 112, 122, 113);
+	        contentPane.add(lblImg);
+	        
+	        textField = new JTextField();
+	        textField.setBackground(new Color(192, 192, 192));
+	        textField.setBounds(20, 389, 96, 18);
+	        contentPane.add(textField);
+	        textField.setColumns(10);
+	        
+	        JButton btnNewButton = new JButton("Buscar");
+	        btnNewButton.setBackground(new Color(255, 128, 0));
+	        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
+	        btnNewButton.setBounds(126, 386, 75, 20);
+	        contentPane.add(btnNewButton);
+	        
+	        JLabel lblNewLabel_1 = new JLabel("Perfil:");
+	        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	        lblNewLabel_1.setBounds(626, 74, 54, 20);
+	        contentPane.add(lblNewLabel_1);
 	        
 	          
 
@@ -146,7 +190,9 @@ public class MenuGestionar extends JFrame {
 	            e.getIdEmpleado(),
 	            e.getNombre(),
 	            e.getApellido(),
-	            e.getMail()
+	            e.getMail(),
+	            e.getDni(),
+	            e.getSueldoBase()
 	        });
 	    }
 	}

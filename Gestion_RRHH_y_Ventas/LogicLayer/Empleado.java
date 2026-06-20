@@ -24,7 +24,13 @@ public class Empleado extends Usuario {
 		this.faltas = faltas;
 	}
 	
-	
+	public Empleado(String nombre, String apellido, String mail, String contrasenia, int idEmpleado, int dni,
+			double sueldoBase) {
+		super(nombre, apellido, mail, contrasenia);
+		this.idEmpleado = idEmpleado;
+		this.dni = dni;
+		this.sueldoBase = sueldoBase;
+	}
 
 	public Empleado(String nombre, String apellido, String mail, String contrasenia, int idEmpleado, int dni,
 			double sueldoBase, LocalDate fechaContratacion, int faltas) {
