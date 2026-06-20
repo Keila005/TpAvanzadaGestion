@@ -5,15 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JButton;
-import java.awt.Color;
 
-public class verInformacionPersonal extends JFrame {
+public class cargo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -25,7 +19,7 @@ public class verInformacionPersonal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					verInformacionPersonal frame = new verInformacionPersonal();
+					cargo frame = new cargo();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +31,7 @@ public class verInformacionPersonal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public verInformacionPersonal() {
+	public cargo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -45,7 +39,18 @@ public class verInformacionPersonal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JButton btnNewButton = new JButton("lider del proyecto");
+		btnNewButton.setBounds(60, 91, 136, 44);
+		contentPane.add(btnNewButton);
 		
+		JButton btnMiembroDelProyecto = new JButton("miembro del proyecto");
+		btnMiembroDelProyecto.setBounds(236, 91, 136, 44);
+		contentPane.add(btnMiembroDelProyecto);
+		
+		JButton btnNewButton_2 = new JButton("Volver");
+		btnNewButton_2.setBounds(312, 208, 114, 34);
+		contentPane.add(btnNewButton_2);
 
 	}
+
 }
