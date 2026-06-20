@@ -121,19 +121,17 @@ public class crearTarea extends JFrame {
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(28, 113, 163, 18);
+		textField_1.setBounds(28, 113, 169, 18);
 		contentPane.add(textField_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(219, 46, 262, 18);
+		textField_2.setBounds(219, 113, 277, 26);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(219, 113, 262, 18);
+		textField_3.setBounds(219, 41, 277, 26);
 		contentPane.add(textField_3);
-
 	}
-
 }
