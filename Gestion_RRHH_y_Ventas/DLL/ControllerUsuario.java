@@ -306,7 +306,10 @@ public class ControllerUsuario {
         
   public void modificarEmpleado(
 		  int idEmpleado,
+		  String nombre,
+		  String apellido,
 		  String nuevoMail,
+		  int nuevoDni,
 		  double nuevoSueldo
 		  ) {
 	  try {
@@ -315,14 +318,17 @@ public class ControllerUsuario {
 		            "UPDATE usuario u "
 		            + "INNER JOIN empleado e "
 		            + "ON u.id_usuario = e.id_usuario "
-		            + "SET u.email = ?, "
-		            + "e.sueldo_base = ? "
+		            + "SET u.email = ?,e.dni = ?, "
+		            + "e.sueldo_base = ?, u.nombre = ?, u.apellido = ? "
 		            + "WHERE e.id_empleado = ?"
 		        );
 
 		        stmt.setString(1, nuevoMail);
-		        stmt.setDouble(2, nuevoSueldo);
-		        stmt.setInt(3, idEmpleado);
+		        stmt.setInt(2, nuevoDni);
+		        stmt.setDouble(3, nuevoSueldo);
+		        stmt.setString(4, nombre);
+		        stmt.setString(5, apellido);
+		        stmt.setInt(6, idEmpleado);
 
 		        stmt.executeUpdate();
 	  } catch(Exception e) {

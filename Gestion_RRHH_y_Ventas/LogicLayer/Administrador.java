@@ -187,25 +187,27 @@ public class Administrador extends Usuario{
 	            "Empleado creado correctamente");
 	}
 
-	public void modificarEmpleado() {
-		int idEmpleado = seleccionarEmpleado();
-	    if(idEmpleado == -1) {
-	        return;
-	    }
-		String nuevoMail = JOptionPane.showInputDialog("Nuevo Mail:");
-		double nuevoSueldo = Double.parseDouble(JOptionPane.showInputDialog("Nuevo sueldo:"));
-		
-		usuarioController.modificarEmpleado(
-				idEmpleado,
-				nuevoMail,
-				nuevoSueldo
-				);
-		
-		JOptionPane.showMessageDialog(null,
-	            "Empleado modificado correctamente");
-		
-		
-	}
+//	public void modificarEmpleado() {
+//		int idEmpleado = seleccionarEmpleado();
+//	    if(idEmpleado == -1) {
+//	        return;
+//	    }
+//		String nuevoMail = JOptionPane.showInputDialog("Nuevo Mail:");
+//		double nuevoSueldo = Double.parseDouble(JOptionPane.showInputDialog("Nuevo sueldo:"));
+//		
+//		usuarioController.modificarEmpleado(
+//				idEmpleado,
+//				nombre,
+//				apellido,
+//				nuevoMail,
+//				dni,
+//				nuevoSueldo);
+//		
+//		JOptionPane.showMessageDialog(null,
+//	            "Empleado modificado correctamente");
+//		
+//		
+//	}
 	
 	public void eliminarEmpleado() {
 
@@ -348,7 +350,7 @@ public class Administrador extends Usuario{
 
 						case 1:
 
-							modificarEmpleado();
+//							modificarEmpleado();
 
 							break;
 

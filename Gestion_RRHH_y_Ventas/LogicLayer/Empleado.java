@@ -3,7 +3,7 @@ package LogicLayer;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
-public abstract class Empleado extends Usuario {
+public class Empleado extends Usuario {
 	
 	private int idEmpleado;
 	private int dni;
@@ -24,7 +24,13 @@ public abstract class Empleado extends Usuario {
 		this.faltas = faltas;
 	}
 	
-	
+	public Empleado(String nombre, String apellido, String mail, String contrasenia, int idEmpleado, int dni,
+			double sueldoBase) {
+		super(nombre, apellido, mail, contrasenia);
+		this.idEmpleado = idEmpleado;
+		this.dni = dni;
+		this.sueldoBase = sueldoBase;
+	}
 
 	public Empleado(String nombre, String apellido, String mail, String contrasenia, int idEmpleado, int dni,
 			double sueldoBase, LocalDate fechaContratacion, int faltas) {
@@ -247,7 +253,8 @@ public abstract class Empleado extends Usuario {
 	    }
 	}
 	@Override
-	public abstract void Menu();
+	public  void Menu() {
+	}
 	
 	
 	
