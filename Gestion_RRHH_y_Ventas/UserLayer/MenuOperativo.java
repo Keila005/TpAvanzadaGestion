@@ -61,6 +61,11 @@ public class MenuOperativo extends JFrame {
 		btnNewButton.setBackground(new Color(172, 238, 123));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				verInformacionPersonal ventana = new verInformacionPersonal();
+				ventana.setVisible(true);
+
+				dispose(); // cierra el menú actual
 			}
 		});
 		btnNewButton.setBounds(10, 64, 200, 44);
