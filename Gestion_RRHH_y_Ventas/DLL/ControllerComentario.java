@@ -87,8 +87,7 @@ public class ControllerComentario {
 	        }
 	    }
 
-	    return "REPORTE DEL CLIMA LABORAL\n"
-	            + "Comentarios positivos: " + positivos
+	    return "Comentarios positivos: " + positivos
 	            + "\nComentarios neutros: " + neutros
 	            + "\nComentarios negativos: " + negativos
 	            + "\n\nTotal comentarios: " + comentarios.size();

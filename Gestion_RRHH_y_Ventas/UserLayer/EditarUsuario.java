@@ -30,25 +30,7 @@ public class EditarUsuario extends JFrame {
 	 private JButton btnActualizar;
 	 private JButton btnActualizar_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					pantallaCrearEmpleado frame = new pantallaCrearEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public EditarUsuario(Empleado empleado,Administrador admin) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 690, 541);

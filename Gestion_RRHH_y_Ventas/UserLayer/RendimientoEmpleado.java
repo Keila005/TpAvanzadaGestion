@@ -13,6 +13,7 @@ import DLL.ControllerEmpleado;
 import DLL.ControllerRendimiento;
 import LogicLayer.Empleado;
 import LogicLayer.Operativo;
+import LogicLayer.Usuario;
 import LogicLayer.Vendedor;
 
 import javax.swing.JLabel;
@@ -45,26 +46,11 @@ public class RendimientoEmpleado extends JFrame {
 	private JButton btnVerTodas;
 	private JButton btnVerTodas_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RendimientoEmpleado frame = new RendimientoEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public RendimientoEmpleado() {
+	public RendimientoEmpleado(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 709, 537);
 		contentPane = new JPanel();
@@ -126,11 +112,21 @@ public class RendimientoEmpleado extends JFrame {
 			contentPane.add(btnBajosO);
 			
 			btnMejoresV = new JButton("Mejores");
+			btnMejoresV.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cargarMejorVenta();
+				}
+			});
 			btnMejoresV.setFont(new Font("Tahoma", Font.BOLD, 14));
 			btnMejoresV.setBounds(398, 272, 114, 29);
 			contentPane.add(btnMejoresV);
 			
 			btnBajosV = new JButton("Bajos");
+			btnBajosV.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cargarBajaVenta();
+				}
+			});
 			btnBajosV.setFont(new Font("Tahoma", Font.BOLD, 14));
 			btnBajosV.setBounds(548, 272, 114, 29);
 			contentPane.add(btnBajosV);
@@ -146,9 +142,46 @@ public class RendimientoEmpleado extends JFrame {
 			contentPane.add(btnVerTodas);
 			
 			btnVerTodas_1 = new JButton("Ver todas");
+			btnVerTodas_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cargarTablaVendedor();
+				}
+			});
 			btnVerTodas_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 			btnVerTodas_1.setBounds(473, 330, 114, 29);
 			contentPane.add(btnVerTodas_1);
+			
+			JLabel lblNewLabel_1 = new JLabel("Mayor al 70%:");
+			lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
+			lblNewLabel_1.setBounds(36, 236, 123, 44);
+			contentPane.add(lblNewLabel_1);
+			
+			JLabel lblNewLabel_1_1 = new JLabel("Menor al 70%:");
+			lblNewLabel_1_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
+			lblNewLabel_1_1.setBounds(180, 236, 123, 44);
+			contentPane.add(lblNewLabel_1_1);
+			
+			JLabel lblNewLabel_1_2 = new JLabel("Mayor 20 ventas:");
+			lblNewLabel_1_2.setFont(new Font("Tahoma", Font.ITALIC, 14));
+			lblNewLabel_1_2.setBounds(398, 236, 123, 44);
+			contentPane.add(lblNewLabel_1_2);
+			
+			JLabel lblNewLabel_1_2_1 = new JLabel("Menor a 20 ventas:");
+			lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
+			lblNewLabel_1_2_1.setBounds(539, 236, 123, 44);
+			contentPane.add(lblNewLabel_1_2_1);
+			
+			JButton btnNewButton = new JButton("<-Volver");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
+					menuAdmin.setVisible(true);
+					dispose();
+				}
+			});
+			btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 12));
+			btnNewButton.setBounds(21, 470, 84, 20);
+			contentPane.add(btnNewButton);
 			cargarTablaVendedor();
 			        
 	}
@@ -227,4 +260,44 @@ public class RendimientoEmpleado extends JFrame {
 	        }
 	    }
 	}
+	// vendedores que realizaron mas de 20 ventas
+	private void cargarMejorVenta() {
+
+	    model2.setRowCount(0);
+
+	    ControllerRendimiento rendimientoVendedor = new ControllerRendimiento();
+	    LinkedList<Vendedor> vendedores = rendimientoVendedor.getTodosVendedores();
+
+	    for (Vendedor v : vendedores) {
+	    	String nombreCompleto = v.getNombre()+" "+ v.getApellido();
+	    	if(v.getVentasTotales()>20) {
+	    		
+	    		model2.addRow(new Object[]{
+	    				v.getIdEmpleado(),
+	    				nombreCompleto,
+	    				v.getVentasTotales()
+	    		});
+	    	}
+	    }
+	}
+	// vendedores que realizaron menos de 20 ventas
+		private void cargarBajaVenta() {
+
+		    model2.setRowCount(0);
+
+		    ControllerRendimiento rendimientoVendedor = new ControllerRendimiento();
+		    LinkedList<Vendedor> vendedores = rendimientoVendedor.getTodosVendedores();
+
+		    for (Vendedor v : vendedores) {
+		    	String nombreCompleto = v.getNombre()+" "+ v.getApellido();
+		    	if(v.getVentasTotales()<=20) {
+		    		
+		    		model2.addRow(new Object[]{
+		    				v.getIdEmpleado(),
+		    				nombreCompleto,
+		    				v.getVentasTotales()
+		    		});
+		    	}
+		    }
+		}
 }
