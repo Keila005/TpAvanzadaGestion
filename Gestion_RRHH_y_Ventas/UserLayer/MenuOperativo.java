@@ -71,7 +71,7 @@ public class MenuOperativo extends JFrame {
 		btnNewButton.setBounds(10, 64, 200, 44);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Solicitar vacaciones/permisos");
+		JButton btnNewButton_1 = new JButton("Solicitudes");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_1.setBounds(10, 129, 214, 44);
 		contentPane.add(btnNewButton_1);
