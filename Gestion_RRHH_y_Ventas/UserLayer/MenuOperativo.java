@@ -65,6 +65,9 @@ public class MenuOperativo extends JFrame {
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Comentar comentario= new Comentar();
+				comentario.setVisible(true);
+				dispose();
 			}
 		});
 		btnNewButton_2.setBounds(249, 129, 177, 44);
@@ -73,6 +76,9 @@ public class MenuOperativo extends JFrame {
 		JButton btnNewButton_3 = new JButton("Cargo");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cargo cargo = new cargo();
+				cargo.setVisible(true);
+				dispose();
 			}
 		});
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
