@@ -76,7 +76,7 @@ public class MenuOperativo extends JFrame {
 		JButton btnNewButton_3 = new JButton("Cargo");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargo cargo = new cargo();
+				cargo cargo = new cargo(usuario);
 				cargo.setVisible(true);
 				dispose();
 			}
