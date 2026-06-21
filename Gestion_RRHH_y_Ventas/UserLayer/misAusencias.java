@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JButton;
 
 public class misAusencias extends JFrame {
 
@@ -40,15 +41,20 @@ public class misAusencias extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Historial de Sueldos");
+		JLabel lblNewLabel = new JLabel("Mis Ausencias");
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblNewLabel.setBounds(100, 23, 219, 23);
+		lblNewLabel.setBounds(120, 20, 153, 23);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Fecha: ");
 		lblNewLabel_1_2_1.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblNewLabel_1_2_1.setBounds(41, 104, 356, 23);
+		lblNewLabel_1_2_1.setBounds(38, 72, 356, 23);
 		contentPane.add(lblNewLabel_1_2_1);
+		
+		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton.setBounds(142, 184, 131, 39);
+		contentPane.add(btnNewButton);
 
 	}
 
