@@ -1,5 +1,6 @@
 package LogicLayer;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -226,7 +227,7 @@ public class Administrador extends Usuario{
 	    }
 	}
 		
-	
+
 	public void crearProyecto() {
 
 	    String nombre =
@@ -290,14 +291,14 @@ public class Administrador extends Usuario{
 	 
 	    System.out.println("ID Lider: " + idLider);
 	    System.out.println("ID Equipo: " + idEquipo);
-	    proyectoController.crearProyecto(	
-	            nombre,
-	            descripcion,
-	            LocalDate.now(),
-	            LocalDate.now().plusMonths(1),
-	            idLider,
-	            idEquipo
-	    );
+//	    proyectoController.crearProyecto(	
+//	            nombre,
+//	            descripcion,
+//	          LocalDate.now,
+//	          LocalDate.now().plusMonths(1),
+//	            idLider,
+//	            idEquipo
+//	    );
 
 	    JOptionPane.showMessageDialog(null,
 	            "Proyecto creado");
@@ -393,7 +394,7 @@ public class Administrador extends Usuario{
 
 						case 0:
 
-							crearProyecto();
+						crearProyecto();
 
 							break;
 

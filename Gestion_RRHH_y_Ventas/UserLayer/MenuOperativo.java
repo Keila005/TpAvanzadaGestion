@@ -13,7 +13,6 @@ public class MenuOperativo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Usuario usuario;
 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
@@ -31,7 +30,6 @@ public class MenuOperativo extends JFrame {
 
 
 	public MenuOperativo(Usuario usuario) {
-		this.usuario=usuario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 848, 599);
 		contentPane = new JPanel();

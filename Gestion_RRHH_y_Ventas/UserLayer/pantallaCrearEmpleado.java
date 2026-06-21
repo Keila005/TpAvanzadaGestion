@@ -1,6 +1,5 @@
 package UserLayer;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,8 +16,6 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JSeparator;
-import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
@@ -32,28 +29,11 @@ public class pantallaCrearEmpleado extends JFrame {
 	private JPasswordField inpContra;
 	private JTextField inpDni;
 	private JTextField inpSueldo;
+	
 	 private static ControllerUsuario usuarioController = new ControllerUsuario();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					pantallaCrearEmpleado frame = new pantallaCrearEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public pantallaCrearEmpleado() {
+	
+	public pantallaCrearEmpleado(MenuGestionar menuGestionar) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 820, 541);
 		contentPane = new JPanel();
@@ -194,6 +174,7 @@ public class pantallaCrearEmpleado extends JFrame {
 			            			Integer.parseInt(inpDni.getText()),
 			            			Double.parseDouble(inpSueldo.getText()),
 			            			"Lider de Proyecto");
+			            	menuGestionar.cargarTabla();
 			            	dispose();
 			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Lider");
 
@@ -206,8 +187,9 @@ public class pantallaCrearEmpleado extends JFrame {
 			            			Integer.parseInt(inpDni.getText()),
 			            			Double.parseDouble(inpSueldo.getText()),
 			            			"Miembro de Proyecto");
+			            	menuGestionar.cargarTabla();
+			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado miembro");
 			            	dispose();
-			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Miembro");
 				     	                
 			            } else {
 			                JOptionPane.showMessageDialog(null,
@@ -222,10 +204,9 @@ public class pantallaCrearEmpleado extends JFrame {
 			     	             Hashing.hash(new String(inpContra.getPassword())),
 			     	            Integer.parseInt(inpDni.getText()),
 		            			Double.parseDouble(inpSueldo.getText()));
-			        	 dispose();
+			        	 menuGestionar.cargarTabla();
 			        	 JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Vendedor");
-
-
+			        	 dispose();
 
 			        } else {
 			            JOptionPane.showMessageDialog(null,
@@ -248,4 +229,5 @@ public class pantallaCrearEmpleado extends JFrame {
 		contentPane.add(btnNewButton_1);
 
 	}
+	
 }

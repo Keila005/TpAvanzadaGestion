@@ -1,6 +1,7 @@
 package UserLayer;
 
 import javax.swing.JFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -8,11 +9,9 @@ import javax.swing.border.EmptyBorder;
 import LogicLayer.Administrador;
 import LogicLayer.Usuario;
 
-import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -20,7 +19,6 @@ public class MenuAdministrador extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Usuario usuario;
 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
@@ -37,7 +35,6 @@ public class MenuAdministrador extends JFrame {
 
 	public MenuAdministrador(Usuario usuario) {
 		Administrador admin = (Administrador) usuario;
-		  this.usuario = usuario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 904, 672);
 		contentPane = new JPanel();
@@ -81,6 +78,13 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnSalir);
 		
 		JButton btnProyectos = new JButton("Registrar Proyectos");
+		btnProyectos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuProyecto menuProyecto=new MenuProyecto(usuario);
+				menuProyecto.setVisible(true);
+				dispose();
+			}
+		});
 		btnProyectos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnProyectos.setBounds(264, 315, 200, 38);
 		contentPane.add(btnProyectos);
@@ -88,7 +92,7 @@ public class MenuAdministrador extends JFrame {
 		JButton btnEstadisticas = new JButton("Rendimiento empleado");
 		btnEstadisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RendimientoEmpleado rendimientoEmpleado= new RendimientoEmpleado();
+				RendimientoEmpleado rendimientoEmpleado= new RendimientoEmpleado(usuario);
 				rendimientoEmpleado.setVisible(true);
 				dispose();
 			}
@@ -135,6 +139,13 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnRendimientoProductos);
 		
 		JButton btnProyectos_1 = new JButton("Clima laboral");
+		btnProyectos_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				climaLaboral comentario= new climaLaboral(usuario);
+				comentario.setVisible(true);
+				dispose();
+			}
+		});
 		btnProyectos_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnProyectos_1.setBounds(40, 315, 200, 38);
 		contentPane.add(btnProyectos_1);
