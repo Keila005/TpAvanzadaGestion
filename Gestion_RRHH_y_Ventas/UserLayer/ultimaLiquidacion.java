@@ -55,8 +55,8 @@ public class ultimaLiquidacion extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Sueldo Base: $");
-		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblNewLabel_3.setBounds(34, 120, 135, 12);
+		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblNewLabel_3.setBounds(34, 120, 135, 24);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("DNI: ");
@@ -71,13 +71,13 @@ public class ultimaLiquidacion extends JFrame {
 		
 		JLabel lblNewLabel_3_1 = new JLabel("Bonos: $");
 		lblNewLabel_3_1.setToolTipText("");
-		lblNewLabel_3_1.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblNewLabel_3_1.setBounds(34, 154, 135, 12);
+		lblNewLabel_3_1.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblNewLabel_3_1.setBounds(34, 154, 266, 22);
 		contentPane.add(lblNewLabel_3_1);
 		
 		JLabel lblNewLabel_3_1_1 = new JLabel("Horas Extra: $");
-		lblNewLabel_3_1_1.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblNewLabel_3_1_1.setBounds(34, 186, 135, 12);
+		lblNewLabel_3_1_1.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblNewLabel_3_1_1.setBounds(34, 186, 266, 23);
 		contentPane.add(lblNewLabel_3_1_1);
 		
 		JSeparator separator = new JSeparator();
