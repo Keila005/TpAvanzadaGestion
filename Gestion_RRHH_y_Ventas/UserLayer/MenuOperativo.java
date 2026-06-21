@@ -21,29 +21,16 @@ public class MenuOperativo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Usuario usuario;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuOperativo frame = new MenuOperativo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public MenuOperativo() {
-		this.usuario=usuario;
+	public MenuOperativo(Usuario usuario){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -61,6 +48,9 @@ public class MenuOperativo extends JFrame {
 		btnNewButton.setBackground(new Color(172, 238, 123));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				verInformacionPersonal verInfo=new verInformacionPersonal();
+				verInfo.setVisible(true);
+				dispose();
 			}
 		});
 		btnNewButton.setBounds(10, 64, 200, 44);
@@ -81,6 +71,10 @@ public class MenuOperativo extends JFrame {
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Cargo");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_3.setBounds(226, 64, 200, 44);
 		contentPane.add(btnNewButton_3);
