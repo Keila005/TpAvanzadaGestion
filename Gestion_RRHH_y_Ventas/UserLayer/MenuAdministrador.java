@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import LogicLayer.Administrador;
+import LogicLayer.MenuVentas;
 import LogicLayer.Usuario;
 
 import java.awt.Font;
@@ -36,7 +37,7 @@ public class MenuAdministrador extends JFrame {
 	public MenuAdministrador(Usuario usuario) {
 		Administrador admin = (Administrador) usuario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 904, 672);
+		setBounds(100, 100, 778, 482);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -74,7 +75,7 @@ public class MenuAdministrador extends JFrame {
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnSalir.setBounds(622, 25, 151, 38);
+		btnSalir.setBounds(582, 21, 151, 38);
 		contentPane.add(btnSalir);
 		
 		JButton btnProyectos = new JButton("Registrar Proyectos");
@@ -150,6 +151,13 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnAsistencia);
 		
 		JButton btnRendimientoProductos = new JButton("Ver ventas");
+		btnRendimientoProductos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuVentas ventas= new MenuVentas(usuario);
+				ventas.setVisible(true);
+				dispose();
+			}
+		});
 		btnRendimientoProductos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnRendimientoProductos.setBounds(497, 171, 200, 38);
 		contentPane.add(btnRendimientoProductos);
