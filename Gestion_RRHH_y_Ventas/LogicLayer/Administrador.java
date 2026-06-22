@@ -872,7 +872,7 @@ public void validarAsistencia() {
         int minutoSalida = Integer.parseInt(JOptionPane.showInputDialog("Minuto de salida:"));
         String nuevaSalida = String.format("%02d:%02d:00", horaSalida, minutoSalida);
         
-        asis.actualizarAsistencia(idsAsisFinal[idxAsis], nuevaEntrada, nuevaSalida);
+//        asis.actualizarAsistencia(idsAsisFinal[idxAsis], nuevaEntrada, nuevaSalida);
         JOptionPane.showMessageDialog(null, "Asistencia modificada");
         
     } catch (Exception e) {

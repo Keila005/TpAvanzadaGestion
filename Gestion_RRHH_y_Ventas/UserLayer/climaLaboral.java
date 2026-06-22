@@ -79,6 +79,7 @@ public class climaLaboral extends JFrame {
 	        	public void actionPerformed(ActionEvent e) {
 	        		MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
 	        		menuAdmin.setVisible(true);
+	        		dispose();
 	        	}
 	        });
 	        btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 13));

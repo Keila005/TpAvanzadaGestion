@@ -55,9 +55,24 @@ public class ControllerBono {
             ps.setString(3, motivo);
             ps.executeUpdate();
             ps.close();
-            JOptionPane.showMessageDialog(null, "Bono registrado: $" + monto);
+            JOptionPane.showMessageDialog(null, "Se registro correctamente\nBono registrado: $" + monto);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al registrar bono");
         }
     }
+    public ResultSet getBonos() {
+        String sql =
+        		 "SELECT b.id_bono,b.fecha, b.monto, b.motivo, u.nombre, u.apellido " +
+        				    "FROM bonos b " +
+        				    "JOIN empleado e ON b.id_empleado = e.id_empleado " +
+        				    "JOIN usuario u ON e.id_usuario = u.id_usuario";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    } 
 }

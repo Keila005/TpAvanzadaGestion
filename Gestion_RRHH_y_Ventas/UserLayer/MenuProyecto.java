@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class MenuProyecto extends JFrame {
 
@@ -58,7 +59,7 @@ public class MenuProyecto extends JFrame {
 	 */
 	public MenuProyecto(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 641, 586);
+		setBounds(100, 100, 730, 586);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -74,48 +75,48 @@ public class MenuProyecto extends JFrame {
   
    table = new JTable(model);
    table.getColumnModel().getColumn(0).setPreferredWidth(20);  
-   table.getColumnModel().getColumn(1).setPreferredWidth(100);  
+   table.getColumnModel().getColumn(1).setPreferredWidth(250);  
    table.getColumnModel().getColumn(2).setPreferredWidth(250);   
    table.getColumnModel().getColumn(3).setPreferredWidth(100);
    table.getColumnModel().getColumn(4).setPreferredWidth(100);
-   table.getColumnModel().getColumn(5).setPreferredWidth(90);
-   table.getColumnModel().getColumn(6).setPreferredWidth(90);
+   table.getColumnModel().getColumn(5).setPreferredWidth(100);
+   table.getColumnModel().getColumn(6).setPreferredWidth(100);
   JScrollPane scrollPane = new JScrollPane(table);
-  scrollPane.setBounds(10, 59, 607, 123);
+  scrollPane.setBounds(10, 59, 683, 123);
   contentPane.add(scrollPane);
   
   lblCrearProyecto = new JLabel("Crear Proyecto:");
   lblCrearProyecto.setFont(new Font("Tahoma", Font.BOLD, 14));
-  lblCrearProyecto.setBounds(190, 201, 147, 30);
+  lblCrearProyecto.setBounds(288, 203, 147, 30);
   contentPane.add(lblCrearProyecto);
   
   JLabel lblName = new JLabel("Nombre del proyecto:");
   lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-  lblName.setBounds(22, 242, 147, 17);
+  lblName.setBounds(121, 244, 147, 17);
   contentPane.add(lblName);
   
   iptName = new JTextField();
-  iptName.setBounds(22, 269, 147, 21);
+  iptName.setBounds(121, 271, 147, 21);
   contentPane.add(iptName);
   iptName.setColumns(10);
   
   JLabel lblDescripcin = new JLabel("Descripción:");
   lblDescripcin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-  lblDescripcin.setBounds(22, 300, 147, 17);
+  lblDescripcin.setBounds(121, 302, 147, 17);
   contentPane.add(lblDescripcin);
   
   textField = new JTextField();
   textField.setColumns(10);
-  textField.setBounds(22, 324, 230, 48);
+  textField.setBounds(121, 326, 230, 48);
   contentPane.add(textField);
 	//LIDER
 	comboLider = new JComboBox<>();
-	comboLider.setBounds(327, 268, 127, 23);
+	comboLider.setBounds(426, 270, 127, 23);
 	contentPane.add(comboLider);
 	
 	//EQUIPO
 	comboEquipo = new JComboBox<>();
-	comboEquipo.setBounds(327, 340, 127, 25);
+	comboEquipo.setBounds(426, 342, 127, 25);
 	contentPane.add(comboEquipo);
 	cargarMenuDesplegable();
 	cargarProyectos();
@@ -123,13 +124,14 @@ public class MenuProyecto extends JFrame {
 	
 	lblAsignacinDeLder = new JLabel("Asignación de líder:");
 	lblAsignacinDeLder.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblAsignacinDeLder.setBounds(327, 241, 147, 17);
+	lblAsignacinDeLder.setBounds(426, 243, 147, 17);
 	contentPane.add(lblAsignacinDeLder);
 	lblAsignacinDeEquipo = new JLabel("Asignación de equipo:");
 	lblAsignacinDeEquipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblAsignacinDeEquipo.setBounds(327, 304, 147, 17);
+	lblAsignacinDeEquipo.setBounds(426, 306, 147, 17);
 	contentPane.add(lblAsignacinDeEquipo);
 	btnCrear = new JButton("Crear");
+	btnCrear.setBackground(new Color(255, 255, 128));
 	btnCrear.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		crearProyecto();
@@ -137,24 +139,24 @@ public class MenuProyecto extends JFrame {
 		}
 	});
 	btnCrear.setFont(new Font("Tahoma", Font.BOLD, 17));
-	btnCrear.setBounds(231, 478, 119, 30);
+	btnCrear.setBounds(306, 476, 119, 30);
 	contentPane.add(btnCrear);
 	dateInicio = new JDateChooser();
-	dateInicio.setBounds(22, 409, 150, 25);
+	dateInicio.setBounds(121, 411, 150, 25);
 	contentPane.add(dateInicio);
 	
 	dateFin = new JDateChooser();
-	dateFin.setBounds(327, 409, 150, 25);
+	dateFin.setBounds(426, 411, 150, 25);
 	contentPane.add(dateFin);
 	
 	lblFechaDeInicio = new JLabel("Fecha de inicio:");
 	lblFechaDeInicio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblFechaDeInicio.setBounds(22, 382, 147, 17);
+	lblFechaDeInicio.setBounds(121, 384, 147, 17);
 	contentPane.add(lblFechaDeInicio);
 	
 	lblFechaDeFinalizacin = new JLabel("Fecha de finalización:");
 	lblFechaDeFinalizacin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblFechaDeFinalizacin.setBounds(327, 382, 147, 17);
+	lblFechaDeFinalizacin.setBounds(426, 382, 147, 17);
 	contentPane.add(lblFechaDeFinalizacin);
 	
 	dateInicio.setMinSelectableDate(new Date());

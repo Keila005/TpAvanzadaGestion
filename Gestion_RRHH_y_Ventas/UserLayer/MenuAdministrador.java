@@ -104,6 +104,9 @@ public class MenuAdministrador extends JFrame {
 		JButton btnSolicitudes = new JButton("Solicitudes");
 		btnSolicitudes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				verSolicitudes solicitud=new verSolicitudes(usuario);
+				solicitud.setVisible(true);
+				dispose();
 			}
 		});
 		btnSolicitudes.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -113,6 +116,9 @@ public class MenuAdministrador extends JFrame {
 		JButton btnHorasExtras = new JButton("Horas Extras");
 		btnHorasExtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				horasExtras extras= new horasExtras(usuario);
+				extras.setVisible(true);
+				dispose();
 			}
 		});
 		btnHorasExtras.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -120,6 +126,13 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnHorasExtras);
 		
 		JButton btnGestionarBonos = new JButton("Gestionar Bonos");
+		btnGestionarBonos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GestionarBonos bono= new GestionarBonos(usuario);
+				bono.setVisible(true);
+				dispose();
+			}
+		});
 		btnGestionarBonos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnGestionarBonos.setBounds(497, 245, 200, 38);
 		contentPane.add(btnGestionarBonos);
@@ -127,6 +140,9 @@ public class MenuAdministrador extends JFrame {
 		JButton btnAsistencia = new JButton("Asistencia");
 		btnAsistencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GestionarAsistencia asistencia=new GestionarAsistencia(usuario);
+				asistencia.setVisible(true);
+				dispose();
 			}
 		});
 		btnAsistencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
