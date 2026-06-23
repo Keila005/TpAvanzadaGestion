@@ -135,6 +135,13 @@ public class GestionarBonos extends JFrame {
 	        inpMonto.setColumns(10);
 	        
 	        btnNewButton_2 = new JButton("<-Volver");
+	        btnNewButton_2.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
+	        		menuAdmin.setVisible(true);
+	        		dispose();
+	        	}
+	        });
 	        btnNewButton_2.setFont(new Font("Tahoma", Font.ITALIC, 13));
 	        btnNewButton_2.setBounds(10, 409, 84, 20);
 	        contentPane.add(btnNewButton_2);

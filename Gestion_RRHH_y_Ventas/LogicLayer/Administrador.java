@@ -159,29 +159,29 @@ public class Administrador extends Usuario{
 	            rol = "Miembro de Proyecto";
 	        }
 
-	        usuarioController.crearOperativo(
-	                nombre,
-	                apellido,
-	                mail,
-	               Hashing.hash(contrasenia),
-	                dni,
-	                sueldoBase,
-	                rol
-	        );
+//	        usuarioController.crearOperativo(
+//	                nombre,
+//	                apellido,
+//	                mail,
+//	               Hashing.hash(contrasenia),
+//	                dni,
+//	                sueldoBase,
+//	                rol
+//	        );
 
 	    } else {
 
 	       
 
-	        usuarioController.crearVendedor(
-	                nombre,
-	                apellido,
-	                mail,
-	                Hashing.hash(contrasenia),
-	                dni,
-	                sueldoBase
-	                
-	        );
+//	        usuarioController.crearVendedor(
+//	                nombre,
+//	                apellido,
+//	                mail,
+//	                Hashing.hash(contrasenia),
+//	                dni,
+//	                sueldoBase
+//	                
+//	        );
 	    }
 
 	    JOptionPane.showMessageDialog(null,

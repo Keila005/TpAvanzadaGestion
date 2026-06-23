@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DLL.ControllerVenta;
+import UserLayer.MenuAdministrador;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -33,27 +34,10 @@ public class MenuVentas extends JFrame {
 	LinkedList<Producto> productosLista = new LinkedList<>();
 	LinkedList<Object[]> detallesOriginales = new LinkedList<>();
 	private JButton btnTodosProductos;
+	private JButton btnNewButton;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuVentas frame = new MenuVentas();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public MenuVentas() {
+	
+	public MenuVentas(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 609, 516);
 		contentPane = new JPanel();
@@ -123,6 +107,19 @@ public class MenuVentas extends JFrame {
 		        btnTodosProductos.setFont(new Font("Tahoma", Font.BOLD, 15));
 		        btnTodosProductos.setBounds(37, 377, 163, 32);
 		        contentPane.add(btnTodosProductos);
+		        
+		        btnNewButton = new JButton("<-Volver");
+		        btnNewButton.addActionListener(new ActionListener() {
+		        	public void actionPerformed(ActionEvent e) {
+		        		MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
+		        		menuAdmin.setVisible(true);
+		        		dispose();
+		        
+		        	}
+		        });
+		        btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 14));
+		        btnNewButton.setBounds(20, 435, 113, 20);
+		        contentPane.add(btnNewButton);
 		        cargarTablaDetalles();
 	}
 	private void cargarTablaVentas() {

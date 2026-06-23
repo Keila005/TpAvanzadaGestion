@@ -1,6 +1,7 @@
 package UserLayer;
 
 import java.util.LinkedList;
+
 import java.util.stream.Collectors;
 
 import javax.swing.ImageIcon;
@@ -12,7 +13,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import DLL.ControllerEmpleado;
 import DLL.ControllerUsuario;
-
 import LogicLayer.Administrador;
 import LogicLayer.Empleado;
 import javax.swing.JTable;
@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Color;
 
 public class MenuGestionar extends JFrame {
@@ -33,6 +34,7 @@ public class MenuGestionar extends JFrame {
 	private DefaultTableModel model;
 	private Empleado empleadoSeleccionado; 
 	private JTextField inpFiltro;
+	private JLabel lblImg;
 	private static ControllerEmpleado contEmpleado;
 	
 	public MenuGestionar(Administrador admin) {
@@ -71,6 +73,15 @@ public class MenuGestionar extends JFrame {
 	           
 	                int row = table.getSelectedRow();
 	                if (row != -1) {
+	                	  int id = (int) model.getValueAt(row, 0);
+	                	  
+	                	   for (Empleado emp : contEmpleado.mostrarEmpleados()) {
+	                           if (emp.getIdEmpleado() == id) {
+	                               empleadoSeleccionado = emp;
+	                               mostrarImagen(emp.getPerfil());
+	                               break;
+	                           }
+	                       }
 	                	empleadoSeleccionado = new Empleado(
 	                		    (String) model.getValueAt(row, 1),
 	                		    (String) model.getValueAt(row, 2),
@@ -161,8 +172,8 @@ public class MenuGestionar extends JFrame {
 	        btnVolverAtrs.setBounds(488, 272, 150, 40);
 	        contentPane.add(btnVolverAtrs);
 	        
-	        JLabel lblImg = new JLabel("");
-	        lblImg.setBounds(606, 112, 122, 113);
+	         lblImg = new JLabel("");
+	        lblImg.setBounds(592, 81, 158, 161);
 	        contentPane.add(lblImg);
 	        
 	        inpFiltro = new JTextField();
@@ -184,7 +195,7 @@ public class MenuGestionar extends JFrame {
 	        
 	        JLabel lblNewLabel_1 = new JLabel("Perfil:");
 	        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	        lblNewLabel_1.setBounds(626, 74, 54, 20);
+	        lblNewLabel_1.setBounds(628, 40, 54, 20);
 	        contentPane.add(lblNewLabel_1);
 	        
 	          
@@ -196,7 +207,7 @@ public class MenuGestionar extends JFrame {
 
 	     contEmpleado = new ControllerEmpleado();
 	    LinkedList<Empleado> empleados = contEmpleado.mostrarEmpleados();
-
+	    
 	    for (Empleado e : empleados) {
 
 	        model.addRow(new Object[]{
@@ -240,4 +251,15 @@ private void cargarTablaFiltradaStream(String filtro) {
     		
         }
     }
+	private void mostrarImagen(byte[] imagenBytes) {
+    if (imagenBytes != null && imagenBytes.length > 0) {
+        ImageIcon icon = new ImageIcon(imagenBytes);
+        Image img = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        lblImg.setIcon(new ImageIcon(img));
+    } else {
+    	lblImg.setIcon(null);
+    	lblImg.setText("Sin imagen");
+    }
+}
+
 }
