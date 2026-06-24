@@ -95,7 +95,7 @@ public class MenuStock extends JFrame {
 
 	    	contentPane.add(scrollPane);
 	    	
-	    	JButton btnSalir = new JButton("Cerrar Session");
+	    	JButton btnSalir = new JButton("volver a menu");
 	    	btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	    	btnSalir.setForeground(Color.RED);
 	    	btnSalir.setBounds(292, 0, 119, 27);
