@@ -2,6 +2,8 @@ package UserLayer;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -49,21 +51,48 @@ public class liderDeProyecto extends JFrame {
 		JButton btnNewButton = new JButton("Visualizar Kanban");
 		btnNewButton.setBounds(29, 75, 147, 36);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			visualizarKanban visualizarKanban = new visualizarKanban();
+			visualizarKanban.setVisible(true);
+			dispose();
+			}
+	});
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Crear tareas");
 		btnNewButton_1.setBounds(29, 127, 147, 36);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crearTarea crearTarea = new crearTarea();
+				crearTarea.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Registrar reunion");
 		btnNewButton_2.setBounds(186, 75, 155, 36);
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registrarReunion registrarReunion = new registrarReunion();
+				registrarReunion.setVisible(true);
+				dispose(); 
+			}
+		});
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Evaluar compañero");
 		btnNewButton_3.setBounds(186, 127, 155, 36);
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				dispose();
+			}
+		});
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Volver");

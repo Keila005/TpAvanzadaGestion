@@ -55,6 +55,9 @@ public class verInformacionPersonal extends JFrame {
 		btnNewButton.setBackground(UIManager.getColor("Button.background"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				miSueldo miSueldo = new miSueldo();
+				miSueldo.setVisible(true);
+				dispose();
 			}
 		});
 		btnNewButton.setBounds(10, 72, 187, 44);
@@ -63,12 +66,22 @@ public class verInformacionPersonal extends JFrame {
 		JButton btnNewButton_1 = new JButton("Rendimiento");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_1.setBounds(10, 137, 187, 44);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Rendimiento Rendimiento = new Rendimiento();
+				Rendimiento.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Mis datos");
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MisDatos MisDatos = new MisDatos();
+				MisDatos.setVisible(true);
+				dispose();
 			}
 		});
 		btnNewButton_2.setBounds(239, 137, 187, 44);
@@ -77,6 +90,13 @@ public class verInformacionPersonal extends JFrame {
 		JButton btnNewButton_3 = new JButton("Ver ausencias");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_3.setBounds(239, 72, 187, 44);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			misAusencias misAusencias = new misAusencias();
+			misAusencias.setVisible(true);
+			dispose();
+			}
+		});
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Volver");

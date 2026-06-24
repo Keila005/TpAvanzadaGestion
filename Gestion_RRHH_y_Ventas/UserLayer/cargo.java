@@ -1,37 +1,23 @@
 package UserLayer;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import LogicLayer.Operativo;
+import LogicLayer.Usuario;
+
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class cargo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					cargo frame = new cargo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public cargo() {
+	
+	public cargo(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -40,6 +26,26 @@ public class cargo extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("lider del proyecto");
+//		btnNewButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				Operativo op = co.buscarPorUsuario(usuario.getIdUsuario());
+//
+//		        if(op.getRol() == Roles.LIDER_PROYECTO) {
+//
+//		            MenuLider ml = new MenuLider(op);
+//		            ml.setVisible(true);
+//		            dispose();
+//
+//		        } else {
+//
+//		            JOptionPane.showMessageDialog(
+//		                null,
+//		                "Usted no posee el cargo de Líder de Proyecto"
+//		            );
+//		        }
+//		    
+//			}
+//		});
 		btnNewButton.setBounds(60, 91, 136, 44);
 		contentPane.add(btnNewButton);
 		

@@ -66,8 +66,11 @@ public class Comentar extends JFrame {
 		lblSentimiento.setBounds(168, 146, 108, 26);
 		contentPane.add(lblSentimiento);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setToolTipText("");
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.addItem("Positivo");
+		comboBox.addItem("Negativo");
+		comboBox.addItem("Neutro");
+
 		comboBox.setBounds(140, 182, 163, 26);
 		contentPane.add(comboBox);
 		
