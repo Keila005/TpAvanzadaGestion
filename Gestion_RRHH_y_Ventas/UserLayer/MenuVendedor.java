@@ -56,6 +56,13 @@ public class MenuVendedor extends JFrame {
 		JButton btnNewButton = new JButton("Stock");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				MenuStock stock =
+						new MenuStock(usuario);
+
+				stock.setVisible(true);
+
+				dispose();
 			}
 		});
 		btnNewButton.setBounds(31, 116, 190, 51);

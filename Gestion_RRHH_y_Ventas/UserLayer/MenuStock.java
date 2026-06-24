@@ -14,6 +14,7 @@ import DLL.ControllerProducto;
 import DLL.ControllerStock;
 import LogicLayer.Producto;
 import LogicLayer.Stock;
+import LogicLayer.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +25,7 @@ import java.awt.Color;
 public class MenuStock extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private Usuario usuario;
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel model;
@@ -39,23 +41,25 @@ public class MenuStock extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuStock frame = new MenuStock();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	//public static void main(String[] args) {
+		//EventQueue.invokeLater(new Runnable() {
+			//public void run() {
+				//try {
+					//MenuStock frame = new MenuStock();
+					//frame.setVisible(true);
+			//	} catch (Exception e) {
+				//	e.printStackTrace();
+		//		}
+			//}
+	//	});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public MenuStock() {
+	public MenuStock(Usuario usuario) {
+		this.usuario = usuario;
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -96,6 +100,16 @@ public class MenuStock extends JFrame {
 	    	contentPane.add(scrollPane);
 	    	
 	    	JButton btnSalir = new JButton("volver a menu");
+	    	btnSalir.addActionListener(e -> {
+
+	    	    MenuVendedor menu =
+	    	            new MenuVendedor(usuario);
+
+	    	    menu.setVisible(true);
+
+	    	    dispose();
+	    	});
+	    	
 	    	btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	    	btnSalir.setForeground(Color.RED);
 	    	btnSalir.setBounds(292, 0, 119, 27);
@@ -111,9 +125,9 @@ public class MenuStock extends JFrame {
 	    	});
 
 	    	btnActualizar.setBounds(
-	    	        20,
+	    	        10,
 	    	        158,
-	    	        120,
+	    	        135,
 	    	        35
 	    	);
 
@@ -158,7 +172,7 @@ public class MenuStock extends JFrame {
 	    	btnAgregarProducto.setBounds(
 	    	        292,
 	    	        158,
-	    	        120,
+	    	        135,
 	    	        35
 	    	);
 
@@ -272,16 +286,16 @@ public class MenuStock extends JFrame {
 	    	});
 
 	    	btnEliminar.setBounds(
-	    	        162,
+	    	        155,
 	    	        158,
-	    	        120,
+	    	        130,
 	    	        35
 	    	);
 
 	    	contentPane.add(btnEliminar);
 	    	
 	    	
-	    	
+	    	cargarTabla();
 	    
 	    
 	}//fin public menustock
