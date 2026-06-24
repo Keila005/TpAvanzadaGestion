@@ -110,7 +110,12 @@ public Producto buscarProductoPorId(int idProducto) {
     try {
 
         PreparedStatement stmt = con.prepareStatement(
-                "SELECT * FROM producto WHERE id_producto = ?"
+        	
+
+        			    "SELECT * FROM producto " + 
+        			    "WHERE id_producto = ? " +
+        			    "AND activo = 1"
+        			
         );
 
         stmt.setInt(1, idProducto);
@@ -140,12 +145,13 @@ public int agregarProducto(Producto producto) {
     try {
 
         PreparedStatement statement = con.prepareStatement(
-            "INSERT INTO producto(nombre, precio) VALUES (?, ?)",
+            "INSERT INTO producto(nombre, precio, activo) VALUES (?, ?, ?)",
             PreparedStatement.RETURN_GENERATED_KEYS
         );
 
         statement.setString(1, producto.getNombre());
         statement.setDouble(2, producto.getPrecio());
+        statement.setInt(3, 1);
 
         int filas = statement.executeUpdate();
 

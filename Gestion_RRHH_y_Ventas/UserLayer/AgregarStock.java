@@ -83,17 +83,32 @@ public class AgregarStock extends JFrame {
 			    "Agregar stock a: " + producto.getNombre()
 			);
 		lblNombrePS.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblNombrePS.setBounds(72, 56, 271, 21);
+		lblNombrePS.setBounds(39, 53, 271, 21);
 		contentPane.add(lblNombrePS);
+		
+		
+		JLabel lblStockActual = new JLabel(
+			    "Stock actual: "
+			    + new ControllerStock().obtenerStockActual(
+			            producto.getIdproducto()
+			    )
+			);
+
+			lblStockActual.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+			lblStockActual.setBounds(37, 73, 181, 20);
+
+			contentPane.add(lblStockActual);
+		
 		
 		JLabel lblCantidadAAgregar = new JLabel("Cantidad a Agregar:");
 		lblCantidadAAgregar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCantidadAAgregar.setBounds(39, 106, 213, 27);
+		lblCantidadAAgregar.setBounds(39, 116, 213, 27);
 		contentPane.add(lblCantidadAAgregar);
 		
 		textCantidad = new JTextField();
 		textCantidad.setColumns(10);
-		textCantidad.setBounds(210, 108, 174, 27);
+		textCantidad.setBounds(213, 116, 174, 27);
 		contentPane.add(textCantidad);
 		
 		JButton btnAgregarStock = new JButton("Agregar Stock");
@@ -140,7 +155,7 @@ public class AgregarStock extends JFrame {
 		    }
 		});
 		btnAgregarStock.setForeground(new Color(0, 204, 0));
-		btnAgregarStock.setBounds(57, 168, 140, 48);
+		btnAgregarStock.setBounds(57, 180, 140, 48);
 		contentPane.add(btnAgregarStock);
 		
 		JButton btnCancelar = new JButton("cancelar");
@@ -153,7 +168,7 @@ public class AgregarStock extends JFrame {
 		    dispose();
 		});
 		btnCancelar.setForeground(new Color(204, 0, 0));
-		btnCancelar.setBounds(234, 168, 140, 48);
+		btnCancelar.setBounds(236, 180, 140, 48);
 		contentPane.add(btnCancelar);
 
 	}
