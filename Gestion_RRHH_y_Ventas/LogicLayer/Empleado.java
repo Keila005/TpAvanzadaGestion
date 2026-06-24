@@ -10,6 +10,7 @@ public class Empleado extends Usuario {
 	private double sueldoBase;
 	private LocalDate fechaContratacion;
 	private int faltas;
+	private byte[] perfil;
 	
 	public Empleado() {
 		super();
@@ -42,8 +43,24 @@ public class Empleado extends Usuario {
 		this.faltas = faltas;
 	}
 	
-	
-	
+	public Empleado(String nombre, String apellido, String mail, String contrasenia, int idEmpleado, int dni,
+			double sueldoBase, LocalDate fechaContratacion, int faltas, byte[] perfil) {
+		super(nombre, apellido, mail, contrasenia);
+		this.idEmpleado = idEmpleado;
+		this.dni = dni;
+		this.sueldoBase = sueldoBase;
+		this.fechaContratacion = fechaContratacion;
+		this.faltas = faltas;
+		this.perfil = perfil;
+	}
+
+	public byte[] getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(byte[] perfil) {
+		this.perfil = perfil;
+	}
 
 	public int getIdEmpleado() {
 		return idEmpleado;
@@ -83,6 +100,11 @@ public class Empleado extends Usuario {
 
 	public void setFechaContratacion(LocalDate fechaContratacion) {
 		this.fechaContratacion = fechaContratacion;
+	}
+	
+	@Override
+	public String toString() {
+	    return this.getNombre()+ " " + this.getApellido();
 	}
 	public void SolicitarPermiso() {
     String[] tipos = {"Vacaciones", "Permiso", "Licencia medica"};

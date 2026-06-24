@@ -308,8 +308,70 @@ public class ControllerVenta {
 
 	    return ventas;
 	}
-	
-	
+	public LinkedList<Venta> mostrarVentas() {
+
+	    LinkedList<Venta> ventas = new LinkedList<>();
+
+	    try {
+
+	        String sql =
+	                "SELECT v.id_venta, v.fecha, v.total, " +
+	                "u.nombre, u.apellido " +
+	                "FROM venta v " +
+	                "JOIN empleado e ON v.id_vendedor = e.id_empleado " +
+	                "JOIN usuario u ON e.id_usuario = u.id_usuario " +
+	                "ORDER BY v.fecha DESC";
+
+	        PreparedStatement stmt = con.prepareStatement(sql);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()) {
+
+	            Venta v = new Venta();
+
+	            v.setIdVenta(rs.getInt("id_venta"));
+	            v.setFecha(rs.getDate("fecha").toLocalDate());
+	            v.setTotal(rs.getDouble("total"));
+
+
+	            v.setNombreVendedor(
+	                    rs.getString("nombre") + " " +
+	                    rs.getString("apellido")
+	                );
+
+	            ventas.add(v);
+	        }
+
+	    } catch(Exception ex) {
+	        ex.printStackTrace();
+	    }
+
+	    return ventas;
+	}
+	public ResultSet mostrarDetalleVentas() {
+
+	    try {
+
+	        String sql =
+	            "SELECT d.id_detalle, d.id_venta, " +
+	            "p.nombre AS producto, " +
+	            "d.cantidad, d.subtotal " +
+	            "FROM detalle_venta d " +
+	            "JOIN producto p ON d.id_producto = p.id_producto " +
+	            "ORDER BY d.id_venta DESC";
+
+	        PreparedStatement stmt = con.prepareStatement(sql);
+
+	        return stmt.executeQuery();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
+
 }// fin de clase controller
 	
 	

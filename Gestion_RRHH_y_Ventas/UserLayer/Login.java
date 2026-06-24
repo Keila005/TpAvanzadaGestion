@@ -107,10 +107,12 @@ public class Login extends JFrame {
 			        	 }else if(usuarioLogueado instanceof Operativo){
 			        		 MenuOperativo menuOperativo= new MenuOperativo(usuarioLogueado);
 			        		 menuOperativo.setVisible(true);
+			        		 dispose();
 			        	        
 			        	 }else {
 			        		 MenuVendedor menuVendedor = new MenuVendedor(usuarioLogueado);
 			        		 menuVendedor.setVisible(true);
+			        		 dispose();
 						}
 //			            DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
 //			            int idEmpleado = asis.getIdEmpleadoByUsuario(usuarioLogueado.getIdUsuario());

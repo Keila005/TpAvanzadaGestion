@@ -181,7 +181,8 @@ public class ControllerUsuario {
             String contrasenia,
             int dni,
             double sueldoBase,
-            String rol) {
+            String rol,
+            byte[] perfil) {
 
         try {
 
@@ -206,13 +207,14 @@ public class ControllerUsuario {
             }
 
             PreparedStatement empleadoStmt = con.prepareStatement(
-                "INSERT INTO empleado(id_usuario, dni, sueldo_base) VALUES(?,?,?)",
+                "INSERT INTO empleado(id_usuario, dni, sueldo_base, perfil) VALUES(?,?,?,?)",
                 PreparedStatement.RETURN_GENERATED_KEYS
             );
 
             empleadoStmt.setInt(1, idUsuario);
             empleadoStmt.setString(2, String.valueOf(dni));
             empleadoStmt.setDouble(3, sueldoBase);
+            empleadoStmt.setBytes(4, perfil);
 
             empleadoStmt.executeUpdate();
 
@@ -245,7 +247,8 @@ public class ControllerUsuario {
             String mail,
             String contrasenia,
             int dni,
-            double sueldoBase
+            double sueldoBase,
+            byte[] perfil
            ) {
 
         try {
@@ -271,13 +274,14 @@ public class ControllerUsuario {
             }
 
             PreparedStatement empleadoStmt = con.prepareStatement(
-                "INSERT INTO empleado(id_usuario, dni, sueldo_base) VALUES(?,?,?)",
+                "INSERT INTO empleado(id_usuario, dni, sueldo_base, perfil) VALUES(?,?,?,?)",
                 PreparedStatement.RETURN_GENERATED_KEYS
             );
 
             empleadoStmt.setInt(1, idUsuario);
             empleadoStmt.setString(2, String.valueOf(dni));
             empleadoStmt.setDouble(3, sueldoBase);
+            empleadoStmt.setBytes(4, perfil);
 
             empleadoStmt.executeUpdate();
 
@@ -303,38 +307,57 @@ public class ControllerUsuario {
         }
         
     }
-        
-  public void modificarEmpleado(
-		  int idEmpleado,
-		  String nombre,
-		  String apellido,
-		  String nuevoMail,
-		  int nuevoDni,
-		  double nuevoSueldo
-		  ) {
-	  try {
-		  PreparedStatement stmt = con.prepareStatement(
 
-		            "UPDATE usuario u "
-		            + "INNER JOIN empleado e "
-		            + "ON u.id_usuario = e.id_usuario "
-		            + "SET u.email = ?,e.dni = ?, "
-		            + "e.sueldo_base = ?, u.nombre = ?, u.apellido = ? "
-		            + "WHERE e.id_empleado = ?"
-		        );
+    public void modificarEmpleado(
+            int idEmpleado,
+            String nombre,
+            String apellido,
+            String nuevoMail,
+            int nuevoDni,
+            double nuevoSueldo,
+            byte[] perfil
+    ) {
+        try {
+            PreparedStatement stmt1 = con.prepareStatement(
+                "UPDATE usuario u " +
+                "JOIN empleado e ON u.id_usuario = e.id_usuario " +
+                "SET u.email = ?, u.nombre = ?, u.apellido = ? " +
+                "WHERE e.id_empleado = ?"
+            );
 
-		        stmt.setString(1, nuevoMail);
-		        stmt.setInt(2, nuevoDni);
-		        stmt.setDouble(3, nuevoSueldo);
-		        stmt.setString(4, nombre);
-		        stmt.setString(5, apellido);
-		        stmt.setInt(6, idEmpleado);
+            stmt1.setString(1, nuevoMail);
+            stmt1.setString(2, nombre);
+            stmt1.setString(3, apellido);
+            stmt1.setInt(4, idEmpleado);
 
-		        stmt.executeUpdate();
-	  } catch(Exception e) {
-	        e.printStackTrace();
-	  }
-  }
+            stmt1.executeUpdate();
+ 
+            PreparedStatement stmt2;
+
+            if (perfil != null) {
+                stmt2 = con.prepareStatement(
+                    "UPDATE empleado SET dni = ?, sueldo_base = ?, perfil = ? WHERE id_empleado = ?"
+                );
+                stmt2.setInt(1, nuevoDni);
+                stmt2.setDouble(2, nuevoSueldo);
+                stmt2.setBytes(3, perfil);
+                stmt2.setInt(4, idEmpleado);
+
+            } else {
+                stmt2 = con.prepareStatement(
+                    "UPDATE empleado SET dni = ?, sueldo_base = ? WHERE id_empleado = ?"
+                );
+                stmt2.setInt(1, nuevoDni);
+                stmt2.setDouble(2, nuevoSueldo);
+                stmt2.setInt(3, idEmpleado);
+            }
+
+            stmt2.executeUpdate();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
   
   
   public void eliminarEmpleado(int idEmpleado) {
