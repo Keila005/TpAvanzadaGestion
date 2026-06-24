@@ -19,6 +19,7 @@ public class MenuVendedor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Usuario usuario;	
 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
@@ -36,7 +37,10 @@ public class MenuVendedor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MenuVendedor(Usuario usuario) {
+	public MenuVendedor(Usuario usuario) {	
+
+		    this.usuario = usuario;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 505, 367);
 		contentPane = new JPanel();
