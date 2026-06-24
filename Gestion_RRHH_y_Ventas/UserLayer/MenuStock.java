@@ -121,7 +121,48 @@ public class MenuStock extends JFrame {
 
 	    	btnActualizar.addActionListener(e -> {
 
-	    	    cargarTabla();
+	    	    int fila = table.getSelectedRow();
+
+	    	    if(fila == -1) {
+
+	    	        JOptionPane.showMessageDialog(
+	    	                null,
+	    	                "Seleccione un producto"
+	    	        );
+
+	    	        return;
+	    	    }
+
+	    	    int id =
+	    	            (int) model.getValueAt(
+	    	                    fila,
+	    	                    0
+	    	            );
+
+	    	    Producto producto = null;
+
+	    	    for(Producto p :
+	    	            controllerProducto.mostrarProductos()) {
+
+	    	        if(p.getIdproducto() == id) {
+
+	    	            producto = p;
+	    	            break;
+	    	        }
+	    	    }
+
+	    	    if(producto != null) {
+
+	    	        EditarProducto editar =
+	    	                new EditarProducto(
+	    	                        producto,
+	    	                        usuario
+	    	                );
+
+	    	        editar.setVisible(true);
+
+	    	        dispose();
+	    	    }
 	    	});
 
 	    	btnActualizar.setBounds(
