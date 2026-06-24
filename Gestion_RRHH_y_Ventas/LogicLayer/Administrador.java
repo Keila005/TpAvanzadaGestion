@@ -158,29 +158,29 @@ public class Administrador extends Usuario{
 	            rol = "Miembro de Proyecto";
 	        }
 
-	        usuarioController.crearOperativo(
-	                nombre,
-	                apellido,
-	                mail,
-	               Hashing.hash(contrasenia),
-	                dni,
-	                sueldoBase,
-	                rol
-	        );
+//	        usuarioController.crearOperativo(
+//	                nombre,
+//	                apellido,
+//	                mail,
+//	               Hashing.hash(contrasenia),
+//	                dni,
+//	                sueldoBase,
+//	                rol
+//	        );
 
 	    } else {
 
 	       
 
-	        usuarioController.crearVendedor(
-	                nombre,
-	                apellido,
-	                mail,
-	                Hashing.hash(contrasenia),
-	                dni,
-	                sueldoBase
-	                
-	        );
+//	        usuarioController.crearVendedor(
+//	                nombre,
+//	                apellido,
+//	                mail,
+//	                Hashing.hash(contrasenia),
+//	                dni,
+//	                sueldoBase
+//	                
+//	        );
 	    }
 
 	    JOptionPane.showMessageDialog(null,
@@ -871,7 +871,7 @@ public void validarAsistencia() {
         int minutoSalida = Integer.parseInt(JOptionPane.showInputDialog("Minuto de salida:"));
         String nuevaSalida = String.format("%02d:%02d:00", horaSalida, minutoSalida);
         
-        asis.actualizarAsistencia(idsAsisFinal[idxAsis], nuevaEntrada, nuevaSalida);
+//        asis.actualizarAsistencia(idsAsisFinal[idxAsis], nuevaEntrada, nuevaSalida);
         JOptionPane.showMessageDialog(null, "Asistencia modificada");
         
     } catch (Exception e) {

@@ -10,6 +10,8 @@ public class Venta {
 	    private double total;
 	    private LocalDate fecha;
 	    private int idVendedor;
+	    private String nombreVendedor;
+	    
 		
 	    
 	     
@@ -65,6 +67,16 @@ public class Venta {
 		}
 		
 		
+		public String getNombreVendedor() {
+			return nombreVendedor;
+		}
+
+
+		public void setNombreVendedor(String nombreVendedor) {
+			this.nombreVendedor = nombreVendedor;
+		}
+
+
 		public void agregarDetalle(
 		        detalle_venta detalle
 		) {
