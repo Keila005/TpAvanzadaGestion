@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class miSueldo extends JFrame {
 
@@ -45,6 +47,13 @@ public class miSueldo extends JFrame {
 		btnUltimaLiquidacion.setBounds(10, 86, 185, 43);
 		btnUltimaLiquidacion.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnUltimaLiquidacion.setBackground(UIManager.getColor("Button.background"));
+//		btnNewButton.addActionListener(new ActionListener() {
+//		public void actionPerformed(ActionEvent e) {
+//			ultimaLiquidacion ultimaLiquidacion = new ultimaLiquidacion();
+//			ultimaLiquidacion.setVisible(true);
+//			dispose();
+//		}
+//		});
 		contentPane.add(btnUltimaLiquidacion);
 		
 		JButton btnNewButton_4 = new JButton("Volver");
