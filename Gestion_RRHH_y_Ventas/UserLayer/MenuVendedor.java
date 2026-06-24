@@ -43,14 +43,13 @@ public class MenuVendedor extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 505, 367);
-		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido vendedor: " + usuario.getNombre() );
 		lblNewLabel.setBounds(31, 50, 271, 21);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Stock");

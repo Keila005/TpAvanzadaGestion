@@ -57,8 +57,8 @@ public class EditarProducto extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTitulo = new JLabel("EDITAR PRODUCTO");
-	    lblTitulo.setBounds(27, 11, 174, 28);
+		JLabel lblTitulo = new JLabel("EDITAR PRODUCTO :>");
+	    lblTitulo.setBounds(27, 11, 196, 28);
 	    lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 	    contentPane.add(lblTitulo);
 	    
@@ -100,6 +100,7 @@ public class EditarProducto extends JFrame {
 	    contentPane.add(txtPrecio);
 	    
 	    JButton btnGuardar = new JButton("Guardar cambios");
+	    btnGuardar.setForeground(new Color(102, 204, 0));
 	    btnGuardar.addActionListener(e -> {
 
 	        producto.setNombre(
@@ -134,6 +135,7 @@ public class EditarProducto extends JFrame {
 	    
 	    
 	    JButton btnCancelarCambios = new JButton("cancelar cambios");
+	    btnCancelarCambios.setForeground(new Color(204, 0, 0));
 	    btnCancelarCambios.addActionListener(e -> {
 	    	MenuStock menu =
 	                new MenuStock(usuario);

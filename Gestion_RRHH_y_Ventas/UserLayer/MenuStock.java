@@ -139,17 +139,8 @@ public class MenuStock extends JFrame {
 	    	                    0
 	    	            );
 
-	    	    Producto producto = null;
-
-	    	    for(Producto p :
-	    	            controllerProducto.mostrarProductos()) {
-
-	    	        if(p.getIdproducto() == id) {
-
-	    	            producto = p;
-	    	            break;
-	    	        }
-	    	    }
+	    	    Producto producto =
+	    	            controllerProducto.buscarProductoPorId(id);
 
 	    	    if(producto != null) {
 
@@ -180,34 +171,12 @@ public class MenuStock extends JFrame {
 
 	    	btnAgregarProducto.addActionListener(e -> {
 
-	    	    String nombre =
-	    	            JOptionPane.showInputDialog(
-	    	                    "Nombre"
-	    	            );
+	    	    AgregarProducto agregar =
+	    	            new AgregarProducto(usuario);
 
-	    	    if(nombre == null) {
-	    	        return;
-	    	    }
+	    	    agregar.setVisible(true);
 
-	    	    double precio =
-	    	            Double.parseDouble(
-	    	                JOptionPane.showInputDialog(
-	    	                        "Precio"
-	    	                )
-	    	            );
-
-	    	    Producto producto =
-	    	            new Producto(
-	    	                    0,
-	    	                    nombre,
-	    	                    precio
-	    	            );
-
-	    	    controllerProducto.agregarProducto(
-	    	            producto
-	    	    );
-
-	    	    cargarTabla();
+	    	    dispose();
 	    	});
 
 	    	btnAgregarProducto.setBounds(
@@ -245,28 +214,23 @@ public class MenuStock extends JFrame {
 	    	            );
 
 	    	    Producto producto =
-	    	            controllerProducto.BuscarProducto();
-
-	    	    int cantidad =
-	    	            Integer.parseInt(
-	    	                JOptionPane.showInputDialog(
-	    	                        "Cantidad"
-	    	                )
+	    	            controllerProducto.buscarProductoPorId(
+	    	                    idProducto
 	    	            );
 
-	    	    Stock stock =
-	    	            new Stock(
-	    	                    producto,
-	    	                    cantidad,
-	    	                    java.time.LocalDate.now(),
-	    	                    "INGRESO"
-	    	            );
+	    	    if(producto != null) {
 
-	    	    controllerStock.registrarMovimiento(
-	    	            stock
-	    	    );
+	    	        AgregarStock agregar =
+	    	                new AgregarStock(
+	    	                        producto,
+	    	                        usuario
+	    	                );
 
-	    	    cargarTabla();
+	    	        agregar.setVisible(true);
+
+	    	        dispose();
+	    	    }
+	    	    
 	    	});
 
 	    	btnAgregarStock.setBounds(
@@ -304,25 +268,23 @@ public class MenuStock extends JFrame {
 	    	            );
 
 	    	    Producto producto =
-	    	            null;
-
-	    	    for(Producto p :
-	    	            controllerProducto.mostrarProductos()) {
-
-	    	        if(p.getIdproducto() == id) {
-
-	    	            producto = p;
-	    	            break;
-	    	        }
-	    	    }
+	    	            controllerProducto.buscarProductoPorId(id);
 
 	    	    if(producto != null) {
 
-	    	        controllerProducto.eliminarProducto(
-	    	                producto
-	    	        );
+	    	    	int opcion = JOptionPane.showConfirmDialog(
+	    	    	        null,
+	    	    	        "¿Está seguro que desea eliminar el producto?",
+	    	    	        "Confirmar eliminación",
+	    	    	        JOptionPane.YES_NO_OPTION
+	    	    	);
 
-	    	        cargarTabla();
+	    	    	if(opcion == JOptionPane.YES_OPTION) {
+
+	    	    	    controllerProducto.eliminarProducto(producto);
+
+	    	    	    cargarTabla();
+	    	    	}
 	    	    }
 	    	});
 

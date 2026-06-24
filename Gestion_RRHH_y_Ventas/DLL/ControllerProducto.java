@@ -17,6 +17,7 @@ public class ControllerProducto {
 private static Connection con = Conexion.getInstance().getConnection();
 
 
+
 public Producto BuscarProducto() {
 
     Producto elegido = null;
@@ -99,6 +100,37 @@ public Producto BuscarProducto() {
     }
 
     return elegido;
+}
+
+
+
+
+public Producto buscarProductoPorId(int idProducto) {
+
+    try {
+
+        PreparedStatement stmt = con.prepareStatement(
+                "SELECT * FROM producto WHERE id_producto = ?"
+        );
+
+        stmt.setInt(1, idProducto);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if(rs.next()) {
+
+            return new Producto(
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre"),
+                    rs.getDouble("precio")
+            );
+        }
+
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+
+    return null;
 }
 	
 	
