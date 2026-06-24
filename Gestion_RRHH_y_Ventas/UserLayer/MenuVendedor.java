@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import LogicLayer.Usuario;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -42,7 +44,7 @@ public class MenuVendedor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Bienvenido vendedor: <dynamic>");
+		JLabel lblNewLabel = new JLabel("Bienvenido vendedor: " + usuario.getNombre() );
 		lblNewLabel.setBounds(31, 50, 271, 21);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		contentPane.add(lblNewLabel);
@@ -71,14 +73,27 @@ public class MenuVendedor extends JFrame {
 		btnHistorialDeVentas.setBounds(269, 210, 190, 51);
 		contentPane.add(btnHistorialDeVentas);
 		
-		JButton btnCerrarSession = new JButton("Cerrar Session");
-		btnCerrarSession.setForeground(new Color(255, 0, 0));
-		btnCerrarSession.addActionListener(new ActionListener() {
+		JButton btnSalir = new JButton("Cerrar Session");
+		btnSalir.setForeground(new Color(255, 0, 0));
+		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Saludos chau= new Saludos();
+						chau.setVisible(true);
+					dispose();
+						 DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+			           int idEmpleado = asis.getIdEmpleadoByUsuario(usuario.getIdUsuario());
+			            if (idEmpleado != -1) {
+			                asis.registrarSalida(idEmpleado);
+			                JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
+			}
 			}
 		});
-		btnCerrarSession.setBounds(326, 45, 133, 36);
-		contentPane.add(btnCerrarSession);
+		btnSalir.setBounds(326, 45, 133, 36);
+		contentPane.add(btnSalir);
 
 	}
+	
+	
+	
+	
 }
