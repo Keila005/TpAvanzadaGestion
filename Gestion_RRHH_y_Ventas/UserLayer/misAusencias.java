@@ -5,12 +5,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import LogicLayer.Usuario;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class misAusencias extends JFrame {
 
+	private Usuario usuario;
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -54,6 +62,14 @@ public class misAusencias extends JFrame {
 		JButton btnNewButton = new JButton("Aceptar");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnNewButton.setBounds(142, 184, 131, 39);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verInformacionPersonal verInformacionPersonal = new verInformacionPersonal(usuario);
+				verInformacionPersonal.setVisible(true);
+				dispose();
+			}
+			
+		});
 		contentPane.add(btnNewButton);
 
 	}

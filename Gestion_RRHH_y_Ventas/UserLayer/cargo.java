@@ -47,6 +47,7 @@ public class cargo extends JFrame {
 //			}
 //		});
 		btnNewButton.setBounds(60, 91, 136, 44);
+<<<<<<< Updated upstream
 		contentPane.add(btnNewButton);
 		
 		JButton btnMiembroDelProyecto = new JButton("miembro del proyecto");
@@ -55,6 +56,43 @@ public class cargo extends JFrame {
 		
 		JButton btnNewButton_2 = new JButton("Volver");
 		btnNewButton_2.setBounds(312, 208, 114, 34);
+=======
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				liderDeProyecto liderDeProyecto =
+				        new liderDeProyecto(usuario);
+				liderDeProyecto.setVisible(true);
+				dispose(); 
+			}
+		});
+		
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("miembro del proyecto");
+		btnNewButton_1.setBounds(236, 91, 136, 44);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MiembroDelProyecto MiembroDelProyecto =
+				        new MiembroDelProyecto(usuario);
+				MiembroDelProyecto.setVisible(true);
+				dispose(); 
+			}
+		});
+		
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Volver");
+		btnNewButton_2.setBounds(312, 208, 114, 34);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verInformacionPersonal verInformacionPersonal = new verInformacionPersonal(usuario);
+				verInformacionPersonal.setVisible(true);
+				dispose();
+			}
+			
+		});
+		
+>>>>>>> Stashed changes
 		contentPane.add(btnNewButton_2);
 
 	}

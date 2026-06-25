@@ -45,6 +45,14 @@ public class miSueldo extends JFrame {
 		
 		JButton btnUltimaLiquidacion = new JButton("Ultima liquidacion");
 		btnUltimaLiquidacion.setBounds(10, 86, 185, 43);
+		btnUltimaLiquidacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ultimaLiquidacion ultimaLiquidacion = new ultimaLiquidacion();
+				ultimaLiquidacion.setVisible(true);
+				dispose();
+			}
+			
+		});
 		btnUltimaLiquidacion.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnUltimaLiquidacion.setBackground(UIManager.getColor("Button.background"));
 //		btnNewButton.addActionListener(new ActionListener() {
@@ -58,12 +66,27 @@ public class miSueldo extends JFrame {
 		
 		JButton btnNewButton_4 = new JButton("Volver");
 		btnNewButton_4.setBounds(325, 208, 101, 31);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verInformacionPersonal verInformacionPersonal = new verInformacionPersonal();
+				verInformacionPersonal.setVisible(true);
+				dispose();
+			}
+			
+		});
 		contentPane.add(btnNewButton_4);
 		
 		JButton btnHistorialCompleto = new JButton("Historial completo");
 		btnHistorialCompleto.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnHistorialCompleto.setBackground(UIManager.getColor("Button.background"));
 		btnHistorialCompleto.setBounds(241, 86, 185, 43);
+		btnUltimaLiquidacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				historial historial = new historial();
+				historial.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(btnHistorialCompleto);
 
 	}

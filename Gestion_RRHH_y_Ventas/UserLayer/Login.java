@@ -106,9 +106,12 @@ public class Login extends JFrame {
 			        	        
 			        	 }else if(usuarioLogueado instanceof Operativo){
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 			        		 MenuOperativo menuOperativo= new MenuOperativo(usuarioLogueado);
 			        		 menuOperativo.setVisible(true);
 =======
+=======
+>>>>>>> Stashed changes
 			        		 MenuOperativo MenuOperativo= new MenuOperativo(usuarioLogueado);
 			        		 MenuOperativo.setVisible(true);
 			        		 dispose();

@@ -113,8 +113,12 @@ public class Tarea {
 		
 		@Override
 		public String toString() {
-			return "\n-"+nombre + "\nDescripcion:" + descripcion + "\nEstado=" + estado + ", progreso="
-					+ progreso + "\n";
+		    return nombre
+		            + " | "
+		            + estado
+		            + " | "
+		            + progreso
+		            + "%";
 		}
 
 

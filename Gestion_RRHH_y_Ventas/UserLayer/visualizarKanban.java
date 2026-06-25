@@ -1,11 +1,18 @@
 package UserLayer;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.LinkedList;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+<<<<<<< Updated upstream
 import LogicLayer.Tarea;
 import DLL.ControllerTarea;
 
@@ -33,23 +40,19 @@ public class visualizarKanban extends JFrame {
 	private ArrayList<Tarea> tareasAsignadas;
 	private Tarea tareaSeleccionada;
 	private ControllerTarea tareaController;
+=======
+import DLL.ControllerTarea;
+import LogicLayer.Tarea;
+import LogicLayer.Usuario;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					visualizarKanban frame = new visualizarKanban();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+public class visualizarKanban extends JFrame {
 
+    private static final long serialVersionUID = 1L;
+>>>>>>> Stashed changes
+
+    private JPanel contentPane;
+
+<<<<<<< Updated upstream
 	/**
 	 * Create the frame.
 	 */
@@ -126,6 +129,73 @@ public class visualizarKanban extends JFrame {
 		});
 		
 		contentPane.add(btnTrabajar);
+=======
+    private Usuario usuario;
+>>>>>>> Stashed changes
 
-	}
+    private JComboBox<Tarea> comboTareas;
+
+    private LinkedList<Tarea> tareasAsignadas;
+
+    private ControllerTarea controllerTarea = new ControllerTarea();
+
+    public visualizarKanban(Usuario usuario) {
+
+        this.usuario = usuario;
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 500, 250);
+
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblTitulo = new JLabel("MIS TAREAS");
+        lblTitulo.setFont(new Font("Verdana", Font.BOLD, 16));
+        lblTitulo.setBounds(180, 20, 113, 30);
+        contentPane.add(lblTitulo);
+
+        comboTareas = new JComboBox<>();
+        comboTareas.setBounds(54, 66, 380, 30);
+        contentPane.add(comboTareas);
+
+        JButton btnTrabajar = new JButton("TRABAJAR");
+        btnTrabajar.setBackground(new Color(65, 105, 225));
+        btnTrabajar.setBounds(170, 140, 140, 35);
+        contentPane.add(btnTrabajar);
+
+        cargarTareas(usuario.getIdUsuario());
+
+        btnTrabajar.addActionListener(e -> {
+
+            Tarea tarea = (Tarea) comboTareas.getSelectedItem();
+
+            if (tarea == null) {
+                JOptionPane.showMessageDialog(null,
+                        "Seleccione una tarea");
+                return;
+            }
+
+            controllerTarea.trabajarTarea(tarea.getIdTarea());
+
+            JOptionPane.showMessageDialog(null,
+                    "Tarea actualizada");
+
+            cargarTareas(usuario.getIdUsuario());
+        });
+    }
+
+    private void cargarTareas(int idEmpleado) {
+
+        comboTareas.removeAllItems();
+
+        tareasAsignadas =
+                controllerTarea.obtenerTareasEmpleado(idEmpleado);
+
+        for (Tarea t : tareasAsignadas) {
+
+            comboTareas.addItem(t);
+        }
+    }
 }

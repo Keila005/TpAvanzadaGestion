@@ -19,6 +19,7 @@ import java.awt.Color;
 
 public class MenuOperativo extends JFrame {
 
+	private Usuario usuario;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -31,8 +32,15 @@ public class MenuOperativo extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuOperativo(Usuario usuario){
+<<<<<<< Updated upstream
+=======
+		
+		this.usuario = usuario;
+		
+>>>>>>> Stashed changes
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -50,7 +58,7 @@ public class MenuOperativo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 //<<<<<<< HEAD
 
-				verInformacionPersonal ventana = new verInformacionPersonal();
+				verInformacionPersonal ventana = new verInformacionPersonal(usuario);
 				ventana.setVisible(true);
 
 				dispose(); // cierra el menú actual
@@ -91,7 +99,11 @@ public class MenuOperativo extends JFrame {
 		JButton btnNewButton_3 = new JButton("Cargo");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< Updated upstream
 				cargo cargo = new cargo(usuario);
+=======
+				cargo cargo = new cargo(MenuOperativo.this.usuario);
+>>>>>>> Stashed changes
 				cargo.setVisible(true);
 				dispose();
 			}

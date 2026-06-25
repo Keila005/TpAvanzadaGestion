@@ -4,31 +4,43 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import LogicLayer.Usuario;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 
-import LogicLayer.Usuario;
+public class MiembroDelProyecto extends JFrame {
 
-public class liderDeProyecto extends JFrame {
-	
 	private Usuario usuario;
-
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-	
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					MiembroDelProyecto frame = new MiembroDelProyecto(usuario);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public liderDeProyecto(Usuario usuario) {
+	public MiembroDelProyecto(Usuario usuario) {
+	    this.usuario = usuario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 456, 312);
 		contentPane = new JPanel();
@@ -51,70 +63,51 @@ public class liderDeProyecto extends JFrame {
 			dispose();
 			}
 	});
-		
-
-		JButton btnNewButton_1 = new JButton("Crear Tareas");
-		btnNewButton_1.setBounds(228, 139, 183, 36);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				crearTarea crearTarea = new crearTarea();
-				crearTarea.setVisible(true);
-				dispose(); 
-			}
-		});
-		contentPane.add(btnNewButton_1);
-		
-
-		JButton btnNewButton_2 = new JButton("Registrar Reuniones");
-		btnNewButton_2.setBounds(228, 81, 183, 36);
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				registrarReunion registrarReunion = new registrarReunion();
-				registrarReunion.setVisible(true);
-				dispose(); 
-			}
-		});
-		contentPane.add(btnNewButton_2);
-		
-		
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_3 = new JButton("Evaluar Compañero");
-		btnNewButton_3.setBounds(29, 139, 183, 36);
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton btnNewButton_1 = new JButton("Evaluar Compañero");
+		btnNewButton_1.setBounds(29, 139, 183, 36);
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EvaluarCompaniero EvaluarCompaniero = new EvaluarCompaniero(usuario);
 				EvaluarCompaniero.setVisible(true);
 				dispose();
 			}
 		});
-		contentPane.add(btnNewButton_3);
+		contentPane.add(btnNewButton_1);
 		
-		JButton btnNewButton_4 = new JButton("Volver");
-<<<<<<< Updated upstream
-		btnNewButton_4.setBounds(758, 11, 61, 21);
-=======
-		btnNewButton_4.addActionListener(new ActionListener() {
+		JButton btnNewButton_2 = new JButton("Ver Reuniones");
+		btnNewButton_2.setBounds(228, 81, 183, 36);
+		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VerReuniones VerReuniones = new VerReuniones();
+				VerReuniones.setVisible(true);
+				dispose(); 
+			}
+		});
+		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Volver");
+		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargo cargo = new cargo(usuario);
 				cargo.setVisible(true);
 				dispose();
 			}
 		});
-		btnNewButton_4.setBounds(249, 229, 183, 36);
-		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton_4.addActionListener(new ActionListener() {
+		btnNewButton_3.setBounds(228, 139, 183, 36);
+		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			cargo cargo = new cargo(null);
 			cargo.setVisible(true);
 				dispose();
 			}
 		});
->>>>>>> Stashed changes
-		contentPane.add(btnNewButton_4);
+		contentPane.add(btnNewButton_3);
 
 	}
+
 }

@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import LogicLayer.Usuario;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -20,29 +23,23 @@ import javax.swing.UIManager;
 
 public class verInformacionPersonal extends JFrame {
 
+	private Usuario usuario;
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					verInformacionPersonal frame = new verInformacionPersonal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public verInformacionPersonal() {
+	public verInformacionPersonal(Usuario usuario) {
+		
+		this.usuario = usuario;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -101,6 +98,21 @@ public class verInformacionPersonal extends JFrame {
 		
 		JButton btnNewButton_4 = new JButton("Volver");
 		btnNewButton_4.setBounds(325, 211, 101, 31);
+<<<<<<< Updated upstream
+=======
+		btnNewButton_4.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+
+		        MenuOperativo menuOperativo =
+		                new MenuOperativo(usuario);
+
+		        menuOperativo.setVisible(true);
+		        dispose();
+		    }
+		});
+		
+		
+>>>>>>> Stashed changes
 		contentPane.add(btnNewButton_4);
 		
 		JLabel lblNewLabel = new JLabel("Ver informacion personal");
