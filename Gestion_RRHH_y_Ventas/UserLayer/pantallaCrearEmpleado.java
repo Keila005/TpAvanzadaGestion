@@ -38,14 +38,10 @@ public class pantallaCrearEmpleado extends JFrame {
 	private JPasswordField inpContra;
 	private JTextField inpDni;
 	private JTextField inpSueldo;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> main
+
 	private byte[] fotoPerfil;
 	
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
+
 	 private static ControllerUsuario usuarioController = new ControllerUsuario();
 
 	/**

@@ -1,14 +1,10 @@
 package UserLayer;
 
 import java.util.LinkedList;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> main
+
 
 import java.util.stream.Collectors;
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,13 +36,13 @@ public class MenuGestionar extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private Empleado empleadoSeleccionado; 
-<<<<<<< HEAD
+
 	private JTextField textField;
-=======
+
 	private JTextField inpFiltro;
 	private JLabel lblImg;
 	private static ControllerEmpleado contEmpleado;
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
+
 	
 	public MenuGestionar(Administrador admin) {
 		ControllerUsuario usuarioController = new ControllerUsuario();
@@ -218,8 +214,7 @@ public class MenuGestionar extends JFrame {
 	        });
 	    }
 	}
-<<<<<<< HEAD
-=======
+
 private void cargarTablaFiltradaStream(String filtro) {
 	
     	LinkedList<Empleado> filtradasPorLetra =contEmpleado.mostrarEmpleados().stream()
@@ -262,8 +257,6 @@ private void cargarTablaFiltradaStream(String filtro) {
     }
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
->>>>>>> main
+
+
 }
