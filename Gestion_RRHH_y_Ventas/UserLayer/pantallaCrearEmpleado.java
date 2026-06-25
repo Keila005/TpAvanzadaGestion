@@ -38,6 +38,7 @@ public class pantallaCrearEmpleado extends JFrame {
 	private JPasswordField inpContra;
 	private JTextField inpDni;
 	private JTextField inpSueldo;
+	private MenuGestionar menu;
 
 	private byte[] fotoPerfil;
 	
@@ -47,23 +48,26 @@ public class pantallaCrearEmpleado extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					pantallaCrearEmpleado frame = new pantallaCrearEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					pantallaCrearEmpleado frame = new pantallaCrearEmpleado(menu);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public pantallaCrearEmpleado() {
+	public pantallaCrearEmpleado(MenuGestionar menu) {
+		this.menu = menu;
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 820, 541);
 		contentPane = new JPanel();
@@ -208,7 +212,7 @@ public class pantallaCrearEmpleado extends JFrame {
 			            			"Lider de Proyecto",
 			            			fotoPerfil
 			            			);
-			            	menuGestionar.cargarTabla();
+			            	menu.cargarTabla();
 
 			            	dispose();
 			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Lider");
@@ -223,7 +227,8 @@ public class pantallaCrearEmpleado extends JFrame {
 			            			Double.parseDouble(inpSueldo.getText()),
 			            			"Miembro de Proyecto",
 			            			fotoPerfil);
-			            	MenuGestionar.cargarTabla();
+			            	
+			            	menu.cargarTabla();
 			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado miembro");
 
 			            	dispose();
@@ -246,7 +251,7 @@ public class pantallaCrearEmpleado extends JFrame {
 
 		            			Double.parseDouble(inpSueldo.getText()),
 		            			fotoPerfil);
-			        	 MenuGestionar.cargarTabla();
+			        	 menu.cargarTabla();
 			        	 JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Vendedor");
 
 			        	 dispose();

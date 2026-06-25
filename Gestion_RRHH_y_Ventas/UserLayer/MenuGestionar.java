@@ -1,10 +1,7 @@
 package UserLayer;
 
 import java.util.LinkedList;
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 
 import java.util.stream.Collectors;
 
@@ -39,16 +36,11 @@ public class MenuGestionar extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private Empleado empleadoSeleccionado; 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 	private JTextField textField;
-
 	private JTextField inpFiltro;
 	private JLabel lblImg;
 	private static ControllerEmpleado contEmpleado;
-
+	
 	
 	public MenuGestionar(Administrador admin) {
 		ControllerUsuario usuarioController = new ControllerUsuario();
@@ -111,8 +103,11 @@ public class MenuGestionar extends JFrame {
 	        JButton btnAgregar = new JButton("Agregar +");
 	        btnAgregar.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-	        		pantallaCrearEmpleado crearEmpleado= new pantallaCrearEmpleado();
+	        		pantallaCrearEmpleado crearEmpleado= new pantallaCrearEmpleado(MenuGestionar.this);
 	        		crearEmpleado.setVisible(true);
+
+	        		dispose();
+	       
 	        		cargarTabla();
 	        	}
 	        });
@@ -263,9 +258,4 @@ private void cargarTablaFiltradaStream(String filtro) {
     }
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> main
 }
