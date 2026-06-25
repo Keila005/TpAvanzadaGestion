@@ -5,19 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import DLL.ControllerUsuario;
 import DLL.Hashing;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
-
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JRadioButton;
@@ -38,11 +32,6 @@ public class pantallaCrearEmpleado extends JFrame {
 	private JPasswordField inpContra;
 	private JTextField inpDni;
 	private JTextField inpSueldo;
-<<<<<<< HEAD
-=======
-	private byte[] fotoPerfil;
-	
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
 	 private static ControllerUsuario usuarioController = new ControllerUsuario();
 
 	/**
@@ -204,14 +193,7 @@ public class pantallaCrearEmpleado extends JFrame {
 			            			Hashing.hash(new String(inpContra.getPassword())),
 			            			Integer.parseInt(inpDni.getText()),
 			            			Double.parseDouble(inpSueldo.getText()),
-<<<<<<< HEAD
 			            			"Lider de Proyecto");
-=======
-			            			"Lider de Proyecto",
-			            			fotoPerfil
-			            			);
-			            	menuGestionar.cargarTabla();
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
 			            	dispose();
 			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Lider");
 
@@ -223,14 +205,7 @@ public class pantallaCrearEmpleado extends JFrame {
 			            			Hashing.hash(new String(inpContra.getPassword())),
 			            			Integer.parseInt(inpDni.getText()),
 			            			Double.parseDouble(inpSueldo.getText()),
-<<<<<<< HEAD
 			            			"Miembro de Proyecto");
-=======
-			            			"Miembro de Proyecto",
-			            			fotoPerfil);
-			            	menuGestionar.cargarTabla();
-			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado miembro");
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
 			            	dispose();
 			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Miembro");
 				     	                
@@ -246,14 +221,7 @@ public class pantallaCrearEmpleado extends JFrame {
 			     	              inpEmail.getText(),
 			     	             Hashing.hash(new String(inpContra.getPassword())),
 			     	            Integer.parseInt(inpDni.getText()),
-<<<<<<< HEAD
 		            			Double.parseDouble(inpSueldo.getText()));
-=======
-		            			Double.parseDouble(inpSueldo.getText()),
-		            			fotoPerfil);
-			        	 menuGestionar.cargarTabla();
-			        	 JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Vendedor");
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
 			        	 dispose();
 			        	 JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Vendedor");
 
@@ -275,37 +243,6 @@ public class pantallaCrearEmpleado extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton_1 = new JButton("Foto de perfil...");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				 JFileChooser chooser = new JFileChooser();
-
-	                // Filtro: solo imágenes
-	                FileNameExtensionFilter filter = new FileNameExtensionFilter(
-	                        "Imágenes (JPG, PNG, JPEG)", "jpg", "jpeg", "png");
-	                chooser.setFileFilter(filter);
-
-	                int option = chooser.showOpenDialog(null);
-	                if (option == JFileChooser.APPROVE_OPTION) {
-	                    File selectedFile = chooser.getSelectedFile();
-
-	                    // Validación manual extra (por seguridad)
-	                    String nombreArchivo = selectedFile.getName().toLowerCase();
-	                    if (!(nombreArchivo.endsWith(".jpg") || nombreArchivo.endsWith(".jpeg") || nombreArchivo.endsWith(".png"))) {
-	                        JOptionPane.showMessageDialog(null, "Solo se permiten archivos JPG, JPEG o PNG.");
-	                        return;
-	                    }
-
-	                    try {
-	                        fotoPerfil = Files.readAllBytes(selectedFile.toPath());
-	                        JOptionPane.showMessageDialog(null, "Imagen cargada correctamente.");
-	                    } catch (IOException ex) {
-	                        ex.printStackTrace();
-	                        JOptionPane.showMessageDialog(null, "Error al leer la imagen.");
-	                    }
-	                }
-				
-			}
-		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		btnNewButton_1.setBounds(471, 334, 167, 33);
 		contentPane.add(btnNewButton_1);

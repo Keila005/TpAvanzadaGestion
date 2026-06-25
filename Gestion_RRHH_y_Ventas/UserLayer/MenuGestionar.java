@@ -1,11 +1,6 @@
 package UserLayer;
 
 import java.util.LinkedList;
-<<<<<<< HEAD
-=======
-
-import java.util.stream.Collectors;
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,7 +22,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Color;
 
 public class MenuGestionar extends JFrame {
@@ -37,13 +31,7 @@ public class MenuGestionar extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private Empleado empleadoSeleccionado; 
-<<<<<<< HEAD
 	private JTextField textField;
-=======
-	private JTextField inpFiltro;
-	private JLabel lblImg;
-	private static ControllerEmpleado contEmpleado;
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
 	
 	public MenuGestionar(Administrador admin) {
 		ControllerUsuario usuarioController = new ControllerUsuario();
@@ -74,15 +62,6 @@ public class MenuGestionar extends JFrame {
 	           
 	                int row = table.getSelectedRow();
 	                if (row != -1) {
-	                	  int id = (int) model.getValueAt(row, 0);
-	                	  
-	                	   for (Empleado emp : contEmpleado.mostrarEmpleados()) {
-	                           if (emp.getIdEmpleado() == id) {
-	                               empleadoSeleccionado = emp;
-	                               mostrarImagen(emp.getPerfil());
-	                               break;
-	                           }
-	                       }
 	                	empleadoSeleccionado = new Empleado(
 	                		    (String) model.getValueAt(row, 1),
 	                		    (String) model.getValueAt(row, 2),
@@ -172,8 +151,8 @@ public class MenuGestionar extends JFrame {
 	        btnVolverAtrs.setBounds(488, 272, 150, 40);
 	        contentPane.add(btnVolverAtrs);
 	        
-	         lblImg = new JLabel("");
-	        lblImg.setBounds(592, 81, 158, 161);
+	        JLabel lblImg = new JLabel("");
+	        lblImg.setBounds(606, 112, 122, 113);
 	        contentPane.add(lblImg);
 	        
 	        textField = new JTextField();
@@ -190,7 +169,7 @@ public class MenuGestionar extends JFrame {
 	        
 	        JLabel lblNewLabel_1 = new JLabel("Perfil:");
 	        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	        lblNewLabel_1.setBounds(628, 40, 54, 20);
+	        lblNewLabel_1.setBounds(626, 74, 54, 20);
 	        contentPane.add(lblNewLabel_1);
 	        
 	          
@@ -202,7 +181,7 @@ public class MenuGestionar extends JFrame {
 
 	    ControllerEmpleado contEmpleado = new ControllerEmpleado();
 	    LinkedList<Empleado> empleados = contEmpleado.mostrarEmpleados();
-	    
+
 	    for (Empleado e : empleados) {
 
 	        model.addRow(new Object[]{
@@ -215,49 +194,4 @@ public class MenuGestionar extends JFrame {
 	        });
 	    }
 	}
-<<<<<<< HEAD
-=======
-private void cargarTablaFiltradaStream(String filtro) {
-	
-    	LinkedList<Empleado> filtradasPorLetra =contEmpleado.mostrarEmpleados().stream()
-    			.filter(empleado ->
-    		    (empleado.getNombre() != null &&
-    		     empleado.getNombre().toLowerCase().contains(filtro.toLowerCase()))
-    		    ||
-    		    (empleado.getApellido() != null &&
-    		     empleado.getApellido().toLowerCase().contains(filtro.toLowerCase()))
-    		    ||
-    		    (empleado.getMail() != null &&
-    		     empleado.getMail().toLowerCase().contains(filtro.toLowerCase())))
-    	
-    			.collect(Collectors.toCollection(LinkedList::new));
-
-    	
-        model.setRowCount(0);
-       
-        for (Empleado e : filtradasPorLetra) {
-    
-        	  model.addRow(new Object[]{
-      	            e.getIdEmpleado(),
-      	            e.getNombre(),
-      	            e.getApellido(),
-      	            e.getMail(),
-      	            e.getDni(),
-      	            e.getSueldoBase()
-      	        });
-    		
-        }
-    }
-	private void mostrarImagen(byte[] imagenBytes) {
-    if (imagenBytes != null && imagenBytes.length > 0) {
-        ImageIcon icon = new ImageIcon(imagenBytes);
-        Image img = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        lblImg.setIcon(new ImageIcon(img));
-    } else {
-    	lblImg.setIcon(null);
-    	lblImg.setText("Sin imagen");
-    }
-}
-
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
 }
