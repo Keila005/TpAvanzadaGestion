@@ -6,8 +6,12 @@ import java.util.LinkedList;
 
 import com.mysql.jdbc.Connection;
 
+import LogicLayer.Stock;
 import LogicLayer.Venta;
 import LogicLayer.detalle_venta;
+
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 
 public class ControllerVenta {
 	
@@ -65,6 +69,20 @@ public class ControllerVenta {
                 detalleStmt.executeUpdate();
 
                 detalleStmt.close();
+                
+                Stock movimiento = new Stock(
+                        d.getProducto(),
+                        d.getCantidad(),
+                        java.time.LocalDate.now(),
+                        "VENTA"
+                );
+
+                ControllerStock controllerStock =
+                        new ControllerStock();
+
+                controllerStock.registrarMovimiento(
+                        movimiento
+                );
             }
 
             stmt.close();
@@ -372,6 +390,102 @@ public class ControllerVenta {
 	    return null;
 	}
 
+	public void cargarDetalleVenta(
+	        int idVenta,
+	        DefaultTableModel modelo,
+	        JLabel lblFecha,
+	        JLabel lblVendedor,
+	        JLabel lblTotal
+	) {
+
+	    try {
+
+	        // Limpia la tabla
+	        modelo.setRowCount(0);
+
+	        // ===== DATOS DE LA VENTA =====
+	        PreparedStatement stmt = con.prepareStatement(
+
+	            "SELECT v.fecha, v.total, " +
+	            "u.nombre, u.apellido " +
+	            "FROM venta v " +
+	            "INNER JOIN empleado e " +
+	            "ON v.id_vendedor = e.id_empleado " +
+	            "INNER JOIN usuario u " +
+	            "ON e.id_usuario = u.id_usuario " +
+	            "WHERE v.id_venta = ?"
+
+	        );
+
+	        stmt.setInt(1, idVenta);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+
+	            lblFecha.setText(
+	                    "Fecha: " +
+	                    rs.getDate("fecha")
+	            );
+
+	            lblVendedor.setText(
+	                    "Vendedor: " +
+	                    rs.getString("nombre") +
+	                    " " +
+	                    rs.getString("apellido")
+	            );
+
+	            lblTotal.setText(
+	                    "Total: $" +
+	                    rs.getDouble("total")
+	            );
+	        }
+
+	        stmt.close();
+
+	        // ===== DETALLE DE PRODUCTOS =====
+	        PreparedStatement stmtDetalle =
+	                con.prepareStatement(
+
+	            "SELECT p.nombre, " +
+	            "d.cantidad, " +
+	            "d.subtotal " +
+	            "FROM detalle_venta d " +
+	            "INNER JOIN producto p " +
+	            "ON d.id_producto = p.id_producto " +
+	            "WHERE d.id_venta = ?"
+
+	        );
+
+	        stmtDetalle.setInt(1, idVenta);
+
+	        ResultSet rsDetalle =
+	                stmtDetalle.executeQuery();
+
+	        while(rsDetalle.next()) {
+
+	            modelo.addRow(
+
+	                new Object[] {
+
+	                    rsDetalle.getString("nombre"),
+	                    rsDetalle.getInt("cantidad"),
+	                    rsDetalle.getDouble("subtotal")
+
+	                }
+
+	            );
+	        }
+
+	        stmtDetalle.close();
+
+	    } catch(Exception e) {
+
+	        e.printStackTrace();
+	    }
+	}
+	
+	
 }// fin de clase controller
 	
 	

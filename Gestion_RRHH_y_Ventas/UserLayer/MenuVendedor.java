@@ -73,13 +73,31 @@ public class MenuVendedor extends JFrame {
 		contentPane.add(btnPerfilLaboral);
 		
 		JButton btnVenta = new JButton("Venta");
+		btnVenta.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+
+		        AgregarVenta venta =
+		                new AgregarVenta(usuario);
+
+		        venta.setVisible(true);
+
+		        dispose();
+		    }
+		});
 		btnVenta.setBounds(269, 116, 190, 51);
 		contentPane.add(btnVenta);
 		
 		JButton btnHistorialDeVentas = new JButton("Historial de Ventas");
 		btnHistorialDeVentas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		    public void actionPerformed(ActionEvent e) {
+
+		        HistorialVentas historial =
+		                new HistorialVentas(usuario);
+
+		        historial.setVisible(true);
+
+		        dispose();
+		    }
 		});
 		btnHistorialDeVentas.setBounds(269, 210, 190, 51);
 		contentPane.add(btnHistorialDeVentas);

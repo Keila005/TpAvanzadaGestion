@@ -61,7 +61,7 @@ public class MenuStock extends JFrame {
 		this.usuario = usuario;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -93,7 +93,7 @@ public class MenuStock extends JFrame {
 	    	scrollPane.setBounds(
 	    	        10,
 	    	        28,
-	    	        412,
+	    	        464,
 	    	        119
 	    	);
 
@@ -112,7 +112,7 @@ public class MenuStock extends JFrame {
 	    	
 	    	btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	    	btnSalir.setForeground(Color.RED);
-	    	btnSalir.setBounds(292, 0, 119, 27);
+	    	btnSalir.setBounds(355, 2, 119, 27);
 	    	contentPane.add(btnSalir);
 	    	
 	    	
@@ -157,7 +157,7 @@ public class MenuStock extends JFrame {
 	    	});
 
 	    	btnActualizar.setBounds(
-	    	        10,
+	    	        26,
 	    	        158,
 	    	        135,
 	    	        35
@@ -180,7 +180,7 @@ public class MenuStock extends JFrame {
 	    	});
 
 	    	btnAgregarProducto.setBounds(
-	    	        292,
+	    	        325,
 	    	        158,
 	    	        135,
 	    	        35
@@ -289,7 +289,7 @@ public class MenuStock extends JFrame {
 	    	});
 
 	    	btnEliminar.setBounds(
-	    	        155,
+	    	        180,
 	    	        158,
 	    	        130,
 	    	        35
