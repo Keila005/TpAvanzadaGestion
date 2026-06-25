@@ -1,7 +1,10 @@
 package UserLayer;
 
 import java.util.LinkedList;
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 
 import java.util.stream.Collectors;
 
@@ -36,7 +39,10 @@ public class MenuGestionar extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private Empleado empleadoSeleccionado; 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 	private JTextField textField;
 
 	private JTextField inpFiltro;
@@ -257,6 +263,9 @@ private void cargarTablaFiltradaStream(String filtro) {
     }
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> main
 }
