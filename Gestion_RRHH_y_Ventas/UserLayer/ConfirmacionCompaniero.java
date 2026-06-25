@@ -52,8 +52,15 @@ public class ConfirmacionCompaniero extends JFrame {
 		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 18));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				MiembroDelProyecto menu = new MiembroDelProyecto();
+
+				menu.setVisible(true);
+
+				dispose();
 			}
 		});
+
 		btnNewButton.setBounds(45, 150, 348, 32);
 		contentPane.add(btnNewButton);
 

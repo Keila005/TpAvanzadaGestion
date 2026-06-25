@@ -101,6 +101,8 @@ public class verInformacionPersonal extends JFrame {
 		
 		JButton btnNewButton_4 = new JButton("Volver");
 		btnNewButton_4.setBounds(325, 211, 101, 31);
+		
+		
 		contentPane.add(btnNewButton_4);
 		
 		JLabel lblNewLabel = new JLabel("Ver informacion personal");

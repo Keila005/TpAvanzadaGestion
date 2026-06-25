@@ -30,7 +30,7 @@ public class MenuOperativo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MenuOperativo(Usuario usuario){
+	public MenuOperativo(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -55,9 +55,7 @@ public class MenuOperativo extends JFrame {
 
 				dispose(); // cierra el menú actual
 //=======
-				verInformacionPersonal verInfo=new verInformacionPersonal();
-				verInfo.setVisible(true);
-				dispose();
+				
 //>>>>>>> 56f6bfa5f6cb089ef789a11247c6dde1e8fea425
 			}
 		});
@@ -91,7 +89,7 @@ public class MenuOperativo extends JFrame {
 		JButton btnNewButton_3 = new JButton("Cargo");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargo cargo = new cargo(usuario);
+				cargo cargo = new cargo();
 				cargo.setVisible(true);
 				dispose();
 			}

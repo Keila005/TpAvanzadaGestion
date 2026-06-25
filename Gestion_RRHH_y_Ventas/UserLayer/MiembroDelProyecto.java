@@ -94,7 +94,7 @@ public class MiembroDelProyecto extends JFrame {
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			Cargo cargo = new Cargo(null);
+			cargo cargo = new cargo(null);
 			cargo.setVisible(true);
 				dispose();
 			}

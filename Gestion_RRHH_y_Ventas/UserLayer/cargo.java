@@ -11,13 +11,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Cargo extends JFrame {
+public class cargo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	
-	public Cargo(Usuario usuario) {
+	public cargo(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -51,6 +51,15 @@ public class Cargo extends JFrame {
 		
 		JButton btnNewButton_2 = new JButton("Volver");
 		btnNewButton_2.setBounds(312, 208, 114, 34);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verInformacionPersonal verInformacionPersonal = new verInformacionPersonal();
+				verInformacionPersonal.setVisible(true);
+				dispose();
+			}
+			
+		});
+		
 		contentPane.add(btnNewButton_2);
 
 	}
