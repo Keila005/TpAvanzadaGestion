@@ -180,6 +180,12 @@ public class MenuGestionar extends JFrame {
 	        textField.setColumns(10);
 	        
 	        JButton btnNewButton = new JButton("Buscar");
+	        btnNewButton.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		cargarTablaFiltradaStream(inpFiltro.getText());
+
+	        	}
+	        });
 	        btnNewButton.setBackground(new Color(255, 128, 0));
 	        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 	        btnNewButton.setBounds(126, 386, 75, 20);

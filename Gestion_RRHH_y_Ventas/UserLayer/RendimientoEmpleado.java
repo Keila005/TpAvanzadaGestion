@@ -1,7 +1,4 @@
 package UserLayer;
-
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,10 +6,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import DLL.ControllerEmpleado;
 import DLL.ControllerRendimiento;
-import LogicLayer.Empleado;
 import LogicLayer.Operativo;
+import LogicLayer.Usuario;
 import LogicLayer.Vendedor;
 
 import javax.swing.JLabel;
@@ -21,8 +17,6 @@ import java.util.LinkedList;
 
 import javax.swing.JSeparator;
 import java.awt.Color;
-import java.awt.Component;
-import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -48,23 +42,8 @@ public class RendimientoEmpleado extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RendimientoEmpleado frame = new RendimientoEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public RendimientoEmpleado() {
+	
+	public RendimientoEmpleado(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 709, 537);
 		contentPane = new JPanel();
@@ -149,6 +128,17 @@ public class RendimientoEmpleado extends JFrame {
 			btnVerTodas_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 			btnVerTodas_1.setBounds(473, 330, 114, 29);
 			contentPane.add(btnVerTodas_1);
+			
+			JButton btnNewButton = new JButton("<-Volver");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
+					menuAdmin.setVisible(true);
+					dispose();
+				}
+			});
+			btnNewButton.setBounds(10, 455, 84, 20);
+			contentPane.add(btnNewButton);
 			cargarTablaVendedor();
 			        
 	}
