@@ -195,7 +195,7 @@ public class MenuGestionar extends JFrame {
 	          
 
 	}
-	private void cargarTabla() {
+	public void cargarTabla() {
 
 	    model.setRowCount(0);
 

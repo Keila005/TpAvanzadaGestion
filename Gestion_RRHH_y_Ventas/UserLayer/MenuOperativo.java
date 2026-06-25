@@ -48,17 +48,17 @@ public class MenuOperativo extends JFrame {
 		btnNewButton.setBackground(new Color(172, 238, 123));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//<<<<<<< HEAD
+
 
 				verInformacionPersonal ventana = new verInformacionPersonal();
 				ventana.setVisible(true);
 
 				dispose(); // cierra el menú actual
-//=======
+
 				verInformacionPersonal verInfo=new verInformacionPersonal();
 				verInfo.setVisible(true);
 				dispose();
-//>>>>>>> 56f6bfa5f6cb089ef789a11247c6dde1e8fea425
+
 			}
 		});
 		btnNewButton.setBounds(10, 64, 200, 44);

@@ -203,17 +203,13 @@ public class pantallaCrearEmpleado extends JFrame {
 			            			Hashing.hash(new String(inpContra.getPassword())),
 			            			Integer.parseInt(inpDni.getText()),
 			            			Double.parseDouble(inpSueldo.getText()),
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-			            			"Lider de Proyecto");
-=======
->>>>>>> main
+
+
 			            			"Lider de Proyecto",
 			            			fotoPerfil
 			            			);
 			            	menuGestionar.cargarTabla();
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
+
 			            	dispose();
 			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Lider");
 
@@ -225,19 +221,13 @@ public class pantallaCrearEmpleado extends JFrame {
 			            			Hashing.hash(new String(inpContra.getPassword())),
 			            			Integer.parseInt(inpDni.getText()),
 			            			Double.parseDouble(inpSueldo.getText()),
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-			            			"Miembro de Proyecto");
-=======
->>>>>>> main
 			            			"Miembro de Proyecto",
 			            			fotoPerfil);
-			            	menuGestionar.cargarTabla();
+			            	MenuGestionar.cargarTabla();
 			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado miembro");
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
+
 			            	dispose();
-			            	JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Miembro");
+			            	
 				     	                
 			            } else {
 			                JOptionPane.showMessageDialog(null,
@@ -251,17 +241,14 @@ public class pantallaCrearEmpleado extends JFrame {
 			     	              inpEmail.getText(),
 			     	             Hashing.hash(new String(inpContra.getPassword())),
 			     	            Integer.parseInt(inpDni.getText()),
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-		            			Double.parseDouble(inpSueldo.getText()));
-=======
->>>>>>> main
+
+		            			
+
 		            			Double.parseDouble(inpSueldo.getText()),
 		            			fotoPerfil);
-			        	 menuGestionar.cargarTabla();
+			        	 MenuGestionar.cargarTabla();
 			        	 JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Vendedor");
->>>>>>> 123bfdb14df75a33da5115f6bcaa70cc9e4a2e54
+
 			        	 dispose();
 			        	 JOptionPane.showMessageDialog(null, "Se creo correctamente el empleado Vendedor");
 
