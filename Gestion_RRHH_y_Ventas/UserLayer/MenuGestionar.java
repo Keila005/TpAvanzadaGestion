@@ -1,11 +1,6 @@
 package UserLayer;
 
 import java.util.LinkedList;
-<<<<<<< HEAD
-
-=======
->>>>>>> main
-
 import java.util.stream.Collectors;
 
 
@@ -39,10 +34,6 @@ public class MenuGestionar extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private Empleado empleadoSeleccionado; 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 	private JTextField textField;
 
 	private JTextField inpFiltro;
@@ -188,6 +179,11 @@ public class MenuGestionar extends JFrame {
 	        textField.setColumns(10);
 	        
 	        JButton btnNewButton = new JButton("Buscar");
+	        btnNewButton.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		cargarTablaFiltradaStream(inpFiltro.getText());
+	        	}
+	        });
 	        btnNewButton.setBackground(new Color(255, 128, 0));
 	        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 	        btnNewButton.setBounds(126, 386, 75, 20);
@@ -263,9 +259,4 @@ private void cargarTablaFiltradaStream(String filtro) {
     }
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> main
 }
