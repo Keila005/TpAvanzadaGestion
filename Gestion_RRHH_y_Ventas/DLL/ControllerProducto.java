@@ -17,6 +17,7 @@ public class ControllerProducto {
 private static Connection con = Conexion.getInstance().getConnection();
 
 
+
 public Producto BuscarProducto() {
 
     Producto elegido = null;
@@ -100,6 +101,42 @@ public Producto BuscarProducto() {
 
     return elegido;
 }
+
+
+
+
+public Producto buscarProductoPorId(int idProducto) {
+
+    try {
+
+        PreparedStatement stmt = con.prepareStatement(
+        	
+
+        			    "SELECT * FROM producto " + 
+        			    "WHERE id_producto = ? " +
+        			    "AND activo = 1"
+        			
+        );
+
+        stmt.setInt(1, idProducto);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if(rs.next()) {
+
+            return new Producto(
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre"),
+                    rs.getDouble("precio")
+            );
+        }
+
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+
+    return null;
+}
 	
 	
 	
@@ -108,12 +145,13 @@ public int agregarProducto(Producto producto) {
     try {
 
         PreparedStatement statement = con.prepareStatement(
-            "INSERT INTO producto(nombre, precio) VALUES (?, ?)",
+            "INSERT INTO producto(nombre, precio, activo) VALUES (?, ?, ?)",
             PreparedStatement.RETURN_GENERATED_KEYS
         );
 
         statement.setString(1, producto.getNombre());
         statement.setDouble(2, producto.getPrecio());
+        statement.setInt(3, 1);
 
         int filas = statement.executeUpdate();
 
@@ -247,3 +285,5 @@ public int agregarProducto(Producto producto) {
 	
 	
 }// fin de clase controller producto
+
+
