@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 public class MenuOperativo extends JFrame {
+	
+	private Usuario usuario;
 
 	private Usuario usuario;
 	private static final long serialVersionUID = 1L;
@@ -100,7 +102,11 @@ public class MenuOperativo extends JFrame {
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 				cargo cargo = new cargo(usuario);
+=======
+				cargo cargo = new cargo(MenuOperativo.this.usuario);
+>>>>>>> Stashed changes
 =======
 				cargo cargo = new cargo(MenuOperativo.this.usuario);
 >>>>>>> Stashed changes

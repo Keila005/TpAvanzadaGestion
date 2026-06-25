@@ -17,13 +17,30 @@ public class liderDeProyecto extends JFrame {
 	
 	private Usuario usuario;
 
+	private Usuario usuario;
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
+<<<<<<< Updated upstream
 	
+=======
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					liderDeProyecto frame = new liderDeProyecto();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+>>>>>>> Stashed changes
 
 	/**
 	 * Create the frame.
@@ -99,6 +116,7 @@ public class liderDeProyecto extends JFrame {
 =======
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< Updated upstream
 				cargo cargo = new cargo(usuario);
 				cargo.setVisible(true);
 				dispose();
@@ -109,6 +127,9 @@ public class liderDeProyecto extends JFrame {
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			cargo cargo = new cargo(null);
+=======
+			cargo cargo = new cargo(usuario);
+>>>>>>> Stashed changes
 			cargo.setVisible(true);
 				dispose();
 			}
