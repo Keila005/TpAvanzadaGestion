@@ -1,8 +1,13 @@
 package UserLayer;
 
 import java.util.LinkedList;
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
 
 import java.util.stream.Collectors;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import DLL.ControllerEmpleado;
 import DLL.ControllerUsuario;
 import LogicLayer.Administrador;
@@ -33,9 +39,16 @@ public class MenuGestionar extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private Empleado empleadoSeleccionado; 
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
+	private JTextField textField;
+
 	private JTextField inpFiltro;
 	private JLabel lblImg;
 	private static ControllerEmpleado contEmpleado;
+
 	
 	public MenuGestionar(Administrador admin) {
 		ControllerUsuario usuarioController = new ControllerUsuario();
@@ -55,13 +68,6 @@ public class MenuGestionar extends JFrame {
 	        		"Email","Dni","Sueldo"}, 0);
 	        
 	        table = new JTable(model);
-	        table.getColumnModel().getColumn(0).setPreferredWidth(10);
-	        table.getColumnModel().getColumn(1).setPreferredWidth(30);  
-	        table.getColumnModel().getColumn(2).setPreferredWidth(30);  
-	        table.getColumnModel().getColumn(3).setPreferredWidth(90);
-	        table.getColumnModel().getColumn(4).setPreferredWidth(40);
-	        table.getColumnModel().getColumn(5).setPreferredWidth(40);
-	        
 	        JScrollPane scrollPane = new JScrollPane(table);
 	        scrollPane.setBounds(10, 40, 572, 202);
 	        contentPane.add(scrollPane);
@@ -105,10 +111,9 @@ public class MenuGestionar extends JFrame {
 	        JButton btnAgregar = new JButton("Agregar +");
 	        btnAgregar.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-	        		pantallaCrearEmpleado crearEmpleado= new pantallaCrearEmpleado(MenuGestionar.this);
+	        		pantallaCrearEmpleado crearEmpleado= new pantallaCrearEmpleado();
 	        		crearEmpleado.setVisible(true);
 	        		cargarTabla();
-	        		
 	        	}
 	        });
 	        btnAgregar.setBounds(10, 272, 150, 40);
@@ -176,21 +181,16 @@ public class MenuGestionar extends JFrame {
 	        lblImg.setBounds(592, 81, 158, 161);
 	        contentPane.add(lblImg);
 	        
-	        inpFiltro = new JTextField();
-	        inpFiltro.setBackground(new Color(192, 192, 192));
-	        inpFiltro.setBounds(20, 389, 96, 18);
-	        contentPane.add(inpFiltro);
-	        inpFiltro.setColumns(10);
+	        textField = new JTextField();
+	        textField.setBackground(new Color(192, 192, 192));
+	        textField.setBounds(20, 389, 96, 18);
+	        contentPane.add(textField);
+	        textField.setColumns(10);
 	        
 	        JButton btnNewButton = new JButton("Buscar");
-	        btnNewButton.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		cargarTablaFiltradaStream(inpFiltro.getText());
-	        	}
-	        });
 	        btnNewButton.setBackground(new Color(255, 128, 0));
 	        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-	        btnNewButton.setBounds(126, 386, 96, 20);
+	        btnNewButton.setBounds(126, 386, 75, 20);
 	        contentPane.add(btnNewButton);
 	        
 	        JLabel lblNewLabel_1 = new JLabel("Perfil:");
@@ -205,7 +205,7 @@ public class MenuGestionar extends JFrame {
 
 	    model.setRowCount(0);
 
-	     contEmpleado = new ControllerEmpleado();
+	    ControllerEmpleado contEmpleado = new ControllerEmpleado();
 	    LinkedList<Empleado> empleados = contEmpleado.mostrarEmpleados();
 	    
 	    for (Empleado e : empleados) {
@@ -220,6 +220,7 @@ public class MenuGestionar extends JFrame {
 	        });
 	    }
 	}
+
 private void cargarTablaFiltradaStream(String filtro) {
 	
     	LinkedList<Empleado> filtradasPorLetra =contEmpleado.mostrarEmpleados().stream()
@@ -262,4 +263,9 @@ private void cargarTablaFiltradaStream(String filtro) {
     }
 }
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> main
 }
