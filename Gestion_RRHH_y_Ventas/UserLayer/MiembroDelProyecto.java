@@ -64,10 +64,10 @@ public class MiembroDelProyecto extends JFrame {
 		JButton btnNewButton_1 = new JButton("Evaluar Compañero");
 		btnNewButton_1.setBounds(29, 139, 183, 36);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearTarea crearTarea = new crearTarea();
-				crearTarea.setVisible(true);
+				EvaluarCompaniero EvaluarCompaniero = new EvaluarCompaniero();
+				EvaluarCompaniero.setVisible(true);
 				dispose();
 			}
 		});
