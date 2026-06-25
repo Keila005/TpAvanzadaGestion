@@ -1,2 +1,8 @@
-/UserLayer/
+/.classpath
+/.project
+/.settings/
 /DLL/
+/Img/
+/LogicLayer/
+/UserLayer/
+/src/
