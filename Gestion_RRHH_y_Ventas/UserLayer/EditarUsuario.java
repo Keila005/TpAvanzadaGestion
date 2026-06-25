@@ -8,12 +8,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import DLL.ControllerUsuario;
 import LogicLayer.Administrador;
 import LogicLayer.Empleado;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.awt.event.ActionEvent;
 
 public class EditarUsuario extends JFrame {
@@ -29,6 +36,7 @@ public class EditarUsuario extends JFrame {
 	 private JLabel lblActualizarFotoPerfil;
 	 private JButton btnActualizar;
 	 private JButton btnActualizar_1;
+	 private byte[] fotoPerfil;
 
 	/**
 	 * Launch the application.
@@ -129,7 +137,37 @@ public class EditarUsuario extends JFrame {
 		contentPane.add(lblActualizarFotoPerfil);
 		
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBackground(new Color(128, 128, 128));
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 JFileChooser chooser = new JFileChooser();
+
+	                // Filtro: solo imágenes
+	                FileNameExtensionFilter filter = new FileNameExtensionFilter(
+	                        "Imágenes (JPG, PNG, JPEG)", "jpg", "jpeg", "png");
+	                chooser.setFileFilter(filter);
+
+	                int option = chooser.showOpenDialog(null);
+	                if (option == JFileChooser.APPROVE_OPTION) {
+	                    File selectedFile = chooser.getSelectedFile();
+
+	                    // Validación manual extra (por seguridad)
+	                    String nombreArchivo = selectedFile.getName().toLowerCase();
+	                    if (!(nombreArchivo.endsWith(".jpg") || nombreArchivo.endsWith(".jpeg") || nombreArchivo.endsWith(".png"))) {
+	                        JOptionPane.showMessageDialog(null, "Solo se permiten archivos JPG, JPEG o PNG.");
+	                        return;
+	                    }
+
+	                    try {
+	                        fotoPerfil = Files.readAllBytes(selectedFile.toPath());
+	                        JOptionPane.showMessageDialog(null, "Imagen cargada correctamente.");
+	                    } catch (IOException ex) {
+	                        ex.printStackTrace();
+	                        JOptionPane.showMessageDialog(null, "Error al leer la imagen.");
+	                    }
+	                }
+			}
+		});
+		btnActualizar.setBackground(new Color(218, 214, 218));
 		btnActualizar.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		btnActualizar.setBounds(484, 174, 133, 30);
 		contentPane.add(btnActualizar);
@@ -137,15 +175,22 @@ public class EditarUsuario extends JFrame {
 		btnActualizar_1 = new JButton("Editar");
 		btnActualizar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				 byte[] perfilFinal;
+				if (fotoPerfil != null) {
+				  perfilFinal = fotoPerfil;
+				} else {
+				    perfilFinal = empleado.getPerfil(); 
+				}
 				usuarioController.modificarEmpleado(
 						empleado.getIdEmpleado(),inpName.getText(),inpApellido.getText(),
 						inpEmail.getText(),Integer.parseInt(inpDni.getText()),
-						Double.parseDouble(inpSueldo.getText()));
+						Double.parseDouble(inpSueldo.getText()),
+						perfilFinal);
+				
 				JOptionPane.showMessageDialog(null, "Se edito correctamente los datos✨");
-				dispose();
 				MenuGestionar menugestion= new MenuGestionar(admin);
 				menugestion.setVisible(true);
+				dispose();
 			}
 		});
 		btnActualizar_1.setBackground(new Color(189, 200, 183));

@@ -65,5 +65,22 @@ public class ControllerSolicitud {
             ps.close();
         } catch (Exception e) {
         }
+        
+    }
+    public ResultSet getSolicitudesPorEstado(String estado) {
+
+        String sql = "SELECT * FROM solicitudes WHERE estado = ?";
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, estado);
+
+            return ps.executeQuery();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

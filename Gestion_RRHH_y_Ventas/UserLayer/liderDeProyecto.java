@@ -12,11 +12,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import LogicLayer.Usuario;
+<<<<<<< HEAD
 
 public class liderDeProyecto extends JFrame {
 	
 	private Usuario usuario;
 
+=======
+
+public class liderDeProyecto extends JFrame {
+
+>>>>>>> main
 	private Usuario usuario;
 	
 	private static final long serialVersionUID = 1L;
@@ -25,9 +31,12 @@ public class liderDeProyecto extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 	
 =======
+=======
+>>>>>>> main
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
@@ -40,7 +49,10 @@ public class liderDeProyecto extends JFrame {
 //			}
 //		});
 //	}
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 
 	/**
 	 * Create the frame.
@@ -111,6 +123,7 @@ public class liderDeProyecto extends JFrame {
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Volver");
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 		btnNewButton_4.setBounds(758, 11, 61, 21);
 =======
@@ -130,11 +143,26 @@ public class liderDeProyecto extends JFrame {
 =======
 			cargo cargo = new cargo(usuario);
 >>>>>>> Stashed changes
+=======
+		btnNewButton_4.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnNewButton_4.setBounds(248, 217, 107, 36);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
+			cargo cargo = new cargo(usuario);
+=======
+			cargo cargo = new cargo(null);
+>>>>>>> 582830926404ebf67bea2dc0c367ff7a4b1f7785
+>>>>>>> main
 			cargo.setVisible(true);
 				dispose();
 			}
 		});
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+		
+>>>>>>> main
 		contentPane.add(btnNewButton_4);
 
 	}

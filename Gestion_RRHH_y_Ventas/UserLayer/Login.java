@@ -109,6 +109,7 @@ public class Login extends JFrame {
 <<<<<<< Updated upstream
 			        		 MenuOperativo menuOperativo= new MenuOperativo(usuarioLogueado);
 			        		 menuOperativo.setVisible(true);
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> Stashed changes
@@ -116,10 +117,14 @@ public class Login extends JFrame {
 			        		 MenuOperativo.setVisible(true);
 			        		 dispose();
 >>>>>>> Stashed changes
+=======
+			        		 dispose();
+>>>>>>> main
 			        	        
 			        	 }else {
 			        		 MenuVendedor menuVendedor = new MenuVendedor(usuarioLogueado);
 			        		 menuVendedor.setVisible(true);
+			        		 dispose();
 						}
 //			            DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
 //			            int idEmpleado = asis.getIdEmpleadoByUsuario(usuarioLogueado.getIdUsuario());

@@ -22,6 +22,10 @@ public class MenuOperativo extends JFrame {
 	private Usuario usuario;
 
 	private Usuario usuario;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> main
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -65,9 +69,7 @@ public class MenuOperativo extends JFrame {
 
 				dispose(); // cierra el menú actual
 //=======
-				verInformacionPersonal verInfo=new verInformacionPersonal();
-				verInfo.setVisible(true);
-				dispose();
+				
 //>>>>>>> 56f6bfa5f6cb089ef789a11247c6dde1e8fea425
 			}
 		});
@@ -77,7 +79,7 @@ public class MenuOperativo extends JFrame {
 		JButton btnNewButton_1 = new JButton("Solicitudes");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_1.setBounds(10, 129, 214, 44);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			SolicitarVacaciones SolicitarVacaciones = new SolicitarVacaciones();
 			SolicitarVacaciones.setVisible(true); 
@@ -99,6 +101,8 @@ public class MenuOperativo extends JFrame {
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Cargo");
+		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton_3.setBounds(226, 64, 200, 44);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 <<<<<<< Updated upstream
@@ -114,8 +118,6 @@ public class MenuOperativo extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton_3.setBounds(226, 64, 200, 44);
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Salir");

@@ -6,13 +6,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import LogicLayer.Administrador;
+import LogicLayer.MenuVentas;
 import LogicLayer.Usuario;
 
-import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -20,7 +19,6 @@ public class MenuAdministrador extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Usuario usuario;
 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
@@ -37,9 +35,8 @@ public class MenuAdministrador extends JFrame {
 
 	public MenuAdministrador(Usuario usuario) {
 		Administrador admin = (Administrador) usuario;
-		  this.usuario = usuario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 904, 672);
+		setBounds(100, 100, 778, 482);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -77,10 +74,17 @@ public class MenuAdministrador extends JFrame {
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnSalir.setBounds(622, 25, 151, 38);
+		btnSalir.setBounds(582, 21, 151, 38);
 		contentPane.add(btnSalir);
 		
 		JButton btnProyectos = new JButton("Registrar Proyectos");
+		btnProyectos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuProyecto proyecto=new MenuProyecto(usuario);
+				proyecto.setVisible(true);
+				dispose();
+			}
+		});
 		btnProyectos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnProyectos.setBounds(264, 315, 200, 38);
 		contentPane.add(btnProyectos);
@@ -88,7 +92,7 @@ public class MenuAdministrador extends JFrame {
 		JButton btnEstadisticas = new JButton("Rendimiento empleado");
 		btnEstadisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RendimientoEmpleado rendimientoEmpleado= new RendimientoEmpleado();
+				RendimientoEmpleado rendimientoEmpleado= new RendimientoEmpleado(usuario);
 				rendimientoEmpleado.setVisible(true);
 				dispose();
 			}
@@ -100,6 +104,9 @@ public class MenuAdministrador extends JFrame {
 		JButton btnSolicitudes = new JButton("Solicitudes");
 		btnSolicitudes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				verSolicitudes solicitud=new verSolicitudes(usuario);
+				solicitud.setVisible(true);
+				dispose();
 			}
 		});
 		btnSolicitudes.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -109,6 +116,9 @@ public class MenuAdministrador extends JFrame {
 		JButton btnHorasExtras = new JButton("Horas Extras");
 		btnHorasExtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				horasExtras extras= new horasExtras(usuario);
+				extras.setVisible(true);
+				dispose();
 			}
 		});
 		btnHorasExtras.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -116,6 +126,13 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnHorasExtras);
 		
 		JButton btnGestionarBonos = new JButton("Gestionar Bonos");
+		btnGestionarBonos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GestionarBonos bono= new GestionarBonos(usuario);
+				bono.setVisible(true);
+				dispose();
+			}
+		});
 		btnGestionarBonos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnGestionarBonos.setBounds(497, 245, 200, 38);
 		contentPane.add(btnGestionarBonos);
@@ -123,6 +140,9 @@ public class MenuAdministrador extends JFrame {
 		JButton btnAsistencia = new JButton("Asistencia");
 		btnAsistencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GestionarAsistencia asistencia=new GestionarAsistencia(usuario);
+				asistencia.setVisible(true);
+				dispose();
 			}
 		});
 		btnAsistencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -130,11 +150,25 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnAsistencia);
 		
 		JButton btnRendimientoProductos = new JButton("Ver ventas");
+		btnRendimientoProductos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuVentas ventas= new MenuVentas(usuario);
+				ventas.setVisible(true);
+				dispose();
+			}
+		});
 		btnRendimientoProductos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnRendimientoProductos.setBounds(497, 171, 200, 38);
 		contentPane.add(btnRendimientoProductos);
 		
 		JButton btnProyectos_1 = new JButton("Clima laboral");
+		btnProyectos_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				climaLaboral comentario=new climaLaboral(usuario);
+				comentario.setVisible(true);
+				dispose();
+			}
+		});
 		btnProyectos_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnProyectos_1.setBounds(40, 315, 200, 38);
 		contentPane.add(btnProyectos_1);

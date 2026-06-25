@@ -4,7 +4,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
 import LogicLayer.Usuario;
+=======
+>>>>>>> main
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,14 +18,18 @@ import javax.swing.SwingConstants;
 
 public class MiembroDelProyecto extends JFrame {
 
+<<<<<<< HEAD
 	private Usuario usuario;
 	
+=======
+>>>>>>> main
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
+<<<<<<< HEAD
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
@@ -35,12 +42,30 @@ public class MiembroDelProyecto extends JFrame {
 //			}
 //		});
 //	}
+=======
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MiembroDelProyecto frame = new MiembroDelProyecto();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+>>>>>>> main
 
 	/**
 	 * Create the frame.
 	 */
+<<<<<<< HEAD
 	public MiembroDelProyecto(Usuario usuario) {
 	    this.usuario = usuario;
+=======
+	public MiembroDelProyecto() {
+>>>>>>> main
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 456, 312);
 		contentPane = new JPanel();
@@ -58,7 +83,11 @@ public class MiembroDelProyecto extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 			visualizarKanban visualizarKanban = new visualizarKanban(usuario);
+=======
+			visualizarKanban visualizarKanban = new visualizarKanban();
+>>>>>>> main
 			visualizarKanban.setVisible(true);
 			dispose();
 			}
@@ -70,7 +99,11 @@ public class MiembroDelProyecto extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				EvaluarCompaniero EvaluarCompaniero = new EvaluarCompaniero(usuario);
+=======
+				EvaluarCompaniero EvaluarCompaniero = new EvaluarCompaniero();
+>>>>>>> main
 				EvaluarCompaniero.setVisible(true);
 				dispose();
 			}
@@ -92,9 +125,12 @@ public class MiembroDelProyecto extends JFrame {
 		JButton btnNewButton_3 = new JButton("Volver");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				cargo cargo = new cargo(usuario);
 				cargo.setVisible(true);
 				dispose();
+=======
+>>>>>>> main
 			}
 		});
 		btnNewButton_3.setBounds(228, 139, 183, 36);

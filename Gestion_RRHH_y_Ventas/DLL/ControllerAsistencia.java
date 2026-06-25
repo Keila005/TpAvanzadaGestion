@@ -128,6 +128,22 @@ public class ControllerAsistencia {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    public ResultSet getHorasExtras() {
+        String sql =
+            "SELECT h.id_hora_extra, h.horas, h.valor_hora, h.motivo, " +
+            "u.nombre, u.apellido " +
+            "FROM horas_extra h " +
+            "JOIN empleado e ON h.id_empleado = e.id_empleado " +
+            "JOIN usuario u ON e.id_usuario = u.id_usuario";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public ResultSet getAusenciasPorEmpleado(int idEmpleado) {
         String sql = "SELECT fecha FROM asistencia WHERE id_empleado = ? AND presente = 0";
         try {
@@ -166,16 +182,23 @@ public class ControllerAsistencia {
         }
     }
 
-    public void actualizarAsistencia(int idAsistencia, String horaEntrada, String horaSalida) {
-        String sql = "UPDATE asistencia SET hora_entrada = ?, hora_salida = ? WHERE id_asistencia = ?";
+    public void actualizarAsistencia(int idAsistencia, String horaEntrada, String horaSalida, int presente) {
+
+        String sql = "UPDATE asistencia SET hora_entrada = ?, hora_salida = ?, presente = ? WHERE id_asistencia = ?";
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+
             ps.setString(1, horaEntrada);
             ps.setString(2, horaSalida);
-            ps.setInt(3, idAsistencia);
+            ps.setInt(3, presente);
+            ps.setInt(4, idAsistencia);
+
             ps.executeUpdate();
             ps.close();
+
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     public ResultSet getAsistenciasPorEmpleadoSimple(int idEmpleado) {
@@ -197,6 +220,24 @@ public class ControllerAsistencia {
             ps.setString(2, fecha);
             return ps.executeQuery();
         } catch (Exception e) {
+            return null;
+        }
+    }
+    public ResultSet getTodasAsistencias() {
+
+        String sql =
+        "SELECT a.id_asistencia,a.fecha,a.hora_entrada,a.hora_salida,a.presente,"+
+        "u.nombre,u.apellido " +
+        "FROM asistencia a " +
+        "JOIN empleado e ON a.id_empleado=e.id_empleado " +
+        "JOIN usuario u ON e.id_usuario=u.id_usuario";
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            return ps.executeQuery();
+
+        } catch(Exception e) {
             return null;
         }
     }

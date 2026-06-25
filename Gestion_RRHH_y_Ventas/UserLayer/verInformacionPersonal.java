@@ -31,15 +31,33 @@ public class verInformacionPersonal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+<<<<<<< HEAD
 	
+=======
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					verInformacionPersonal frame = new verInformacionPersonal();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+>>>>>>> main
 
 	/**
 	 * Create the frame.
 	 */
 	public verInformacionPersonal(Usuario usuario) {
+<<<<<<< HEAD
 		
 		this.usuario = usuario;
 		
+=======
+>>>>>>> main
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -63,7 +81,7 @@ public class verInformacionPersonal extends JFrame {
 		JButton btnNewButton_1 = new JButton("Rendimiento");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_1.setBounds(10, 137, 187, 44);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Rendimiento Rendimiento = new Rendimiento();
 				Rendimiento.setVisible(true);
@@ -87,7 +105,7 @@ public class verInformacionPersonal extends JFrame {
 		JButton btnNewButton_3 = new JButton("Ver ausencias");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_3.setBounds(239, 72, 187, 44);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			misAusencias misAusencias = new misAusencias();
 			misAusencias.setVisible(true);
@@ -98,6 +116,7 @@ public class verInformacionPersonal extends JFrame {
 		
 		JButton btnNewButton_4 = new JButton("Volver");
 		btnNewButton_4.setBounds(325, 211, 101, 31);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 		btnNewButton_4.addActionListener(new ActionListener() {
@@ -113,6 +132,10 @@ public class verInformacionPersonal extends JFrame {
 		
 		
 >>>>>>> Stashed changes
+=======
+		
+		
+>>>>>>> main
 		contentPane.add(btnNewButton_4);
 		
 		JLabel lblNewLabel = new JLabel("Ver informacion personal");

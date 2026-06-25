@@ -5,9 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+<<<<<<< HEAD
 
 import LogicLayer.Usuario;
 
+=======
+>>>>>>> main
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,8 +19,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class AsistenciaRegistrada extends JFrame {
+<<<<<<< HEAD
 	
 	private Usuario usuario;
+=======
+>>>>>>> main
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -25,6 +31,7 @@ public class AsistenciaRegistrada extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+<<<<<<< HEAD
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
@@ -37,13 +44,31 @@ public class AsistenciaRegistrada extends JFrame {
 //			}
 //		});
 //	}
+=======
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AsistenciaRegistrada frame = new AsistenciaRegistrada();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+>>>>>>> main
 
 	/**
 	 * Create the frame.
 	 */
+<<<<<<< HEAD
 	public AsistenciaRegistrada(Usuario usuario) {
 		
 		
+=======
+	public AsistenciaRegistrada() {
+>>>>>>> main
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -61,7 +86,11 @@ public class AsistenciaRegistrada extends JFrame {
 		btnNewButton.setBounds(137, 178, 166, 41);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				MiembroDelProyecto MiembroDelProyecto = new MiembroDelProyecto(usuario);
+=======
+				MiembroDelProyecto MiembroDelProyecto = new MiembroDelProyecto();
+>>>>>>> main
 				MiembroDelProyecto.setVisible(true);
 				dispose();
 			}
