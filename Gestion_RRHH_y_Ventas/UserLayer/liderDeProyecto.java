@@ -100,7 +100,7 @@ public class liderDeProyecto extends JFrame {
 		btnNewButton_4.setBounds(248, 217, 107, 36);
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			Cargo cargo = new Cargo(null);
+			cargo cargo = new cargo(null);
 			cargo.setVisible(true);
 				dispose();
 			}
