@@ -80,7 +80,9 @@ public class MenuAdministrador extends JFrame {
 		JButton btnProyectos = new JButton("Registrar Proyectos");
 		btnProyectos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				MenuProyecto proyecto=new MenuProyecto(usuario);
+				proyecto.setVisible(true);
+				dispose();
 			}
 		});
 		btnProyectos.setFont(new Font("Tahoma", Font.PLAIN, 16));
