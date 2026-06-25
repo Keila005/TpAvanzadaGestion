@@ -11,26 +11,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import LogicLayer.Usuario;
+
 public class liderDeProyecto extends JFrame {
 
+	private Usuario usuario;
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					liderDeProyecto frame = new liderDeProyecto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					liderDeProyecto frame = new liderDeProyecto();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -100,7 +104,7 @@ public class liderDeProyecto extends JFrame {
 		btnNewButton_4.setBounds(248, 217, 107, 36);
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			Cargo cargo = new Cargo(null);
+			cargo cargo = new cargo(usuario);
 			cargo.setVisible(true);
 				dispose();
 			}
