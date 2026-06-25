@@ -92,12 +92,6 @@ public class crearTarea extends JFrame {
 		lblSeleccioneElProyecto.setBounds(28, 144, 152, 26);
 		contentPane.add(lblSeleccioneElProyecto);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_2.setColumns(10);
-		textField_2.setBounds(246, 46, 163, 21);
-		contentPane.add(textField_2);
-		
 		JLabel lblSeleccioneFechaDe = new JLabel("Seleccione fecha de inicio (AAAA-MM-DD)");
 		lblSeleccioneFechaDe.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblSeleccioneFechaDe.setBounds(219, 10, 277, 26);
@@ -107,22 +101,6 @@ public class crearTarea extends JFrame {
 		lblSeleccioneFechaDe_2.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblSeleccioneFechaDe_2.setBounds(219, 77, 262, 26);
 		contentPane.add(lblSeleccioneFechaDe_2);
-		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(246, 113, 163, 21);
-		contentPane.add(textField_3);
-		
-		textField = new JTextField();
-		textField.setBounds(28, 46, 163, 18);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(28, 113, 169, 18);
-		contentPane.add(textField_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);

@@ -5,10 +5,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import LogicLayer.Tarea;
+import DLL.ControllerTarea;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JMenu;
@@ -23,6 +30,9 @@ public class visualizarKanban extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private ArrayList<Tarea> tareasAsignadas;
+	private Tarea tareaSeleccionada;
+	private ControllerTarea tareaController;
 
 	/**
 	 * Launch the application.
@@ -53,7 +63,7 @@ public class visualizarKanban extends JFrame {
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField.setBounds(28, 46, 163, 21);
+		textField.setBounds(28, 87, 163, 21);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -61,6 +71,7 @@ public class visualizarKanban extends JFrame {
 		btnNewButton.setBackground(new Color(138, 215, 150));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton.setBounds(139, 228, 106, 40);
+		
 		contentPane.add(btnNewButton);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -72,7 +83,7 @@ public class visualizarKanban extends JFrame {
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField_1.setColumns(10);
-		textField_1.setBounds(28, 113, 163, 21);
+		textField_1.setBounds(28, 134, 163, 21);
 		contentPane.add(textField_1);
 		
 		JComboBox comboBox = new JComboBox();
@@ -88,19 +99,32 @@ public class visualizarKanban extends JFrame {
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField_2.setColumns(10);
-		textField_2.setBounds(246, 46, 163, 21);
+		textField_2.setBounds(246, 87, 163, 21);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField_3.setColumns(10);
-		textField_3.setBounds(246, 113, 163, 21);
+		textField_3.setBounds(246, 134, 163, 21);
 		contentPane.add(textField_3);
 		
 		JButton btnTrabajar = new JButton("TRABAJAR");
 		btnTrabajar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnTrabajar.setBackground(new Color(65, 105, 225));
-		btnTrabajar.setBounds(191, 124, 106, 40);
+		btnTrabajar.setBounds(188, 165, 106, 40);
+		
+		btnTrabajar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+
+		        if (tareaSeleccionada == null) return;
+
+		        tareaSeleccionada.trabajar();
+		        tareaController.trabajarTarea(tareaSeleccionada.getIdTarea());
+
+		        textField_2.setText(String.valueOf(tareaSeleccionada.getSesionesTrabajo()));
+		    }
+		});
+		
 		contentPane.add(btnTrabajar);
 
 	}
