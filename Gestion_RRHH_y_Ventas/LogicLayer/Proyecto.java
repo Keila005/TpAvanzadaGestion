@@ -1,21 +1,18 @@
 package LogicLayer;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class Proyecto {
 	private static int contador = 1;
 	private int idProyecto;
 	private String nombre, descripcion;
-	private Date fechaInicio, fechaFin;
+	private LocalDate fechaInicio, fechaFin;
 	private int idLiderProyecto;
-	private int idEquipo;
 	private LinkedList<Tarea> tareas;
 	private LinkedList<Empleado> miembros;
-	private String lider;
-	private String equipo;
 
-	public Proyecto(String nombre, String descripcion, Date fechaInicio, Date fechaFin) {
+	public Proyecto(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin) {
 		this.idProyecto = contador++;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -25,47 +22,6 @@ public class Proyecto {
 		this.miembros = new LinkedList<>();
 	}
 	
-	public String getLider() {
-		return lider;
-	}
-
-	public void setLider(String lider) {
-		this.lider = lider;
-	}
-
-	public String getEquipo() {
-		return equipo;
-	}
-
-	public void setEquipo(String equipo) {
-		this.equipo = equipo;
-	}
-
-	public Proyecto(int idProyecto, String nombre, String descripcion, Date fechaInicio, Date fechaFin, String lider,
-			String equipo) {
-		super();
-		this.idProyecto = idProyecto;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.lider = lider;
-		this.equipo = equipo;
-	}
-
-	public Proyecto(int idProyecto, String nombre, String descripcion, Date fechaInicio, Date fechaFin,
-			int idLiderProyecto, int idEquipo) {
-		super();
-		this.idProyecto = idProyecto;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.idLiderProyecto = idLiderProyecto;
-		this.idEquipo = idEquipo;
-	}
-
-
 	public Proyecto(int idProyecto, String nombre) {
 		super();
 		this.idProyecto = idProyecto;
@@ -105,19 +61,19 @@ public class Proyecto {
 		this.descripcion = descripcion;
 	}
 
-	public Date getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public Date getFechaFin() {
+	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(Date fechaFin) {
+	public void setFechaFin(LocalDate fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -127,14 +83,6 @@ public class Proyecto {
 
 	public void setIdLiderProyecto(int idLiderProyecto) {
 		this.idLiderProyecto = idLiderProyecto;
-	}
-
-	public int getIdEquipo() {
-		return idEquipo;
-	}
-
-	public void setIdEquipo(int idEquipo) {
-		this.idEquipo = idEquipo;
 	}
 
 	public LinkedList<Tarea> getTareas() {
