@@ -66,7 +66,7 @@ public class verInformacionPersonal extends JFrame {
 		JButton btnNewButton_1 = new JButton("Rendimiento");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_1.setBounds(10, 137, 187, 44);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Rendimiento Rendimiento = new Rendimiento();
 				Rendimiento.setVisible(true);
@@ -90,7 +90,7 @@ public class verInformacionPersonal extends JFrame {
 		JButton btnNewButton_3 = new JButton("Ver ausencias");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_3.setBounds(239, 72, 187, 44);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			misAusencias misAusencias = new misAusencias();
 			misAusencias.setVisible(true);
