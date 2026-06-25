@@ -1,6 +1,12 @@
 package UserLayer;
 
 import java.util.LinkedList;
+<<<<<<< HEAD
+=======
+
+import java.util.stream.Collectors;
+
+>>>>>>> 582830926404ebf67bea2dc0c367ff7a4b1f7785
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +38,14 @@ public class MenuGestionar extends JFrame {
 	private DefaultTableModel model;
 	private Empleado empleadoSeleccionado; 
 	private JTextField textField;
+<<<<<<< HEAD
+=======
+
+	private JTextField inpFiltro;
+	private JLabel lblImg;
+	private static ControllerEmpleado contEmpleado;
+
+>>>>>>> 582830926404ebf67bea2dc0c367ff7a4b1f7785
 	
 	public MenuGestionar(Administrador admin) {
 		ControllerUsuario usuarioController = new ControllerUsuario();
@@ -162,6 +176,12 @@ public class MenuGestionar extends JFrame {
 	        textField.setColumns(10);
 	        
 	        JButton btnNewButton = new JButton("Buscar");
+	        btnNewButton.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		cargarTablaFiltradaStream(inpFiltro.getText());
+
+	        	}
+	        });
 	        btnNewButton.setBackground(new Color(255, 128, 0));
 	        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 	        btnNewButton.setBounds(126, 386, 75, 20);
@@ -194,4 +214,50 @@ public class MenuGestionar extends JFrame {
 	        });
 	    }
 	}
+<<<<<<< HEAD
+=======
+
+private void cargarTablaFiltradaStream(String filtro) {
+	
+    	LinkedList<Empleado> filtradasPorLetra =contEmpleado.mostrarEmpleados().stream()
+    			.filter(empleado ->
+    		    (empleado.getNombre() != null &&
+    		     empleado.getNombre().toLowerCase().contains(filtro.toLowerCase()))
+    		    ||
+    		    (empleado.getApellido() != null &&
+    		     empleado.getApellido().toLowerCase().contains(filtro.toLowerCase()))
+    		    ||
+    		    (empleado.getMail() != null &&
+    		     empleado.getMail().toLowerCase().contains(filtro.toLowerCase())))
+    	
+    			.collect(Collectors.toCollection(LinkedList::new));
+
+    	
+        model.setRowCount(0);
+       
+        for (Empleado e : filtradasPorLetra) {
+    
+        	  model.addRow(new Object[]{
+      	            e.getIdEmpleado(),
+      	            e.getNombre(),
+      	            e.getApellido(),
+      	            e.getMail(),
+      	            e.getDni(),
+      	            e.getSueldoBase()
+      	        });
+    		
+        }
+    }
+	private void mostrarImagen(byte[] imagenBytes) {
+    if (imagenBytes != null && imagenBytes.length > 0) {
+        ImageIcon icon = new ImageIcon(imagenBytes);
+        Image img = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        lblImg.setIcon(new ImageIcon(img));
+    } else {
+    	lblImg.setIcon(null);
+    	lblImg.setText("Sin imagen");
+    }
+}
+
+>>>>>>> 582830926404ebf67bea2dc0c367ff7a4b1f7785
 }

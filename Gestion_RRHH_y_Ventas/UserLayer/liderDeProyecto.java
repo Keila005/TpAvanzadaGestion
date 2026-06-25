@@ -104,7 +104,11 @@ public class liderDeProyecto extends JFrame {
 		btnNewButton_4.setBounds(248, 217, 107, 36);
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 			cargo cargo = new cargo(usuario);
+=======
+			cargo cargo = new cargo(null);
+>>>>>>> 582830926404ebf67bea2dc0c367ff7a4b1f7785
 			cargo.setVisible(true);
 				dispose();
 			}
