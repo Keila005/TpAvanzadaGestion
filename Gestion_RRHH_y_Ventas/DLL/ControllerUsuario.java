@@ -282,6 +282,7 @@ public class ControllerUsuario {
             empleadoStmt.setString(2, String.valueOf(dni));
             empleadoStmt.setDouble(3, sueldoBase);
             empleadoStmt.setBytes(4, perfil);
+            System.out.println("Tamaño del perfil: " + perfil.length + " bytes");
 
             empleadoStmt.executeUpdate();
 

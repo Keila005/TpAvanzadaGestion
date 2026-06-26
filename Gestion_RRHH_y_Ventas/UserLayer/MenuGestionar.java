@@ -3,6 +3,7 @@ package UserLayer;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Color;
 import javax.swing.table.JTableHeader;
+import javax.swing.JSeparator;
 
 public class MenuGestionar extends JFrame {
 
@@ -33,8 +35,7 @@ public class MenuGestionar extends JFrame {
 	private JTextField inpFiltro;
 	private JLabel lblImg;
 	private static ControllerEmpleado contEmpleado;
-
-	// COLOREs
+	
 	private final Color VERDE_PRINCIPAL = new Color(28, 137, 16);
 	private final Color VERDE_OSCURO = new Color(20, 110, 12);
 	private final Color VERDE_CLARO = new Color(200, 255, 200);
@@ -127,11 +128,11 @@ public class MenuGestionar extends JFrame {
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		btnAgregar.addActionListener(e -> {
-			pantallaCrearEmpleado crearEmpleado= new pantallaCrearEmpleado(MenuGestionar.this);
+			pantallaCrearEmpleado crearEmpleado= new pantallaCrearEmpleado(MenuGestionar.this,admin);
 			crearEmpleado.setVisible(true);
 			cargarTabla();
 		});
-		btnAgregar.setBounds(10, 272, 150, 40);
+		btnAgregar.setBounds(68, 314, 150, 40);
 		contentPane.add(btnAgregar);
 
 		
@@ -152,7 +153,7 @@ public class MenuGestionar extends JFrame {
 					new ImageIcon(MenuGestionar.class.getResource("/img/nohay.png")));
 			}
 		});
-		btnEditar.setBounds(170, 272, 150, 40);
+		btnEditar.setBounds(228, 314, 150, 40);
 		contentPane.add(btnEditar);
 
 	
@@ -160,7 +161,7 @@ public class MenuGestionar extends JFrame {
 		btnEliminar.setBackground(new Color(180, 30, 30));
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnEliminar.setBounds(330, 272, 150, 40);
+		btnEliminar.setBounds(388, 314, 150, 40);
 		contentPane.add(btnEliminar);
 
 		btnEliminar.addActionListener(e -> {
@@ -179,7 +180,9 @@ public class MenuGestionar extends JFrame {
 		});
 
 		JLabel lblNewLabel = new JLabel("Filtro:");
-		lblNewLabel.setBounds(32, 366, 46, 14);
+		lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD, 13));
+		lblNewLabel.setForeground(new Color(128, 64, 0));
+		lblNewLabel.setBounds(523, 421, 77, 14);
 		contentPane.add(lblNewLabel);
 
 		JButton btnVolverAtrs = new JButton("Volver atrás");
@@ -192,16 +195,17 @@ public class MenuGestionar extends JFrame {
 			menuAdmin.setVisible(true);
 			dispose();
 		});
-		btnVolverAtrs.setBounds(488, 272, 150, 40);
+		btnVolverAtrs.setBounds(546, 314, 150, 40);
 		contentPane.add(btnVolverAtrs);
 
 		lblImg = new JLabel("");
 		lblImg.setBounds(592, 81, 158, 161);
+		lblImg.setBorder(BorderFactory.createLineBorder(new Color(240,240,240), 2));
 		contentPane.add(lblImg);
 
 		inpFiltro = new JTextField();
 		inpFiltro.setBackground(new Color(230, 255, 230));
-		inpFiltro.setBounds(20, 389, 96, 18);
+		inpFiltro.setBounds(523, 444, 96, 18);
 		contentPane.add(inpFiltro);
 
 		JButton btnBuscar = new JButton("Buscar");
@@ -212,10 +216,11 @@ public class MenuGestionar extends JFrame {
 		btnBuscar.addActionListener(e -> {
 			cargarTablaFiltradaStream(inpFiltro.getText());
 		});
-		btnBuscar.setBounds(126, 386, 96, 20);
+		btnBuscar.setBounds(629, 441, 96, 20);
 		contentPane.add(btnBuscar);
 
 		JLabel lblNewLabel_1 = new JLabel("Perfil:");
+		lblNewLabel_1.setForeground(new Color(128, 64, 0));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setBounds(628, 40, 54, 20);
 		contentPane.add(lblNewLabel_1);
@@ -224,6 +229,14 @@ public class MenuGestionar extends JFrame {
 		panelFondoTabla.setBounds(0, 10, 770, 252);
 		panelFondoTabla.setBackground(VERDE_CLARO);
 		contentPane.add(panelFondoTabla);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(103, 289, 548, 15);
+		contentPane.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(103, 377, 548, 15);
+		contentPane.add(separator_1);
 	}
 
 
