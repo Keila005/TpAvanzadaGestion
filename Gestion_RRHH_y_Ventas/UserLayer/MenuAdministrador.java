@@ -43,11 +43,14 @@ public class MenuAdministrador extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JLabel lblbienvenida = new JLabel("Bienvenido administrador: "+ usuario.getNombre());
+		lblbienvenida.setForeground(new Color(0, 100, 0));
 		lblbienvenida.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblbienvenida.setBounds(157, 25, 380, 28);
+		lblbienvenida.setBounds(173, 16, 380, 28);
 		contentPane.add(lblbienvenida);
 		
 		JButton btnEmpleados = new JButton("Gestionar empleados");
+		btnEmpleados.setForeground(new Color(255, 255, 255));
+		btnEmpleados.setBackground(new Color(27, 94, 32));
 		btnEmpleados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuGestionar menugestion=new MenuGestionar(admin);
@@ -60,7 +63,8 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnEmpleados);
 		
 		JButton btnSalir = new JButton("Cerrar sesión");
-		btnSalir.setForeground(new Color(255, 0, 0));
+		btnSalir.setBackground(new Color(255, 0, 0));
+		btnSalir.setForeground(new Color(255, 250, 250));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Saludos chau= new Saludos();
@@ -75,10 +79,12 @@ public class MenuAdministrador extends JFrame {
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnSalir.setBounds(582, 21, 151, 38);
+		btnSalir.setBounds(603, 6, 151, 38);
 		contentPane.add(btnSalir);
 		
 		JButton btnProyectos = new JButton("Registrar Proyectos");
+		btnProyectos.setForeground(new Color(255, 255, 255));
+		btnProyectos.setBackground(new Color(27, 94, 32));
 		btnProyectos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuProyecto menuProyecto=new MenuProyecto(usuario);
@@ -91,6 +97,8 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnProyectos);
 		
 		JButton btnEstadisticas = new JButton("Rendimiento empleado");
+		btnEstadisticas.setForeground(new Color(255, 255, 255));
+		btnEstadisticas.setBackground(new Color(27, 94, 32));
 		btnEstadisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RendimientoEmpleado rendimientoEmpleado= new RendimientoEmpleado(usuario);
@@ -103,6 +111,8 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnEstadisticas);
 		
 		JButton btnSolicitudes = new JButton("Solicitudes");
+		btnSolicitudes.setForeground(new Color(255, 255, 255));
+		btnSolicitudes.setBackground(new Color(27, 94, 32));
 		btnSolicitudes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				verSolicitudes solicitud=new verSolicitudes(usuario);
@@ -115,6 +125,8 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnSolicitudes);
 		
 		JButton btnHorasExtras = new JButton("Horas Extras");
+		btnHorasExtras.setForeground(new Color(255, 255, 255));
+		btnHorasExtras.setBackground(new Color(27, 94, 32));
 		btnHorasExtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				horasExtras extras= new horasExtras(usuario);
@@ -127,6 +139,8 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnHorasExtras);
 		
 		JButton btnGestionarBonos = new JButton("Gestionar Bonos");
+		btnGestionarBonos.setForeground(new Color(255, 255, 255));
+		btnGestionarBonos.setBackground(new Color(27, 94, 32));
 		btnGestionarBonos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GestionarBonos bono= new GestionarBonos(usuario);
@@ -139,6 +153,8 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnGestionarBonos);
 		
 		JButton btnAsistencia = new JButton("Asistencia");
+		btnAsistencia.setForeground(new Color(255, 255, 255));
+		btnAsistencia.setBackground(new Color(27, 94, 32));
 		btnAsistencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GestionarAsistencia asistencia=new GestionarAsistencia(usuario);
@@ -151,6 +167,8 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnAsistencia);
 		
 		JButton btnRendimientoProductos = new JButton("Ver ventas");
+		btnRendimientoProductos.setForeground(new Color(255, 255, 255));
+		btnRendimientoProductos.setBackground(new Color(27, 94, 32));
 		btnRendimientoProductos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuVentas ventas= new MenuVentas(usuario);
@@ -163,6 +181,8 @@ public class MenuAdministrador extends JFrame {
 		contentPane.add(btnRendimientoProductos);
 		
 		JButton btnProyectos_1 = new JButton("Clima laboral");
+		btnProyectos_1.setForeground(new Color(255, 255, 255));
+		btnProyectos_1.setBackground(new Color(27, 94, 32));
 		btnProyectos_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				climaLaboral comentario= new climaLaboral(usuario);
@@ -173,6 +193,16 @@ public class MenuAdministrador extends JFrame {
 		btnProyectos_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnProyectos_1.setBounds(40, 315, 200, 38);
 		contentPane.add(btnProyectos_1);
+		
+		JLabel lblNewLabel = new JLabel("Desde este panel podrá gestionar empleados, proyectos, estadísticas y supervisar el funcionamiento general de la empresa.");
+		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		lblNewLabel.setBounds(28, 68, 712, 49);
+		contentPane.add(lblNewLabel);
+		
+		JPanel panelFondo = new JPanel();
+		panelFondo.setBackground(new Color(218, 218, 218));
+		panelFondo.setBounds(0, 153, 764, 292);
+		contentPane.add(panelFondo);
 
 	}
 

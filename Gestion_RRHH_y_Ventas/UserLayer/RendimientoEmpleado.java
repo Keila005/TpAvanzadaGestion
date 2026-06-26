@@ -1,6 +1,5 @@
 package UserLayer;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,10 +7,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
-import DLL.ControllerEmpleado;
 import DLL.ControllerRendimiento;
-import LogicLayer.Empleado;
+
 import LogicLayer.Operativo;
 import LogicLayer.Usuario;
 import LogicLayer.Vendedor;
@@ -22,8 +21,6 @@ import java.util.LinkedList;
 
 import javax.swing.JSeparator;
 import java.awt.Color;
-import java.awt.Component;
-import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -46,6 +43,9 @@ public class RendimientoEmpleado extends JFrame {
 	private JButton btnVerTodas;
 	private JButton btnVerTodas_1;
 
+	private final Color VERDE = new Color(28, 137, 16);
+	private final Color VERDE_OSCURO = new Color(20, 110, 12);
+
 
 	/**
 	 * Create the frame.
@@ -62,6 +62,15 @@ public class RendimientoEmpleado extends JFrame {
         contentPane.setLayout(null);
         
         table = new JTable(model);
+        table.setRowHeight(22);
+		table.setGridColor(VERDE);
+		table.setSelectionBackground(VERDE);
+		table.setSelectionForeground(Color.WHITE);
+
+		JTableHeader header = table.getTableHeader();
+		header.setBackground(VERDE);
+		header.setForeground(Color.WHITE);
+		header.setFont(new Font("Tahoma", Font.BOLD, 12));
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(10, 73, 304, 153);
         contentPane.add(scrollPane);
@@ -75,7 +84,7 @@ public class RendimientoEmpleado extends JFrame {
         JSeparator linea = new JSeparator();
         linea.setBackground(new Color(0, 0, 0));
         linea.setOrientation(SwingConstants.VERTICAL);
-        linea.setBounds(341, 32, 18, 418); // x, y, ancho, alto
+        linea.setBounds(341, 32, 18, 418); 
         contentPane.add(linea);
         
         lblRankingVendedor = new JLabel("Ranking vendedor:");
@@ -87,11 +96,22 @@ public class RendimientoEmpleado extends JFrame {
 		"Cantidad de Ventas"}, 0);
 
 			 table2 = new JTable(model2);
+			 table2.setRowHeight(22);
+				table2.setGridColor(VERDE);
+				table2.setSelectionBackground(VERDE);
+				table2.setSelectionForeground(Color.WHITE);
+
+				JTableHeader header2 = table2.getTableHeader();
+				header2.setBackground(VERDE);
+				header2.setForeground(Color.WHITE);
+				header2.setFont(new Font("Tahoma", Font.BOLD, 12));
 			JScrollPane scrollPane1 = new JScrollPane(table2);
 			scrollPane1.setBounds(358, 73, 304, 153);
 			contentPane.add(scrollPane1);
 			
 			btnMejoresO = new JButton("Mejores");
+			btnMejoresO.setBackground(VERDE);
+			btnMejoresO.setForeground(Color.WHITE);
 			btnMejoresO.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cargarOperativosMejorRendimiento();
@@ -102,6 +122,8 @@ public class RendimientoEmpleado extends JFrame {
 			contentPane.add(btnMejoresO);
 			
 			btnBajosO = new JButton("Bajos");
+			btnBajosO.setBackground(VERDE);
+			btnBajosO.setForeground(Color.WHITE);
 			btnBajosO.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cargarOperativosBajoRendimiento();
@@ -112,6 +134,8 @@ public class RendimientoEmpleado extends JFrame {
 			contentPane.add(btnBajosO);
 			
 			btnMejoresV = new JButton("Mejores");
+			btnMejoresV.setBackground(VERDE);
+			btnMejoresV.setForeground(Color.WHITE);
 			btnMejoresV.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cargarMejorVenta();
@@ -122,6 +146,8 @@ public class RendimientoEmpleado extends JFrame {
 			contentPane.add(btnMejoresV);
 			
 			btnBajosV = new JButton("Bajos");
+			btnBajosV.setBackground(VERDE);
+			btnBajosV.setForeground(Color.WHITE);
 			btnBajosV.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cargarBajaVenta();
@@ -132,6 +158,8 @@ public class RendimientoEmpleado extends JFrame {
 			contentPane.add(btnBajosV);
 			
 			btnVerTodas = new JButton("Ver todas");
+			btnVerTodas.setBackground(VERDE_OSCURO);
+			btnVerTodas.setForeground(Color.WHITE);
 			btnVerTodas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cargarTablaOperativo();
@@ -142,6 +170,8 @@ public class RendimientoEmpleado extends JFrame {
 			contentPane.add(btnVerTodas);
 			
 			btnVerTodas_1 = new JButton("Ver todas");
+			btnVerTodas_1.setBackground(VERDE);
+			btnVerTodas_1.setForeground(Color.WHITE);
 			btnVerTodas_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cargarTablaVendedor();
@@ -172,6 +202,7 @@ public class RendimientoEmpleado extends JFrame {
 			contentPane.add(lblNewLabel_1_2_1);
 			
 			JButton btnNewButton = new JButton("<-Volver");
+			btnNewButton.setBackground(VERDE);
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
