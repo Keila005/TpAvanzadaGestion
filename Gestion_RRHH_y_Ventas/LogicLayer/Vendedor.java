@@ -46,6 +46,11 @@ public Vendedor(int idVendedor, int ventasTotales) {
 		this.ventasTotales = ventasTotales;
 	}
 
+public Vendedor() {
+	super();
+
+}
+
 	public static ControllerProducto getController() {
 	return controller;
 }
@@ -542,8 +547,11 @@ public static void setController(ControllerProducto controller) {
 
 				    break;
 				}
-				}while(opcion!=4);//FIN DEL MENU PRINCIPAL
+			
+			}while(opcion!=4);//FIN DEL MENU PRINCIPAL
+	
 	}		
+	
 	}
 	
 	
