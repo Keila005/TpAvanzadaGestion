@@ -71,6 +71,13 @@ public class MenuVendedor extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnPerfilLaboral = new JButton("Perfil Laboral");
+		btnPerfilLaboral.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PerfilLaboral perfil= new PerfilLaboral(usuario);
+				perfil.setVisible(true);
+				dispose();
+			}
+		});
 		btnPerfilLaboral.setBounds(31, 210, 190, 51);
 		contentPane.add(btnPerfilLaboral);
 		

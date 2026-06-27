@@ -48,7 +48,7 @@ public class AsistenciaRegistrada extends JFrame {
 		
 		JButton btnNewButton = new JButton("Aceptar");
 		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(20, 110, 12));
+		btnNewButton.setBackground(new Color(0, 128, 64));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBounds(152, 137, 131, 31);
 		contentPane.add(btnNewButton);

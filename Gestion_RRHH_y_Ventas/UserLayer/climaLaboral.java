@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import DLL.ControllerComentario;
 import LogicLayer.ComentarioAnonimo;
@@ -18,6 +19,7 @@ import java.util.LinkedList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class climaLaboral extends JFrame {
 
@@ -36,11 +38,13 @@ public class climaLaboral extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 524, 408);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(196, 255, 196));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Clima Laboral :");
+		lblNewLabel.setForeground(new Color(0, 64, 0));
 		lblNewLabel.setBounds(206, 28, 142, 21);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		contentPane.add(lblNewLabel);
@@ -49,6 +53,16 @@ public class climaLaboral extends JFrame {
 	        		"Sentimiento"}, 0);
 	        
 	         table = new JTable(model);
+	        table.setBackground(Color.WHITE);
+	 		table.setForeground(Color.BLACK);
+	 		table.setGridColor(new Color(28, 137, 16));
+	 		table.setSelectionBackground(new Color(28, 137, 16));
+	 		table.setSelectionForeground(Color.WHITE);
+	 		table.setRowHeight(22);
+
+	 		JTableHeader header = table.getTableHeader();
+	 		header.setBackground(new Color(28, 137, 16));
+	 		header.setForeground(Color.WHITE);
 	         cargarComentarios();
 	         table.getColumnModel().getColumn(0).setPreferredWidth(25);  
 	         table.getColumnModel().getColumn(1).setPreferredWidth(250);  
@@ -59,11 +73,14 @@ public class climaLaboral extends JFrame {
 	        contentPane.add(scrollPane);
 	        
 	        lblNewLabel_1 = new JLabel("Reporte de comentarios:");
+	        lblNewLabel_1.setForeground(new Color(0, 64, 0));
 	        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 	        lblNewLabel_1.setBounds(132, 228, 227, 21);
 	        contentPane.add(lblNewLabel_1);
 	        
 	        JTextArea txtReporte = new JTextArea();
+	        txtReporte.setBackground(new Color(196, 255, 196));
+	        txtReporte.setForeground(new Color(0, 64, 0));
 	        txtReporte.setFont(new Font("Tahoma", Font.PLAIN, 13));
 	        txtReporte.setEditable(false);
 	        txtReporte.setLineWrap(true);
@@ -75,6 +92,8 @@ public class climaLaboral extends JFrame {
 	        contentPane.add(txtReporte);
 	        
 	        btnNewButton = new JButton("<-Volver");
+	        btnNewButton.setForeground(new Color(255, 255, 255));
+	        btnNewButton.setBackground(new Color(255, 0, 0));
 	        btnNewButton.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
@@ -83,7 +102,7 @@ public class climaLaboral extends JFrame {
 	        	}
 	        });
 	        btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 13));
-	        btnNewButton.setBounds(0, 341, 95, 20);
+	        btnNewButton.setBounds(10, 341, 95, 20);
 	        contentPane.add(btnNewButton);
 
 	}
