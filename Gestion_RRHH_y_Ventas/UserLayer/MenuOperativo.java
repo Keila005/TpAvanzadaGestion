@@ -8,6 +8,9 @@ import javax.swing.border.EmptyBorder;
 import LogicLayer.Usuario;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class MenuOperativo extends JFrame {
@@ -48,6 +51,13 @@ public class MenuOperativo extends JFrame {
 		JButton btnNewButton_3 = new JButton("Cargo");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_3.setBounds(433, 235, 206, 57);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cargo Cargo = new Cargo(usuario);
+				Cargo.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Salir");

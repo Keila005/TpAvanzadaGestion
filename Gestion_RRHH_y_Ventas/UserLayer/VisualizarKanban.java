@@ -118,7 +118,7 @@ public class VisualizarKanban extends JFrame {
 					LiderDelProyecto lider = new LiderDelProyecto(usuario);
 					lider.setVisible(true);
 
-				}else {
+			}else {
 
 					MiembroDelProyecto miembro = new MiembroDelProyecto(usuario);
 					miembro.setVisible(true);
