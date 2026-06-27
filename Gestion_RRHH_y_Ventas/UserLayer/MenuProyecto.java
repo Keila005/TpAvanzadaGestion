@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import com.toedter.calendar.JDateChooser;
 import DLL.ControllerEquipo;
@@ -52,135 +53,161 @@ public class MenuProyecto extends JFrame {
 	private JLabel lblFechaDeInicio;
 	private JLabel lblFechaDeFinalizacin;
 	private JButton btnNewButton;
-	
+	private JPanel panel;
+		private final Color VERDE = new Color(28, 137, 16);
+		private final Color VERDE_OSCURO = new Color(20, 110, 12);
+		private final Color FONDO = new Color(245, 245, 245);
+		private final Color PANEL_VERDE = new Color(28, 137, 16);
 
-	/**
-	 * Create the frame.
-	 */
-	public MenuProyecto(Usuario usuario) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 730, 586);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Proyectos creados: ");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(32, 10, 147, 30);
-		contentPane.add(lblNewLabel);
-		
-		  model = new DefaultTableModel(new String[]{"N°", "Nombre","Descripción",
-  		"Inicio:", "Finalización:","Líder","Equipo"}, 0);
-  
-   table = new JTable(model);
-   table.getColumnModel().getColumn(0).setPreferredWidth(20);  
-   table.getColumnModel().getColumn(1).setPreferredWidth(250);  
-   table.getColumnModel().getColumn(2).setPreferredWidth(250);   
-   table.getColumnModel().getColumn(3).setPreferredWidth(100);
-   table.getColumnModel().getColumn(4).setPreferredWidth(100);
-   table.getColumnModel().getColumn(5).setPreferredWidth(100);
-   table.getColumnModel().getColumn(6).setPreferredWidth(100);
-  JScrollPane scrollPane = new JScrollPane(table);
-  scrollPane.setBounds(10, 59, 683, 123);
-  contentPane.add(scrollPane);
-  
-  lblCrearProyecto = new JLabel("Crear Proyecto:");
-  lblCrearProyecto.setFont(new Font("Tahoma", Font.BOLD, 14));
-  lblCrearProyecto.setBounds(288, 203, 147, 30);
-  contentPane.add(lblCrearProyecto);
-  
-  JLabel lblName = new JLabel("Nombre del proyecto:");
-  lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-  lblName.setBounds(121, 244, 147, 17);
-  contentPane.add(lblName);
-  
-  iptName = new JTextField();
-  iptName.setBounds(121, 271, 147, 21);
-  contentPane.add(iptName);
-  iptName.setColumns(10);
-  
-  JLabel lblDescripcin = new JLabel("Descripción:");
-  lblDescripcin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-  lblDescripcin.setBounds(121, 302, 147, 17);
-  contentPane.add(lblDescripcin);
-  
-  textField = new JTextField();
-  textField.setColumns(10);
-  textField.setBounds(121, 326, 230, 48);
-  contentPane.add(textField);
-	//LIDER
-	comboLider = new JComboBox<>();
-	comboLider.setBounds(426, 270, 127, 23);
-	contentPane.add(comboLider);
-	
-	//EQUIPO
-	comboEquipo = new JComboBox<>();
-	comboEquipo.setBounds(426, 342, 127, 25);
-	contentPane.add(comboEquipo);
-	cargarMenuDesplegable();
-	cargarProyectos();
-	
-	
-	lblAsignacinDeLder = new JLabel("Asignación de líder:");
-	lblAsignacinDeLder.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblAsignacinDeLder.setBounds(426, 243, 147, 17);
-	contentPane.add(lblAsignacinDeLder);
-	lblAsignacinDeEquipo = new JLabel("Asignación de equipo:");
-	lblAsignacinDeEquipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblAsignacinDeEquipo.setBounds(426, 306, 147, 17);
-	contentPane.add(lblAsignacinDeEquipo);
-	btnCrear = new JButton("Crear");
-	btnCrear.setBackground(new Color(255, 255, 128));
-	btnCrear.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		crearProyecto();
-		cargarProyectos();
-		}
-	});
-	btnCrear.setFont(new Font("Tahoma", Font.BOLD, 17));
-	btnCrear.setBounds(306, 476, 119, 30);
-	contentPane.add(btnCrear);
-	dateInicio = new JDateChooser();
-	dateInicio.setBounds(121, 411, 150, 25);
-	contentPane.add(dateInicio);
-	
-	dateFin = new JDateChooser();
-	dateFin.setBounds(426, 411, 150, 25);
-	contentPane.add(dateFin);
-	
-	lblFechaDeInicio = new JLabel("Fecha de inicio:");
-	lblFechaDeInicio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblFechaDeInicio.setBounds(121, 384, 147, 17);
-	contentPane.add(lblFechaDeInicio);
-	
-	lblFechaDeFinalizacin = new JLabel("Fecha de finalización:");
-	lblFechaDeFinalizacin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblFechaDeFinalizacin.setBounds(426, 382, 147, 17);
-	contentPane.add(lblFechaDeFinalizacin);
-	
-	dateInicio.setMinSelectableDate(new Date());
-	
-	btnNewButton = new JButton("<-Volver");
-	btnNewButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			MenuAdministrador menuAdmin=new MenuAdministrador(usuario);
-			menuAdmin.setVisible(true);
-			dispose();
-		}
-	});
-	btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 13));
-	btnNewButton.setBounds(10, 519, 84, 20);
-	contentPane.add(btnNewButton);
-	
-	dateInicio.addPropertyChangeListener("date", e -> {
-	    Date inicio = dateInicio.getDate();
-	    if (inicio != null) {
-	        dateFin.setMinSelectableDate(inicio);
-	    }
-	});
+		public MenuProyecto(Usuario usuario) {
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setBounds(100, 100, 730, 586);
 
-	}
+			contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			contentPane.setLayout(null);
+			contentPane.setBackground(FONDO);
+			setContentPane(contentPane);
+
+			JLabel lblNewLabel = new JLabel("Proyectos creados: ");
+			lblNewLabel.setForeground(VERDE_OSCURO);
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblNewLabel.setBounds(32, 10, 147, 30);
+			contentPane.add(lblNewLabel);
+
+			model = new DefaultTableModel(new String[]{"N°", "Nombre","Descripción",
+				"Inicio:", "Finalización:","Líder","Equipo"}, 0);
+
+			table = new JTable(model);
+
+			table.setRowHeight(22);
+			table.setGridColor(VERDE);
+			table.setSelectionBackground(VERDE);
+			table.setSelectionForeground(Color.WHITE);
+
+			JTableHeader header = table.getTableHeader();
+			header.setBackground(VERDE);
+			header.setForeground(Color.WHITE);
+			header.setFont(new Font("Tahoma", Font.BOLD, 12));
+
+			table.getColumnModel().getColumn(0).setPreferredWidth(20);
+			table.getColumnModel().getColumn(1).setPreferredWidth(250);
+			table.getColumnModel().getColumn(2).setPreferredWidth(250);
+			table.getColumnModel().getColumn(3).setPreferredWidth(100);
+			table.getColumnModel().getColumn(4).setPreferredWidth(100);
+			table.getColumnModel().getColumn(5).setPreferredWidth(100);
+			table.getColumnModel().getColumn(6).setPreferredWidth(100);
+
+			JScrollPane scrollPane = new JScrollPane(table);
+			scrollPane.setBounds(10, 59, 683, 153);
+			contentPane.add(scrollPane);
+
+			JLabel lblName = new JLabel("Nombre del proyecto:");
+			lblName.setForeground(Color.WHITE);
+			lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblName.setBounds(121, 244, 147, 17);
+			contentPane.add(lblName);
+
+			iptName = new JTextField();
+			iptName.setBounds(121, 271, 147, 21);
+			contentPane.add(iptName);
+
+			JLabel lblDescripcin = new JLabel("Descripción:");
+			lblDescripcin.setForeground(Color.WHITE);
+			lblDescripcin.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblDescripcin.setBounds(121, 302, 147, 17);
+			contentPane.add(lblDescripcin);
+
+			textField = new JTextField();
+			textField.setBounds(121, 326, 230, 48);
+			contentPane.add(textField);
+
+			comboLider = new JComboBox<>();
+			comboLider.setBounds(426, 270, 127, 23);
+			contentPane.add(comboLider);
+
+			comboEquipo = new JComboBox<>();
+			comboEquipo.setBounds(426, 342, 127, 25);
+			contentPane.add(comboEquipo);
+
+			cargarMenuDesplegable();
+			cargarProyectos();
+
+			lblAsignacinDeLder = new JLabel("Asignación de líder:");
+			lblAsignacinDeLder.setForeground(Color.WHITE);
+			lblAsignacinDeLder.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblAsignacinDeLder.setBounds(426, 243, 147, 17);
+			contentPane.add(lblAsignacinDeLder);
+
+			lblAsignacinDeEquipo = new JLabel("Asignación de equipo:");
+			lblAsignacinDeEquipo.setForeground(Color.WHITE);
+			lblAsignacinDeEquipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblAsignacinDeEquipo.setBounds(426, 306, 147, 17);
+			contentPane.add(lblAsignacinDeEquipo);
+
+			btnCrear = new JButton("Crear");
+			btnCrear.setBackground(new Color(0, 174, 0));
+			btnCrear.setForeground(Color.WHITE);
+			btnCrear.setFont(new Font("Tahoma", Font.BOLD, 17));
+			btnCrear.addActionListener(e -> {
+				crearProyecto();
+				cargarProyectos();
+			});
+			btnCrear.setBounds(306, 476, 119, 30);
+			contentPane.add(btnCrear);
+
+			dateInicio = new JDateChooser();
+			dateInicio.setBounds(121, 411, 150, 25);
+			contentPane.add(dateInicio);
+
+			dateFin = new JDateChooser();
+			dateFin.setBounds(426, 411, 150, 25);
+			contentPane.add(dateFin);
+
+			lblFechaDeInicio = new JLabel("Fecha de inicio:");
+			lblFechaDeInicio.setForeground(Color.WHITE);
+			lblFechaDeInicio.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblFechaDeInicio.setBounds(121, 384, 147, 17);
+			contentPane.add(lblFechaDeInicio);
+
+			lblFechaDeFinalizacin = new JLabel("Fecha de finalización:");
+			lblFechaDeFinalizacin.setForeground(Color.WHITE);
+			lblFechaDeFinalizacin.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblFechaDeFinalizacin.setBounds(426, 382, 147, 17);
+			contentPane.add(lblFechaDeFinalizacin);
+
+			dateInicio.setMinSelectableDate(new Date());
+
+			btnNewButton = new JButton("<-Volver");
+			btnNewButton.setBackground(VERDE_OSCURO);
+			btnNewButton.setForeground(Color.WHITE);
+			btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
+			btnNewButton.addActionListener(e -> {
+				MenuAdministrador menuAdmin=new MenuAdministrador(usuario);
+				menuAdmin.setVisible(true);
+				dispose();
+			});
+			btnNewButton.setBounds(10, 519, 119, 20);
+			contentPane.add(btnNewButton);
+
+			panel = new JPanel();
+			panel.setBackground(PANEL_VERDE);
+			panel.setBounds(-15, 211, 751, 338);
+			contentPane.add(panel);
+			
+						lblCrearProyecto = new JLabel("Crear Proyecto:");
+						panel.add(lblCrearProyecto);
+						lblCrearProyecto.setForeground(Color.WHITE);
+						lblCrearProyecto.setFont(new Font("Tahoma", Font.BOLD, 14));
+
+			dateInicio.addPropertyChangeListener("date", e -> {
+				Date inicio = dateInicio.getDate();
+				if (inicio != null) {
+					dateFin.setMinSelectableDate(inicio);
+				}
+			});
+		}
+
 	
 	private void cargarMenuDesplegable() {
 		

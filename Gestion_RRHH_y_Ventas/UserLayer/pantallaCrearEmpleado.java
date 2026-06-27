@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -48,14 +49,24 @@ public class pantallaCrearEmpleado extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		contentPane.setBackground(new Color(245, 245, 245));
+		setContentPane(contentPane);
+
+		Color VERDE = new Color(28, 137, 16);
+		Color VERDE_OSCURO = new Color(20, 110, 12);
+		
 		JRadioButton rdbtnCrearOperativo = new JRadioButton("Crear operativo");
 		rdbtnCrearOperativo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		rdbtnCrearOperativo.setBounds(46, 247, 167, 20);
+		rdbtnCrearOperativo.setBackground(new Color(245, 245, 245));
+		rdbtnCrearOperativo.setForeground(VERDE_OSCURO);
 		contentPane.add(rdbtnCrearOperativo);
 		
 		JRadioButton rdbtnCrearVendedor = new JRadioButton("Crear vendedor");
 		rdbtnCrearVendedor.setFont(new Font("Tahoma", Font.BOLD, 16));
 		rdbtnCrearVendedor.setBounds(46, 332, 167, 20);
+		rdbtnCrearVendedor.setBackground(new Color(245, 245, 245));
+		rdbtnCrearVendedor.setForeground(VERDE_OSCURO);
 		contentPane.add(rdbtnCrearVendedor);
 		
 		//agrupar btn para elegir una opcion
@@ -68,12 +79,16 @@ public class pantallaCrearEmpleado extends JFrame {
 		rdbtnLider.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		rdbtnLider.setBounds(101, 276, 100, 20);
 		rdbtnLider.setVisible(false);
+		rdbtnLider.setBackground(new Color(245, 245, 245));
+		rdbtnLider.setForeground(VERDE);
 		contentPane.add(rdbtnLider);
 
 		JRadioButton rdbtnMiembro = new JRadioButton("Miembro");
 		rdbtnMiembro.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		rdbtnMiembro.setBounds(101, 298, 100, 20);
 		rdbtnMiembro.setVisible(false);
+		rdbtnMiembro.setBackground(new Color(245, 245, 245));
+		rdbtnMiembro.setForeground(VERDE);
 		contentPane.add(rdbtnMiembro);
 		
 		ButtonGroup grupoOperativo = new ButtonGroup();
@@ -106,11 +121,13 @@ public class pantallaCrearEmpleado extends JFrame {
 		
 		JLabel lblName = new JLabel("Nombre:");
 		lblName.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblName.setForeground(VERDE_OSCURO);
 		lblName.setBounds(46, 49, 152, 20);
 		contentPane.add(lblName);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblApellido.setForeground(VERDE_OSCURO);
 		lblApellido.setBounds(247, 49, 152, 20);
 		contentPane.add(lblApellido);
 		
@@ -122,6 +139,7 @@ public class pantallaCrearEmpleado extends JFrame {
 		
 		JLabel lblEmail = new JLabel("Crea un email:");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblEmail.setForeground(VERDE_OSCURO);
 		lblEmail.setBounds(46, 130, 152, 20);
 		contentPane.add(lblEmail);
 		
@@ -133,6 +151,7 @@ public class pantallaCrearEmpleado extends JFrame {
 		
 		JLabel lblElegirRol = new JLabel("Elegir rol:");
 		lblElegirRol.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblElegirRol.setForeground(VERDE_OSCURO);
 		lblElegirRol.setBounds(46, 211, 152, 20);
 		contentPane.add(lblElegirRol);
 		
@@ -142,7 +161,7 @@ public class pantallaCrearEmpleado extends JFrame {
 		
 		JLabel lblDni = new JLabel("Dni:");
 		lblDni.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblDni.setBounds(471, 49, 152, 20);
+		lblDni.setForeground(VERDE_OSCURO);
 		contentPane.add(lblDni);
 		
 		inpDni = new JTextField();
@@ -153,11 +172,13 @@ public class pantallaCrearEmpleado extends JFrame {
 		
 		JLabel lblCrearContrasea = new JLabel("Crear contraseña:");
 		lblCrearContrasea.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblCrearContrasea.setBounds(471, 130, 152, 20);
+		lblCrearContrasea.setForeground(VERDE_OSCURO);
+		lblCrearContrasea.setBounds(471, 130, 200, 20);
 		contentPane.add(lblCrearContrasea);
 		
 		JLabel lblSueldoI = new JLabel("Sueldo inicial:");
 		lblSueldoI.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblSueldoI.setForeground(VERDE_OSCURO);
 		lblSueldoI.setBounds(471, 211, 152, 20);
 		contentPane.add(lblSueldoI);
 		
@@ -225,12 +246,15 @@ public class pantallaCrearEmpleado extends JFrame {
 			        }
 			}
 		});
+		btnNewButton.setBackground(VERDE);
+		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton.setBounds(208, 418, 370, 45);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Agregar foto de perfil:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel.setForeground(VERDE_OSCURO);
 		lblNewLabel.setBounds(471, 297, 240, 20);
 		contentPane.add(lblNewLabel);
 		
