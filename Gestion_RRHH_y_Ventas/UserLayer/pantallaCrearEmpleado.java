@@ -8,6 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import DLL.ControllerUsuario;
 import DLL.Hashing;
+import LogicLayer.Administrador;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -41,8 +42,8 @@ public class pantallaCrearEmpleado extends JFrame {
 	 private static ControllerUsuario usuarioController = new ControllerUsuario();
 
 	
-	public pantallaCrearEmpleado(MenuGestionar menuGestionar) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public pantallaCrearEmpleado(MenuGestionar menuGestionar,Administrador admin) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 820, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -50,7 +51,6 @@ public class pantallaCrearEmpleado extends JFrame {
 		contentPane.setLayout(null);
 		
 		contentPane.setBackground(new Color(245, 245, 245));
-		setContentPane(contentPane);
 
 		Color VERDE = new Color(28, 137, 16);
 		Color VERDE_OSCURO = new Color(20, 110, 12);
@@ -159,9 +159,10 @@ public class pantallaCrearEmpleado extends JFrame {
 		inpContra.setBounds(471, 161, 191, 25);
 		contentPane.add(inpContra);
 		
-		JLabel lblDni = new JLabel("Dni:");
+		JLabel lblDni = new JLabel("DNI:");
+		lblDni.setForeground(new Color(20, 110, 12));
 		lblDni.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblDni.setForeground(VERDE_OSCURO);
+		lblDni.setBounds(471, 49, 152, 20);
 		contentPane.add(lblDni);
 		
 		inpDni = new JTextField();
@@ -259,6 +260,8 @@ public class pantallaCrearEmpleado extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton_1 = new JButton("Foto de perfil...");
+		btnNewButton_1.setForeground(new Color(0, 64, 0));
+		btnNewButton_1.setBackground(new Color(192, 192, 192));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 JFileChooser chooser = new JFileChooser();
@@ -293,7 +296,22 @@ public class pantallaCrearEmpleado extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		btnNewButton_1.setBounds(471, 334, 167, 33);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuGestionar gestion= new MenuGestionar(admin);
+				gestion.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setForeground(Color.WHITE);
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnVolver.setBackground(new Color(255, 0, 0));
+		btnVolver.setBounds(682, 10, 114, 33);
+		contentPane.add(btnVolver);
+		
+		
 
 	}
-	
 }

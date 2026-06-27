@@ -20,6 +20,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 public class GestionarAsistencia extends JFrame {
 
@@ -41,13 +44,16 @@ public class GestionarAsistencia extends JFrame {
 		JOptionPane.showMessageDialog(null, "Para modificar la asistencia:\nSeleccionar empleado->"
 				+ "Modificar asistencia->Editar los datos ->Actualizar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 533, 497);
+		setBounds(100, 100, 578, 532);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(232, 243, 226));
+		contentPane.setForeground(new Color(232, 243, 226));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Gestión de asistencia:");
+		lblNewLabel.setForeground(new Color(0, 91, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel.setBounds(153, 10, 232, 29);
 		contentPane.add(lblNewLabel);
@@ -56,6 +62,13 @@ public class GestionarAsistencia extends JFrame {
 	        		"Hora Entrada","Hora Salida","Presente"}, 0);
 	        
 	        table = new JTable(model);
+	        table.setBackground(new Color(220, 255, 220));
+	        table.getTableHeader().setBackground(new Color(0, 91, 0));
+	        table.getTableHeader().setForeground(Color.WHITE);
+	        table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
+	        table.setSelectionBackground(new Color(28, 137, 16));
+	        table.setSelectionForeground(Color.WHITE);
+	        
 	        table.getColumnModel().getColumn(0).setPreferredWidth(10);
 	        table.getColumnModel().getColumn(1).setPreferredWidth(30);  
 	        table.getColumnModel().getColumn(2).setPreferredWidth(80);  
@@ -64,10 +77,14 @@ public class GestionarAsistencia extends JFrame {
 	        table.getColumnModel().getColumn(5).setPreferredWidth(20);
 	        
 	        JScrollPane scrollPane = new JScrollPane(table);
-	        scrollPane.setBounds(10, 40, 499, 258);
+	        scrollPane.setViewportBorder(new LineBorder(new Color(0, 91, 0), 3, true));
+	        scrollPane.setBounds(10, 49, 499, 258);
+	        scrollPane.getViewport().setBackground(new Color(220, 255, 220));
 	        contentPane.add(scrollPane);
 	        cargarTabla();
 	        btnModif = new JButton("Modificar Asistencia");
+	        btnModif.setBackground(new Color(167, 228, 191));
+	        btnModif.setForeground(new Color(0, 91, 0));
 	        btnModif.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		modifDatosAntes();
@@ -79,6 +96,8 @@ public class GestionarAsistencia extends JFrame {
 	        contentPane.add(btnModif);
 	        
 	        btnActualizar = new JButton("Actualizar");
+	        btnActualizar.setBackground(new Color(167, 228, 191));
+	        btnActualizar.setForeground(new Color(0, 91, 0));
 	        btnActualizar.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		modificarAsistencia();
@@ -89,30 +108,41 @@ public class GestionarAsistencia extends JFrame {
 	        contentPane.add(btnActualizar);
 	        
 	        JLabel lblEntrada = new JLabel("Entrada:");
+	        lblEntrada.setForeground(new Color(0, 91, 0));
 	        lblEntrada.setBounds(37, 317, 80, 25);
 	        contentPane.add(lblEntrada);
 
 	        txtEntrada = new JTextField();
+	        txtEntrada.setForeground(new Color(89, 142, 89));
+	        txtEntrada.setBackground(new Color(232, 243, 226));
 	        txtEntrada.setBounds(117, 317, 120, 25);
 	        contentPane.add(txtEntrada);
 
 	        JLabel lblSalida = new JLabel("Salida:");
+	        lblSalida.setForeground(new Color(0, 91, 0));
 	        lblSalida.setBounds(257, 317, 80, 25);
 	        contentPane.add(lblSalida);
 
 	        txtSalida = new JTextField();
+	        txtSalida.setForeground(new Color(89, 142, 89));
+	        txtSalida.setBackground(new Color(232, 243, 226));
 	        txtSalida.setBounds(317, 317, 120, 25);
 	        contentPane.add(txtSalida);
 
 	        JLabel lblPresente = new JLabel("Presente:");
+	        lblPresente.setForeground(new Color(0, 91, 0));
 	        lblPresente.setBounds(37, 357, 80, 25);
 	        contentPane.add(lblPresente);
 
 	        comboPresente = new JComboBox<>(new String[]{"1 - Presente", "0 - Ausente"});
+	        comboPresente.setForeground(new Color(0, 91, 0));
+	        comboPresente.setBackground(new Color(232, 243, 226));
 	        comboPresente.setBounds(117, 357, 150, 25);
 	        contentPane.add(comboPresente); 
 	        
 	        btnNewButton_1 = new JButton("<-Volver");
+	        btnNewButton_1.setForeground(new Color(255, 255, 255));
+	        btnNewButton_1.setBackground(new Color(255, 0, 0));
 	        btnNewButton_1.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		MenuAdministrador menuAdmin=new MenuAdministrador(usuario);
@@ -121,7 +151,7 @@ public class GestionarAsistencia extends JFrame {
 	        	}
 	        });
 	        btnNewButton_1.setFont(new Font("Tahoma", Font.ITALIC, 13));
-	        btnNewButton_1.setBounds(0, 426, 84, 20);
+	        btnNewButton_1.setBounds(10, 465, 84, 20);
 	        contentPane.add(btnNewButton_1);
 
 	}
