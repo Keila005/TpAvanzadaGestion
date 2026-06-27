@@ -22,9 +22,11 @@ import java.util.LinkedList;
 import javax.swing.JSeparator;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
 
 public class RendimientoEmpleado extends JFrame {
 
@@ -54,10 +56,11 @@ public class RendimientoEmpleado extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 709, 537);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(232, 243, 226));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		model = new DefaultTableModel(new String[]{"ID", "Nombre completo",
+		model = new DefaultTableModel(new String[]{"ID", "Nombre",
         		"Rendimiento"}, 0);
         contentPane.setLayout(null);
         
@@ -72,11 +75,14 @@ public class RendimientoEmpleado extends JFrame {
 		header.setForeground(Color.WHITE);
 		header.setFont(new Font("Tahoma", Font.BOLD, 12));
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setViewportBorder(new LineBorder(new Color(89, 142, 89), 1, true));
         scrollPane.setBounds(10, 73, 304, 153);
         contentPane.add(scrollPane);
         cargarTablaOperativo(); 
         
         lblNewLabel = new JLabel("Ranking operativo:");
+        lblNewLabel.setForeground(new Color(0, 91, 0));
+        lblNewLabel.setBackground(new Color(0, 91, 0));
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
         lblNewLabel.setBounds(36, 32, 196, 21);
         contentPane.add(lblNewLabel);
@@ -88,11 +94,12 @@ public class RendimientoEmpleado extends JFrame {
         contentPane.add(linea);
         
         lblRankingVendedor = new JLabel("Ranking vendedor:");
+        lblRankingVendedor.setForeground(new Color(0, 91, 0));
         lblRankingVendedor.setFont(new Font("Tahoma", Font.BOLD, 17));
         lblRankingVendedor.setBounds(421, 39, 196, 21);
         contentPane.add(lblRankingVendedor);
         
-         model2 = new DefaultTableModel(new String[]{"ID", "Nombre completo",
+         model2 = new DefaultTableModel(new String[]{"ID", "Nombre",
 		"Cantidad de Ventas"}, 0);
 
 			 table2 = new JTable(model2);
@@ -118,7 +125,7 @@ public class RendimientoEmpleado extends JFrame {
 				}
 			});
 			btnMejoresO.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnMejoresO.setBounds(36, 272, 114, 29);
+			btnMejoresO.setBounds(36, 324, 114, 29);
 			contentPane.add(btnMejoresO);
 			
 			btnBajosO = new JButton("Bajos");
@@ -130,7 +137,7 @@ public class RendimientoEmpleado extends JFrame {
 				}
 			});
 			btnBajosO.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnBajosO.setBounds(178, 272, 114, 29);
+			btnBajosO.setBounds(178, 324, 114, 29);
 			contentPane.add(btnBajosO);
 			
 			btnMejoresV = new JButton("Mejores");
@@ -142,7 +149,7 @@ public class RendimientoEmpleado extends JFrame {
 				}
 			});
 			btnMejoresV.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnMejoresV.setBounds(398, 272, 114, 29);
+			btnMejoresV.setBounds(383, 324, 114, 29);
 			contentPane.add(btnMejoresV);
 			
 			btnBajosV = new JButton("Bajos");
@@ -154,7 +161,7 @@ public class RendimientoEmpleado extends JFrame {
 				}
 			});
 			btnBajosV.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnBajosV.setBounds(548, 272, 114, 29);
+			btnBajosV.setBounds(533, 324, 114, 29);
 			contentPane.add(btnBajosV);
 			
 			btnVerTodas = new JButton("Ver todas");
@@ -166,7 +173,7 @@ public class RendimientoEmpleado extends JFrame {
 				}
 			});
 			btnVerTodas.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnVerTodas.setBounds(104, 330, 114, 29);
+			btnVerTodas.setBounds(104, 382, 114, 29);
 			contentPane.add(btnVerTodas);
 			
 			btnVerTodas_1 = new JButton("Ver todas");
@@ -178,31 +185,32 @@ public class RendimientoEmpleado extends JFrame {
 				}
 			});
 			btnVerTodas_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnVerTodas_1.setBounds(473, 330, 114, 29);
+			btnVerTodas_1.setBounds(458, 382, 114, 29);
 			contentPane.add(btnVerTodas_1);
 			
 			JLabel lblNewLabel_1 = new JLabel("Mayor al 70%:");
 			lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
-			lblNewLabel_1.setBounds(36, 236, 123, 44);
+			lblNewLabel_1.setBounds(36, 288, 123, 44);
 			contentPane.add(lblNewLabel_1);
 			
 			JLabel lblNewLabel_1_1 = new JLabel("Menor al 70%:");
 			lblNewLabel_1_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
-			lblNewLabel_1_1.setBounds(180, 236, 123, 44);
+			lblNewLabel_1_1.setBounds(180, 288, 123, 44);
 			contentPane.add(lblNewLabel_1_1);
 			
 			JLabel lblNewLabel_1_2 = new JLabel("Mayor 20 ventas:");
 			lblNewLabel_1_2.setFont(new Font("Tahoma", Font.ITALIC, 14));
-			lblNewLabel_1_2.setBounds(398, 236, 123, 44);
+			lblNewLabel_1_2.setBounds(383, 288, 123, 44);
 			contentPane.add(lblNewLabel_1_2);
 			
 			JLabel lblNewLabel_1_2_1 = new JLabel("Menor a 20 ventas:");
 			lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
-			lblNewLabel_1_2_1.setBounds(539, 236, 123, 44);
+			lblNewLabel_1_2_1.setBounds(524, 288, 123, 44);
 			contentPane.add(lblNewLabel_1_2_1);
 			
 			JButton btnNewButton = new JButton("<-Volver");
-			btnNewButton.setBackground(VERDE);
+			btnNewButton.setForeground(new Color(255, 255, 255));
+			btnNewButton.setBackground(new Color(255, 0, 0));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
@@ -210,9 +218,18 @@ public class RendimientoEmpleado extends JFrame {
 					dispose();
 				}
 			});
-			btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 12));
-			btnNewButton.setBounds(21, 470, 84, 20);
+			btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 13));
+			btnNewButton.setBounds(21, 470, 92, 20);
 			contentPane.add(btnNewButton);
+			
+			JPanel panelFondo = new JPanel();
+			panelFondo.setBackground(new Color(167, 228, 191));
+			panelFondo.setBorder(BorderFactory.createCompoundBorder(
+				    BorderFactory.createLineBorder(Color.GREEN),
+				    BorderFactory.createEmptyBorder(5, 10, 5, 10)
+				));
+			panelFondo.setBounds(0, 10, 685, 240);
+			contentPane.add(panelFondo);
 			cargarTablaVendedor();
 			        
 	}

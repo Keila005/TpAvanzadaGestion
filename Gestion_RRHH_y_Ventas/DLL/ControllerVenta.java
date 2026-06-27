@@ -17,7 +17,68 @@ public class ControllerVenta {
 	
 	private static Connection con = Conexion.getInstance().getConnection();
 	
+	public String obtenerUltimaVenta(int idEmpleado) {
+
+	    try {
+
+	        PreparedStatement stmt = con.prepareStatement(
+
+	            "SELECT fecha " +
+	            "FROM venta " +
+	            "WHERE id_vendedor = ? " +
+	            "ORDER BY fecha DESC, id_venta DESC " +
+	            "LIMIT 1"
+	        );
+
+	        stmt.setInt(1, idEmpleado);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+
+	            return rs.getDate("fecha").toString();
+	        }
+
+	    } catch(Exception e) {
+
+	        e.printStackTrace();
+	    }
+
+	    return "Sin ventas";
+	}
 	
+	public int cantidadVentas(int idEmpleado) {
+
+	    int cantidad = 0;
+
+	    try {
+
+	        PreparedStatement stmt =
+	                con.prepareStatement(
+
+	            "SELECT COUNT(*) total " +
+	            "FROM venta " +
+	            "WHERE id_vendedor = ?"
+
+	        );
+
+	        stmt.setInt(1, idEmpleado);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+
+	            cantidad = rs.getInt("total");
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return cantidad;
+	}
 	
 	public void generarVenta(Venta venta) {
 

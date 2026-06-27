@@ -66,7 +66,7 @@ public class MenuProyecto extends JFrame {
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			contentPane.setLayout(null);
-			contentPane.setBackground(FONDO);
+			contentPane.setBackground(new Color(232, 243, 226));
 			setContentPane(contentPane);
 
 			JLabel lblNewLabel = new JLabel("Proyectos creados: ");
@@ -99,7 +99,7 @@ public class MenuProyecto extends JFrame {
 			table.getColumnModel().getColumn(6).setPreferredWidth(100);
 
 			JScrollPane scrollPane = new JScrollPane(table);
-			scrollPane.setBounds(10, 59, 683, 153);
+			scrollPane.setBounds(10, 50, 706, 162);
 			contentPane.add(scrollPane);
 
 			JLabel lblName = new JLabel("Nombre del proyecto:");
@@ -146,7 +146,7 @@ public class MenuProyecto extends JFrame {
 			contentPane.add(lblAsignacinDeEquipo);
 
 			btnCrear = new JButton("Crear");
-			btnCrear.setBackground(new Color(0, 174, 0));
+			btnCrear.setBackground(new Color(89, 142, 89));
 			btnCrear.setForeground(Color.WHITE);
 			btnCrear.setFont(new Font("Tahoma", Font.BOLD, 17));
 			btnCrear.addActionListener(e -> {
@@ -179,7 +179,7 @@ public class MenuProyecto extends JFrame {
 			dateInicio.setMinSelectableDate(new Date());
 
 			btnNewButton = new JButton("<-Volver");
-			btnNewButton.setBackground(VERDE_OSCURO);
+			btnNewButton.setBackground(new Color(255, 0, 0));
 			btnNewButton.setForeground(Color.WHITE);
 			btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btnNewButton.addActionListener(e -> {
@@ -191,7 +191,7 @@ public class MenuProyecto extends JFrame {
 			contentPane.add(btnNewButton);
 
 			panel = new JPanel();
-			panel.setBackground(PANEL_VERDE);
+			panel.setBackground(new Color(167, 228, 191));
 			panel.setBounds(-15, 211, 751, 338);
 			contentPane.add(panel);
 			

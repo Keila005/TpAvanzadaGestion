@@ -6,12 +6,81 @@ import java.util.LinkedList;
 
 import com.mysql.jdbc.Connection;
 import LogicLayer.Empleado;
+import LogicLayer.Vendedor;
 
 
 public class ControllerEmpleado {
 	
 	private static Connection con = Conexion.getInstance().getConnection();
 	
+	public Vendedor buscarVendedorPorUsuario(int idUsuario) {
+
+	    Vendedor vendedor = null;
+
+	    try {
+
+	        PreparedStatement stmt = con.prepareStatement(
+
+	        		"SELECT e.id_empleado, " +
+	        				"e.dni, " +
+	        				"e.sueldo_base, " +
+	        				"u.nombre, " +
+	        				"u.apellido, " +
+	        				"u.email, " +
+	        				"v.ventas_totales " +
+	        				"FROM empleado e " +
+	        				"INNER JOIN usuario u " +
+	        				"ON e.id_usuario = u.id_usuario " +
+	        				"INNER JOIN vendedor v " +
+	        				"ON e.id_empleado = v.id_empleado " +
+	        				"WHERE e.id_usuario = ?"
+	        );
+
+	        stmt.setInt(1, idUsuario);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if(rs.next()) {
+
+	            vendedor = new Vendedor();
+
+	            vendedor.setIdEmpleado(
+	                    rs.getInt("id_empleado")
+	            );
+
+	            vendedor.setDni(
+	                    rs.getInt("dni")
+	            );
+
+	            vendedor.setSueldoBase(
+	                    rs.getDouble("sueldo_base")
+	            );
+
+	            vendedor.setVentasTotales(
+	                    rs.getInt("ventas_totales")
+	            );
+	            
+	            vendedor.setNombre(
+	                    rs.getString("nombre")
+	            );
+
+	            vendedor.setApellido(
+	                    rs.getString("apellido")
+	            );
+
+	            vendedor.setMail(
+	                    rs.getString("email")
+	            );
+	        }
+
+	        stmt.close();
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return vendedor;
+	}
 	
 	public LinkedList<Empleado> mostrarEmpleados() {
 
@@ -47,5 +116,13 @@ public class ControllerEmpleado {
 	    }
 
 	    return empleados;
+	    
+	    
+	    
+	    
+	    
 	}
+	
+	
+	
 }// FIN DE LA CLASE
