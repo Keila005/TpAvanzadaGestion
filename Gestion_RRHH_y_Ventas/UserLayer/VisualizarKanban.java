@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DLL.ControllerTarea;
+import LogicLayer.Operativo;
 import LogicLayer.Tarea;
 import LogicLayer.Usuario;
 
@@ -23,7 +24,7 @@ public class VisualizarKanban extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
+
 	private Usuario usuario;
 
 	private JComboBox<Tarea> comboTareas;
@@ -32,14 +33,11 @@ public class VisualizarKanban extends JFrame {
 
 	private ControllerTarea controllerTarea = new ControllerTarea();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VisualizarKanban frame = new VisualizarKanban();
+					VisualizarKanban frame = new VisualizarKanban(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,15 +46,9 @@ public class VisualizarKanban extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public VisualizarKanban(Usuario usuario) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+
+		this.usuario = usuario;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 260);
@@ -91,7 +83,9 @@ public class VisualizarKanban extends JFrame {
 		btnVolver.setBounds(410, 185, 100, 25);
 		contentPane.add(btnVolver);
 
-		cargarTareas();
+		if(usuario != null) {
+			cargarTareas();
+		}
 
 		btnTrabajar.addActionListener(new ActionListener() {
 
@@ -99,7 +93,7 @@ public class VisualizarKanban extends JFrame {
 
 				Tarea tarea = (Tarea) comboTareas.getSelectedItem();
 
-				if (tarea == null) {
+				if(tarea == null) {
 					JOptionPane.showMessageDialog(null, "Seleccione una tarea.");
 					return;
 				}
@@ -108,41 +102,48 @@ public class VisualizarKanban extends JFrame {
 
 				controllerTarea.trabajarTarea(tarea.getIdTarea());
 
-				JOptionPane.showMessageDialog(null,
-						"La tarea fue actualizada.");
+				JOptionPane.showMessageDialog(null, "La tarea fue actualizada.");
 
 				cargarTareas();
 			}
 		});
 
 		btnVolver.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 
 			public void actionPerformed(ActionEvent e) {
+				Operativo operativo = (Operativo) usuario;
 
-				MiembroDelProyecto menu = new MiembroDelProyecto(usuario);
-				menu.setVisible(true);
+				if(operativo.getRol() == LogicLayer.Roles.LIDER_PROYECTO) {
+
+					LiderDelProyecto lider = new LiderDelProyecto(usuario);
+					lider.setVisible(true);
+
+				}else {
+
+					MiembroDelProyecto miembro = new MiembroDelProyecto(usuario);
+					miembro.setVisible(true);
+
+				}
+
 				dispose();
-			}
-		});
+				
+		}
+			});
 	}
 
 	private void cargarTareas() {
 
 		comboTareas.removeAllItems();
 
+		Operativo op = (Operativo) usuario;
+
 		tareasAsignadas =
-				controllerTarea.obtenerTareasEmpleado(usuario.getIdUsuario());
+				controllerTarea.obtenerTareasEmpleado(op.getIdOperativo());
 
-		for (Tarea t : tareasAsignadas) {
+		for(Tarea t : tareasAsignadas) {
 
-			if (!"FINALIZADA".equalsIgnoreCase(t.getEstado())) {
+			if(!t.getEstado().equalsIgnoreCase("FINALIZADA")) {
+
 				comboTareas.addItem(t);
 			}
 		}
