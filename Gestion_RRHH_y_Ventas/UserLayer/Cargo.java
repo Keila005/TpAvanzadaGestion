@@ -53,19 +53,19 @@ public class Cargo extends JFrame {
 		contentPane.setLayout(null);
 
 		contentPane.add(btnNewButton);
-//
-//		JButton btnNewButton_1 = new JButton("Miembro del proyecto");
-//		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		btnNewButton_1.setBounds(226, 112, 186, 67);
-//		btnNewButton_1.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				MiembroDelProyecto MiembroDelProyecto = new MiembroDelProyecto ();
-//				MiembroDelProyecto.setVisible(true);
-//				dispose();
-//			}
-//		});
-//		
-//		contentPane.add(btnNewButton_1);
+
+		JButton btnNewButton_1 = new JButton("Miembro del proyecto");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1.setBounds(226, 112, 186, 67);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MiembroDelProyecto MiembroDelProyecto = new MiembroDelProyecto ();
+				btnNewButton_1.setVisible(false);
+				dispose();
+			}
+		});
+		
+		contentPane.add(btnNewButton_1);
 
 		JButton btnNewButton_2 = new JButton("Volver");
 		btnNewButton_2.setBounds(312, 208, 114, 34);
@@ -83,7 +83,7 @@ public class Cargo extends JFrame {
 		Operativo operativo = (Operativo) usuario;
 
 		btnNewButton.setVisible(false);
-//		btnNewButton_1.setVisible(false);
+		btnNewButton_1.setVisible(false);
 
 		switch (operativo.getRol()) {
 
@@ -94,7 +94,7 @@ public class Cargo extends JFrame {
 
 		case MIEMBRO_PROYECTO:
 			lblNewLabel.setText("Rol: Miembro del Proyecto");
-//			btnNewButton_1.setVisible(true);
+			btnNewButton_1.setVisible(true);
 			break;
 		}
 

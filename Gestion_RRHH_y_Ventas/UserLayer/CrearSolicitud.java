@@ -16,9 +16,13 @@ public class CrearSolicitud extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	JComboBox<String> comboDiaInicio = new JComboBox<>();
+	JComboBox<String> comboMesInicio = new JComboBox<>();
+	JComboBox<String> comboAnioInicio = new JComboBox<>();
+
+	JComboBox<String> comboDiaFin = new JComboBox<>();
+	JComboBox<String> comboMesFin = new JComboBox<>();
+	JComboBox<String> comboAnioFin = new JComboBox<>();
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
@@ -76,107 +80,168 @@ public class CrearSolicitud extends JFrame {
 		comboBox.setBounds(11, 86, 136, 26);
 		contentPane.add(comboBox);
 		
-		JLabel lblNewLabel = new JLabel("Desde:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(212, 86, 115, 26);
-		lblNewLabel.setVisible(false);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblHasta = new JLabel("Hasta:");
-		lblHasta.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblHasta.setBounds(363, 86, 115, 26);
-		contentPane.add(lblHasta);
-		
-		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblFecha.setBounds(10, 157, 115, 26);
-		contentPane.add(lblFecha);
+		JLabel lblDiaInicio = new JLabel("Día de Inicio");
+		lblDiaInicio.setFont(new Font("Verdana", Font.BOLD, 12));
+		lblDiaInicio.setBounds(200, 50, 120, 20);
+		lblDiaInicio.setVisible(false);
+		contentPane.add(lblDiaInicio);
+
+		JLabel lblMesInicio = new JLabel("Mes de Inicio");
+		lblMesInicio.setFont(new Font("Verdana", Font.BOLD, 12));
+		lblMesInicio.setBounds(200, 115, 120, 20);
+		lblMesInicio.setVisible(false);
+		contentPane.add(lblMesInicio);
+
+		JLabel lblAnioInicio = new JLabel("Año de Inicio");
+		lblAnioInicio.setFont(new Font("Verdana", Font.BOLD, 12));
+		lblAnioInicio.setBounds(200, 180, 120, 20);
+		lblAnioInicio.setVisible(false);
+		contentPane.add(lblAnioInicio);
+
+		JLabel lblDiaFin = new JLabel("Día de Finalización");
+		lblDiaFin.setFont(new Font("Verdana", Font.BOLD, 12));
+		lblDiaFin.setBounds(386, 50, 150, 20);
+		lblDiaFin.setVisible(false);
+		contentPane.add(lblDiaFin);
+
+		JLabel lblMesFin = new JLabel("Mes de Finalización");
+		lblMesFin.setFont(new Font("Verdana", Font.BOLD, 12));
+		lblMesFin.setBounds(386, 115, 150, 20);
+		lblMesFin.setVisible(false);
+		contentPane.add(lblMesFin);
+
+		JLabel lblAnioFin = new JLabel("Año de Finalización");
+		lblAnioFin.setFont(new Font("Verdana", Font.BOLD, 12));
+		lblAnioFin.setBounds(386, 180, 150, 20);
+		lblAnioFin.setVisible(false);
+		contentPane.add(lblAnioFin);
 		
 		JLabel lblInstitucion = new JLabel("Institución:");
 		lblInstitucion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblInstitucion.setBounds(135, 157, 115, 26);
+		lblInstitucion.setBounds(200, 269, 115, 26);
 		lblInstitucion.setVisible(false);
 		contentPane.add(lblInstitucion);
 		
 		JLabel lblMateria = new JLabel("Materia:");
 		lblMateria.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMateria.setBounds(260, 157, 115, 26);
+		lblMateria.setBounds(391, 269, 115, 26);
 		lblMateria.setVisible(false);
 		contentPane.add(lblMateria);
 		
 		JLabel lblTipoEstudio = new JLabel("Tipo Estudio:");
 		lblTipoEstudio.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTipoEstudio.setBounds(135, 157, 115, 26);
+		lblTipoEstudio.setBounds(200, 269, 115, 26);
 		lblTipoEstudio.setVisible(false);
 		contentPane.add(lblTipoEstudio);
 		
 		JLabel lblDireccion = new JLabel("Dirección:");
 		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblDireccion.setBounds(135, 157, 115, 26);
+		lblDireccion.setBounds(200, 269, 115, 26);
 		lblDireccion.setVisible(false);
 		contentPane.add(lblDireccion);
 		
 		JLabel lblOrganismo = new JLabel("Organismo:");
 		lblOrganismo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblOrganismo.setBounds(135, 157, 115, 26);
+		lblOrganismo.setBounds(200, 269, 115, 26);
 		lblOrganismo.setVisible(false); 
 		contentPane.add(lblOrganismo);
 		
-		textField = new JTextField(); // Desde
-		textField.setBounds(212, 122, 123, 18);
-		textField.setVisible(false);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField(); //Hasta
-		textField_1.setColumns(10);
-		textField_1.setBounds(363, 122, 123, 18);
-		lblHasta.setVisible(false);
-		contentPane.add(textField_1);
-		
-		textField_2 = new JTextField(); //Fecha
-		textField_2.setColumns(10);
-		textField_2.setBounds(11, 196, 101, 18);
-		lblFecha.setVisible(false);
-		contentPane.add(textField_2);
+		comboDiaInicio.setBounds(200, 75, 120, 25);
+		comboDiaInicio.setVisible(false);
+		contentPane.add(comboDiaInicio);
+
+		comboMesInicio.setBounds(200, 140, 120, 25);
+		comboMesInicio.setVisible(false);
+		contentPane.add(comboMesInicio);
+
+		comboAnioInicio.setBounds(200, 205, 120, 25);
+		comboAnioInicio.setVisible(false);
+		contentPane.add(comboAnioInicio);
+
+		comboDiaFin.setBounds(386, 75, 120, 25);
+		comboDiaFin.setVisible(false);
+		contentPane.add(comboDiaFin);
+
+		comboMesFin.setBounds(386, 140, 120, 25);
+		comboMesFin.setVisible(false);
+		contentPane.add(comboMesFin);
+
+		comboAnioFin.setBounds(386, 205, 120, 25);
+		comboAnioFin.setVisible(false);
+		contentPane.add(comboAnioFin);
 		
 		textField_3 = new JTextField(); //Institución
 		textField_3.setColumns(10);
-		textField_3.setBounds(135, 196, 101, 18);
-		lblInstitucion.setVisible(false);
+		textField_3.setBounds(200, 308, 101, 18);
+		textField_3.setVisible(false);
 		contentPane.add(textField_3);
 		
 		textField_4 = new JTextField(); //Materia
 		textField_4.setColumns(10);
-		textField_4.setBounds(260, 196, 101, 18);
+		textField_4.setBounds(391, 308, 101, 18);
+		textField_4.setVisible(false);
 		contentPane.add(textField_4);
 		
 		textField_5 = new JTextField(); //Tipo de Estudio
-		textField_5.setBounds(135, 196, 101, 18);
+		textField_5.setBounds(200, 308, 101, 18);
+		textField_5.setVisible(false);
 		contentPane.add(textField_5);
 		textField_5.setColumns(10);
 		
 		textField_6 = new JTextField(); //Dirección
 		textField_6.setColumns(10);
-		textField_6.setBounds(135, 196, 101, 18);
+		textField_6.setBounds(200, 308, 101, 18);
+		textField_6.setVisible(false);
 		contentPane.add(textField_6);
 		
 		textField_7 = new JTextField(); //Organismo
 		textField_7.setColumns(10);
-		textField_7.setBounds(135, 196, 101, 18);
+		textField_7.setBounds(200, 308, 101, 18);
+		textField_7.setVisible(false);
 		contentPane.add(textField_7);
+		
+		for (int i = 1; i <= 31; i++) {
+
+		    String valor = String.format("%02d", i);
+
+		    comboDiaInicio.addItem(valor);
+		    comboDiaFin.addItem(valor);
+		}
+
+		for (int i = 1; i <= 12; i++) {
+
+		    String valor = String.format("%02d", i);
+
+		    comboMesInicio.addItem(valor);
+		    comboMesFin.addItem(valor);
+		}
+
+		for (int i = 2026; i <= 2035; i++) {
+
+		    comboAnioInicio.addItem(String.valueOf(i));
+		    comboAnioFin.addItem(String.valueOf(i));
+		}
 		
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				lblNewLabel.setVisible(false);
-				textField.setVisible(false);
+				lblDiaInicio.setVisible(false);
+				comboDiaInicio.setVisible(false);
 
-				lblHasta.setVisible(false);
-				textField_1.setVisible(false);
+				lblMesInicio.setVisible(false);
+				comboMesInicio.setVisible(false);
 
-				lblFecha.setVisible(false);
-				textField_2.setVisible(false);
+				lblAnioInicio.setVisible(false);
+				comboAnioInicio.setVisible(false);
+
+				lblDiaFin.setVisible(false);
+				comboDiaFin.setVisible(false);
+
+				lblMesFin.setVisible(false);
+				comboMesFin.setVisible(false);
+
+				lblAnioFin.setVisible(false);
+				comboAnioFin.setVisible(false);
 
 				lblInstitucion.setVisible(false);
 				textField_3.setVisible(false);
@@ -201,17 +266,44 @@ public class CrearSolicitud extends JFrame {
 
 				case 1:
 
-					lblNewLabel.setVisible(true);
-					textField.setVisible(true);
+					lblDiaInicio.setVisible(true);
+					comboDiaInicio.setVisible(true);
 
-					lblHasta.setVisible(true);
-					textField_1.setVisible(true);
+					lblMesInicio.setVisible(true);
+					comboMesInicio.setVisible(true);
+
+					lblAnioInicio.setVisible(true);
+					comboAnioInicio.setVisible(true);
+
+					lblDiaFin.setVisible(true);
+					comboDiaFin.setVisible(true);
+
+					lblMesFin.setVisible(true);
+					comboMesFin.setVisible(true);
+
+					lblAnioFin.setVisible(true);
+					comboAnioFin.setVisible(true);
 					break;
 
 				case 2:
 
-					lblFecha.setVisible(true);
-					textField_2.setVisible(true);
+					lblDiaInicio.setVisible(true);
+					comboDiaInicio.setVisible(true);
+
+					lblMesInicio.setVisible(true);
+					comboMesInicio.setVisible(true);
+
+					lblAnioInicio.setVisible(true);
+					comboAnioInicio.setVisible(true);
+
+					lblDiaFin.setVisible(true);
+					comboDiaFin.setVisible(true);
+
+					lblMesFin.setVisible(true);
+					comboMesFin.setVisible(true);
+
+					lblAnioFin.setVisible(true);
+					comboAnioFin.setVisible(true);
 
 					lblInstitucion.setVisible(true);
 					textField_3.setVisible(true);
@@ -222,8 +314,23 @@ public class CrearSolicitud extends JFrame {
 
 				case 3:
 
-					lblFecha.setVisible(true);
-					textField_2.setVisible(true);
+					lblDiaInicio.setVisible(true);
+					comboDiaInicio.setVisible(true);
+
+					lblMesInicio.setVisible(true);
+					comboMesInicio.setVisible(true);
+
+					lblAnioInicio.setVisible(true);
+					comboAnioInicio.setVisible(true);
+
+					lblDiaFin.setVisible(true);
+					comboDiaFin.setVisible(true);
+
+					lblMesFin.setVisible(true);
+					comboMesFin.setVisible(true);
+
+					lblAnioFin.setVisible(true);
+					comboAnioFin.setVisible(true);
 
 					lblTipoEstudio.setVisible(true);
 					textField_5.setVisible(true);
@@ -231,11 +338,23 @@ public class CrearSolicitud extends JFrame {
 
 				case 4:
 
-					lblNewLabel.setVisible(true);
-					textField.setVisible(true);
+					lblDiaInicio.setVisible(true);
+					comboDiaInicio.setVisible(true);
 
-					lblHasta.setVisible(true);
-					textField_1.setVisible(true);
+					lblMesInicio.setVisible(true);
+					comboMesInicio.setVisible(true);
+
+					lblAnioInicio.setVisible(true);
+					comboAnioInicio.setVisible(true);
+
+					lblDiaFin.setVisible(true);
+					comboDiaFin.setVisible(true);
+
+					lblMesFin.setVisible(true);
+					comboMesFin.setVisible(true);
+
+					lblAnioFin.setVisible(true);
+					comboAnioFin.setVisible(true);
 					break;
 
 				case 5:
@@ -243,8 +362,23 @@ public class CrearSolicitud extends JFrame {
 					lblDireccion.setVisible(true);
 					textField_6.setVisible(true);
 
-					lblFecha.setVisible(true);
-					textField_2.setVisible(true);
+					lblDiaInicio.setVisible(true);
+					comboDiaInicio.setVisible(true);
+
+					lblMesInicio.setVisible(true);
+					comboMesInicio.setVisible(true);
+
+					lblAnioInicio.setVisible(true);
+					comboAnioInicio.setVisible(true);
+
+					lblDiaFin.setVisible(true);
+					comboDiaFin.setVisible(true);
+
+					lblMesFin.setVisible(true);
+					comboMesFin.setVisible(true);
+
+					lblAnioFin.setVisible(true);
+					comboAnioFin.setVisible(true);
 					break;
 
 				case 6:
@@ -252,8 +386,23 @@ public class CrearSolicitud extends JFrame {
 					lblOrganismo.setVisible(true);
 					textField_7.setVisible(true);
 
-					lblFecha.setVisible(true);
-					textField_2.setVisible(true);
+					lblDiaInicio.setVisible(true);
+					comboDiaInicio.setVisible(true);
+
+					lblMesInicio.setVisible(true);
+					comboMesInicio.setVisible(true);
+
+					lblAnioInicio.setVisible(true);
+					comboAnioInicio.setVisible(true);
+
+					lblDiaFin.setVisible(true);
+					comboDiaFin.setVisible(true);
+
+					lblMesFin.setVisible(true);
+					comboMesFin.setVisible(true);
+
+					lblAnioFin.setVisible(true);
+					comboAnioFin.setVisible(true);
 					break;
 				}
 			}

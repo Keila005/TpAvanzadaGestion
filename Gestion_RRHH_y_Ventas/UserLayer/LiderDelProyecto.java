@@ -25,18 +25,7 @@ public class LiderDelProyecto extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LiderDelProyecto frame = new LiderDelProyecto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -59,8 +48,8 @@ public class LiderDelProyecto extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			visualizarKanban visualizarKanban = new visualizarKanban();
-			visualizarKanban.setVisible(true);
+			VisualizarKanban VisualizarKanban = new VisualizarKanban(usuario);
+			VisualizarKanban.setVisible(true);
 			dispose();
 			}
 	});
@@ -71,8 +60,8 @@ public class LiderDelProyecto extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearTarea crearTarea = new crearTarea();
-				crearTarea.setVisible(true);
+				CrearTarea CrearTarea = new CrearTarea(usuario);
+				CrearTarea.setVisible(true);
 				dispose();
 			}
 		});

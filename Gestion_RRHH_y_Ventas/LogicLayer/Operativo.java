@@ -114,9 +114,10 @@ public void agregarEvaluacion(Evaluacion360 e) {
 }
 
 
+
 @Override
 public String toString() {
-	return "Operativo:\nID=" + idOperativo + "\nRol=" + Rol + "\nRendimiento=" + rendimiento+" %";
+    return getNombre() + " " + getApellido();
 }
 @Override
 public void Menu() {

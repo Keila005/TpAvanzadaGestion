@@ -157,5 +157,9 @@ public class Proyecto {
 		 this.tareas.add(tarea); 
 		 }
 
+	 @Override
+	 public String toString() {
+	     return nombre;
+	 }
 
 }

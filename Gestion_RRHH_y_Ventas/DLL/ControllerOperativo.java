@@ -119,4 +119,38 @@ public class ControllerOperativo {
 
 		    return integrantes;
 		}
+	 public LinkedList<Operativo> obtenerMiembrosProyecto() {
+
+		    LinkedList<Operativo> miembros = new LinkedList<>();
+
+		    try {
+
+		        String sql =
+		                "SELECT o.id_empleado, u.nombre, u.apellido " +
+		                "FROM operativo o " +
+		                "INNER JOIN empleado e ON o.id_empleado = e.id_empleado " +
+		                "INNER JOIN usuario u ON e.id_usuario = u.id_usuario " +
+		                "WHERE o.rol = 'Miembro de Proyecto'";
+
+		        PreparedStatement stmt = con.prepareStatement(sql);
+
+		        ResultSet rs = stmt.executeQuery();
+
+		        while(rs.next()) {
+
+		            Operativo op = new Operativo();
+
+		            op.setIdOperativo(rs.getInt("id_empleado"));
+		            op.setNombre(rs.getString("nombre"));
+		            op.setApellido(rs.getString("apellido"));
+
+		            miembros.add(op);
+		        }
+
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return miembros;
+		}
 }
