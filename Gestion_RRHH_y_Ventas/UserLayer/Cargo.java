@@ -58,14 +58,14 @@ public class Cargo extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_1.setBounds(226, 112, 186, 67);
 		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MiembroDelProyecto MiembroDelProyecto = new MiembroDelProyecto ();
-				btnNewButton_1.setVisible(false);
-				dispose();
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        MiembroDelProyecto miembroDelProyecto = new MiembroDelProyecto();
+		        miembroDelProyecto.setVisible(true);
+		        dispose();
+		    }
 		});
-		
 		contentPane.add(btnNewButton_1);
+		//hecha la conexion :D
 
 		JButton btnNewButton_2 = new JButton("Volver");
 		btnNewButton_2.setBounds(312, 208, 114, 34);
