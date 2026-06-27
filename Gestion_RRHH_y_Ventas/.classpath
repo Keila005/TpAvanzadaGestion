@@ -6,8 +6,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Descarga/jbcrypt-0.4.jar"/>
-	<classpathentry kind="lib" path="D:/Descarga/mysql-connector-java-5.1.13.jar"/>
-	<classpathentry kind="lib" path="D:/Descarga/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/guerr/Downloads/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/guerr/Downloads/jbcrypt-0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/guerr/Downloads/mysql-connector-java-5.1.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
