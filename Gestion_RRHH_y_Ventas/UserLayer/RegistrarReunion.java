@@ -135,6 +135,8 @@ public class RegistrarReunion extends VentanaBase {
 
         JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
         btnVolver.addActionListener(e -> {
+            LiderDelProyecto ventana = new LiderDelProyecto(usuario);
+            ventana.setVisible(true);
             dispose();
         });
         contentPane.add(btnVolver);

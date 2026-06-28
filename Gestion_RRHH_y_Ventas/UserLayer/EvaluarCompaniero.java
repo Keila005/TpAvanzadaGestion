@@ -7,11 +7,13 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
+import LogicLayer.Usuario;
+
 public class EvaluarCompaniero extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
 
-    public EvaluarCompaniero() {
+    public EvaluarCompaniero(Usuario usuario) {
 
         JLabel lblTitulo = new JLabel("Evaluar Compañero");
         lblTitulo.setForeground(new Color(0, 91, 0));
@@ -111,8 +113,12 @@ public class EvaluarCompaniero extends VentanaBase {
 
         JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
         btnVolver.addActionListener(e -> {
+        	MenuOperativo menu =new MenuOperativo(usuario);
+        	menu.setVisible(true);
             dispose();
         });
+        
+        
         contentPane.add(btnVolver);
 
         seleccionarTabPorIndice(0);

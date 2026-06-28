@@ -66,7 +66,7 @@ public class LiderDelProyecto extends VentanaBase {
 		JButton btnEvaluar = crearBoton("Evaluar compañero", 480, 240, 180, 50);
 		btnEvaluar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EvaluarCompaniero evaluar = new EvaluarCompaniero();
+				EvaluarCompaniero evaluar = new EvaluarCompaniero(usuario);
 				evaluar.setVisible(true);
 				dispose();
 			}
