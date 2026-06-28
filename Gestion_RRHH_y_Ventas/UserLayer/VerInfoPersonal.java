@@ -14,7 +14,7 @@ public class VerInfoPersonal extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
 
-    public VerInfoPersonal(Usuario usuario, Operativo operativo, Empleado empleado) {
+    public VerInfoPersonal(Usuario usuario, Operativo operativo) {
 
         JLabel lblTitulo = new JLabel("Informacion Personal");
         lblTitulo.setForeground(new Color(0, 91, 0));

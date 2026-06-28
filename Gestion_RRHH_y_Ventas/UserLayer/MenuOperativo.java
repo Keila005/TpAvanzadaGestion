@@ -31,7 +31,7 @@ public class MenuOperativo extends VentanaBase {
         JButton btnInfoPersonal = crearBoton("Ver Informacion Personal", 200, 170, 220, 50);
         btnInfoPersonal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                VerInfoPersonal verInfo = new VerInfoPersonal(usuario, (LogicLayer.Operativo) usuario, null);
+                VerInfoPersonal verInfo = new VerInfoPersonal(usuario, (LogicLayer.Operativo) usuario);
                 verInfo.setVisible(true);
             }
         });
