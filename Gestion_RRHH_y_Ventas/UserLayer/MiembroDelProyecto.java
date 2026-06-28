@@ -56,7 +56,7 @@ public class MiembroDelProyecto extends VentanaBase {
         JButton btnReuniones = crearBoton("Ver Reuniones", 280, 250, 180, 50);
         btnReuniones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                VerReuniones VerReuniones = new VerReuniones();
+                VerReuniones VerReuniones = new VerReuniones(usuario);
                 VerReuniones.setVisible(true);
                 dispose();
             }
