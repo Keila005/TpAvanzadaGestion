@@ -12,11 +12,9 @@ import javax.swing.JOptionPane;
 
 public class LiderDelProyecto extends VentanaBase {
 	
-	private Usuario usuario;
 	private static final long serialVersionUID = 1L;
 
 	public LiderDelProyecto(Usuario usuario) {
-		this.usuario = usuario;
 		
 		JLabel lblTitulo = new JLabel("Panel Lider");
 		lblTitulo.setForeground(new Color(0, 91, 0));

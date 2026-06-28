@@ -22,7 +22,6 @@ public class AgregarVenta extends VentanaBase {
     private static final long serialVersionUID = 1L;
     private JTextField textCantida;
     private Venta venta;
-    private Usuario usuario;
     private JTable tablaProductos;
     private JTable tablaDetalle;
     private DefaultTableModel modeloProductos;
@@ -31,7 +30,6 @@ public class AgregarVenta extends VentanaBase {
 
     public AgregarVenta(Usuario usuario) {
         this.venta = new Venta();
-        this.usuario = usuario;
         venta.setIdVendedor(((LogicLayer.Vendedor) usuario).getIdEmpleado());
 
         JLabel lblTitulo = new JLabel("Nueva Venta");

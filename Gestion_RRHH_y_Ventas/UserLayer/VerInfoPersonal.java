@@ -13,12 +13,8 @@ import java.awt.Font;
 public class VerInfoPersonal extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
-    private Usuario usuario;
-    private Operativo operativo;
 
     public VerInfoPersonal(Usuario usuario, Operativo operativo) {
-        this.usuario = usuario;
-        this.operativo = operativo;
 
         JLabel lblTitulo = new JLabel("Informacion Personal");
         lblTitulo.setForeground(new Color(0, 91, 0));

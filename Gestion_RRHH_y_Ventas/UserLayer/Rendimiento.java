@@ -1,20 +1,16 @@
 package UserLayer;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import LogicLayer.Operativo;
 import java.awt.Color;
 
 public class Rendimiento extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
-    private Operativo operativo;
 
     public Rendimiento(Operativo operativo) {
-        this.operativo = operativo;
 
         JLabel lblTitulo = new JLabel("Mi Rendimiento");
         lblTitulo.setForeground(new Color(0, 91, 0));

@@ -13,11 +13,10 @@ public class Comentar extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
     private JTextField textField;
-    private Usuario usuario;
+
 
     public Comentar(Usuario usuario) {
-        this.usuario = usuario;
-
+     
         JLabel lblTitulo = new JLabel("Comentar");
         lblTitulo.setForeground(new Color(0, 91, 0));
         lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));

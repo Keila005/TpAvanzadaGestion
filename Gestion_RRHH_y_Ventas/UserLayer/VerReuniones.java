@@ -1,8 +1,5 @@
 package UserLayer;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import DLL.ControllerProyecto;
 import DLL.ControllerReunion;
 import LogicLayer.Proyecto;

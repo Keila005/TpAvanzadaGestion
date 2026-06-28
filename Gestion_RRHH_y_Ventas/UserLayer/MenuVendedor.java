@@ -79,15 +79,17 @@ public class MenuVendedor extends VentanaBase {
 
         JButton btnSalir = crearBotonRojo("Cerrar Sesion", EstilosGlobales.ANCHO_VENTANA - 140, EstilosGlobales.ALTO_VENTANA - 55, 120, 35);
         btnSalir.addActionListener(e -> {
-            Saludos chau = new Saludos();
-            chau.setVisible(true);
-            dispose();
-            DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
-            int idEmpleado = asis.getIdEmpleadoByUsuario(usuario.getIdUsuario());
-            if (idEmpleado != -1) {
-                asis.registrarSalida(idEmpleado);
-                JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
-            }
+                Saludos chau = new Saludos();
+                chau.setVisible(true);
+                dispose();
+
+                DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+                int idEmpleado = asis.getIdEmpleadoByUsuario(usuario.getIdUsuario());
+
+                if (idEmpleado != -1) {
+                    asis.registrarSalida(idEmpleado);
+                    JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
+                }
         });
         contentPane.add(btnSalir);
         

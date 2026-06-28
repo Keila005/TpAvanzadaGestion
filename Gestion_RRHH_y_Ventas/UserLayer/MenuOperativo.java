@@ -70,15 +70,19 @@ public class MenuOperativo extends VentanaBase {
         });
         contentPane.add(btnCargo);
 
-        // BOTON 5 - Salir (CIERRA MenuOperativo y vuelve al Login)
-        JButton btnSalir = crearBotonRojo("Salir", EstilosGlobales.ANCHO_VENTANA - 120, EstilosGlobales.ALTO_VENTANA - 50, 100, 35);
-        btnSalir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Cerrando sesion...");
-                Login login = new Login();
-                login.setVisible(true);
+        JButton btnSalir = crearBotonRojo("Cerrar Sesion", EstilosGlobales.ANCHO_VENTANA - 140, EstilosGlobales.ALTO_VENTANA - 55, 120, 35);
+        btnSalir.addActionListener(e -> {
+                Saludos chau = new Saludos();
+                chau.setVisible(true);
                 dispose();
-            }
+
+                DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+                int idEmpleado = asis.getIdEmpleadoByUsuario(usuario.getIdUsuario());
+
+                if (idEmpleado != -1) {
+                    asis.registrarSalida(idEmpleado);
+                    JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
+                }
         });
         contentPane.add(btnSalir);
 

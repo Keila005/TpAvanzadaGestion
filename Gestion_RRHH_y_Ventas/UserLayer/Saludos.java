@@ -25,7 +25,7 @@ public class Saludos extends VentanaBase {
         contentPane.add(lblSubtitulo);
 
         JLabel lblGif = new JLabel("");
-        lblGif.setIcon(new ImageIcon(Saludos.class.getResource("/Img/bye.gif")));
+        lblGif.setIcon(new ImageIcon(Saludos.class.getResource("/Img/saludos.gif")));
         lblGif.setBounds(350, 160, 200, 200);
         contentPane.add(lblGif);
         

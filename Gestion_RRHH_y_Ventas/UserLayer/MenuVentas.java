@@ -1,6 +1,4 @@
-package LogicLayer;
-
-import java.awt.EventQueue;
+package UserLayer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,7 +8,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DLL.ControllerVenta;
-import UserLayer.MenuAdministrador;
+import LogicLayer.Producto;
+import LogicLayer.Usuario;
+import LogicLayer.Venta;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class MenuVentas extends JFrame {
 
@@ -39,76 +40,103 @@ public class MenuVentas extends JFrame {
 	
 	public MenuVentas(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 609, 516);
+		setBounds(100, 100, 800, 578);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Historial de ventas:");
-		lblNewLabel.setBounds(197, 10, 163, 21);
+		lblNewLabel.setForeground(new Color(0, 64, 0));
+		lblNewLabel.setBackground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(299, 10, 163, 21);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		contentPane.add(lblNewLabel);
 		
 		 model = new DefaultTableModel(new String[]{"N°Venta","Fecha","Monto total","Vendedor"}, 0);
 		  table = new JTable(model);
+		  table.setSelectionBackground(new Color(0, 91, 0));
+	        table.setSelectionForeground(Color.WHITE);
+	        table.setRowHeight(28);
+	        table.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+	        table.getTableHeader().setBackground(new Color(0, 91, 0));
+	        table.getTableHeader().setForeground(Color.WHITE);
+	        table.getTableHeader().setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+	        
 	        table.getColumnModel().getColumn(0).setPreferredWidth(10);
 	        table.getColumnModel().getColumn(1).setPreferredWidth(50);  
 	        table.getColumnModel().getColumn(2).setPreferredWidth(30);  
 	        table.getColumnModel().getColumn(3).setPreferredWidth(20);
 	        contentPane.setLayout(null);
 	        JScrollPane scrollPane = new JScrollPane(table);
-	        scrollPane.setBounds(20, 50, 550, 121);
+	        scrollPane.setBounds(20, 50, 732, 137);
 	        contentPane.add(scrollPane);
 	        cargarTablaVentas();
 	        
 	        lblHistorialDeProductos = new JLabel("Historial de productos:");
+	        lblHistorialDeProductos.setForeground(new Color(0, 64, 0));
 	        lblHistorialDeProductos.setFont(new Font("Tahoma", Font.BOLD, 17));
-	        lblHistorialDeProductos.setBounds(180, 197, 215, 21);
+	        lblHistorialDeProductos.setBounds(317, 197, 215, 21);
 	        contentPane.add(lblHistorialDeProductos);
 	        
 	        modelDetalles = new DefaultTableModel(new String[]{"ID Detalle","ID Venta","Producto","Cantidad","Subtotal"}, 0);
 	        	tableDetalles = new JTable(modelDetalles);
+	        	tableDetalles.setSelectionBackground(new Color(0, 91, 0));
+	        	tableDetalles.setSelectionForeground(Color.WHITE);
+	        	tableDetalles.setRowHeight(28);
+	        	tableDetalles.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+	        	tableDetalles.getTableHeader().setBackground(new Color(0, 91, 0));
+	        	tableDetalles.getTableHeader().setForeground(Color.WHITE);
+	        	tableDetalles.getTableHeader().setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+	              
 		        tableDetalles.getColumnModel().getColumn(0).setPreferredWidth(10);
 		        tableDetalles.getColumnModel().getColumn(1).setPreferredWidth(50);  
 		        tableDetalles.getColumnModel().getColumn(2).setPreferredWidth(30);  
 		        tableDetalles.getColumnModel().getColumn(3).setPreferredWidth(20);
 		        contentPane.setLayout(null);
 		        JScrollPane scrollPaneDetalles = new JScrollPane(tableDetalles);
-		        scrollPaneDetalles.setBounds(20, 228, 550, 115);
+		        scrollPaneDetalles.setBounds(20, 228, 732, 139);
 		        contentPane.add(scrollPaneDetalles);
 		        
 		        btnMasVendido = new JButton("Más vendido");
+		        btnMasVendido.setForeground(new Color(255, 255, 255));
+		        btnMasVendido.setBackground(new Color(0, 64, 0));
 		        btnMasVendido.addActionListener(new ActionListener() {
 		        	public void actionPerformed(ActionEvent e) {
 		        	cargarMasVendidos();
 		        	}
 		        });
 		        btnMasVendido.setFont(new Font("Tahoma", Font.BOLD, 15));
-		        btnMasVendido.setBounds(210, 377, 163, 32);
+		        btnMasVendido.setBounds(322, 410, 163, 32);
 		        contentPane.add(btnMasVendido);
 		        
 		        btnMenosVendido = new JButton("Menos vendido");
+		        btnMenosVendido.setForeground(new Color(255, 255, 255));
+		        btnMenosVendido.setBackground(new Color(0, 64, 0));
 		        btnMenosVendido.addActionListener(new ActionListener() {
 		        	public void actionPerformed(ActionEvent e) {
 		        		cargarMenosVendidos();
 		        	}
 		        });
 		        btnMenosVendido.setFont(new Font("Tahoma", Font.BOLD, 15));
-		        btnMenosVendido.setBounds(387, 377, 163, 32);
+		        btnMenosVendido.setBounds(499, 410, 163, 32);
 		        contentPane.add(btnMenosVendido);
 		        
 		        btnTodosProductos = new JButton("Todos productos");
+		        btnTodosProductos.setForeground(new Color(255, 255, 255));
+		        btnTodosProductos.setBackground(new Color(0, 64, 0));
 		        btnTodosProductos.addActionListener(new ActionListener() {
 		        	public void actionPerformed(ActionEvent e) {
 		        		cargarTablaDetalles();
 		        	}
 		        });
 		        btnTodosProductos.setFont(new Font("Tahoma", Font.BOLD, 15));
-		        btnTodosProductos.setBounds(37, 377, 163, 32);
+		        btnTodosProductos.setBounds(149, 410, 163, 32);
 		        contentPane.add(btnTodosProductos);
 		        
 		        btnNewButton = new JButton("<-Volver");
+		        btnNewButton.setForeground(new Color(255, 255, 255));
+		        btnNewButton.setBackground(new Color(255, 0, 0));
 		        btnNewButton.addActionListener(new ActionListener() {
 		        	public void actionPerformed(ActionEvent e) {
 		        		MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
@@ -118,7 +146,7 @@ public class MenuVentas extends JFrame {
 		        	}
 		        });
 		        btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 14));
-		        btnNewButton.setBounds(20, 435, 113, 20);
+		        btnNewButton.setBounds(32, 488, 113, 20);
 		        contentPane.add(btnNewButton);
 		        cargarTablaDetalles();
 	}

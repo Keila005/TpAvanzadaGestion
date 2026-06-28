@@ -15,12 +15,8 @@ public class EditarProducto extends VentanaBase {
     private static final long serialVersionUID = 1L;
     private JTextField txtNombre;
     private JTextField txtPrecio;
-    private Producto producto;
-    private Usuario usuario;
-
+  
     public EditarProducto(Producto producto, Usuario usuario) {
-        this.producto = producto;
-        this.usuario = usuario;
 
         JLabel lblTitulo = new JLabel("Editar Producto");
         lblTitulo.setForeground(new Color(0, 91, 0));

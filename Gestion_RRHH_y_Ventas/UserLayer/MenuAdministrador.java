@@ -3,15 +3,13 @@ package UserLayer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import LogicLayer.Administrador;
-import LogicLayer.MenuVentas;
 import LogicLayer.Usuario;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
 import java.awt.Cursor;
+
 
 public class MenuAdministrador extends VentanaBase {
 
@@ -19,21 +17,22 @@ public class MenuAdministrador extends VentanaBase {
     private JPanel panelContenido;
     private JButton btnEmpleados, btnProyectos, btnRendimiento, btnSolicitudes;
     private JButton btnHorasExtras, btnBonos, btnAsistencia, btnVentas, btnClima;
-    private JButton btnSeleccionado;
 
     public MenuAdministrador(Usuario usuario) {
+    	navbar.setBounds(0, 0, 922, 50);
         Administrador admin = (Administrador) usuario;
+        contentPane.setLayout(null);
         
         JLabel lblTitulo = new JLabel("Panel Administrador");
+        lblTitulo.setBounds(350, 55, 250, 30);
         lblTitulo.setForeground(new Color(0, 91, 0));
         lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
-        lblTitulo.setBounds(350, 55, 250, 30);
         contentPane.add(lblTitulo);
         
         JLabel lblUsuario = new JLabel(usuario.getNombre() + " " + usuario.getApellido());
+        lblUsuario.setBounds(390, 85, 200, 20);
         lblUsuario.setForeground(new Color(120, 120, 120));
         lblUsuario.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-        lblUsuario.setBounds(390, 85, 200, 20);
         contentPane.add(lblUsuario);
         
         int tabY = 130;
@@ -122,16 +121,16 @@ public class MenuAdministrador extends VentanaBase {
         contentPane.add(btnClima);
         
         panelContenido = new JPanel();
+        panelContenido.setBounds(140, 260, 620, 220);
         panelContenido.setBackground(new Color(245, 245, 245));
-        panelContenido.setBounds(80, tabY + (tabH + tabGap) * 2 + tabH + 10, 760, 300);
         panelContenido.setLayout(null);
         contentPane.add(panelContenido);
         
         JButton btnSalir = new JButton("Cerrar Sesion");
+        btnSalir.setBounds(792, 561, 110, 35);
         btnSalir.setForeground(Color.WHITE);
         btnSalir.setBackground(new Color(180, 50, 50));
         btnSalir.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-        btnSalir.setBounds(EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 50, 110, 35);
         btnSalir.setBorder(null);
         btnSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnSalir.setFocusPainted(false);
@@ -152,17 +151,21 @@ public class MenuAdministrador extends VentanaBase {
         contentPane.add(btnSalir);
         
         seleccionarTab(btnEmpleados, "empleados");
+        getContentPane().setLayout(null);
     }
     
     private JButton crearTab(String texto, int x, int y, int ancho, int alto) {
         JButton btn = new JButton(texto);
+
+        btn.setBounds(x, y, ancho, alto);
+
         btn.setForeground(Color.WHITE);
         btn.setBackground(new Color(0, 91, 0));
         btn.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-        btn.setBounds(x, y, ancho, alto);
         btn.setBorder(null);
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btn.setFocusPainted(false);
+
         return btn;
     }
     

@@ -1,16 +1,11 @@
 package UserLayer;
 
-import java.awt.EventQueue;
 
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-
 import com.toedter.calendar.JDateChooser;
 import DLL.ControllerEquipo;
 import DLL.ControllerOperativo;
@@ -27,8 +22,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 public class MenuProyecto extends VentanaBase {
@@ -86,7 +79,7 @@ public class MenuProyecto extends VentanaBase {
 
         panel = new JPanel();
         panel.setBackground(new Color(0, 91, 0));
-        panel.setBounds(80, 310, 762, 200);
+        panel.setBounds(80, 310, 762, 240);
         panel.setLayout(null);
         contentPane.add(panel);
 
@@ -184,7 +177,7 @@ public class MenuProyecto extends VentanaBase {
         btnCrear.setForeground(Color.WHITE);
         btnCrear.setBackground(new Color(28, 137, 16));
         btnCrear.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
-        btnCrear.setBounds(350, 150, 180, 40);
+        btnCrear.setBounds(290, 175, 180, 35);
         btnCrear.setBorder(null);
         btnCrear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCrear.setFocusPainted(false);

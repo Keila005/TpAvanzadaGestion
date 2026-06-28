@@ -1,10 +1,8 @@
 package UserLayer;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import LogicLayer.Usuario;
 import LogicLayer.Vendedor;
 import DLL.ControllerEmpleado;

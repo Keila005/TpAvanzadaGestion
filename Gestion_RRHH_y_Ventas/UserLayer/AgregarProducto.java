@@ -13,12 +13,11 @@ import LogicLayer.Usuario;
 public class AgregarProducto extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
-    private Usuario usuario;
+
     private JTextField textNombre;
     private JTextField textPrecio;
 
     public AgregarProducto(Usuario usuario) {
-        this.usuario = usuario;
 
         JLabel lblTitulo = new JLabel("Agregar Producto");
         lblTitulo.setForeground(new Color(0, 91, 0));

@@ -15,14 +15,11 @@ import LogicLayer.Usuario;
 public class AgregarStock extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
-    private Producto producto;
-    private Usuario usuario;
+
     private JTextField textCantidad;
 
     public AgregarStock(Producto producto, Usuario usuario) {
-        this.producto = producto;
-        this.usuario = usuario;
-
+ 
         JLabel lblTitulo = new JLabel("Agregar Stock");
         lblTitulo.setForeground(new Color(0, 91, 0));
         lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));

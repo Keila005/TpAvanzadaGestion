@@ -4,8 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Font;

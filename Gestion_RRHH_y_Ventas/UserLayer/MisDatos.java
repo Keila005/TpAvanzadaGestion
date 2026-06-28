@@ -1,10 +1,8 @@
 package UserLayer;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import LogicLayer.Usuario;
 import LogicLayer.Operativo;
 import java.awt.Color;
@@ -12,12 +10,8 @@ import java.awt.Color;
 public class MisDatos extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
-    private Usuario usuario;
-    private Operativo operativo;
 
     public MisDatos(Usuario usuario, Operativo operativo) {
-        this.usuario = usuario;
-        this.operativo = operativo;
 
         JLabel lblTitulo = new JLabel("Mis Datos");
         lblTitulo.setForeground(new Color(0, 91, 0));

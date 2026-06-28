@@ -11,12 +11,10 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class Cargo extends VentanaBase {
-    private Usuario usuario;
     private static final long serialVersionUID = 1L;
 
     public Cargo(Usuario usuario) {
-        this.usuario = usuario;
-        
+  
         JLabel lblTitulo = new JLabel("Seleccione su Rol");
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitulo.setForeground(new Color(0, 91, 0));
