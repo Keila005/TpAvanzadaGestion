@@ -1,204 +1,201 @@
 package UserLayer;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
 import DLL.ControllerOperativo;
 import DLL.ControllerProyecto;
 import DLL.ControllerTarea;
-import DLL.ControllerUsuario;
 import LogicLayer.Operativo;
 import LogicLayer.Proyecto;
 import LogicLayer.Usuario;
 
-public class CrearTarea extends JFrame {
+public class CrearTarea extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+    private static final long serialVersionUID = 1L;
+    private JTextField textField;
+    private JTextField textField_1;
+    private JTextField textField_2;
+    private JTextField textField_3;
+    private JComboBox<Proyecto> cmbProyecto;
+    private JComboBox<Operativo> cmbEmpleado;
 
-	private JComboBox<Proyecto> cmbProyecto;
-	private JComboBox<Operativo> cmbEmpleado;
+    public CrearTarea(Usuario Usuario) {
 
-	/**
-	 * Launch the application.
-	 */
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+        JLabel lblTitulo = new JLabel("Crear Tarea");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 200, 30);
+        contentPane.add(lblTitulo);
 
-					CrearTarea frame = new CrearTarea(null);
-					frame.setVisible(true);
+        JLabel lblNombre = new JLabel("Nombre de la Tarea");
+        lblNombre.setForeground(new Color(0, 91, 0));
+        lblNombre.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblNombre.setBounds(200, 120, 150, 25);
+        contentPane.add(lblNombre);
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
+        textField = new JTextField();
+        textField.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        textField.setBounds(360, 120, 200, 35);
+        textField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(textField);
+        textField.setColumns(10);
 
-	/**
-	 * Create the frame.
-	 */
-	public CrearTarea(Usuario Usuario) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 315);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		
+        JLabel lblDescripcion = new JLabel("Descripcion");
+        lblDescripcion.setForeground(new Color(0, 91, 0));
+        lblDescripcion.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblDescripcion.setBounds(200, 170, 100, 25);
+        contentPane.add(lblDescripcion);
 
-		JLabel lblNewLabel = new JLabel("Nombre de la Tarea");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblNewLabel.setBounds(10, 13, 129, 16);
-		contentPane.add(lblNewLabel);
-		
-		textField = new JTextField();
-		textField.setBounds(161, 13, 96, 18);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		
-		
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblDescripcion.setBounds(10, 41, 74, 16);
-		contentPane.add(lblDescripcion);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(94, 39, 96, 18);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		
-		
-		
-		JLabel lblSeleccioneElProyecto = new JLabel("Seleccione el proyecto");
-		lblSeleccioneElProyecto.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblSeleccioneElProyecto.setBounds(10, 74, 145, 16);
-		contentPane.add(lblSeleccioneElProyecto);
-		
-		cmbProyecto = new JComboBox<>();
-		cmbProyecto.setBounds(173, 73, 180, 22);
-		contentPane.add(cmbProyecto);
+        textField_1 = new JTextField();
+        textField_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        textField_1.setBounds(360, 170, 200, 35);
+        textField_1.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(textField_1);
+        textField_1.setColumns(10);
 
-		JLabel lblEmpleado = new JLabel("Asignar a");
-		lblEmpleado.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblEmpleado.setBounds(6,111,67,16);
-		contentPane.add(lblEmpleado);
+        JLabel lblProyecto = new JLabel("Seleccione el proyecto");
+        lblProyecto.setForeground(new Color(0, 91, 0));
+        lblProyecto.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblProyecto.setBounds(200, 220, 200, 25);
+        contentPane.add(lblProyecto);
 
-		cmbEmpleado = new JComboBox<>();
-		cmbEmpleado.setBounds(77,109,180,22);
-		contentPane.add(cmbEmpleado);
-		
-		JLabel lblSeleccioneFechaDe = new JLabel("Seleccione fecha de inicio (AAAA-MM-DD)");
-		lblSeleccioneFechaDe.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblSeleccioneFechaDe.setBounds(10, 156, 271, 16);
-		contentPane.add(lblSeleccioneFechaDe);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(291, 156, 96, 18);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
-		
-		
-		JLabel lblSeleccioneFechaDe_2 = new JLabel("Seleccione fecha de fin (AAAA-MM-DD)");
-		lblSeleccioneFechaDe_2.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblSeleccioneFechaDe_2.setBounds(10, 197, 255, 16);
-		contentPane.add(lblSeleccioneFechaDe_2);
-		
-		textField_3 = new JTextField();
-		textField_3.setBounds(275, 197, 96, 18);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
-		
-		ControllerProyecto cp = new ControllerProyecto();
+        cmbProyecto = new JComboBox<>();
+        cmbProyecto.setBackground(Color.WHITE);
+        cmbProyecto.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        cmbProyecto.setBounds(360, 220, 200, 35);
+        contentPane.add(cmbProyecto);
 
-		LinkedList<Proyecto> proyectos = cp.obtenerProyectosTabla();
+        JLabel lblEmpleado = new JLabel("Asignar a");
+        lblEmpleado.setForeground(new Color(0, 91, 0));
+        lblEmpleado.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblEmpleado.setBounds(200, 270, 100, 25);
+        contentPane.add(lblEmpleado);
 
-		for(Proyecto p : proyectos) {
-			cmbProyecto.addItem(p);
-		}
+        cmbEmpleado = new JComboBox<>();
+        cmbEmpleado.setBackground(Color.WHITE);
+        cmbEmpleado.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        cmbEmpleado.setBounds(360, 270, 200, 35);
+        contentPane.add(cmbEmpleado);
 
-		ControllerOperativo co = new ControllerOperativo();
+        JLabel lblFechaInicio = new JLabel("Fecha de inicio (AAAA-MM-DD)");
+        lblFechaInicio.setForeground(new Color(0, 91, 0));
+        lblFechaInicio.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblFechaInicio.setBounds(200, 320, 250, 25);
+        contentPane.add(lblFechaInicio);
 
-		LinkedList<Operativo> miembros = co.obtenerMiembrosProyecto();
+        textField_2 = new JTextField();
+        textField_2.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        textField_2.setBounds(460, 320, 150, 35);
+        textField_2.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(textField_2);
+        textField_2.setColumns(10);
 
-		for(Operativo op : miembros) {
-			cmbEmpleado.addItem(op);
-		}
+        JLabel lblFechaFin = new JLabel("Fecha de fin (AAAA-MM-DD)");
+        lblFechaFin.setForeground(new Color(0, 91, 0));
+        lblFechaFin.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblFechaFin.setBounds(200, 370, 250, 25);
+        contentPane.add(lblFechaFin);
 
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBackground(new Color(138,215,150));
-		btnAceptar.setBounds(120,245,90,25);
-		contentPane.add(btnAceptar);
+        textField_3 = new JTextField();
+        textField_3.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        textField_3.setBounds(460, 370, 150, 35);
+        textField_3.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(textField_3);
+        textField_3.setColumns(10);
 
-		btnAceptar.addActionListener(new ActionListener() {
+        ControllerProyecto cp = new ControllerProyecto();
+        LinkedList<Proyecto> proyectos = cp.obtenerProyectosTabla();
+        for (Proyecto p : proyectos) {
+            cmbProyecto.addItem(p);
+        }
 
-			public void actionPerformed(ActionEvent e) {
+        ControllerOperativo co = new ControllerOperativo();
+        LinkedList<Operativo> miembros = co.obtenerMiembrosProyecto();
+        for (Operativo op : miembros) {
+            cmbEmpleado.addItem(op);
+        }
 
-				Proyecto proyecto =
-						(Proyecto)cmbProyecto.getSelectedItem();
+        JButton btnAceptar = new JButton("Aceptar");
+        btnAceptar.setForeground(Color.WHITE);
+        btnAceptar.setBackground(new Color(0, 91, 0));
+        btnAceptar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnAceptar.setBounds(280, 450, 150, 45);
+        btnAceptar.setBorder(null);
+        btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAceptar.setFocusPainted(false);
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAceptar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAceptar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnAceptar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Proyecto proyecto = (Proyecto) cmbProyecto.getSelectedItem();
+                Operativo operativo = (Operativo) cmbEmpleado.getSelectedItem();
+                ControllerTarea ct = new ControllerTarea();
+                ct.crearTarea(textField.getText(), textField_1.getText(), proyecto.getIdProyecto(), operativo.getIdOperativo());
+                JOptionPane.showMessageDialog(null, "Tarea creada correctamente");
+                dispose();
+            }
+        });
+        contentPane.add(btnAceptar);
 
-				Operativo operativo =
-						(Operativo)cmbEmpleado.getSelectedItem();
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.setBackground(new Color(180, 50, 50));
+        btnCancelar.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        btnCancelar.setBounds(450, 450, 150, 45);
+        btnCancelar.setBorder(null);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(150, 30, 30));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(180, 50, 50));
+            }
+        });
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                LiderDelProyecto ventana = new LiderDelProyecto(Usuario);
+                ventana.setVisible(true);
+                dispose();
+            }
+        });
+        contentPane.add(btnCancelar);
 
-				ControllerTarea ct = new ControllerTarea();
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            LiderDelProyecto ventana = new LiderDelProyecto(Usuario);
+            ventana.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
 
-				ct.crearTarea(
-
-						textField.getText(),
-						textField_1.getText(),
-						proyecto.getIdProyecto(),
-						operativo.getIdOperativo()
-
-				);
-
-				JOptionPane.showMessageDialog(null,
-						"Tarea creada correctamente");
-
-			}
-		});
-
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBackground(new Color(215,138,138));
-		btnCancelar.setBounds(225,245,90,25);
-		contentPane.add(btnCancelar);
-
-		btnCancelar.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-
-				LiderDelProyecto ventana =
-						new LiderDelProyecto(Usuario);
-
-				ventana.setVisible(true);
-				dispose();
-
-			}
-		});
-
-		
-	}
-
+        seleccionarTabPorIndice(0);
+    }
 }

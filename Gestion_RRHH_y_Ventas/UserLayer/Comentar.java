@@ -1,94 +1,104 @@
 package UserLayer;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
-public class Comentar extends JFrame {
+public class Comentar extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField;
+    private static final long serialVersionUID = 1L;
+    private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Comentar frame = new Comentar();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public Comentar() {
 
-	/**
-	 * Create the frame.
-	 */
-	public Comentar() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 470, 339);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+        JLabel lblTitulo = new JLabel("Comentar");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
 
-		JLabel lblComentarios = new JLabel("Caja de comentarios");
-		lblComentarios.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblComentarios.setBounds(126, 10, 190, 33);
-		contentPane.add(lblComentarios);
-		
-		JLabel lblEscribaUnComentario = new JLabel("Escriba un comentario sobre el clima laboral");
-		lblEscribaUnComentario.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblEscribaUnComentario.setBounds(78, 75, 315, 26);
-		contentPane.add(lblEscribaUnComentario);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(10, 111, 438, 26);
-		contentPane.add(textField);
-		
-		JLabel lblSentimiento = new JLabel("Sentimiento");
-		lblSentimiento.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblSentimiento.setBounds(168, 146, 108, 26);
-		contentPane.add(lblSentimiento);
-		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.addItem("Positivo");
-		comboBox.addItem("Negativo");
-		comboBox.addItem("Neutro");
-		comboBox.setBounds(140, 182, 163, 26);
-		contentPane.add(comboBox);
-		
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton.setBackground(new Color(138, 215, 150));
-		btnNewButton.setBounds(106, 243, 106, 40);
-		contentPane.add(btnNewButton);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCancelar.setBackground(new Color(215, 138, 138));
-		btnCancelar.setBounds(222, 243, 106, 40);
-		contentPane.add(btnCancelar);
-		
-		textField = new JTextField();
-		textField.setBounds(36, 111, 398, 25);
-		contentPane.add(textField);
-		textField.setColumns(10);
+        JLabel lblSubtitulo = new JLabel("Escriba un comentario sobre el clima laboral");
+        lblSubtitulo.setForeground(new Color(120, 120, 120));
+        lblSubtitulo.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        lblSubtitulo.setBounds(280, 100, 350, 25);
+        contentPane.add(lblSubtitulo);
 
-		
-	}
+        textField = new JTextField();
+        textField.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        textField.setBounds(200, 140, 500, 80);
+        textField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12)
+        ));
+        contentPane.add(textField);
+        textField.setColumns(10);
+
+        JLabel lblSentimiento = new JLabel("Sentimiento");
+        lblSentimiento.setForeground(new Color(0, 91, 0));
+        lblSentimiento.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblSentimiento.setBounds(200, 240, 100, 25);
+        contentPane.add(lblSentimiento);
+
+        JComboBox<String> comboBox = new JComboBox<String>();
+        comboBox.addItem("Positivo");
+        comboBox.addItem("Negativo");
+        comboBox.addItem("Neutro");
+        comboBox.setBounds(200, 270, 200, 35);
+        comboBox.setBackground(Color.WHITE);
+        comboBox.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        contentPane.add(comboBox);
+
+        JButton btnAceptar = new JButton("Aceptar");
+        btnAceptar.setForeground(Color.WHITE);
+        btnAceptar.setBackground(new Color(0, 91, 0));
+        btnAceptar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnAceptar.setBounds(280, 340, 150, 45);
+        btnAceptar.setBorder(null);
+        btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAceptar.setFocusPainted(false);
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAceptar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAceptar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnAceptar.addActionListener(e -> {
+            dispose();
+        });
+        contentPane.add(btnAceptar);
+
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.setBackground(new Color(180, 50, 50));
+        btnCancelar.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        btnCancelar.setBounds(450, 340, 150, 45);
+        btnCancelar.setBorder(null);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(150, 30, 30));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(180, 50, 50));
+            }
+        });
+        btnCancelar.addActionListener(e -> {
+            dispose();
+        });
+        contentPane.add(btnCancelar);
+
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            dispose();
+        });
+        contentPane.add(btnVolver);
+
+        seleccionarTabPorIndice(0);
+    }
 }

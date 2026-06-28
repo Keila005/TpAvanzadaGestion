@@ -1,54 +1,42 @@
 package UserLayer;
 
-import java.awt.EventQueue;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import LogicLayer.Usuario;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
-public class Saludos extends JFrame {
+public class Saludos extends VentanaBase {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    public Saludos() {
+        JLabel lblTitulo = new JLabel("Hasta luego");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 32));
+        lblTitulo.setBounds(370, 60, 250, 40);
+        contentPane.add(lblTitulo);
+        
+        JLabel lblSubtitulo = new JLabel("Gracias por usar el sistema");
+        lblSubtitulo.setForeground(new Color(120, 120, 120));
+        lblSubtitulo.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblSubtitulo.setBounds(360, 110, 300, 25);
+        contentPane.add(lblSubtitulo);
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Saludos frame = new Saludos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+        JLabel lblGif = new JLabel("");
+        lblGif.setIcon(new ImageIcon(Saludos.class.getResource("/Img/bye.gif")));
+        lblGif.setBounds(350, 160, 200, 200);
+        contentPane.add(lblGif);
+        
+        JButton btnLogin = crearBoton("Volver al Login", 380, 400, 160, 45);
+        btnLogin.addActionListener(e -> {
+            Login login = new Login();
+            login.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnLogin);
 
-	/**
-	 * Create the frame.
-	 */
-	public Saludos() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("¡Hasta luego!");
-		lblNewLabel.setBounds(127, 32, 93, 13);
-		getContentPane().add(lblNewLabel);
-		
-		JLabel lblImage = new JLabel("");
-		lblImage.setBounds(127, 75, 150, 150);
-		lblImage.setIcon(new ImageIcon(Login.class.getResource("/Img/saludos.gif")));
-		getContentPane().add(lblImage);
-
-	}
-
+        seleccionarTabPorIndice(0);
+    }
 }

@@ -1,126 +1,96 @@
 package UserLayer;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-
 import DLL.ControllerComentario;
 import LogicLayer.ComentarioAnonimo;
 import LogicLayer.Usuario;
-
-import javax.swing.JLabel;
-import java.awt.Font;
 import java.util.LinkedList;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
 
-public class climaLaboral extends JFrame {
+public class climaLaboral extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private  DefaultTableModel model;
-	private JTable table;
-	private JLabel lblNewLabel_1;
-	private ControllerComentario comentarioController;
-	private JButton btnNewButton;
-	
-	/**
-	 * Create the frame.
-	 */
-	public climaLaboral(Usuario usuario) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 524, 408);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(196, 255, 196));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Clima Laboral :");
-		lblNewLabel.setForeground(new Color(0, 64, 0));
-		lblNewLabel.setBounds(206, 28, 142, 21);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		contentPane.add(lblNewLabel);
-		
-		  model = new DefaultTableModel(new String[]{"N°", "Comentarios","Fecha",
-	        		"Sentimiento"}, 0);
-	        
-	         table = new JTable(model);
-	        table.setBackground(Color.WHITE);
-	 		table.setForeground(Color.BLACK);
-	 		table.setGridColor(new Color(28, 137, 16));
-	 		table.setSelectionBackground(new Color(28, 137, 16));
-	 		table.setSelectionForeground(Color.WHITE);
-	 		table.setRowHeight(22);
+    private static final long serialVersionUID = 1L;
+    private DefaultTableModel model;
+    private JTable table;
+    private ControllerComentario comentarioController;
 
-	 		JTableHeader header = table.getTableHeader();
-	 		header.setBackground(new Color(28, 137, 16));
-	 		header.setForeground(Color.WHITE);
-	         cargarComentarios();
-	         table.getColumnModel().getColumn(0).setPreferredWidth(25);  
-	         table.getColumnModel().getColumn(1).setPreferredWidth(250);  
-	         table.getColumnModel().getColumn(2).setPreferredWidth(80);   
-	         table.getColumnModel().getColumn(3).setPreferredWidth(100);
-	        JScrollPane scrollPane = new JScrollPane(table);
-	        scrollPane.setBounds(10, 59, 480, 159);
-	        contentPane.add(scrollPane);
-	        
-	        lblNewLabel_1 = new JLabel("Reporte de comentarios:");
-	        lblNewLabel_1.setForeground(new Color(0, 64, 0));
-	        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-	        lblNewLabel_1.setBounds(132, 228, 227, 21);
-	        contentPane.add(lblNewLabel_1);
-	        
-	        JTextArea txtReporte = new JTextArea();
-	        txtReporte.setBackground(new Color(196, 255, 196));
-	        txtReporte.setForeground(new Color(0, 64, 0));
-	        txtReporte.setFont(new Font("Tahoma", Font.PLAIN, 13));
-	        txtReporte.setEditable(false);
-	        txtReporte.setLineWrap(true);
-	        txtReporte.setWrapStyleWord(true);
+    public climaLaboral(Usuario usuario) {
 
-	        txtReporte.setText(comentarioController.generarReporteClima());
+        JLabel lblTitulo = new JLabel("Clima Laboral");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
 
-	        txtReporte.setBounds(132, 260, 245, 111);
-	        contentPane.add(txtReporte);
-	        
-	        btnNewButton = new JButton("<-Volver");
-	        btnNewButton.setForeground(new Color(255, 255, 255));
-	        btnNewButton.setBackground(new Color(255, 0, 0));
-	        btnNewButton.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
-	        		menuAdmin.setVisible(true);
-	        		dispose();
-	        	}
-	        });
-	        btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 13));
-	        btnNewButton.setBounds(10, 341, 95, 20);
-	        contentPane.add(btnNewButton);
+        model = new DefaultTableModel(new String[]{"N°", "Comentarios", "Fecha", "Sentimiento"}, 0);
+        table = new JTable(model);
+        table.setBackground(Color.WHITE);
+        table.setForeground(new Color(50, 50, 50));
+        table.setGridColor(new Color(200, 200, 200));
+        table.setSelectionBackground(new Color(0, 91, 0));
+        table.setSelectionForeground(Color.WHITE);
+        table.setRowHeight(28);
+        table.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        table.getTableHeader().setBackground(new Color(0, 91, 0));
+        table.getTableHeader().setForeground(Color.WHITE);
+        table.getTableHeader().setFont(new Font("Helvetica Neue", Font.BOLD, 13));
 
-	}
-	private void cargarComentarios() {
-		 model.setRowCount(0);
+        cargarComentarios();
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
+        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(100);
 
-		  comentarioController = new ControllerComentario();
-		 LinkedList<ComentarioAnonimo> comentarios = comentarioController.verComentarios();
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(null);
+        scrollPane.setBounds(80, 120, 762, 200);
+        contentPane.add(scrollPane);
 
-	    for (ComentarioAnonimo c : comentarios) {
+        JLabel lblReporte = new JLabel("Reporte de comentarios:");
+        lblReporte.setForeground(new Color(0, 91, 0));
+        lblReporte.setFont(new Font("Helvetica Neue", Font.BOLD, 16));
+        lblReporte.setBounds(80, 340, 200, 25);
+        contentPane.add(lblReporte);
 
-	        model.addRow(new Object[]{
-	           c.getIdMensaje(),
-	           c.getContenido(),
-	           c.getFecha(),
-	           c.getSentimiento()
-	        });
-	    }
-	}
+        JTextArea txtReporte = new JTextArea();
+        txtReporte.setBackground(new Color(245, 245, 245));
+        txtReporte.setForeground(new Color(50, 50, 50));
+        txtReporte.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        txtReporte.setEditable(false);
+        txtReporte.setLineWrap(true);
+        txtReporte.setWrapStyleWord(true);
+        txtReporte.setText(comentarioController.generarReporteClima());
+        txtReporte.setBounds(80, 370, 500, 120);
+        txtReporte.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12)
+        ));
+        contentPane.add(txtReporte);
 
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            MenuAdministrador menuAdmin = new MenuAdministrador(usuario);
+            menuAdmin.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
+
+        seleccionarTabPorIndice(0);
+    }
+
+    private void cargarComentarios() {
+        model.setRowCount(0);
+        comentarioController = new ControllerComentario();
+        LinkedList<ComentarioAnonimo> comentarios = comentarioController.verComentarios();
+        for (ComentarioAnonimo c : comentarios) {
+            model.addRow(new Object[]{c.getIdMensaje(), c.getContenido(), c.getFecha(), c.getSentimiento()});
+        }
+    }
 }

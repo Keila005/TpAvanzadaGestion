@@ -2,74 +2,71 @@ package UserLayer;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import LogicLayer.Operativo;
+import java.awt.Color;
 
-public class Rendimiento extends JFrame {
-	private Operativo operativo;
+public class Rendimiento extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
+    private Operativo operativo;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Rendimiento frame = new Rendimiento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public Rendimiento(Operativo operativo) {
+        this.operativo = operativo;
 
-	/**
-	 * Create the frame.
-	 */
-	public Rendimiento() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		
-		JLabel lblNewLabel_3 = new JLabel("Rendimiento Individual: " + operativo.getRendimiento() + "%");
-		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 14));
-		lblNewLabel_3.setBounds(76, 55, 318, 24);
-		contentPane.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_3_1 = new JLabel("Rendimiento Grupal: " + operativo.getRendimientoGrupal() + "%");
-		lblNewLabel_3_1.setToolTipText("");
-		lblNewLabel_3_1.setFont(new Font("Verdana", Font.BOLD, 14));
-		lblNewLabel_3_1.setBounds(76, 89, 266, 22);
-		contentPane.add(lblNewLabel_3_1);
-		
-		JLabel lblNewLabel_3_1_1 = new JLabel("Rendimiento Final: " + "%");
-		lblNewLabel_3_1_1.setFont(new Font("Verdana", Font.BOLD, 14));
-		lblNewLabel_3_1_1.setBounds(76, 155, 266, 23);
-		contentPane.add(lblNewLabel_3_1_1);
-		
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setBounds(147, 218, 95, 35);
-		contentPane.add(btnNewButton);
-		
-		JLabel lblMiRendimiento = new JLabel("Mi Rendimiento");
-		lblMiRendimiento.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblMiRendimiento.setBounds(130, 10, 180, 23);
-		contentPane.add(lblMiRendimiento);
+        JLabel lblTitulo = new JLabel("Mi Rendimiento");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
 
+        JLabel lblIndividual = new JLabel("Rendimiento Individual: " + operativo.getRendimiento() + "%");
+        lblIndividual.setForeground(new Color(50, 50, 50));
+        lblIndividual.setFont(new Font("Helvetica Neue", Font.PLAIN, 18));
+        lblIndividual.setBounds(250, 130, 400, 30);
+        contentPane.add(lblIndividual);
 
-	}
+        JLabel lblGrupal = new JLabel("Rendimiento Grupal: " + operativo.getRendimientoGrupal() + "%");
+        lblGrupal.setForeground(new Color(50, 50, 50));
+        lblGrupal.setFont(new Font("Helvetica Neue", Font.PLAIN, 18));
+        lblGrupal.setBounds(250, 175, 400, 30);
+        contentPane.add(lblGrupal);
 
+        JLabel lblFinal = new JLabel("Rendimiento Final: " + "%");
+        lblFinal.setForeground(new Color(0, 91, 0));
+        lblFinal.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
+        lblFinal.setBounds(250, 230, 400, 35);
+        contentPane.add(lblFinal);
+
+        JButton btnAceptar = new JButton("Aceptar");
+        btnAceptar.setForeground(Color.WHITE);
+        btnAceptar.setBackground(new Color(0, 91, 0));
+        btnAceptar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnAceptar.setBounds(350, 320, 150, 45);
+        btnAceptar.setBorder(null);
+        btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAceptar.setFocusPainted(false);
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAceptar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAceptar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnAceptar.addActionListener(e -> {
+            dispose();
+        });
+        contentPane.add(btnAceptar);
+
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            dispose();
+        });
+        contentPane.add(btnVolver);
+
+        seleccionarTabPorIndice(0);
+    }
 }

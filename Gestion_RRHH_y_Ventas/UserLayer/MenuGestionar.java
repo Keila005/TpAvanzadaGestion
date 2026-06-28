@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -25,273 +24,268 @@ import java.awt.Color;
 import javax.swing.table.JTableHeader;
 import javax.swing.JSeparator;
 
-public class MenuGestionar extends JFrame {
+public class MenuGestionar extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable table;
-	private DefaultTableModel model;
-	private Empleado empleadoSeleccionado; 
-	private JTextField inpFiltro;
-	private JLabel lblImg;
-	private static ControllerEmpleado contEmpleado;
-	
-	private final Color VERDE_PRINCIPAL = new Color(28, 137, 16);
-	private final Color VERDE_OSCURO = new Color(20, 110, 12);
-	private final Color VERDE_CLARO = new Color(200, 255, 200);
+    private static final long serialVersionUID = 1L;
+    private JTable table;
+    private DefaultTableModel model;
+    private Empleado empleadoSeleccionado;
+    private JTextField inpFiltro;
+    private JLabel lblImg;
+    private static ControllerEmpleado contEmpleado;
 
-	public MenuGestionar(Administrador admin) {
-		ControllerUsuario usuarioController = new ControllerUsuario();
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 777, 536);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(null);
-		contentPane.setBackground(new Color(245, 245, 245));
-		setContentPane(contentPane);
+    public MenuGestionar(Administrador admin) {
+        ControllerUsuario usuarioController = new ControllerUsuario();
 
-		JLabel lblSeleccionado = new JLabel();
-		lblSeleccionado.setBounds(10, 10, 760, 20);
-		contentPane.add(lblSeleccionado);
+        JLabel lblTitulo = new JLabel("Gestion de Empleados");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 300, 30);
+        contentPane.add(lblTitulo);
 
-		model = new DefaultTableModel(new String[]{"ID", "Nombre","Apellido",
-			"Email","Dni","Sueldo"}, 0);
+        JLabel lblSeleccionado = new JLabel("Seleccione un empleado");
+        lblSeleccionado.setForeground(new Color(120, 120, 120));
+        lblSeleccionado.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblSeleccionado.setBounds(80, 95, 500, 20);
+        contentPane.add(lblSeleccionado);
 
-		table = new JTable(model);
+        model = new DefaultTableModel(new String[]{"ID", "Nombre", "Apellido", "Email", "Dni", "Sueldo"}, 0);
+        table = new JTable(model);
+        table.setBackground(Color.WHITE);
+        table.setForeground(new Color(50, 50, 50));
+        table.setGridColor(new Color(200, 200, 200));
+        table.setSelectionBackground(new Color(0, 91, 0));
+        table.setSelectionForeground(Color.WHITE);
+        table.setRowHeight(28);
+        table.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        table.getTableHeader().setBackground(new Color(0, 91, 0));
+        table.getTableHeader().setForeground(Color.WHITE);
+        table.getTableHeader().setFont(new Font("Helvetica Neue", Font.BOLD, 13));
 
-	
-		table.setBackground(Color.WHITE);
-		table.setForeground(Color.BLACK);
-		table.setGridColor(VERDE_PRINCIPAL);
-		table.setSelectionBackground(VERDE_PRINCIPAL);
-		table.setSelectionForeground(Color.WHITE);
-		table.setRowHeight(22);
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        table.getColumnModel().getColumn(3).setPreferredWidth(150);
+        table.getColumnModel().getColumn(4).setPreferredWidth(80);
+        table.getColumnModel().getColumn(5).setPreferredWidth(80);
 
-		JTableHeader header = table.getTableHeader();
-		header.setBackground(VERDE_PRINCIPAL);
-		header.setForeground(Color.WHITE);
-		header.setFont(new Font("Tahoma", Font.BOLD, 12));
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(null);
+        scrollPane.setBounds(80, 120, 550, 200);
+        contentPane.add(scrollPane);
 
+        cargarTabla();
 
-		table.getColumnModel().getColumn(0).setPreferredWidth(10);
-		table.getColumnModel().getColumn(1).setPreferredWidth(30);  
-		table.getColumnModel().getColumn(2).setPreferredWidth(30);  
-		table.getColumnModel().getColumn(3).setPreferredWidth(90);
-		table.getColumnModel().getColumn(4).setPreferredWidth(40);
-		table.getColumnModel().getColumn(5).setPreferredWidth(40);
+        table.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    int id = (int) model.getValueAt(row, 0);
+                    for (Empleado emp : contEmpleado.mostrarEmpleados()) {
+                        if (emp.getIdEmpleado() == id) {
+                            empleadoSeleccionado = emp;
+                            mostrarImagen(emp.getPerfil());
+                            break;
+                        }
+                    }
+                    empleadoSeleccionado = new Empleado(
+                        (String) model.getValueAt(row, 1),
+                        (String) model.getValueAt(row, 2),
+                        (String) model.getValueAt(row, 3),
+                        "",
+                        (int) model.getValueAt(row, 0),
+                        (int) model.getValueAt(row, 4),
+                        (double) model.getValueAt(row, 5)
+                    );
+                    lblSeleccionado.setText("Seleccionado: " + empleadoSeleccionado.getNombre() + " " + empleadoSeleccionado.getApellido());
+                }
+            }
+        });
 
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 40, 572, 202);
-		contentPane.add(scrollPane);
+        JButton btnAgregar = new JButton("Agregar");
+        btnAgregar.setForeground(Color.WHITE);
+        btnAgregar.setBackground(new Color(0, 91, 0));
+        btnAgregar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnAgregar.setBounds(80, 350, 150, 45);
+        btnAgregar.setBorder(null);
+        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregar.setFocusPainted(false);
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAgregar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAgregar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnAgregar.addActionListener(e -> {
+            pantallaCrearEmpleado crearEmpleado = new pantallaCrearEmpleado(MenuGestionar.this, admin);
+            crearEmpleado.setVisible(true);
+            cargarTabla();
+        });
+        contentPane.add(btnAgregar);
 
-		cargarTabla(); 
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.setForeground(Color.WHITE);
+        btnEditar.setBackground(new Color(0, 91, 0));
+        btnEditar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnEditar.setBounds(250, 350, 150, 45);
+        btnEditar.setBorder(null);
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar.setFocusPainted(false);
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEditar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnEditar.addActionListener(e -> {
+            cargarTabla();
+            if (empleadoSeleccionado != null) {
+                EditarUsuario selectEditar = new EditarUsuario(empleadoSeleccionado, admin);
+                selectEditar.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione un empleado");
+            }
+        });
+        contentPane.add(btnEditar);
 
-		table.getSelectionModel().addListSelectionListener(e -> {
-			if (!e.getValueIsAdjusting()) {
-				int row = table.getSelectedRow();
-				if (row != -1) {
-					int id = (int) model.getValueAt(row, 0);
+        JButton btnEliminar = new JButton("Eliminar");
+        btnEliminar.setForeground(Color.WHITE);
+        btnEliminar.setBackground(new Color(180, 50, 50));
+        btnEliminar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnEliminar.setBounds(420, 350, 150, 45);
+        btnEliminar.setBorder(null);
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setFocusPainted(false);
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEliminar.setBackground(new Color(150, 30, 30));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEliminar.setBackground(new Color(180, 50, 50));
+            }
+        });
+        btnEliminar.addActionListener(e -> {
+            if (empleadoSeleccionado != null) {
+                int confirm = JOptionPane.showConfirmDialog(null,
+                    "¿Eliminar a " + empleadoSeleccionado.getNombre() + "?",
+                    "Confirmar", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    usuarioController.eliminarEmpleado(empleadoSeleccionado.getIdEmpleado());
+                    cargarTabla();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione un empleado");
+            }
+        });
+        contentPane.add(btnEliminar);
 
-					for (Empleado emp : contEmpleado.mostrarEmpleados()) {
-						if (emp.getIdEmpleado() == id) {
-							empleadoSeleccionado = emp;
-							mostrarImagen(emp.getPerfil());
-							break;
-						}
-					}
+        JLabel lblFiltro = new JLabel("Filtro:");
+        lblFiltro.setForeground(new Color(0, 91, 0));
+        lblFiltro.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblFiltro.setBounds(660, 350, 60, 25);
+        contentPane.add(lblFiltro);
 
-					empleadoSeleccionado = new Empleado(
-						(String) model.getValueAt(row, 1),
-						(String) model.getValueAt(row, 2),
-						(String) model.getValueAt(row, 3), 
-						"",                               
-						(int) model.getValueAt(row, 0),    
-						(int) model.getValueAt(row, 4),    
-						(double) model.getValueAt(row, 5)  
-					);
+        inpFiltro = new JTextField();
+        inpFiltro.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        inpFiltro.setBounds(660, 380, 150, 35);
+        inpFiltro.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(inpFiltro);
 
-					lblSeleccionado.setText(
-						"Seleccionado a: ID=" + empleadoSeleccionado.getIdEmpleado()
-						+ ", Nombre=" + empleadoSeleccionado.getNombre()
-						+ ", Apellido=" + empleadoSeleccionado.getApellido()
-						+ ", Email=" + empleadoSeleccionado.getMail()
-					);
-				}
-			}
-		});
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.setForeground(Color.WHITE);
+        btnBuscar.setBackground(new Color(0, 91, 0));
+        btnBuscar.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        btnBuscar.setBounds(660, 420, 150, 35);
+        btnBuscar.setBorder(null);
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setFocusPainted(false);
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBuscar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBuscar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnBuscar.addActionListener(e -> {
+            cargarTablaFiltradaStream(inpFiltro.getText());
+        });
+        contentPane.add(btnBuscar);
 
-		
-		JButton btnAgregar = new JButton("Agregar +");
-		btnAgregar.setBackground(VERDE_PRINCIPAL);
-		btnAgregar.setForeground(Color.WHITE);
-		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 12));
+        lblImg = new JLabel("");
+        lblImg.setBounds(660, 120, 150, 150);
+        lblImg.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 1));
+        contentPane.add(lblImg);
 
-		btnAgregar.addActionListener(e -> {
-			pantallaCrearEmpleado crearEmpleado= new pantallaCrearEmpleado(MenuGestionar.this,admin);
-			crearEmpleado.setVisible(true);
-			cargarTabla();
-		});
-		btnAgregar.setBounds(68, 314, 150, 40);
-		contentPane.add(btnAgregar);
+        JLabel lblPerfil = new JLabel("Foto de Perfil");
+        lblPerfil.setForeground(new Color(0, 91, 0));
+        lblPerfil.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblPerfil.setBounds(680, 95, 120, 25);
+        contentPane.add(lblPerfil);
 
-		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBackground(new Color(34, 160, 20));
-		btnEditar.setForeground(Color.WHITE);
-		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 12));
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            MenuAdministrador menuAdmin = new MenuAdministrador(admin);
+            menuAdmin.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
 
-		btnEditar.addActionListener(e -> {
-			cargarTabla();
-			if (empleadoSeleccionado != null) {
-				EditarUsuario selectEditar = new EditarUsuario(empleadoSeleccionado, admin);
-				selectEditar.setVisible(true);
-				dispose();
-			} else {
-				JOptionPane.showMessageDialog(null, "Seleccione un empleado",
-					"Eliminar", JOptionPane.DEFAULT_OPTION,
-					new ImageIcon(MenuGestionar.class.getResource("/img/nohay.png")));
-			}
-		});
-		btnEditar.setBounds(228, 314, 150, 40);
-		contentPane.add(btnEditar);
+        seleccionarTabPorIndice(0);
+    }
 
-	
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBackground(new Color(180, 30, 30));
-		btnEliminar.setForeground(Color.WHITE);
-		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnEliminar.setBounds(388, 314, 150, 40);
-		contentPane.add(btnEliminar);
+    public void cargarTabla() {
+        model.setRowCount(0);
+        contEmpleado = new ControllerEmpleado();
+        LinkedList<Empleado> empleados = contEmpleado.mostrarEmpleados();
+        for (Empleado e : empleados) {
+            model.addRow(new Object[]{
+                e.getIdEmpleado(),
+                e.getNombre(),
+                e.getApellido(),
+                e.getMail(),
+                e.getDni(),
+                e.getSueldoBase()
+            });
+        }
+    }
 
-		btnEliminar.addActionListener(e -> {
-			if (empleadoSeleccionado != null) {
-				int confirm = JOptionPane.showConfirmDialog(null, 
-					"¿Eliminar a " + empleadoSeleccionado.getNombre() + "?", 
-					"Confirmar", JOptionPane.YES_NO_OPTION);
+    private void cargarTablaFiltradaStream(String filtro) {
+        LinkedList<Empleado> filtradasPorLetra = contEmpleado.mostrarEmpleados().stream()
+            .filter(empleado ->
+                (empleado.getNombre() != null && empleado.getNombre().toLowerCase().contains(filtro.toLowerCase()))
+                || (empleado.getApellido() != null && empleado.getApellido().toLowerCase().contains(filtro.toLowerCase()))
+                || (empleado.getMail() != null && empleado.getMail().toLowerCase().contains(filtro.toLowerCase())))
+            .collect(Collectors.toCollection(LinkedList::new));
+        model.setRowCount(0);
+        for (Empleado e : filtradasPorLetra) {
+            model.addRow(new Object[]{
+                e.getIdEmpleado(),
+                e.getNombre(),
+                e.getApellido(),
+                e.getMail(),
+                e.getDni(),
+                e.getSueldoBase()
+            });
+        }
+    }
 
-				if (confirm == JOptionPane.YES_OPTION) {
-					usuarioController.eliminarEmpleado(empleadoSeleccionado.getIdEmpleado());
-					cargarTabla();
-				}
-			} else {
-				JOptionPane.showMessageDialog(null, "Seleccione un empleado");
-			}
-		});
-
-		JLabel lblNewLabel = new JLabel("Filtro:");
-		lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD, 13));
-		lblNewLabel.setForeground(new Color(128, 64, 0));
-		lblNewLabel.setBounds(523, 421, 77, 14);
-		contentPane.add(lblNewLabel);
-
-		JButton btnVolverAtrs = new JButton("Volver atrás");
-		btnVolverAtrs.setBackground(VERDE_OSCURO);
-		btnVolverAtrs.setForeground(Color.WHITE);
-		btnVolverAtrs.setFont(new Font("Tahoma", Font.BOLD, 12));
-
-		btnVolverAtrs.addActionListener(e -> {
-			MenuAdministrador menuAdmin= new MenuAdministrador(admin);
-			menuAdmin.setVisible(true);
-			dispose();
-		});
-		btnVolverAtrs.setBounds(546, 314, 150, 40);
-		contentPane.add(btnVolverAtrs);
-
-		lblImg = new JLabel("");
-		lblImg.setBounds(592, 81, 158, 161);
-		lblImg.setBorder(BorderFactory.createLineBorder(new Color(240,240,240), 2));
-		contentPane.add(lblImg);
-
-		inpFiltro = new JTextField();
-		inpFiltro.setBackground(new Color(230, 255, 230));
-		inpFiltro.setBounds(523, 444, 96, 18);
-		contentPane.add(inpFiltro);
-
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBackground(VERDE_PRINCIPAL);
-		btnBuscar.setForeground(Color.WHITE);
-		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 13));
-
-		btnBuscar.addActionListener(e -> {
-			cargarTablaFiltradaStream(inpFiltro.getText());
-		});
-		btnBuscar.setBounds(629, 441, 96, 20);
-		contentPane.add(btnBuscar);
-
-		JLabel lblNewLabel_1 = new JLabel("Perfil:");
-		lblNewLabel_1.setForeground(new Color(128, 64, 0));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(628, 40, 54, 20);
-		contentPane.add(lblNewLabel_1);
-		
-		JPanel panelFondoTabla = new JPanel();
-		panelFondoTabla.setBounds(0, 10, 770, 252);
-		panelFondoTabla.setBackground(VERDE_CLARO);
-		contentPane.add(panelFondoTabla);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(103, 289, 548, 15);
-		contentPane.add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(103, 377, 548, 15);
-		contentPane.add(separator_1);
-	}
-
-
-	public void cargarTabla() {
-		model.setRowCount(0);
-		contEmpleado = new ControllerEmpleado();
-		LinkedList<Empleado> empleados = contEmpleado.mostrarEmpleados();
-
-		for (Empleado e : empleados) {
-			model.addRow(new Object[]{
-				e.getIdEmpleado(),
-				e.getNombre(),
-				e.getApellido(),
-				e.getMail(),
-				e.getDni(),
-				e.getSueldoBase()
-			});
-		}
-	}
-
-	private void cargarTablaFiltradaStream(String filtro) {
-		LinkedList<Empleado> filtradasPorLetra = contEmpleado.mostrarEmpleados().stream()
-			.filter(empleado ->
-				(empleado.getNombre() != null &&
-				 empleado.getNombre().toLowerCase().contains(filtro.toLowerCase()))
-				||
-				(empleado.getApellido() != null &&
-				 empleado.getApellido().toLowerCase().contains(filtro.toLowerCase()))
-				||
-				(empleado.getMail() != null &&
-				 empleado.getMail().toLowerCase().contains(filtro.toLowerCase())))
-			.collect(Collectors.toCollection(LinkedList::new));
-
-		model.setRowCount(0);
-
-		for (Empleado e : filtradasPorLetra) {
-			model.addRow(new Object[]{
-				e.getIdEmpleado(),
-				e.getNombre(),
-				e.getApellido(),
-				e.getMail(),
-				e.getDni(),
-				e.getSueldoBase()
-			});
-		}
-	}
-
-	private void mostrarImagen(byte[] imagenBytes) {
-		if (imagenBytes != null && imagenBytes.length > 0) {
-			ImageIcon icon = new ImageIcon(imagenBytes);
-			Image img = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-			lblImg.setIcon(new ImageIcon(img));
-		} else {
-			lblImg.setIcon(null);
-			lblImg.setText("Sin imagen");
-		}
-	}
+    private void mostrarImagen(byte[] imagenBytes) {
+        if (imagenBytes != null && imagenBytes.length > 0) {
+            ImageIcon icon = new ImageIcon(imagenBytes);
+            Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+            lblImg.setIcon(new ImageIcon(img));
+        } else {
+            lblImg.setIcon(null);
+            lblImg.setText("Sin imagen");
+        }
+    }
 }

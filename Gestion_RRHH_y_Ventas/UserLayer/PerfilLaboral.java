@@ -1,217 +1,138 @@
 package UserLayer;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import LogicLayer.Usuario;
 import LogicLayer.Vendedor;
 import DLL.ControllerEmpleado;
 import DLL.ControllerVenta;
+import java.awt.Color;
 
+public class PerfilLaboral extends VentanaBase {
 
-public class PerfilLaboral extends JFrame {
+    private static final long serialVersionUID = 1L;
+    private Usuario usuario;
+    private JLabel lblNombre;
+    private JLabel lblDni;
+    private JLabel lblCorreo;
+    private JLabel lblCargo;
+    private JLabel lblSueldoBase;
+    private JLabel lblVentas;
+    private JLabel lblUltimaVenta;
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private Usuario usuario;
-	private JLabel lblNombre;
-	private JLabel lblDni;
-	private JLabel lblCorreo;
-	private JLabel lblCargo;
-	private JLabel lblSueldoBase;
-	private JLabel lblVentas;
-	private JLabel lblUltimaVenta;
+    public PerfilLaboral(Usuario usuario) {
+        this.usuario = usuario;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					PerfilLaboral frame = new PerfilLaboral();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+        ControllerEmpleado ce = new ControllerEmpleado();
+        Vendedor vendedor = ce.buscarVendedorPorUsuario(usuario.getIdUsuario());
+        ControllerVenta cv = new ControllerVenta();
+        String ultimaVenta = cv.obtenerUltimaVenta(vendedor.getIdEmpleado());
 
-	/**
-	 * Create the frame.
-	 */
-	public PerfilLaboral(Usuario usuario) {
-	    this.usuario = usuario;
-	    
-	   
-	    ControllerEmpleado ce = new ControllerEmpleado();
-	    Vendedor vendedor = ce.buscarVendedorPorUsuario(usuario.getIdUsuario());
+        JLabel lblTitulo = new JLabel("Perfil Laboral");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
 
-	    ControllerVenta cv = new ControllerVenta();
-	    String ultimaVenta = cv.obtenerUltimaVenta(vendedor.getIdEmpleado());
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 400);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblTitulo = new JLabel("Perfil Laboral");
-		lblTitulo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
-		lblTitulo.setBounds(122, 0, 187, 27);
-		contentPane.add(lblTitulo);
-		
-		 lblNombre = new JLabel("Nombre:");
-		 lblNombre.setText(
-			        "Nombre: "
-			        + vendedor.getNombre()
-			        + " "
-			        + vendedor.getApellido()
-			);
-		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNombre.setBounds(44, 47, 306, 17);
-		contentPane.add(lblNombre);
-		
-		 lblDni = new JLabel("Dni:");
-		 lblDni.setText(
-			        "DNI: "
-			        + vendedor.getDni()
-			);
-		lblDni.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDni.setBounds(44, 75, 306, 17);
-		contentPane.add(lblDni);
-		
-		 lblCorreo = new JLabel("Correo:");
-		 lblCorreo.setText(
-			        "Correo: "
-			        + vendedor.getMail()
-			);
+        lblNombre = new JLabel("Nombre: " + vendedor.getNombre() + " " + vendedor.getApellido());
+        lblNombre.setForeground(new Color(50, 50, 50));
+        lblNombre.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblNombre.setBounds(250, 120, 400, 25);
+        contentPane.add(lblNombre);
 
-		lblCorreo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCorreo.setBounds(44, 103, 306, 17);
-		contentPane.add(lblCorreo);
-		
-		 lblCargo = new JLabel("Cargo:");
-		 lblCargo.setText(
-			        "Cargo: Vendedor"
-			);
-		lblCargo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCargo.setBounds(44, 132, 306, 17);
-		contentPane.add(lblCargo);
-		
-		 lblSueldoBase = new JLabel("Sueldo Base:");
-		 lblSueldoBase.setText(
-			        "Sueldo Base: $"
-			        + vendedor.getSueldoBase()
-			);
-		lblSueldoBase.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSueldoBase.setBounds(44, 163, 306, 17);
-		contentPane.add(lblSueldoBase);
-		
-		 lblVentas = new JLabel("Ventas:");
-		 lblVentas.setText(
-			        "Ventas realizadas: "
-			        + vendedor.getVentasTotales()
-			);
-		lblVentas.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVentas.setBounds(44, 202, 306, 17);
-		contentPane.add(lblVentas);
-		
-			
-		 lblUltimaVenta = new JLabel("Ultima Venta:");
-		 lblUltimaVenta.setText(
-			        "Última venta: "
-			        + cv.obtenerUltimaVenta(
-			                vendedor.getIdEmpleado()
-			        )
-			);
-		lblUltimaVenta.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblUltimaVenta.setBounds(44, 237, 306, 17);
-		contentPane.add(lblUltimaVenta);
-		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(e -> {
+        lblDni = new JLabel("DNI: " + vendedor.getDni());
+        lblDni.setForeground(new Color(50, 50, 50));
+        lblDni.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblDni.setBounds(250, 155, 400, 25);
+        contentPane.add(lblDni);
 
-		    MenuVendedor menu =
-		            new MenuVendedor(usuario);
+        lblCorreo = new JLabel("Correo: " + vendedor.getMail());
+        lblCorreo.setForeground(new Color(50, 50, 50));
+        lblCorreo.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblCorreo.setBounds(250, 190, 400, 25);
+        contentPane.add(lblCorreo);
 
-		    menu.setVisible(true);
+        lblCargo = new JLabel("Cargo: Vendedor");
+        lblCargo.setForeground(new Color(50, 50, 50));
+        lblCargo.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblCargo.setBounds(250, 225, 400, 25);
+        contentPane.add(lblCargo);
 
-		    dispose();
+        lblSueldoBase = new JLabel("Sueldo Base: $" + vendedor.getSueldoBase());
+        lblSueldoBase.setForeground(new Color(50, 50, 50));
+        lblSueldoBase.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblSueldoBase.setBounds(250, 260, 400, 25);
+        contentPane.add(lblSueldoBase);
 
-		});
-		btnVolver.setBounds(122, 281, 144, 48);
-		contentPane.add(btnVolver);
+        lblVentas = new JLabel("Ventas realizadas: " + vendedor.getVentasTotales());
+        lblVentas.setForeground(new Color(50, 50, 50));
+        lblVentas.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblVentas.setBounds(250, 295, 400, 25);
+        contentPane.add(lblVentas);
 
-		cargarPerfil();
-	}//fim
-	
-	private void cargarPerfil() {
+        lblUltimaVenta = new JLabel("Ultima Venta: " + cv.obtenerUltimaVenta(vendedor.getIdEmpleado()));
+        lblUltimaVenta.setForeground(new Color(50, 50, 50));
+        lblUltimaVenta.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblUltimaVenta.setBounds(250, 330, 400, 25);
+        contentPane.add(lblUltimaVenta);
 
-	    lblNombre.setText(
-	            "Nombre: " +
-	            usuario.getNombre() +
-	            " " +
-	            usuario.getApellido()
-	    );
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.setForeground(Color.WHITE);
+        btnVolver.setBackground(new Color(0, 91, 0));
+        btnVolver.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnVolver.setBounds(350, 400, 150, 45);
+        btnVolver.setBorder(null);
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.setFocusPainted(false);
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVolver.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVolver.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnVolver.addActionListener(e -> {
+            MenuVendedor menu = new MenuVendedor(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
 
-	    lblCorreo.setText(
-	            "Correo: " +
-	            usuario.getMail()
-	    );
+        JButton btnSalir = crearBotonRojo("Salir", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnSalir.addActionListener(e -> {
+            MenuVendedor menu = new MenuVendedor(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnSalir);
 
-	    lblCargo.setText(
-	            "Cargo: Vendedor"
-	    );
+        cargarPerfil();
+        seleccionarTabPorIndice(0);
+    }
 
-	    ControllerEmpleado ce =
-	            new ControllerEmpleado();
+    private void cargarPerfil() {
+        lblNombre.setText("Nombre: " + usuario.getNombre() + " " + usuario.getApellido());
+        lblCorreo.setText("Correo: " + usuario.getMail());
+        lblCargo.setText("Cargo: Vendedor");
 
-	    Vendedor vendedor =
-	            ce.buscarVendedorPorUsuario(
-	                    usuario.getIdUsuario()
-	            );
+        ControllerEmpleado ce = new ControllerEmpleado();
+        Vendedor vendedor = ce.buscarVendedorPorUsuario(usuario.getIdUsuario());
 
-	    if(vendedor == null) {
+        if (vendedor == null) {
+            return;
+        }
 
-	        return;
-	    }
-	    
-	    if(vendedor != null) {
+        if (vendedor != null) {
+            lblDni.setText("DNI: " + vendedor.getDni());
+            lblSueldoBase.setText("Sueldo Base: $" + vendedor.getSueldoBase());
+        }
 
-	        lblDni.setText(
-	                "DNI: " +
-	                vendedor.getDni()
-	        );
-
-	        lblSueldoBase.setText(
-	                "Sueldo Base: $" +
-	                vendedor.getSueldoBase()
-	        );
-	    }
-
-	    ControllerVenta cv =
-	            new ControllerVenta();
-
-	   
-	    		lblVentas.setText(
-	    		        "Ventas realizadas: "
-	    		        + vendedor.getVentasTotales()
-	    		
-	    );
-
-	    lblUltimaVenta.setText(
-	            "Última Venta: " +
-	            cv.obtenerUltimaVenta(
-	                    vendedor.getIdEmpleado()
-	            )
-	    );
-	}
+        ControllerVenta cv = new ControllerVenta();
+        lblVentas.setText("Ventas realizadas: " + vendedor.getVentasTotales());
+        lblUltimaVenta.setText("Ultima Venta: " + cv.obtenerUltimaVenta(vendedor.getIdEmpleado()));
+    }
 }

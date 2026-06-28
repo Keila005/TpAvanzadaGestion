@@ -1,178 +1,123 @@
 package UserLayer;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.time.LocalDate;
 import DLL.ControllerStock;
 import LogicLayer.Producto;
 import LogicLayer.Stock;
 import LogicLayer.Usuario;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+public class AgregarStock extends VentanaBase {
 
-import java.awt.Font;
-import java.time.LocalDate;
+    private static final long serialVersionUID = 1L;
+    private Producto producto;
+    private Usuario usuario;
+    private JTextField textCantidad;
 
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.JTextField;
+    public AgregarStock(Producto producto, Usuario usuario) {
+        this.producto = producto;
+        this.usuario = usuario;
 
-public class AgregarStock extends JFrame {
+        JLabel lblTitulo = new JLabel("Agregar Stock");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private Producto producto;
-	private Usuario usuario;
-	private JTextField textCantidad;
+        JLabel lblProducto = new JLabel("Producto: " + producto.getNombre());
+        lblProducto.setForeground(new Color(0, 91, 0));
+        lblProducto.setFont(new Font("Helvetica Neue", Font.BOLD, 16));
+        lblProducto.setBounds(300, 110, 400, 25);
+        contentPane.add(lblProducto);
 
-	/**
-	 * Launch the application.
-	 */
-	//public static void main(String[] args) {
-	//	EventQueue.invokeLater(new Runnable() {
-	//		public void run() {
-	//			try {
-	//				AgregarStock frame = new AgregarStock();
-	//				frame.setVisible(true);
-	//			} catch (Exception e) {
-	//				e.printStackTrace();
-	//			}
-	//		}
-	//	});
-	//}
+        JLabel lblStockActual = new JLabel("Stock actual: " + new ControllerStock().obtenerStockActual(producto.getIdproducto()));
+        lblStockActual.setForeground(new Color(120, 120, 120));
+        lblStockActual.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        lblStockActual.setBounds(350, 140, 250, 25);
+        contentPane.add(lblStockActual);
 
-	/**
-	 * Create the frame.
-	 */
-	public AgregarStock(Producto producto,
-	        Usuario usuario) {
-		this.producto = producto;
-		this.usuario = usuario;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblAgregarStock = new JLabel("AGREGAR STOCK :>");
-		lblAgregarStock.setBounds(26, 11, 204, 20);
-		lblAgregarStock.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblAgregarStock);
-		
-		JButton btnSalir = new JButton("volver a menu");
-		btnSalir.addActionListener(e -> {
+        JLabel lblCantidad = new JLabel("Cantidad a Agregar:");
+        lblCantidad.setForeground(new Color(0, 91, 0));
+        lblCantidad.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblCantidad.setBounds(280, 190, 150, 25);
+        contentPane.add(lblCantidad);
 
-		    MenuStock menu = new MenuStock(usuario);
+        textCantidad = new JTextField();
+        textCantidad.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        textCantidad.setBounds(440, 190, 200, 35);
+        textCantidad.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(textCantidad);
+        textCantidad.setColumns(10);
 
-		    menu.setVisible(true);
+        JButton btnAgregar = new JButton("Agregar Stock");
+        btnAgregar.setForeground(Color.WHITE);
+        btnAgregar.setBackground(new Color(0, 91, 0));
+        btnAgregar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnAgregar.setBounds(280, 270, 180, 45);
+        btnAgregar.setBorder(null);
+        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregar.setFocusPainted(false);
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAgregar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAgregar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnAgregar.addActionListener(e -> {
+            try {
+                int cantidad = Integer.parseInt(textCantidad.getText());
+                Stock stock = new Stock(producto, cantidad, LocalDate.now(), "INGRESO");
+                ControllerStock controller = new ControllerStock();
+                controller.registrarMovimiento(stock);
+                JOptionPane.showMessageDialog(null, "Stock agregado correctamente");
+                MenuStock menu = new MenuStock(usuario);
+                menu.setVisible(true);
+                dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
+            }
+        });
+        contentPane.add(btnAgregar);
 
-		    dispose();
-		});
-		btnSalir.setForeground(Color.RED);
-		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnSalir.setBounds(294, 8, 109, 23);
-		contentPane.add(btnSalir);
-		
-		JLabel lblNombrePS = new JLabel(
-			    "Agregar stock a: " + producto.getNombre()
-			);
-		lblNombrePS.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblNombrePS.setBounds(39, 53, 271, 21);
-		contentPane.add(lblNombrePS);
-		
-		
-		JLabel lblStockActual = new JLabel(
-			    "Stock actual: "
-			    + new ControllerStock().obtenerStockActual(
-			            producto.getIdproducto()
-			    )
-			);
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.setBackground(new Color(180, 50, 50));
+        btnCancelar.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        btnCancelar.setBounds(480, 270, 180, 45);
+        btnCancelar.setBorder(null);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(150, 30, 30));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(180, 50, 50));
+            }
+        });
+        btnCancelar.addActionListener(e -> {
+            MenuStock menu = new MenuStock(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnCancelar);
 
-			lblStockActual.setFont(new Font("Tahoma", Font.PLAIN, 15));
-
-			lblStockActual.setBounds(37, 73, 181, 20);
-
-			contentPane.add(lblStockActual);
-		
-		
-		JLabel lblCantidadAAgregar = new JLabel("Cantidad a Agregar:");
-		lblCantidadAAgregar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCantidadAAgregar.setBounds(39, 116, 213, 27);
-		contentPane.add(lblCantidadAAgregar);
-		
-		textCantidad = new JTextField();
-		textCantidad.setColumns(10);
-		textCantidad.setBounds(213, 116, 174, 27);
-		contentPane.add(textCantidad);
-		
-		JButton btnAgregarStock = new JButton("Agregar Stock");
-		btnAgregarStock.addActionListener(e -> {
-
-		    try {
-
-		        int cantidad =
-		                Integer.parseInt(
-		                        textCantidad.getText()
-		                );
-
-		        Stock stock =
-		                new Stock(
-		                        producto,
-		                        cantidad,
-		                        LocalDate.now(),
-		                        "INGRESO"
-		                );
-
-		        ControllerStock controller =
-		                new ControllerStock();
-
-		        controller.registrarMovimiento(stock);
-
-		        JOptionPane.showMessageDialog(
-		                null,
-		                "Stock agregado correctamente"
-		        );
-
-		        MenuStock menu =
-		                new MenuStock(usuario);
-
-		        menu.setVisible(true);
-
-		        dispose();
-
-		    } catch(NumberFormatException ex) {
-
-		        JOptionPane.showMessageDialog(
-		                null,
-		                "Ingrese una cantidad válida"
-		        );
-		    }
-		});
-		btnAgregarStock.setForeground(new Color(0, 204, 0));
-		btnAgregarStock.setBounds(57, 180, 140, 48);
-		contentPane.add(btnAgregarStock);
-		
-		JButton btnCancelar = new JButton("cancelar");
-		btnCancelar.addActionListener(e -> {
-
-		    MenuStock menu = new MenuStock(usuario);
-
-		    menu.setVisible(true);
-
-		    dispose();
-		});
-		btnCancelar.setForeground(new Color(204, 0, 0));
-		btnCancelar.setBounds(236, 180, 140, 48);
-		contentPane.add(btnCancelar);
-
-	}
-
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            MenuStock menu = new MenuStock(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
+    }
 }
-
-

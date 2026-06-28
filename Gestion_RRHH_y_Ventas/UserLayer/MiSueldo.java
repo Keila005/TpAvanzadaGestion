@@ -1,59 +1,53 @@
 package UserLayer;
 
 import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import LogicLayer.Usuario;
-import LogicLayer.Operativo;
-import java.awt.Color;
 
-public class MisDatos extends VentanaBase {
+public class MiSueldo extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
-    private Usuario usuario;
-    private Operativo operativo;
 
-    public MisDatos(Usuario usuario, Operativo operativo) {
-        this.usuario = usuario;
-        this.operativo = operativo;
+    public MiSueldo() {
 
-        JLabel lblTitulo = new JLabel("Mis Datos");
+        JLabel lblTitulo = new JLabel("Mi Sueldo");
         lblTitulo.setForeground(new Color(0, 91, 0));
         lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
         lblTitulo.setBounds(350, 60, 200, 30);
         contentPane.add(lblTitulo);
 
-        JLabel lblEmpleado = new JLabel("Empleado: " + usuario.getNombre());
-        lblEmpleado.setForeground(new Color(0, 91, 0));
-        lblEmpleado.setFont(new Font("Helvetica Neue", Font.BOLD, 16));
-        lblEmpleado.setBounds(300, 120, 300, 25);
-        contentPane.add(lblEmpleado);
+        JLabel lblSueldoBase = new JLabel("Sueldo Base: $1.500.000");
+        lblSueldoBase.setForeground(new Color(0, 91, 0));
+        lblSueldoBase.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
+        lblSueldoBase.setBounds(300, 130, 300, 35);
+        contentPane.add(lblSueldoBase);
 
-        JLabel lblId = new JLabel("ID: " + operativo.getIdUsuario());
-        lblId.setForeground(new Color(80, 80, 80));
-        lblId.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-        lblId.setBounds(300, 160, 200, 25);
-        contentPane.add(lblId);
+        JLabel lblBonos = new JLabel("Bonos: $150.000");
+        lblBonos.setForeground(new Color(80, 80, 80));
+        lblBonos.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblBonos.setBounds(300, 180, 300, 25);
+        contentPane.add(lblBonos);
 
-        JLabel lblRol = new JLabel("Rol: " + operativo.getRol());
-        lblRol.setForeground(new Color(80, 80, 80));
-        lblRol.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-        lblRol.setBounds(300, 200, 200, 25);
-        contentPane.add(lblRol);
+        JLabel lblHorasExtras = new JLabel("Horas Extras: $200.000");
+        lblHorasExtras.setForeground(new Color(80, 80, 80));
+        lblHorasExtras.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        lblHorasExtras.setBounds(300, 210, 300, 25);
+        contentPane.add(lblHorasExtras);
 
-        JLabel lblRendimiento = new JLabel("Rendimiento: " + operativo.getRendimiento() + "%");
-        lblRendimiento.setForeground(new Color(80, 80, 80));
-        lblRendimiento.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
-        lblRendimiento.setBounds(300, 240, 200, 25);
-        contentPane.add(lblRendimiento);
+        JLabel lblTotal = new JLabel("Total: $1.850.000");
+        lblTotal.setForeground(new Color(0, 91, 0));
+        lblTotal.setFont(new Font("Helvetica Neue", Font.BOLD, 22));
+        lblTotal.setBounds(300, 260, 300, 35);
+        contentPane.add(lblTotal);
 
         JButton btnAceptar = new JButton("Aceptar");
         btnAceptar.setForeground(Color.WHITE);
         btnAceptar.setBackground(new Color(0, 91, 0));
         btnAceptar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
-        btnAceptar.setBounds(350, 320, 150, 45);
+        btnAceptar.setBounds(350, 340, 150, 45);
         btnAceptar.setBorder(null);
         btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAceptar.setFocusPainted(false);

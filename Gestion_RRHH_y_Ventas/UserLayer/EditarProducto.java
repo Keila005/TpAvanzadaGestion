@@ -1,156 +1,126 @@
 package UserLayer;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.Font;
-
-import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
+import javax.swing.JTextField;
 import DLL.ControllerProducto;
 import LogicLayer.Producto;
 import LogicLayer.Usuario;
 
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.JTextField;
+public class EditarProducto extends VentanaBase {
 
-public class EditarProducto extends JFrame {
+    private static final long serialVersionUID = 1L;
+    private JTextField txtNombre;
+    private JTextField txtPrecio;
+    private Producto producto;
+    private Usuario usuario;
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField txtNombre;
-	private JTextField txtPrecio;
-	private Producto producto;
-	private Usuario usuario;
+    public EditarProducto(Producto producto, Usuario usuario) {
+        this.producto = producto;
+        this.usuario = usuario;
 
-	/**
-	 * Launch the application.
-	 */
-	//public static void main(String[] args) {
-	//	EventQueue.invokeLater(new Runnable() {
-	//		public void run() {
-	//			try {
-	//				EditarProducto frame = new EditarProducto();
-	//				frame.setVisible(true);
-	//			} catch (Exception e) {
-	//				e.printStackTrace();
-	//			}
-	//		}
-	//	});
-//	}
+        JLabel lblTitulo = new JLabel("Editar Producto");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
 
-	/**
-	 * Create the frame.
-	 */
-	public EditarProducto(Producto producto,
-	        Usuario usuario) {
-		this.producto = producto;
-		this.usuario = usuario;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblTitulo = new JLabel("EDITAR PRODUCTO :>");
-	    lblTitulo.setBounds(27, 11, 196, 28);
-	    lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-	    contentPane.add(lblTitulo);
-	    
-	    JButton btnSalir = new JButton("volver a menu");
-	    btnSalir.addActionListener(e -> {
+        JLabel lblNombre = new JLabel("Nuevo Nombre:");
+        lblNombre.setForeground(new Color(0, 91, 0));
+        lblNombre.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblNombre.setBounds(200, 120, 150, 25);
+        contentPane.add(lblNombre);
 
-	        MenuStock menu = new MenuStock(usuario);
+        txtNombre = new JTextField();
+        txtNombre.setText(producto.getNombre());
+        txtNombre.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        txtNombre.setBounds(360, 120, 250, 35);
+        txtNombre.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(txtNombre);
+        txtNombre.setColumns(10);
 
-	        menu.setVisible(true);
+        JLabel lblPrecio = new JLabel("Nuevo Precio:");
+        lblPrecio.setForeground(new Color(0, 91, 0));
+        lblPrecio.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblPrecio.setBounds(200, 180, 150, 25);
+        contentPane.add(lblPrecio);
 
-	        dispose();
-	    });
-	    btnSalir.setForeground(Color.RED);
-	    btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    btnSalir.setBounds(305, 1, 119, 27);
-	    contentPane.add(btnSalir);
-	    
-	    txtNombre = new JTextField();
-	    txtNombre.setText(producto.getNombre());
-	    txtNombre.setBounds(220, 53, 174, 27);
-	    contentPane.add(txtNombre);
-	    txtNombre.setColumns(10);
-	    
-	    JLabel lblNewLabel = new JLabel("Nuevo Nombre del Producto:");
-	    lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-	    lblNewLabel.setBounds(10, 51, 213, 27);
-	    contentPane.add(lblNewLabel);
-	    
-	    JLabel lblNewLabel_1 = new JLabel("Nuevo Precio del Producto:");
-	    lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-	    lblNewLabel_1.setBounds(10, 103, 213, 27);
-	    contentPane.add(lblNewLabel_1);
-	    
-	    txtPrecio = new JTextField();
-	    txtPrecio.setText( String.valueOf(
-                producto.getPrecio()) );
-	    txtPrecio.setColumns(10);
-	    txtPrecio.setBounds(220, 105, 174, 27);
-	    contentPane.add(txtPrecio);
-	    
-	    JButton btnGuardar = new JButton("Guardar cambios");
-	    btnGuardar.setForeground(new Color(102, 204, 0));
-	    btnGuardar.addActionListener(e -> {
+        txtPrecio = new JTextField();
+        txtPrecio.setText(String.valueOf(producto.getPrecio()));
+        txtPrecio.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        txtPrecio.setBounds(360, 180, 250, 35);
+        txtPrecio.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(txtPrecio);
+        txtPrecio.setColumns(10);
 
-	        producto.setNombre(
-	                txtNombre.getText()
-	        );
+        JButton btnGuardar = new JButton("Guardar Cambios");
+        btnGuardar.setForeground(Color.WHITE);
+        btnGuardar.setBackground(new Color(0, 91, 0));
+        btnGuardar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnGuardar.setBounds(280, 260, 180, 45);
+        btnGuardar.setBorder(null);
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.setFocusPainted(false);
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGuardar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGuardar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnGuardar.addActionListener(e -> {
+            producto.setNombre(txtNombre.getText());
+            producto.setPrecio(Double.parseDouble(txtPrecio.getText()));
+            ControllerProducto cp = new ControllerProducto();
+            cp.modificarProducto(producto);
+            JOptionPane.showMessageDialog(null, "Producto modificado correctamente");
+            MenuStock menu = new MenuStock(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnGuardar);
 
-	        producto.setPrecio(
-	                Double.parseDouble(
-	                        txtPrecio.getText()
-	                )
-	        );
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.setBackground(new Color(180, 50, 50));
+        btnCancelar.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        btnCancelar.setBounds(480, 260, 180, 45);
+        btnCancelar.setBorder(null);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(150, 30, 30));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(180, 50, 50));
+            }
+        });
+        btnCancelar.addActionListener(e -> {
+            MenuStock menu = new MenuStock(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnCancelar);
 
-	        ControllerProducto cp =
-	                new ControllerProducto();
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            MenuStock menu = new MenuStock(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
 
-	        cp.modificarProducto(producto);
-
-	        JOptionPane.showMessageDialog(
-	                null,
-	                "Producto modificado"
-	        );
-	        
-	        MenuStock menu =
-	                new MenuStock(usuario);
-
-	        menu.setVisible(true);
-
-	        dispose();
-	    });
-	    btnGuardar.setBounds(43, 175, 140, 48);
-	    contentPane.add(btnGuardar);
-	    
-	    
-	    JButton btnCancelarCambios = new JButton("cancelar cambios");
-	    btnCancelarCambios.setForeground(new Color(204, 0, 0));
-	    btnCancelarCambios.addActionListener(e -> {
-	    	MenuStock menu =
-	                new MenuStock(usuario);
-
-	        menu.setVisible(true);
-	        dispose();
-	    });
-	    btnCancelarCambios.setBounds(227, 175, 140, 48);
-	    contentPane.add(btnCancelarCambios);
-	    
-	    
-	    
-		
-
-	}//fin de editar producto
+        seleccionarTabPorIndice(0);
+    }
 }
-
-
