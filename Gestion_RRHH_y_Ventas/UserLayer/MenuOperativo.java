@@ -1,6 +1,7 @@
 package UserLayer;
 
 import LogicLayer.Usuario;
+import LogicLayer.Empleado;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -32,7 +33,7 @@ public class MenuOperativo extends VentanaBase {
         JButton btnInfoPersonal = crearBoton("Ver Informacion Personal", 200, 170, 220, 50);
         btnInfoPersonal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                VerInfoPersonal verInfo = new VerInfoPersonal(usuario, (LogicLayer.Operativo) usuario);
+                VerInfoPersonal verInfo = new VerInfoPersonal(usuario, (LogicLayer.Operativo) usuario, null);
                 verInfo.setVisible(true);
             }
         });
