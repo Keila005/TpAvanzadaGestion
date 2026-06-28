@@ -1,6 +1,8 @@
 package UserLayer;
 
 import java.awt.EventQueue;
+<<<<<<< HEAD
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -73,3 +75,4 @@ public class MiSueldo extends VentanaBase {
         seleccionarTabPorIndice(0);
     }
 }
+>>>>>>> d87fe51cd2e47fb57d041a167c5cef520bd3638d

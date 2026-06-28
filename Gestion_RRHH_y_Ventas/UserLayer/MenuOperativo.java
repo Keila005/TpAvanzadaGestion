@@ -39,7 +39,72 @@ public class MenuOperativo extends VentanaBase {
         });
         contentPane.add(btnInfoPersonal);
 
-        // BOTON 2 - Crear Solicitud (NO cierra MenuOperativo)
+
+	public MenuOperativo(Usuario usuario) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 848, 599);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Bienvenido operativo:"+ usuario.getNombre());
+		lblNewLabel.setBounds(269, 10, 310, 51);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		contentPane.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("Ver Informacion Personal");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton.setBounds(175, 146, 206, 57);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VerInfoPersonal VerInfoPersonal = new VerInfoPersonal();
+				VerInfoPersonal.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Crear Solicitud");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1.setBounds(433, 146, 206, 57);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrearSolicitud CrearSolicitud = new CrearSolicitud();
+				CrearSolicitud.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Comentar");
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_2.setBounds(175, 235, 206, 57);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Comentar Comentar = new Comentar();
+				Comentar.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Cargo");
+		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_3.setBounds(433, 235, 206, 57);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cargo Cargo = new Cargo(usuario);
+				Cargo.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("Salir");
+		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton_4.setBounds(350, 433, 119, 45);
+		contentPane.add(btnNewButton_4);
         JButton btnCrearSolicitud = crearBoton("Crear Solicitud", 450, 170, 220, 50);
         btnCrearSolicitud.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -49,7 +114,6 @@ public class MenuOperativo extends VentanaBase {
         });
         contentPane.add(btnCrearSolicitud);
 
-        // BOTON 3 - Comentar (NO cierra MenuOperativo)
         JButton btnComentar = crearBoton("Comentar", 200, 250, 220, 50);
         btnComentar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
