@@ -1,140 +1,116 @@
 package UserLayer;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import DLL.ControllerVenta;
 import LogicLayer.Usuario;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.Color;
 
-public class VerVenta extends JFrame {
+public class VerVenta extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private int idVenta;
-	private JTable table;
-	private DefaultTableModel modelo;
-	private JLabel lblFecha;
-	private JLabel lblVendedor;
-	private JLabel lblTotal;
-	private Usuario usuario;
+    private static final long serialVersionUID = 1L;
+    private int idVenta;
+    private JTable table;
+    private DefaultTableModel modelo;
+    private JLabel lblFecha;
+    private JLabel lblVendedor;
+    private JLabel lblTotal;
+    private Usuario usuario;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-	//	EventQueue.invokeLater(new Runnable() {
-	//		public void run() {
-	//			try {
-	//				VerVenta frame = new VerVenta();
-	//				frame.setVisible(true);
-	//			} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-	/**
-	 * Create the frame.
-	 */
-	public VerVenta(int idVenta, Usuario usuario) {
-		this.idVenta = idVenta;
-		this.usuario = usuario;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 380);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblTitulo = new JLabel("Venta N°" + idVenta);
-		lblTitulo.setBounds(150, 0, 122, 20);
-		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblTitulo);
-		
-		
-		modelo = new DefaultTableModel(
+    public VerVenta(int idVenta, Usuario usuario) {
+        this.idVenta = idVenta;
+        this.usuario = usuario;
 
-		        new String[]{
+        JLabel lblTitulo = new JLabel("Venta N° " + idVenta);
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
 
-		            "Producto",
-		            "Cantidad",
-		            "Subtotal"
+        lblFecha = new JLabel("Fecha:");
+        lblFecha.setForeground(new Color(50, 50, 50));
+        lblFecha.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
+        lblFecha.setBounds(200, 110, 400, 25);
+        contentPane.add(lblFecha);
 
-		        },
+        lblVendedor = new JLabel("Vendedor:");
+        lblVendedor.setForeground(new Color(50, 50, 50));
+        lblVendedor.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
+        lblVendedor.setBounds(200, 140, 400, 25);
+        contentPane.add(lblVendedor);
 
-		        0
-		);
+        modelo = new DefaultTableModel(new String[]{"Producto", "Cantidad", "Subtotal"}, 0);
+        table = new JTable(modelo);
+        table.setBackground(Color.WHITE);
+        table.setForeground(new Color(50, 50, 50));
+        table.setGridColor(new Color(200, 200, 200));
+        table.setSelectionBackground(new Color(0, 91, 0));
+        table.setSelectionForeground(Color.WHITE);
+        table.setRowHeight(28);
+        table.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        table.getTableHeader().setBackground(new Color(0, 91, 0));
+        table.getTableHeader().setForeground(Color.WHITE);
+        table.getTableHeader().setFont(new Font("Helvetica Neue", Font.BOLD, 13));
 
-		table = new JTable(modelo);
-		
-		JScrollPane scroll =
-		        new JScrollPane(table);
+        table.getColumnModel().getColumn(0).setPreferredWidth(200);
+        table.getColumnModel().getColumn(1).setPreferredWidth(80);
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
 
-		scroll.setBounds(10,97,414,124);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBorder(null);
+        scroll.setBounds(80, 190, 762, 180);
+        contentPane.add(scroll);
 
-		contentPane.add(scroll);
-		
-		lblFecha = new JLabel("Fecha:");
-		lblFecha.setFont(new Font("Tahoma", Font.ITALIC, 14));
-		lblFecha.setBounds(40, 34, 210, 20);
-		contentPane.add(lblFecha);
-		
-		lblVendedor = new JLabel("Vendedor:");
-		lblVendedor.setFont(new Font("Tahoma", Font.ITALIC, 14));
-		lblVendedor.setBounds(40, 66, 210, 20);
-		contentPane.add(lblVendedor);
-		
-		lblTotal = new JLabel("Total: $0");
-		lblTotal.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblTotal.setBounds(130, 227, 174, 20);
-		contentPane.add(lblTotal);
-		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(e -> {
+        lblTotal = new JLabel("Total: $0");
+        lblTotal.setForeground(new Color(0, 91, 0));
+        lblTotal.setFont(new Font("Helvetica Neue", Font.BOLD, 22));
+        lblTotal.setBounds(350, 390, 250, 35);
+        contentPane.add(lblTotal);
 
-		    HistorialVentas historial =
-		            new HistorialVentas(usuario);
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.setForeground(Color.WHITE);
+        btnVolver.setBackground(new Color(0, 91, 0));
+        btnVolver.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnVolver.setBounds(350, 460, 150, 45);
+        btnVolver.setBorder(null);
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.setFocusPainted(false);
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVolver.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVolver.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnVolver.addActionListener(e -> {
+            HistorialVentas historial = new HistorialVentas(usuario);
+            historial.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
 
-		    historial.setVisible(true);
+        JButton btnSalir = crearBotonRojo("Salir", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnSalir.addActionListener(e -> {
+            HistorialVentas historial = new HistorialVentas(usuario);
+            historial.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnSalir);
 
-		    dispose();
+        cargarVenta();
+        seleccionarTabPorIndice(0);
+    }
 
-		});
-		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnVolver.setBounds(150, 274, 133, 25);
-		contentPane.add(btnVolver);
-
-		
-		
-		cargarVenta();
-	}// fin
-	
-	private void cargarVenta() {
-
-	    ControllerVenta cv =
-	            new ControllerVenta();
-
-	    cv.cargarDetalleVenta(
-	            idVenta,
-	            modelo,
-	            lblFecha,
-	            lblVendedor,
-	            lblTotal
-	    );
-	}
-	
+    private void cargarVenta() {
+        ControllerVenta cv = new ControllerVenta();
+        cv.cargarDetalleVenta(idVenta, modelo, lblFecha, lblVendedor, lblTotal);
+    }
 }
-
-

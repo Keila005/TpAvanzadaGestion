@@ -31,260 +31,268 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class MenuProyecto extends JFrame {
+public class MenuProyecto extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable table;
-	private DefaultTableModel model;
-	private JLabel lblCrearProyecto;
-	private JTextField iptName;
-	private JTextField textField;
-	private JComboBox<String> comboLider;
-	private JComboBox<String> comboEquipo;
-	private JLabel lblAsignacinDeLder;
-	private JLabel lblAsignacinDeEquipo;
-	private static LinkedList<Operativo> lideres;
-	private static LinkedList<Equipo> equipos ;
-	private static ControllerProyecto proyectoController= new ControllerProyecto() ;
-	private JButton btnCrear;
-	private JDateChooser dateInicio;
-	private JDateChooser dateFin;
-	private JLabel lblFechaDeInicio;
-	private JLabel lblFechaDeFinalizacin;
-	private JButton btnNewButton;
-	private JPanel panel;
-		private final Color VERDE = new Color(28, 137, 16);
-		private final Color VERDE_OSCURO = new Color(20, 110, 12);
-		private final Color FONDO = new Color(245, 245, 245);
-		private final Color PANEL_VERDE = new Color(28, 137, 16);
+    private static final long serialVersionUID = 1L;
+    private JTable table;
+    private DefaultTableModel model;
+    private JTextField iptName;
+    private JTextField textField;
+    private JComboBox<String> comboLider;
+    private JComboBox<String> comboEquipo;
+    private static LinkedList<Operativo> lideres;
+    private static LinkedList<Equipo> equipos;
+    private static ControllerProyecto proyectoController = new ControllerProyecto();
+    private JButton btnCrear;
+    private JDateChooser dateInicio;
+    private JDateChooser dateFin;
+    private JPanel panel;
 
-		public MenuProyecto(Usuario usuario) {
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setBounds(100, 100, 730, 586);
+    public MenuProyecto(Usuario usuario) {
 
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-			contentPane.setLayout(null);
-			contentPane.setBackground(new Color(232, 243, 226));
-			setContentPane(contentPane);
+        JLabel lblTitulo = new JLabel("Gestion de Proyectos");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 300, 30);
+        contentPane.add(lblTitulo);
 
-			JLabel lblNewLabel = new JLabel("Proyectos creados: ");
-			lblNewLabel.setForeground(VERDE_OSCURO);
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblNewLabel.setBounds(32, 10, 147, 30);
-			contentPane.add(lblNewLabel);
+        model = new DefaultTableModel(new String[]{"N°", "Nombre", "Descripcion", "Inicio", "Fin", "Lider", "Equipo"}, 0);
+        table = new JTable(model);
+        table.setBackground(Color.WHITE);
+        table.setForeground(new Color(50, 50, 50));
+        table.setGridColor(new Color(200, 200, 200));
+        table.setSelectionBackground(new Color(0, 91, 0));
+        table.setSelectionForeground(Color.WHITE);
+        table.setRowHeight(28);
+        table.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        table.getTableHeader().setBackground(new Color(0, 91, 0));
+        table.getTableHeader().setForeground(Color.WHITE);
+        table.getTableHeader().setFont(new Font("Helvetica Neue", Font.BOLD, 13));
 
-			model = new DefaultTableModel(new String[]{"N°", "Nombre","Descripción",
-				"Inicio:", "Finalización:","Líder","Equipo"}, 0);
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
+        table.getColumnModel().getColumn(1).setPreferredWidth(150);
+        table.getColumnModel().getColumn(2).setPreferredWidth(150);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.getColumnModel().getColumn(4).setPreferredWidth(80);
+        table.getColumnModel().getColumn(5).setPreferredWidth(100);
+        table.getColumnModel().getColumn(6).setPreferredWidth(100);
 
-			table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(null);
+        scrollPane.setBounds(80, 110, 762, 180);
+        contentPane.add(scrollPane);
 
-			table.setRowHeight(22);
-			table.setGridColor(VERDE);
-			table.setSelectionBackground(VERDE);
-			table.setSelectionForeground(Color.WHITE);
+        cargarProyectos();
 
-			JTableHeader header = table.getTableHeader();
-			header.setBackground(VERDE);
-			header.setForeground(Color.WHITE);
-			header.setFont(new Font("Tahoma", Font.BOLD, 12));
+        panel = new JPanel();
+        panel.setBackground(new Color(0, 91, 0));
+        panel.setBounds(80, 310, 762, 200);
+        panel.setLayout(null);
+        contentPane.add(panel);
 
-			table.getColumnModel().getColumn(0).setPreferredWidth(20);
-			table.getColumnModel().getColumn(1).setPreferredWidth(250);
-			table.getColumnModel().getColumn(2).setPreferredWidth(250);
-			table.getColumnModel().getColumn(3).setPreferredWidth(100);
-			table.getColumnModel().getColumn(4).setPreferredWidth(100);
-			table.getColumnModel().getColumn(5).setPreferredWidth(100);
-			table.getColumnModel().getColumn(6).setPreferredWidth(100);
+        JLabel lblCrear = new JLabel("Crear Proyecto");
+        lblCrear.setForeground(Color.WHITE);
+        lblCrear.setFont(new Font("Helvetica Neue", Font.BOLD, 18));
+        lblCrear.setBounds(280, 10, 200, 30);
+        panel.add(lblCrear);
 
-			JScrollPane scrollPane = new JScrollPane(table);
-			scrollPane.setBounds(10, 50, 706, 162);
-			contentPane.add(scrollPane);
+        JLabel lblName = new JLabel("Nombre");
+        lblName.setForeground(Color.WHITE);
+        lblName.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblName.setBounds(30, 50, 100, 20);
+        panel.add(lblName);
 
-			JLabel lblName = new JLabel("Nombre del proyecto:");
-			lblName.setForeground(Color.WHITE);
-			lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblName.setBounds(121, 244, 147, 17);
-			contentPane.add(lblName);
+        iptName = new JTextField();
+        iptName.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        iptName.setBounds(30, 72, 180, 30);
+        iptName.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        panel.add(iptName);
 
-			iptName = new JTextField();
-			iptName.setBounds(121, 271, 147, 21);
-			contentPane.add(iptName);
+        JLabel lblDescripcion = new JLabel("Descripcion");
+        lblDescripcion.setForeground(Color.WHITE);
+        lblDescripcion.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblDescripcion.setBounds(30, 110, 100, 20);
+        panel.add(lblDescripcion);
 
-			JLabel lblDescripcin = new JLabel("Descripción:");
-			lblDescripcin.setForeground(Color.WHITE);
-			lblDescripcin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblDescripcin.setBounds(121, 302, 147, 17);
-			contentPane.add(lblDescripcin);
+        textField = new JTextField();
+        textField.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        textField.setBounds(30, 132, 180, 50);
+        textField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        panel.add(textField);
 
-			textField = new JTextField();
-			textField.setBounds(121, 326, 230, 48);
-			contentPane.add(textField);
+        JLabel lblLider = new JLabel("Lider");
+        lblLider.setForeground(Color.WHITE);
+        lblLider.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblLider.setBounds(250, 50, 100, 20);
+        panel.add(lblLider);
 
-			comboLider = new JComboBox<>();
-			comboLider.setBounds(426, 270, 127, 23);
-			contentPane.add(comboLider);
+        comboLider = new JComboBox<>();
+        comboLider.setBackground(Color.WHITE);
+        comboLider.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        comboLider.setBounds(250, 72, 180, 30);
+        panel.add(comboLider);
 
-			comboEquipo = new JComboBox<>();
-			comboEquipo.setBounds(426, 342, 127, 25);
-			contentPane.add(comboEquipo);
+        JLabel lblEquipo = new JLabel("Equipo");
+        lblEquipo.setForeground(Color.WHITE);
+        lblEquipo.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblEquipo.setBounds(250, 110, 100, 20);
+        panel.add(lblEquipo);
 
-			cargarMenuDesplegable();
-			cargarProyectos();
+        comboEquipo = new JComboBox<>();
+        comboEquipo.setBackground(Color.WHITE);
+        comboEquipo.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        comboEquipo.setBounds(250, 132, 180, 30);
+        panel.add(comboEquipo);
 
-			lblAsignacinDeLder = new JLabel("Asignación de líder:");
-			lblAsignacinDeLder.setForeground(Color.WHITE);
-			lblAsignacinDeLder.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblAsignacinDeLder.setBounds(426, 243, 147, 17);
-			contentPane.add(lblAsignacinDeLder);
+        JLabel lblFechaInicio = new JLabel("Fecha Inicio");
+        lblFechaInicio.setForeground(Color.WHITE);
+        lblFechaInicio.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblFechaInicio.setBounds(470, 50, 100, 20);
+        panel.add(lblFechaInicio);
 
-			lblAsignacinDeEquipo = new JLabel("Asignación de equipo:");
-			lblAsignacinDeEquipo.setForeground(Color.WHITE);
-			lblAsignacinDeEquipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblAsignacinDeEquipo.setBounds(426, 306, 147, 17);
-			contentPane.add(lblAsignacinDeEquipo);
+        dateInicio = new JDateChooser();
+        dateInicio.setBounds(470, 72, 150, 30);
+        dateInicio.getDateEditor().setEnabled(false);
+        panel.add(dateInicio);
 
-			btnCrear = new JButton("Crear");
-			btnCrear.setBackground(new Color(89, 142, 89));
-			btnCrear.setForeground(Color.WHITE);
-			btnCrear.setFont(new Font("Tahoma", Font.BOLD, 17));
-			btnCrear.addActionListener(e -> {
-				crearProyecto();
-				cargarProyectos();
-			});
-			btnCrear.setBounds(306, 476, 119, 30);
-			contentPane.add(btnCrear);
+        JLabel lblFechaFin = new JLabel("Fecha Fin");
+        lblFechaFin.setForeground(Color.WHITE);
+        lblFechaFin.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblFechaFin.setBounds(470, 110, 100, 20);
+        panel.add(lblFechaFin);
 
-			dateInicio = new JDateChooser();
-			dateInicio.setBounds(121, 411, 150, 25);
-			contentPane.add(dateInicio);
+        dateFin = new JDateChooser();
+        dateFin.setBounds(470, 132, 150, 30);
+        dateFin.getDateEditor().setEnabled(false);
+        panel.add(dateFin);
 
-			dateFin = new JDateChooser();
-			dateFin.setBounds(426, 411, 150, 25);
-			contentPane.add(dateFin);
+        dateInicio.setMinSelectableDate(new Date());
+        dateInicio.addPropertyChangeListener("date", e -> {
+            Date inicio = dateInicio.getDate();
+            if (inicio != null) {
+                dateFin.setMinSelectableDate(inicio);
+            }
+        });
 
-			lblFechaDeInicio = new JLabel("Fecha de inicio:");
-			lblFechaDeInicio.setForeground(Color.WHITE);
-			lblFechaDeInicio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblFechaDeInicio.setBounds(121, 384, 147, 17);
-			contentPane.add(lblFechaDeInicio);
+        btnCrear = new JButton("Crear Proyecto");
+        btnCrear.setForeground(Color.WHITE);
+        btnCrear.setBackground(new Color(28, 137, 16));
+        btnCrear.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnCrear.setBounds(350, 150, 180, 40);
+        btnCrear.setBorder(null);
+        btnCrear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrear.setFocusPainted(false);
+        btnCrear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCrear.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCrear.setBackground(new Color(28, 137, 16));
+            }
+        });
+        btnCrear.addActionListener(e -> {
+            crearProyecto();
+            cargarProyectos();
+        });
+        panel.add(btnCrear);
 
-			lblFechaDeFinalizacin = new JLabel("Fecha de finalización:");
-			lblFechaDeFinalizacin.setForeground(Color.WHITE);
-			lblFechaDeFinalizacin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblFechaDeFinalizacin.setBounds(426, 382, 147, 17);
-			contentPane.add(lblFechaDeFinalizacin);
+        cargarMenuDesplegable();
 
-			dateInicio.setMinSelectableDate(new Date());
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            MenuAdministrador menuAdmin = new MenuAdministrador(usuario);
+            menuAdmin.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
 
-			btnNewButton = new JButton("<-Volver");
-			btnNewButton.setBackground(new Color(255, 0, 0));
-			btnNewButton.setForeground(Color.WHITE);
-			btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-			btnNewButton.addActionListener(e -> {
-				MenuAdministrador menuAdmin=new MenuAdministrador(usuario);
-				menuAdmin.setVisible(true);
-				dispose();
-			});
-			btnNewButton.setBounds(10, 519, 119, 20);
-			contentPane.add(btnNewButton);
+        seleccionarTabPorIndice(0);
+    }
 
-			panel = new JPanel();
-			panel.setBackground(new Color(167, 228, 191));
-			panel.setBounds(-15, 211, 751, 338);
-			contentPane.add(panel);
-			
-						lblCrearProyecto = new JLabel("Crear Proyecto:");
-						panel.add(lblCrearProyecto);
-						lblCrearProyecto.setForeground(Color.WHITE);
-						lblCrearProyecto.setFont(new Font("Tahoma", Font.BOLD, 14));
+    private void cargarMenuDesplegable() {
+        ControllerOperativo operativoController = new ControllerOperativo();
+        lideres = operativoController.obtenerLideres();
+        comboLider.removeAllItems();
+        for (Operativo op : lideres) {
+            comboLider.addItem(op.getNombre() + " " + op.getApellido());
+        }
 
-			dateInicio.addPropertyChangeListener("date", e -> {
-				Date inicio = dateInicio.getDate();
-				if (inicio != null) {
-					dateFin.setMinSelectableDate(inicio);
-				}
-			});
-		}
+        ControllerEquipo equipoController = new ControllerEquipo();
+        equipos = equipoController.mostrarEquipo();
+        comboEquipo.removeAllItems();
+        for (Equipo eq : equipos) {
+            comboEquipo.addItem(eq.getNombre());
+        }
+    }
 
-	
-	private void cargarMenuDesplegable() {
-		
-		ControllerOperativo operativoController=new ControllerOperativo();
-	     lideres = operativoController.obtenerLideres();
+    public void crearProyecto() {
+        Date inicioDate = dateInicio.getDate();
+        Date finDate = dateFin.getDate();
 
-	    comboLider.removeAllItems();
-	    for (Operativo op : lideres) {
-	        comboLider.addItem(op.getNombre() + " " + op.getApellido());
-	    }
+        if (inicioDate == null || finDate == null) {
+            JOptionPane.showMessageDialog(null, "Selecciona las fechas");
+            return;
+        }
 
-	    ControllerEquipo equipoController = new ControllerEquipo();
-	    equipos = equipoController.mostrarEquipo();
+        java.sql.Date inicioSQL = new java.sql.Date(inicioDate.getTime());
+        java.sql.Date finSQL = new java.sql.Date(finDate.getTime());
 
-	    comboEquipo.removeAllItems();
-	    for (Equipo eq : equipos) {
-	        comboEquipo.addItem(eq.getNombre());
-	    }
-	}
-	
-	public void crearProyecto() {
-		Date inicioDate = dateInicio.getDate();
-		Date finDate = dateFin.getDate();
-		
-		java.sql.Date inicioSQL = new java.sql.Date(inicioDate.getTime());
-		java.sql.Date finSQL = new java.sql.Date(finDate.getTime());
+        String nombre = iptName.getText();
+        String descripcion = textField.getText();
 
-		if (inicioDate == null || finDate == null) {
-		    JOptionPane.showMessageDialog(null, "Selecciona las fechas");
-		    return;
-		}
+        if (nombre.trim().isEmpty() || descripcion.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Complete todos los campos");
+            return;
+        }
 
-		
-	    String nombre = iptName.getText();
-	    String descripcion = textField.getText();
+        String seleccionadoLider = (String) comboLider.getSelectedItem();
+        String seleccionadoEquipo = (String) comboEquipo.getSelectedItem();
 
-	    String seleccionadoLider = (String) comboLider.getSelectedItem();
-	    String seleccionadoEquipo = (String) comboEquipo.getSelectedItem();
+        int idLider = -1;
+        for (Operativo op : lideres) {
+            String nombreCompleto = op.getNombre() + " " + op.getApellido();
+            if (nombreCompleto.equals(seleccionadoLider)) {
+                idLider = op.getIdOperativo();
+                break;
+            }
+        }
 
-	    int idLider = -1;
-	    for (Operativo op : lideres) {
-	        String nombreCompleto = op.getNombre() + " " + op.getApellido();
-	        if (nombreCompleto.equals(seleccionadoLider)) {
-	            idLider = op.getIdOperativo();
-	            break;
-	        }
-	    }
+        int idEquipo = -1;
+        for (Equipo eq : equipos) {
+            if (eq.getNombre().equals(seleccionadoEquipo)) {
+                idEquipo = eq.getId_equipo();
+                break;
+            }
+        }
 
-	    int idEquipo = -1;
-	    for (Equipo eq : equipos) {
-	        if (eq.getNombre().equals(seleccionadoEquipo)) {
-	            idEquipo = eq.getId_equipo();
-	            break;
-	        }
-	    }
+        proyectoController.crearProyecto(nombre, descripcion, inicioSQL, finSQL, idLider, idEquipo);
+        JOptionPane.showMessageDialog(null, "Proyecto creado correctamente");
 
-	    proyectoController.crearProyecto(nombre,descripcion,inicioSQL,finSQL,idLider,idEquipo
-	    );
+        iptName.setText("");
+        textField.setText("");
+        dateInicio.setDate(null);
+        dateFin.setDate(null);
+    }
 
-	    JOptionPane.showMessageDialog(null, "Proyecto creado correctamente");
-	}
-	private void cargarProyectos() {
-		 model.setRowCount(0);
-
-		 LinkedList<Proyecto> proyectos =proyectoController.obtenerProyectosTabla();
-
-	    for (Proyecto c : proyectos) {
-
-	        model.addRow(new Object[]{
-	          c.getIdProyecto(),
-	          c.getNombre(),
-	          c.getDescripcion(),
-	          c.getFechaInicio(),
-	          c.getFechaFin(),
-	          c.getLider(),
-	          c.getEquipo()
-	        });
-	    }
-	}
+    private void cargarProyectos() {
+        model.setRowCount(0);
+        LinkedList<Proyecto> proyectos = proyectoController.obtenerProyectosTabla();
+        for (Proyecto c : proyectos) {
+            model.addRow(new Object[]{
+                c.getIdProyecto(),
+                c.getNombre(),
+                c.getDescripcion(),
+                c.getFechaInicio(),
+                c.getFechaFin(),
+                c.getLider(),
+                c.getEquipo()
+            });
+        }
+    }
 }

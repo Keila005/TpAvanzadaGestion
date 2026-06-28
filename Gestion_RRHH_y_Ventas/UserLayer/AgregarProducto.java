@@ -1,179 +1,129 @@
 package UserLayer;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
+import javax.swing.JTextField;
 import DLL.ControllerProducto;
 import LogicLayer.Producto;
 import LogicLayer.Usuario;
-import javax.swing.JTextField;
 
+public class AgregarProducto extends VentanaBase {
 
+    private static final long serialVersionUID = 1L;
+    private Usuario usuario;
+    private JTextField textNombre;
+    private JTextField textPrecio;
 
-public class AgregarProducto extends JFrame {
+    public AgregarProducto(Usuario usuario) {
+        this.usuario = usuario;
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private Usuario usuario;
-	private JTextField textNombre;
-	private JTextField textPrecio;
+        JLabel lblTitulo = new JLabel("Agregar Producto");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
 
-	/**
-	 * Launch the application.
-	 */
-	//public static void main(String[] args) {
-	//	EventQueue.invokeLater(new Runnable() {
-	//		public void run() {
-	//			try {
-	///				AgregarProducto frame = new AgregarProducto();
-	//				frame.setVisible(true);
-	//			} catch (Exception e) {
-	//				e.printStackTrace();
-	//			}
-	//		}
-	//	});
-	//}
+        JLabel lblNombre = new JLabel("Nombre del Producto:");
+        lblNombre.setForeground(new Color(0, 91, 0));
+        lblNombre.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblNombre.setBounds(200, 130, 150, 25);
+        contentPane.add(lblNombre);
 
-	/**
-	 * Create the frame.
-	 */
-	public AgregarProducto(
-	        Usuario usuario) {
-		this.usuario = usuario;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 350);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblTitulo = new JLabel("AGREGAR PRODUCTO :>");
-	    lblTitulo.setBounds(21, 10, 213, 20);
-	    lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-	    contentPane.add(lblTitulo);
-	    
-	    JButton btnSalir = new JButton("volver a menu");
-	    btnSalir.addActionListener(e -> {
+        textNombre = new JTextField();
+        textNombre.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        textNombre.setBounds(360, 130, 250, 35);
+        textNombre.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(textNombre);
+        textNombre.setColumns(10);
 
-	        MenuStock menu = new MenuStock(usuario);
+        JLabel lblPrecio = new JLabel("Precio del Producto:");
+        lblPrecio.setForeground(new Color(0, 91, 0));
+        lblPrecio.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        lblPrecio.setBounds(200, 190, 150, 25);
+        contentPane.add(lblPrecio);
 
-	        menu.setVisible(true);
+        textPrecio = new JTextField();
+        textPrecio.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        textPrecio.setBounds(360, 190, 250, 35);
+        textPrecio.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new Color(200, 200, 200), 1),
+            javax.swing.BorderFactory.createEmptyBorder(5, 12, 5, 12)
+        ));
+        contentPane.add(textPrecio);
+        textPrecio.setColumns(10);
 
-	        dispose();
-	    });
-	    btnSalir.setForeground(Color.RED);
-	    btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    btnSalir.setBounds(304, 10, 109, 23);
-	    contentPane.add(btnSalir);
-	    
-	    
-	    JLabel lblNompreP = new JLabel("Nombre del Producto:");
-	    lblNompreP.setFont(new Font("Tahoma", Font.BOLD, 14));
-	    lblNompreP.setBounds(21, 63, 213, 27);
-	    contentPane.add(lblNompreP);
-	    
-	    
-	    
-	    JLabel lblPrecioP = new JLabel("Precio del Producto:");
-	    lblPrecioP.setFont(new Font("Tahoma", Font.BOLD, 14));
-	    lblPrecioP.setBounds(21, 111, 213, 27);
-	    contentPane.add(lblPrecioP);
-	    
-	    textNombre = new JTextField();
-	    textNombre.setText((String) null);
-	    textNombre.setColumns(10);
-	    textNombre.setBounds(204, 65, 174, 27);
-	    contentPane.add(textNombre);
-	    
-	    textPrecio = new JTextField();
-	    textPrecio.setColumns(10);
-	    textPrecio.setBounds(204, 116, 174, 27);
-	    contentPane.add(textPrecio);
-	    
-	    JButton btnGuardarProducto = new JButton("Guardar Producto");
-	    btnGuardarProducto.addActionListener(e -> {
+        JButton btnGuardar = new JButton("Guardar Producto");
+        btnGuardar.setForeground(Color.WHITE);
+        btnGuardar.setBackground(new Color(0, 91, 0));
+        btnGuardar.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        btnGuardar.setBounds(260, 270, 180, 45);
+        btnGuardar.setBorder(null);
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.setFocusPainted(false);
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGuardar.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGuardar.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnGuardar.addActionListener(e -> {
+            try {
+                String nombre = textNombre.getText();
+                if (textNombre.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Ingrese un nombre");
+                    return;
+                }
+                double precio = Double.parseDouble(textPrecio.getText());
+                Producto producto = new Producto(0, nombre, precio);
+                ControllerProducto cp = new ControllerProducto();
+                cp.agregarProducto(producto);
+                JOptionPane.showMessageDialog(null, "Producto agregado correctamente");
+                MenuStock menu = new MenuStock(usuario);
+                menu.setVisible(true);
+                dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese un precio valido");
+            }
+        });
+        contentPane.add(btnGuardar);
 
-	        try {
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.setBackground(new Color(180, 50, 50));
+        btnCancelar.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        btnCancelar.setBounds(460, 270, 180, 45);
+        btnCancelar.setBorder(null);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(150, 30, 30));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelar.setBackground(new Color(180, 50, 50));
+            }
+        });
+        btnCancelar.addActionListener(e -> {
+            MenuStock menu = new MenuStock(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnCancelar);
 
-	            String nombre =
-	                    textNombre.getText();
-	            
-	            if(textNombre.getText().trim().isEmpty()) {
-
-	                JOptionPane.showMessageDialog(
-	                        null,
-	                        "Ingrese un nombre"
-	                );
-
-	                return;
-	            }
-
-	            double precio =
-	                    Double.parseDouble(
-	                            textPrecio.getText()
-	                    );
-
-	            Producto producto =
-	                    new Producto(
-	                            0,
-	                            nombre,
-	                            precio
-	                    );
-
-	            ControllerProducto cp =
-	                    new ControllerProducto();
-
-	            cp.agregarProducto(producto);
-
-	            JOptionPane.showMessageDialog(
-	                    null,
-	                    "Producto agregado correctamente"
-	            );
-
-	            MenuStock menu =
-	                    new MenuStock(usuario);
-
-	            menu.setVisible(true);
-
-	            dispose();
-
-	        } catch(NumberFormatException ex) {
-
-	            JOptionPane.showMessageDialog(
-	                    null,
-	                    "Ingrese un precio válido"
-	            );
-	        }
-	    });
-	    btnGuardarProducto.setForeground(new Color(0, 204, 0));
-	    btnGuardarProducto.setBounds(49, 176, 140, 48);
-	    contentPane.add(btnGuardarProducto);
-	    
-	    JButton btnCancelar = new JButton("cancelar");
-	    btnCancelar.addActionListener(e -> {
-
-	        MenuStock menu =
-	                new MenuStock(usuario);
-
-	        menu.setVisible(true);
-
-	        dispose();
-	    });
-	    btnCancelar.setForeground(new Color(204, 0, 0));
-	    btnCancelar.setBounds(220, 176, 140, 48);
-	    contentPane.add(btnCancelar);
-
-	}//fin de agregar producto
-
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            MenuStock menu = new MenuStock(usuario);
+            menu.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
+    }
 }
-
-

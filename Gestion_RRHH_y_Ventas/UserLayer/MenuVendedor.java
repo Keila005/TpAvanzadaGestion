@@ -1,139 +1,96 @@
 package UserLayer;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import LogicLayer.Usuario;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JPanel;
 
-public class MenuVendedor extends JFrame {
+public class MenuVendedor extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
 
-	private Usuario usuario;
+    public MenuVendedor(Usuario usuario) {
+        
+        JLabel lblTitulo = new JLabel("Panel Vendedor");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(350, 60, 250, 30);
+        contentPane.add(lblTitulo);
+        
+        JLabel lblUsuario = new JLabel(usuario.getNombre() + " " + usuario.getApellido());
+        lblUsuario.setForeground(new Color(120, 120, 120));
+        lblUsuario.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+        lblUsuario.setBounds(390, 90, 200, 20);
+        contentPane.add(lblUsuario);
+        
+        JPanel linea = new JPanel();
+        linea.setBackground(new Color(0, 91, 0, 50));
+        linea.setBounds(150, 130, 622, 1);
+        contentPane.add(linea);
 
+        JLabel lblSeccion1 = new JLabel("VENTAS");
+        lblSeccion1.setForeground(new Color(0, 91, 0));
+        lblSeccion1.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        lblSeccion1.setBounds(150, 155, 200, 25);
+        contentPane.add(lblSeccion1);
 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MenuVendedor frame = new MenuVendedor();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+        JButton btnVenta = crearBoton("Nueva Venta", 150, 190, 280, 55);
+        btnVenta.addActionListener(e -> {
+            AgregarVenta venta = new AgregarVenta(usuario);
+            venta.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVenta);
 
-	/**
-	 * Create the frame.
-	 */
+        JButton btnHistorial = crearBoton("Historial de Ventas", 450, 190, 280, 55);
+        btnHistorial.addActionListener(e -> {
+            HistorialVentas historial = new HistorialVentas(usuario);
+            historial.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnHistorial);
 
-	public MenuVendedor(Usuario usuario) {
-		this.usuario = usuario;
+        JLabel lblSeccion2 = new JLabel("STOCK Y PERFIL");
+        lblSeccion2.setForeground(new Color(0, 91, 0));
+        lblSeccion2.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+        lblSeccion2.setBounds(150, 280, 200, 25);
+        contentPane.add(lblSeccion2);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 505, 367);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Bienvenido vendedor: " + usuario.getNombre() );
-		lblNewLabel.setBounds(31, 50, 271, 21);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		contentPane.add(lblNewLabel);
-		
-		JButton btnNewButton = new JButton("Stock");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+        JButton btnStock = crearBoton("Gestionar Stock", 150, 315, 280, 55);
+        btnStock.addActionListener(e -> {
+            MenuStock stock = new MenuStock(usuario);
+            stock.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnStock);
 
-				MenuStock stock =
-						new MenuStock(usuario);
+        JButton btnPerfil = crearBoton("Mi Perfil Laboral", 450, 315, 280, 55);
+        btnPerfil.addActionListener(e -> {
+            PerfilLaboral perfil = new PerfilLaboral(usuario);
+            perfil.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnPerfil);
 
-				stock.setVisible(true);
-
-				dispose();
-			}
-		});
-		btnNewButton.setBounds(31, 116, 190, 51);
-		contentPane.add(btnNewButton);
-		
-		JButton btnPerfilLaboral = new JButton("Perfil Laboral");
-		btnPerfilLaboral.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PerfilLaboral perfil= new PerfilLaboral(usuario);
-				perfil.setVisible(true);
-				dispose();
-			}
-		});
-		btnPerfilLaboral.setBounds(31, 210, 190, 51);
-		contentPane.add(btnPerfilLaboral);
-		
-		JButton btnVenta = new JButton("Venta");
-		btnVenta.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-
-		        AgregarVenta venta =
-		                new AgregarVenta(usuario);
-
-		        venta.setVisible(true);
-
-		        dispose();
-		    }
-		});
-		btnVenta.setBounds(269, 116, 190, 51);
-		contentPane.add(btnVenta);
-		
-		JButton btnHistorialDeVentas = new JButton("Historial de Ventas");
-		btnHistorialDeVentas.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-
-		        HistorialVentas historial =
-		                new HistorialVentas(usuario);
-
-		        historial.setVisible(true);
-
-		        dispose();
-		    }
-		});
-		btnHistorialDeVentas.setBounds(269, 210, 190, 51);
-		contentPane.add(btnHistorialDeVentas);
-		
-		JButton btnSalir = new JButton("Cerrar Session");
-		btnSalir.setForeground(new Color(255, 0, 0));
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Saludos chau= new Saludos();
-						chau.setVisible(true);
-					dispose();
-						 DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
-			           int idEmpleado = asis.getIdEmpleadoByUsuario(usuario.getIdUsuario());
-			            if (idEmpleado != -1) {
-			                asis.registrarSalida(idEmpleado);
-			                JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
-			}
-			}
-		});
-		btnSalir.setBounds(326, 45, 133, 36);
-		contentPane.add(btnSalir);
-
-	}
-	
-	
-	
-	
+        JButton btnSalir = crearBotonRojo("Cerrar Sesion", EstilosGlobales.ANCHO_VENTANA - 140, EstilosGlobales.ALTO_VENTANA - 55, 120, 35);
+        btnSalir.addActionListener(e -> {
+            Saludos chau = new Saludos();
+            chau.setVisible(true);
+            dispose();
+            DLL.ControllerAsistencia asis = new DLL.ControllerAsistencia();
+            int idEmpleado = asis.getIdEmpleadoByUsuario(usuario.getIdUsuario());
+            if (idEmpleado != -1) {
+                asis.registrarSalida(idEmpleado);
+                JOptionPane.showMessageDialog(null, "Salida registrada. Hasta luego!");
+            }
+        });
+        contentPane.add(btnSalir);
+        
+        seleccionarTabPorIndice(0);
+    }
 }
-
-

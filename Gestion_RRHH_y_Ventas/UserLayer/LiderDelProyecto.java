@@ -1,96 +1,101 @@
 package UserLayer;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import LogicLayer.Usuario;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
-public class LiderDelProyecto extends JFrame {
+public class LiderDelProyecto extends VentanaBase {
 	
 	private Usuario usuario;
-
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	
-
-	/**
-	 * Create the frame.
-	 */
 	public LiderDelProyecto(Usuario usuario) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		this.usuario = usuario;
+		
+		JLabel lblTitulo = new JLabel("Panel Lider");
+		lblTitulo.setForeground(new Color(0, 91, 0));
+		lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+		lblTitulo.setBounds(350, 60, 250, 30);
+		contentPane.add(lblTitulo);
+		
+		JLabel lblUsuario = new JLabel(usuario.getNombre() + " " + usuario.getApellido());
+		lblUsuario.setForeground(new Color(120, 120, 120));
+		lblUsuario.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		lblUsuario.setBounds(390, 95, 200, 25);
+		contentPane.add(lblUsuario);
+		
+		JPanel linea = new JPanel();
+		linea.setBackground(new Color(0, 91, 0, 50));
+		linea.setBounds(250, 130, 422, 1);
+		contentPane.add(linea);
 
-		JLabel lblNewLabel = new JLabel("Realice una accion");
-		lblNewLabel.setBounds(125, 10, 191, 23);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		contentPane.add(lblNewLabel);
-		
-		JButton btnNewButton = new JButton("Visualizar Kanban");
-		btnNewButton.setBounds(62, 112, 147, 23);
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnKanban = crearBoton("Visualizar Kanban", 280, 170, 180, 50);
+		btnKanban.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			VisualizarKanban VisualizarKanban = new VisualizarKanban(usuario);
-			VisualizarKanban.setVisible(true);
-			dispose();
-			}
-	});
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Crear tareas");
-		btnNewButton_1.setBounds(226, 112, 147, 23);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CrearTarea CrearTarea = new CrearTarea(usuario);
-				CrearTarea.setVisible(true);
+				VisualizarKanban visualizarKanban = new VisualizarKanban(usuario);
+				visualizarKanban.setVisible(true);
 				dispose();
 			}
 		});
-		contentPane.add(btnNewButton_1);
+		contentPane.add(btnKanban);
 		
-		JButton btnNewButton_2 = new JButton("Registrar reunion");
-		btnNewButton_2.setBounds(62, 145, 147, 23);
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnTareas = crearBoton("Crear tareas", 480, 170, 180, 50);
+		btnTareas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarReunion RegistrarReunion = new RegistrarReunion(usuario);
-				RegistrarReunion.setVisible(true);
+				CrearTarea crearTarea = new CrearTarea(usuario);
+				crearTarea.setVisible(true);
 				dispose();
 			}
 		});
-		contentPane.add(btnNewButton_2);
+		contentPane.add(btnTareas);
 		
-		JButton btnNewButton_3 = new JButton("Evaluar compañero");
-		btnNewButton_3.setBounds(226, 145, 147, 23);
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnReunion = crearBoton("Registrar reunion", 280, 240, 180, 50);
+		btnReunion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				RegistrarReunion registrarReunion = new RegistrarReunion(usuario);
+				registrarReunion.setVisible(true);
 				dispose();
 			}
 		});
-		contentPane.add(btnNewButton_3);
-
+		contentPane.add(btnReunion);
 		
+		JButton btnEvaluar = crearBoton("Evaluar compañero", 480, 240, 180, 50);
+		btnEvaluar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EvaluarCompaniero evaluar = new EvaluarCompaniero();
+				evaluar.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(btnEvaluar);
+		
+		JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cargo cargo = new Cargo(usuario);
+				cargo.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(btnVolver);
+		
+		JButton btnCerrarSesion = crearBotonRojo("Cerrar Sesion", EstilosGlobales.ANCHO_VENTANA - 140, EstilosGlobales.ALTO_VENTANA - 55, 120, 35);
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Cerrando sesion...");
+				Login login = new Login();
+				login.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(btnCerrarSesion);
+		
+		seleccionarTabPorIndice(0);
 	}
-
 }

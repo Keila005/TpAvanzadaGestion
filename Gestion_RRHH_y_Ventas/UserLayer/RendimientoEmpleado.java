@@ -1,6 +1,5 @@
 package UserLayer;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,324 +27,321 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
-public class RendimientoEmpleado extends JFrame {
+public class RendimientoEmpleado extends VentanaBase {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private DefaultTableModel model;
-	private DefaultTableModel model2;
-	private JTable table;
-	private JTable table2;
-	private JLabel lblNewLabel;
-	private JLabel lblRankingVendedor;
-	private JButton btnMejoresO;
-	private JButton btnBajosO;
-	private JButton btnMejoresV;
-	private JButton btnBajosV;
-	private JButton btnVerTodas;
-	private JButton btnVerTodas_1;
+    private static final long serialVersionUID = 1L;
+    private DefaultTableModel model;
+    private DefaultTableModel model2;
+    private JTable table;
+    private JTable table2;
+    private JButton btnMejoresO;
+    private JButton btnBajosO;
+    private JButton btnMejoresV;
+    private JButton btnBajosV;
+    private JButton btnVerTodas;
+    private JButton btnVerTodas_1;
 
-	private final Color VERDE = new Color(28, 137, 16);
-	private final Color VERDE_OSCURO = new Color(20, 110, 12);
+    public RendimientoEmpleado(Usuario usuario) {
 
+        JLabel lblTitulo = new JLabel("Rendimiento de Empleados");
+        lblTitulo.setForeground(new Color(0, 91, 0));
+        lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
+        lblTitulo.setBounds(320, 50, 350, 30);
+        contentPane.add(lblTitulo);
 
-	/**
-	 * Create the frame.
-	 */
-	public RendimientoEmpleado(Usuario usuario) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 709, 537);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(232, 243, 226));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		
-		model = new DefaultTableModel(new String[]{"ID", "Nombre",
-        		"Rendimiento"}, 0);
-        contentPane.setLayout(null);
-        
+        model = new DefaultTableModel(new String[]{"ID", "Nombre", "Rendimiento"}, 0);
         table = new JTable(model);
-        table.setRowHeight(22);
-		table.setGridColor(VERDE);
-		table.setSelectionBackground(VERDE);
-		table.setSelectionForeground(Color.WHITE);
+        table.setBackground(Color.WHITE);
+        table.setForeground(new Color(50, 50, 50));
+        table.setGridColor(new Color(200, 200, 200));
+        table.setSelectionBackground(new Color(0, 91, 0));
+        table.setSelectionForeground(Color.WHITE);
+        table.setRowHeight(28);
+        table.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        table.getTableHeader().setBackground(new Color(0, 91, 0));
+        table.getTableHeader().setForeground(Color.WHITE);
+        table.getTableHeader().setFont(new Font("Helvetica Neue", Font.BOLD, 13));
 
-		JTableHeader header = table.getTableHeader();
-		header.setBackground(VERDE);
-		header.setForeground(Color.WHITE);
-		header.setFont(new Font("Tahoma", Font.BOLD, 12));
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setViewportBorder(new LineBorder(new Color(89, 142, 89), 1, true));
-        scrollPane.setBounds(10, 73, 304, 153);
+        scrollPane.setBorder(new LineBorder(new Color(0, 91, 0), 2));
+        scrollPane.setBounds(80, 130, 350, 180);
         contentPane.add(scrollPane);
-        cargarTablaOperativo(); 
-        
-        lblNewLabel = new JLabel("Ranking operativo:");
-        lblNewLabel.setForeground(new Color(0, 91, 0));
-        lblNewLabel.setBackground(new Color(0, 91, 0));
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-        lblNewLabel.setBounds(36, 32, 196, 21);
-        contentPane.add(lblNewLabel);
-        
-        JSeparator linea = new JSeparator();
-        linea.setBackground(new Color(0, 0, 0));
-        linea.setOrientation(SwingConstants.VERTICAL);
-        linea.setBounds(341, 32, 18, 418); 
-        contentPane.add(linea);
-        
-        lblRankingVendedor = new JLabel("Ranking vendedor:");
+        cargarTablaOperativo();
+
+        JLabel lblRankingOperativo = new JLabel("Ranking Operativo");
+        lblRankingOperativo.setForeground(new Color(0, 91, 0));
+        lblRankingOperativo.setFont(new Font("Helvetica Neue", Font.BOLD, 16));
+        lblRankingOperativo.setBounds(180, 100, 200, 25);
+        contentPane.add(lblRankingOperativo);
+
+        model2 = new DefaultTableModel(new String[]{"ID", "Nombre", "Cantidad de Ventas"}, 0);
+        table2 = new JTable(model2);
+        table2.setBackground(Color.WHITE);
+        table2.setForeground(new Color(50, 50, 50));
+        table2.setGridColor(new Color(200, 200, 200));
+        table2.setSelectionBackground(new Color(0, 91, 0));
+        table2.setSelectionForeground(Color.WHITE);
+        table2.setRowHeight(28);
+        table2.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        table2.getTableHeader().setBackground(new Color(0, 91, 0));
+        table2.getTableHeader().setForeground(Color.WHITE);
+        table2.getTableHeader().setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+
+        JScrollPane scrollPane1 = new JScrollPane(table2);
+        scrollPane1.setBorder(new LineBorder(new Color(0, 91, 0), 2));
+        scrollPane1.setBounds(480, 130, 350, 180);
+        contentPane.add(scrollPane1);
+        cargarTablaVendedor();
+
+        JLabel lblRankingVendedor = new JLabel("Ranking Vendedor");
         lblRankingVendedor.setForeground(new Color(0, 91, 0));
-        lblRankingVendedor.setFont(new Font("Tahoma", Font.BOLD, 17));
-        lblRankingVendedor.setBounds(421, 39, 196, 21);
+        lblRankingVendedor.setFont(new Font("Helvetica Neue", Font.BOLD, 16));
+        lblRankingVendedor.setBounds(570, 100, 200, 25);
         contentPane.add(lblRankingVendedor);
-        
-         model2 = new DefaultTableModel(new String[]{"ID", "Nombre",
-		"Cantidad de Ventas"}, 0);
 
-			 table2 = new JTable(model2);
-			 table2.setRowHeight(22);
-				table2.setGridColor(VERDE);
-				table2.setSelectionBackground(VERDE);
-				table2.setSelectionForeground(Color.WHITE);
+        JSeparator linea = new JSeparator();
+        linea.setOrientation(SwingConstants.VERTICAL);
+        linea.setForeground(new Color(0, 91, 0, 50));
+        linea.setBackground(new Color(0, 91, 0, 50));
+        linea.setBounds(460, 100, 10, 220);
+        contentPane.add(linea);
 
-				JTableHeader header2 = table2.getTableHeader();
-				header2.setBackground(VERDE);
-				header2.setForeground(Color.WHITE);
-				header2.setFont(new Font("Tahoma", Font.BOLD, 12));
-			JScrollPane scrollPane1 = new JScrollPane(table2);
-			scrollPane1.setBounds(358, 73, 304, 153);
-			contentPane.add(scrollPane1);
-			
-			btnMejoresO = new JButton("Mejores");
-			btnMejoresO.setBackground(VERDE);
-			btnMejoresO.setForeground(Color.WHITE);
-			btnMejoresO.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cargarOperativosMejorRendimiento();
-				}
-			});
-			btnMejoresO.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnMejoresO.setBounds(36, 324, 114, 29);
-			contentPane.add(btnMejoresO);
-			
-			btnBajosO = new JButton("Bajos");
-			btnBajosO.setBackground(VERDE);
-			btnBajosO.setForeground(Color.WHITE);
-			btnBajosO.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cargarOperativosBajoRendimiento();
-				}
-			});
-			btnBajosO.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnBajosO.setBounds(178, 324, 114, 29);
-			contentPane.add(btnBajosO);
-			
-			btnMejoresV = new JButton("Mejores");
-			btnMejoresV.setBackground(VERDE);
-			btnMejoresV.setForeground(Color.WHITE);
-			btnMejoresV.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cargarMejorVenta();
-				}
-			});
-			btnMejoresV.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnMejoresV.setBounds(383, 324, 114, 29);
-			contentPane.add(btnMejoresV);
-			
-			btnBajosV = new JButton("Bajos");
-			btnBajosV.setBackground(VERDE);
-			btnBajosV.setForeground(Color.WHITE);
-			btnBajosV.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cargarBajaVenta();
-				}
-			});
-			btnBajosV.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnBajosV.setBounds(533, 324, 114, 29);
-			contentPane.add(btnBajosV);
-			
-			btnVerTodas = new JButton("Ver todas");
-			btnVerTodas.setBackground(VERDE_OSCURO);
-			btnVerTodas.setForeground(Color.WHITE);
-			btnVerTodas.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cargarTablaOperativo();
-				}
-			});
-			btnVerTodas.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnVerTodas.setBounds(104, 382, 114, 29);
-			contentPane.add(btnVerTodas);
-			
-			btnVerTodas_1 = new JButton("Ver todas");
-			btnVerTodas_1.setBackground(VERDE);
-			btnVerTodas_1.setForeground(Color.WHITE);
-			btnVerTodas_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cargarTablaVendedor();
-				}
-			});
-			btnVerTodas_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-			btnVerTodas_1.setBounds(458, 382, 114, 29);
-			contentPane.add(btnVerTodas_1);
-			
-			JLabel lblNewLabel_1 = new JLabel("Mayor al 70%:");
-			lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
-			lblNewLabel_1.setBounds(36, 288, 123, 44);
-			contentPane.add(lblNewLabel_1);
-			
-			JLabel lblNewLabel_1_1 = new JLabel("Menor al 70%:");
-			lblNewLabel_1_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
-			lblNewLabel_1_1.setBounds(180, 288, 123, 44);
-			contentPane.add(lblNewLabel_1_1);
-			
-			JLabel lblNewLabel_1_2 = new JLabel("Mayor 20 ventas:");
-			lblNewLabel_1_2.setFont(new Font("Tahoma", Font.ITALIC, 14));
-			lblNewLabel_1_2.setBounds(383, 288, 123, 44);
-			contentPane.add(lblNewLabel_1_2);
-			
-			JLabel lblNewLabel_1_2_1 = new JLabel("Menor a 20 ventas:");
-			lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.ITALIC, 14));
-			lblNewLabel_1_2_1.setBounds(524, 288, 123, 44);
-			contentPane.add(lblNewLabel_1_2_1);
-			
-			JButton btnNewButton = new JButton("<-Volver");
-			btnNewButton.setForeground(new Color(255, 255, 255));
-			btnNewButton.setBackground(new Color(255, 0, 0));
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					MenuAdministrador menuAdmin= new MenuAdministrador(usuario);
-					menuAdmin.setVisible(true);
-					dispose();
-				}
-			});
-			btnNewButton.setFont(new Font("Tahoma", Font.ITALIC, 13));
-			btnNewButton.setBounds(21, 470, 92, 20);
-			contentPane.add(btnNewButton);
-			
-			JPanel panelFondo = new JPanel();
-			panelFondo.setBackground(new Color(167, 228, 191));
-			panelFondo.setBorder(BorderFactory.createCompoundBorder(
-				    BorderFactory.createLineBorder(Color.GREEN),
-				    BorderFactory.createEmptyBorder(5, 10, 5, 10)
-				));
-			panelFondo.setBounds(0, 10, 685, 240);
-			contentPane.add(panelFondo);
-			cargarTablaVendedor();
-			        
-	}
+        JLabel lblMayor70 = new JLabel("Mayor al 70%");
+        lblMayor70.setForeground(new Color(0, 91, 0));
+        lblMayor70.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblMayor70.setBounds(90, 340, 100, 25);
+        contentPane.add(lblMayor70);
 
-	private void cargarTablaOperativo() {
+        btnMejoresO = new JButton("Mejores");
+        btnMejoresO.setForeground(Color.WHITE);
+        btnMejoresO.setBackground(new Color(0, 91, 0));
+        btnMejoresO.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        btnMejoresO.setBounds(80, 370, 120, 35);
+        btnMejoresO.setBorder(null);
+        btnMejoresO.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMejoresO.setFocusPainted(false);
+        btnMejoresO.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMejoresO.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMejoresO.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnMejoresO.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cargarOperativosMejorRendimiento();
+            }
+        });
+        contentPane.add(btnMejoresO);
 
-	    model.setRowCount(0);
+        JLabel lblMenor70 = new JLabel("Menor al 70%");
+        lblMenor70.setForeground(new Color(0, 91, 0));
+        lblMenor70.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblMenor70.setBounds(220, 340, 100, 25);
+        contentPane.add(lblMenor70);
 
-	    ControllerRendimiento rendimientoOperativo = new ControllerRendimiento();
-	    LinkedList<Operativo> operativos = rendimientoOperativo.getTodosOperativos();
+        btnBajosO = new JButton("Bajos");
+        btnBajosO.setForeground(Color.WHITE);
+        btnBajosO.setBackground(new Color(0, 91, 0));
+        btnBajosO.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        btnBajosO.setBounds(210, 370, 120, 35);
+        btnBajosO.setBorder(null);
+        btnBajosO.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBajosO.setFocusPainted(false);
+        btnBajosO.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBajosO.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBajosO.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnBajosO.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cargarOperativosBajoRendimiento();
+            }
+        });
+        contentPane.add(btnBajosO);
 
-	    for (Operativo o : operativos) {
-	    	String nombreCompleto = o.getNombre()+" "+ o.getApellido();
-	        model.addRow(new Object[]{
-	          o.getIdEmpleado(),
-	          nombreCompleto,
-	          o.getRendimiento()+" %"
-	          
-	        });
-	    }
-	}
-	//tabla vendedor
-	private void cargarTablaVendedor() {
+        btnVerTodas = new JButton("Ver todas");
+        btnVerTodas.setForeground(Color.WHITE);
+        btnVerTodas.setBackground(new Color(0, 91, 0));
+        btnVerTodas.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        btnVerTodas.setBounds(145, 420, 120, 35);
+        btnVerTodas.setBorder(null);
+        btnVerTodas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerTodas.setFocusPainted(false);
+        btnVerTodas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVerTodas.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVerTodas.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnVerTodas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cargarTablaOperativo();
+            }
+        });
+        contentPane.add(btnVerTodas);
 
-	    model2.setRowCount(0);
+        JLabel lblMayor20 = new JLabel("Mayor 20 ventas");
+        lblMayor20.setForeground(new Color(0, 91, 0));
+        lblMayor20.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblMayor20.setBounds(490, 340, 120, 25);
+        contentPane.add(lblMayor20);
 
-	    ControllerRendimiento rendimientoVendedor = new ControllerRendimiento();
-	    LinkedList<Vendedor> vendedores = rendimientoVendedor.getTodosVendedores();
+        btnMejoresV = new JButton("Mejores");
+        btnMejoresV.setForeground(Color.WHITE);
+        btnMejoresV.setBackground(new Color(0, 91, 0));
+        btnMejoresV.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        btnMejoresV.setBounds(480, 370, 120, 35);
+        btnMejoresV.setBorder(null);
+        btnMejoresV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMejoresV.setFocusPainted(false);
+        btnMejoresV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMejoresV.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMejoresV.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnMejoresV.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cargarMejorVenta();
+            }
+        });
+        contentPane.add(btnMejoresV);
 
-	    for (Vendedor v : vendedores) {
-	    	String nombreCompleto = v.getNombre()+" "+ v.getApellido();
-	        model2.addRow(new Object[]{
-	          v.getIdEmpleado(),
-	          nombreCompleto,
-	          v.getVentasTotales()
-	        });
-	    }
-	}
-	// alto rendimiento mayor a 70% operativo
-	private void cargarOperativosMejorRendimiento() {
+        JLabel lblMenor20 = new JLabel("Menor a 20 ventas");
+        lblMenor20.setForeground(new Color(0, 91, 0));
+        lblMenor20.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
+        lblMenor20.setBounds(620, 340, 130, 25);
+        contentPane.add(lblMenor20);
 
-	    model.setRowCount(0);
+        btnBajosV = new JButton("Bajos");
+        btnBajosV.setForeground(Color.WHITE);
+        btnBajosV.setBackground(new Color(0, 91, 0));
+        btnBajosV.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        btnBajosV.setBounds(610, 370, 120, 35);
+        btnBajosV.setBorder(null);
+        btnBajosV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBajosV.setFocusPainted(false);
+        btnBajosV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBajosV.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBajosV.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnBajosV.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cargarBajaVenta();
+            }
+        });
+        contentPane.add(btnBajosV);
 
-	    ControllerRendimiento cr = new ControllerRendimiento();
-	    LinkedList<Operativo> lista = cr.getTodosOperativos();
+        btnVerTodas_1 = new JButton("Ver todas");
+        btnVerTodas_1.setForeground(Color.WHITE);
+        btnVerTodas_1.setBackground(new Color(0, 91, 0));
+        btnVerTodas_1.setFont(new Font("Helvetica Neue", Font.BOLD, 13));
+        btnVerTodas_1.setBounds(545, 420, 120, 35);
+        btnVerTodas_1.setBorder(null);
+        btnVerTodas_1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerTodas_1.setFocusPainted(false);
+        btnVerTodas_1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVerTodas_1.setBackground(new Color(20, 110, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVerTodas_1.setBackground(new Color(0, 91, 0));
+            }
+        });
+        btnVerTodas_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cargarTablaVendedor();
+            }
+        });
+        contentPane.add(btnVerTodas_1);
 
-	    for (Operativo o : lista) {
+        JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
+        btnVolver.addActionListener(e -> {
+            MenuAdministrador menuAdmin = new MenuAdministrador(usuario);
+            menuAdmin.setVisible(true);
+            dispose();
+        });
+        contentPane.add(btnVolver);
 
-	        if (o.getRendimiento() > 70) {
+        seleccionarTabPorIndice(0);
+    }
 
-	            model.addRow(new Object[]{
-	                o.getIdEmpleado(),
-	                o.getNombre() + " " + o.getApellido(),
-	                o.getRendimiento() + "%"
-	            });
-	        }
-	    }
-	}
-	//cargar rendimiento bajo menor a 70%
-	private void cargarOperativosBajoRendimiento() {
+    private void cargarTablaOperativo() {
+        model.setRowCount(0);
+        ControllerRendimiento rendimientoOperativo = new ControllerRendimiento();
+        LinkedList<Operativo> operativos = rendimientoOperativo.getTodosOperativos();
+        for (Operativo o : operativos) {
+            String nombreCompleto = o.getNombre() + " " + o.getApellido();
+            model.addRow(new Object[]{o.getIdEmpleado(), nombreCompleto, o.getRendimiento() + "%"});
+        }
+    }
 
-	    model.setRowCount(0);
+    private void cargarTablaVendedor() {
+        model2.setRowCount(0);
+        ControllerRendimiento rendimientoVendedor = new ControllerRendimiento();
+        LinkedList<Vendedor> vendedores = rendimientoVendedor.getTodosVendedores();
+        for (Vendedor v : vendedores) {
+            String nombreCompleto = v.getNombre() + " " + v.getApellido();
+            model2.addRow(new Object[]{v.getIdEmpleado(), nombreCompleto, v.getVentasTotales()});
+        }
+    }
 
-	    ControllerRendimiento cr = new ControllerRendimiento();
-	    LinkedList<Operativo> lista = cr.getTodosOperativos();
+    private void cargarOperativosMejorRendimiento() {
+        model.setRowCount(0);
+        ControllerRendimiento cr = new ControllerRendimiento();
+        LinkedList<Operativo> lista = cr.getTodosOperativos();
+        for (Operativo o : lista) {
+            if (o.getRendimiento() > 70) {
+                model.addRow(new Object[]{o.getIdEmpleado(), o.getNombre() + " " + o.getApellido(), o.getRendimiento() + "%"});
+            }
+        }
+    }
 
-	    for (Operativo o : lista) {
+    private void cargarOperativosBajoRendimiento() {
+        model.setRowCount(0);
+        ControllerRendimiento cr = new ControllerRendimiento();
+        LinkedList<Operativo> lista = cr.getTodosOperativos();
+        for (Operativo o : lista) {
+            if (o.getRendimiento() <= 70) {
+                model.addRow(new Object[]{o.getIdEmpleado(), o.getNombre() + " " + o.getApellido(), o.getRendimiento() + "%"});
+            }
+        }
+    }
 
-	        if (o.getRendimiento() <= 70) {
+    private void cargarMejorVenta() {
+        model2.setRowCount(0);
+        ControllerRendimiento rendimientoVendedor = new ControllerRendimiento();
+        LinkedList<Vendedor> vendedores = rendimientoVendedor.getTodosVendedores();
+        for (Vendedor v : vendedores) {
+            String nombreCompleto = v.getNombre() + " " + v.getApellido();
+            if (v.getVentasTotales() > 20) {
+                model2.addRow(new Object[]{v.getIdEmpleado(), nombreCompleto, v.getVentasTotales()});
+            }
+        }
+    }
 
-	            model.addRow(new Object[]{
-	                o.getIdEmpleado(),
-	                o.getNombre() + " " + o.getApellido(),
-	                o.getRendimiento() + "%"
-	            });
-	        }
-	    }
-	}
-	// vendedores que realizaron mas de 20 ventas
-	private void cargarMejorVenta() {
-
-	    model2.setRowCount(0);
-
-	    ControllerRendimiento rendimientoVendedor = new ControllerRendimiento();
-	    LinkedList<Vendedor> vendedores = rendimientoVendedor.getTodosVendedores();
-
-	    for (Vendedor v : vendedores) {
-	    	String nombreCompleto = v.getNombre()+" "+ v.getApellido();
-	    	if(v.getVentasTotales()>20) {
-	    		
-	    		model2.addRow(new Object[]{
-	    				v.getIdEmpleado(),
-	    				nombreCompleto,
-	    				v.getVentasTotales()
-	    		});
-	    	}
-	    }
-	}
-	// vendedores que realizaron menos de 20 ventas
-		private void cargarBajaVenta() {
-
-		    model2.setRowCount(0);
-
-		    ControllerRendimiento rendimientoVendedor = new ControllerRendimiento();
-		    LinkedList<Vendedor> vendedores = rendimientoVendedor.getTodosVendedores();
-
-		    for (Vendedor v : vendedores) {
-		    	String nombreCompleto = v.getNombre()+" "+ v.getApellido();
-		    	if(v.getVentasTotales()<=20) {
-		    		
-		    		model2.addRow(new Object[]{
-		    				v.getIdEmpleado(),
-		    				nombreCompleto,
-		    				v.getVentasTotales()
-		    		});
-		    	}
-		    }
-		}
+    private void cargarBajaVenta() {
+        model2.setRowCount(0);
+        ControllerRendimiento rendimientoVendedor = new ControllerRendimiento();
+        LinkedList<Vendedor> vendedores = rendimientoVendedor.getTodosVendedores();
+        for (Vendedor v : vendedores) {
+            String nombreCompleto = v.getNombre() + " " + v.getApellido();
+            if (v.getVentasTotales() <= 20) {
+                model2.addRow(new Object[]{v.getIdEmpleado(), nombreCompleto, v.getVentasTotales()});
+            }
+        }
+    }
 }
