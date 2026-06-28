@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import LogicLayer.Operativo;
 import LogicLayer.Usuario;
 import LogicLayer.Empleado;
@@ -68,9 +67,9 @@ public class VerInfoPersonal extends VentanaBase {
         JButton btnAusencias = crearBoton("Ver Ausencias", 480, 260, 180, 45);
         btnAusencias.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                MisAusencias MisAusencias = new MisAusencias(empleado);
-                MisAusencias.setVisible(true);
-                dispose();
+            	MisAusencias misAusencias = new MisAusencias(usuario);
+            	misAusencias.setVisible(true);
+            	dispose();
             }
         });
         

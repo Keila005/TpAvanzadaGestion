@@ -1,8 +1,6 @@
 package UserLayer;
 
 import LogicLayer.Usuario;
-import LogicLayer.Empleado;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;

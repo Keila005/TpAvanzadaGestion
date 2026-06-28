@@ -1,26 +1,21 @@
 package UserLayer;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import java.sql.ResultSet;
 import DLL.ControllerAsistencia;
-import LogicLayer.Empleado;
+import LogicLayer.Usuario;
 
 public class MisAusencias extends VentanaBase {
-	
-	private Empleado empleado;
+
 
 	private static final long serialVersionUID = 1L;
 
-	public MisAusencias(Empleado empleado) {
+	public MisAusencias(Usuario usuario) {
 
 		JLabel lblTitulo = new JLabel("Mis Ausencias");
 		lblTitulo.setForeground(new Color(0, 91, 0));
@@ -28,11 +23,7 @@ public class MisAusencias extends VentanaBase {
 		lblTitulo.setBounds(330, 60, 250, 30);
 		contentPane.add(lblTitulo);
 
-		JLabel lblFecha1 = new JLabel("• 12/05/2026 - Ausencia");
-		lblFecha1.setForeground(new Color(80, 80, 80));
-		lblFecha1.setFont(new Font("Helvetica Neue", Font.PLAIN, 18));
-		lblFecha1.setBounds(250, 140, 350, 25);
-		contentPane.add(lblFecha1);
+		
 
 //		JLabel lblFecha2 = new JLabel("• 03/04/2026 - Ausencia");
 //		lblFecha2.setForeground(new Color(80, 80, 80));
@@ -71,40 +62,35 @@ public class MisAusencias extends VentanaBase {
 
 		ControllerAsistencia asis = new ControllerAsistencia();
 
-		int idEmpleado = asis.getIdEmpleadoByUsuario(empleado.getIdUsuario());
+		int idEmpleado = asis.getIdEmpleadoByUsuario(usuario.getIdUsuario());
 
 		try {
 
 		    ResultSet rs = asis.getAusenciasPorEmpleado(idEmpleado);
 
 		    int y = 140;
+		    boolean tieneAusencias = false;
+		    while(rs.next()){
 
-		    while(rs.next()) {
+		        tieneAusencias = true;
 
-		        JLabel lblFecha = new JLabel("• " + rs.getString("fecha"));
+		        JLabel lblFecha = new JLabel("• " + rs.getString("fecha") + " - Ausencia");
 		        lblFecha.setForeground(new Color(80,80,80));
 		        lblFecha.setFont(new Font("Helvetica Neue", Font.PLAIN, 18));
-		        lblFecha.setBounds(250, y, 300, 25);
-
+		        lblFecha.setBounds(250,y,350,25);
 		        contentPane.add(lblFecha);
-
 		        y += 35;
 		    }
+		    if(!tieneAusencias){
+		        JLabel lbl = new JLabel("No posee ausencias registradas.");
+		        lbl.setForeground(new Color(80,80,80));
+		        lbl.setFont(new Font("Helvetica Neue", Font.PLAIN,18));
+		        lbl.setBounds(250,140,350,25);
 
-		    if(y == 140) {
-
-		        JLabel lblSinAusencias = new JLabel("No posee ausencias registradas.");
-		        lblSinAusencias.setForeground(new Color(80,80,80));
-		        lblSinAusencias.setFont(new Font("Helvetica Neue", Font.PLAIN, 18));
-		        lblSinAusencias.setBounds(250, 140, 320, 25);
-
-		        contentPane.add(lblSinAusencias);
+		        contentPane.add(lbl);
 		    }
 
-		    contentPane.repaint();
-		    contentPane.revalidate();
-
-		} catch(Exception e) {
+		}catch(Exception e){
 		    e.printStackTrace();
 		}
 		
