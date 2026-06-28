@@ -2,17 +2,23 @@ package UserLayer;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.time.LocalDate;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import DLL.ControllerComentario;
+import LogicLayer.ComentarioAnonimo;
 import LogicLayer.Usuario;
 
 public class Comentar extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
     private JTextField textField;
+    private ControllerComentario controller = new ControllerComentario();
 
 
     public Comentar(Usuario usuario) {
@@ -71,10 +77,32 @@ public class Comentar extends VentanaBase {
             }
         });
         btnAceptar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Comentario enviado correctamente");
-            MenuOperativo menu = new MenuOperativo(usuario);
-            menu.setVisible(true);
-            dispose();
+
+            try {
+                String contenido = textField.getText();
+                String sentimiento = comboBox.getSelectedItem().toString();
+
+                if (contenido.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Escribí un comentario antes de enviar");
+                    return;
+                }
+
+                ComentarioAnonimo comentario = new ComentarioAnonimo(
+                        0, contenido,LocalDate.now(), sentimiento,1 
+                );
+
+                controller.agregarComentarios(comentario);
+
+                JOptionPane.showMessageDialog(null, "Comentario enviado correctamente");
+
+                MenuOperativo menu = new MenuOperativo(usuario);
+                menu.setVisible(true);
+                dispose();
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al guardar comentario");
+                ex.printStackTrace();
+            }
         });
         contentPane.add(btnAceptar);
 

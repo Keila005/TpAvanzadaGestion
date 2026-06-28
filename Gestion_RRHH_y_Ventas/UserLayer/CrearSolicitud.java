@@ -9,6 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import DLL.ControllerSolicitud;
+
 public class CrearSolicitud extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
@@ -23,9 +25,9 @@ public class CrearSolicitud extends VentanaBase {
     private JTextField textField_5;
     private JTextField textField_6;
     private JTextField textField_7;
+    private ControllerSolicitud solicitudController = new ControllerSolicitud();
 
-    public CrearSolicitud() {
-
+    public CrearSolicitud(int idUsuario) {
         JLabel lblTitulo = new JLabel("Crear Solicitud");
         lblTitulo.setForeground(new Color(0, 91, 0));
         lblTitulo.setFont(new Font("Helvetica Neue", Font.BOLD, 24));
@@ -348,18 +350,26 @@ public class CrearSolicitud extends VentanaBase {
         btnEnviar.setBorder(null);
         btnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnviar.setFocusPainted(false);
-        btnEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnEnviar.setBackground(new Color(20, 110, 12));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnEnviar.setBackground(new Color(0, 91, 0));
-            }
-        });
+
         btnEnviar.addActionListener(e -> {
+
+            String tipo = comboBox.getSelectedItem().toString();
+
+            String fechaInicio = comboAnioInicio.getSelectedItem() + "-"
+                    + comboMesInicio.getSelectedItem() + "-"
+                    + comboDiaInicio.getSelectedItem();
+
+            String fechaFin = comboAnioFin.getSelectedItem() + "-"
+                    + comboMesFin.getSelectedItem() + "-"
+                    + comboDiaFin.getSelectedItem();
+
+            solicitudController.guardarSolicitud(idUsuario, tipo, fechaInicio, fechaFin);
+
             dispose();
         });
+
         contentPane.add(btnEnviar);
+
 
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setForeground(Color.WHITE);

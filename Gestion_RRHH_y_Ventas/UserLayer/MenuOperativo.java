@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 public class MenuOperativo extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
-    private JPanel panelContenido;
 
     public MenuOperativo(Usuario usuario) {
         
@@ -43,7 +42,7 @@ public class MenuOperativo extends VentanaBase {
         JButton btnCrearSolicitud = crearBoton("Crear Solicitud", 450, 170, 220, 50);
         btnCrearSolicitud.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CrearSolicitud crearSolicitud = new CrearSolicitud();
+                CrearSolicitud crearSolicitud = new CrearSolicitud(usuario.getIdUsuario());
                 crearSolicitud.setVisible(true);
             }
         });
