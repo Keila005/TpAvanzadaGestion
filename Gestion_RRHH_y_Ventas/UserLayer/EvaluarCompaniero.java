@@ -45,16 +45,9 @@ public class EvaluarCompaniero extends VentanaBase {
         comboEvaluacion.setBackground(Color.WHITE);
         comboEvaluacion.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
         comboEvaluacion.setBounds(400, 180, 250, 35);
-        comboEvaluacion.addItem("1");
-        comboEvaluacion.addItem("2");
-        comboEvaluacion.addItem("3");
-        comboEvaluacion.addItem("4");
-        comboEvaluacion.addItem("5");
-        comboEvaluacion.addItem("6");
-        comboEvaluacion.addItem("7");
-        comboEvaluacion.addItem("8");
-        comboEvaluacion.addItem("9");
-        comboEvaluacion.addItem("10");
+        comboEvaluacion.addItem("Excelente");
+        comboEvaluacion.addItem("Bueno");
+        comboEvaluacion.addItem("Regular");
         contentPane.add(comboEvaluacion);
 
         JLabel lblComentario = new JLabel("Comentario:");
