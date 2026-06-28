@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import LogicLayer.Operativo;
 import LogicLayer.Usuario;
 import java.awt.Color;
@@ -12,8 +13,12 @@ import java.awt.Font;
 public class VerInfoPersonal extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
+    private Usuario usuario;
+    private Operativo operativo;
 
     public VerInfoPersonal(Usuario usuario, Operativo operativo) {
+        this.usuario = usuario;
+        this.operativo = operativo;
 
         JLabel lblTitulo = new JLabel("Informacion Personal");
         lblTitulo.setForeground(new Color(0, 91, 0));
@@ -66,9 +71,7 @@ public class VerInfoPersonal extends VentanaBase {
         JButton btnAusencias = crearBoton("Ver Ausencias", 480, 260, 180, 45);
         btnAusencias.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                misAusencias misAusencias = new misAusencias();
-                misAusencias.setVisible(true);
-                dispose();
+                JOptionPane.showMessageDialog(null, "Funcionalidad en desarrollo");
             }
         });
         contentPane.add(btnAusencias);

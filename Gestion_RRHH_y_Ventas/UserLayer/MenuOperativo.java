@@ -29,36 +29,37 @@ public class MenuOperativo extends VentanaBase {
         lblUsuario.setBounds(390, 90, 200, 20);
         contentPane.add(lblUsuario);
 
+        // BOTON 1 - Ver Informacion Personal (NO cierra MenuOperativo)
         JButton btnInfoPersonal = crearBoton("Ver Informacion Personal", 200, 170, 220, 50);
         btnInfoPersonal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VerInfoPersonal verInfo = new VerInfoPersonal(usuario, (LogicLayer.Operativo) usuario);
                 verInfo.setVisible(true);
-                dispose();
             }
         });
         contentPane.add(btnInfoPersonal);
 
+        // BOTON 2 - Crear Solicitud (NO cierra MenuOperativo)
         JButton btnCrearSolicitud = crearBoton("Crear Solicitud", 450, 170, 220, 50);
         btnCrearSolicitud.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CrearSolicitud crearSolicitud = new CrearSolicitud();
                 crearSolicitud.setVisible(true);
-                dispose();
             }
         });
         contentPane.add(btnCrearSolicitud);
 
+        // BOTON 3 - Comentar (NO cierra MenuOperativo)
         JButton btnComentar = crearBoton("Comentar", 200, 250, 220, 50);
         btnComentar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Comentar comentar = new Comentar();
+                Comentar comentar = new Comentar(usuario);
                 comentar.setVisible(true);
-                dispose();
             }
         });
         contentPane.add(btnComentar);
 
+        // BOTON 4 - Cargo (CIERRA MenuOperativo porque abre Cargo)
         JButton btnCargo = crearBoton("Cargo", 450, 250, 220, 50);
         btnCargo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -69,6 +70,7 @@ public class MenuOperativo extends VentanaBase {
         });
         contentPane.add(btnCargo);
 
+        // BOTON 5 - Salir (CIERRA MenuOperativo y vuelve al Login)
         JButton btnSalir = crearBotonRojo("Salir", EstilosGlobales.ANCHO_VENTANA - 120, EstilosGlobales.ALTO_VENTANA - 50, 100, 35);
         btnSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

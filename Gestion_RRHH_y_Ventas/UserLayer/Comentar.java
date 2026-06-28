@@ -5,14 +5,18 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import LogicLayer.Usuario;
 
 public class Comentar extends VentanaBase {
 
     private static final long serialVersionUID = 1L;
     private JTextField textField;
+    private Usuario usuario;
 
-    public Comentar() {
+    public Comentar(Usuario usuario) {
+        this.usuario = usuario;
 
         JLabel lblTitulo = new JLabel("Comentar");
         lblTitulo.setForeground(new Color(0, 91, 0));
@@ -68,6 +72,9 @@ public class Comentar extends VentanaBase {
             }
         });
         btnAceptar.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Comentario enviado correctamente");
+            MenuOperativo menu = new MenuOperativo(usuario);
+            menu.setVisible(true);
             dispose();
         });
         contentPane.add(btnAceptar);
@@ -89,12 +96,16 @@ public class Comentar extends VentanaBase {
             }
         });
         btnCancelar.addActionListener(e -> {
+            MenuOperativo menu = new MenuOperativo(usuario);
+            menu.setVisible(true);
             dispose();
         });
         contentPane.add(btnCancelar);
 
         JButton btnVolver = crearBotonRojo("Volver", EstilosGlobales.ANCHO_VENTANA - 130, EstilosGlobales.ALTO_VENTANA - 55, 110, 35);
         btnVolver.addActionListener(e -> {
+            MenuOperativo menu = new MenuOperativo(usuario);
+            menu.setVisible(true);
             dispose();
         });
         contentPane.add(btnVolver);
