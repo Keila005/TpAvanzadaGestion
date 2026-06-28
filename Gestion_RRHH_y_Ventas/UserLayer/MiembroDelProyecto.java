@@ -22,23 +22,12 @@ public class MiembroDelProyecto extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MiembroDelProyecto frame = new MiembroDelProyecto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public MiembroDelProyecto() {
+	public MiembroDelProyecto(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -79,7 +68,7 @@ public class MiembroDelProyecto extends JFrame {
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VerReuniones VerReuniones = new VerReuniones();
+				VerReuniones VerReuniones = new VerReuniones(usuario);
 				VerReuniones.setVisible(true);
 				dispose();
 			}
@@ -91,8 +80,8 @@ public class MiembroDelProyecto extends JFrame {
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_3.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        Cargo ventanaCargo = new Cargo(usuario);
-		        ventanaCargo.setVisible(true);
+		        Cargo Cargo = new Cargo(usuario);
+		        Cargo.setVisible(true);
 		        dispose();
 		    }
 		});

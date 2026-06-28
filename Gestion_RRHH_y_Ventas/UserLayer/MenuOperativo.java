@@ -36,16 +36,37 @@ public class MenuOperativo extends JFrame {
 		JButton btnNewButton = new JButton("Ver Informacion Personal");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setBounds(175, 146, 206, 57);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VerInfoPersonal VerInfoPersonal = new VerInfoPersonal();
+				VerInfoPersonal.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Crear Solicitud");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_1.setBounds(433, 146, 206, 57);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrearSolicitud CrearSolicitud = new CrearSolicitud();
+				CrearSolicitud.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Comentar");
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_2.setBounds(175, 235, 206, 57);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Comentar Comentar = new Comentar();
+				Comentar.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Cargo");

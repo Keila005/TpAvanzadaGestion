@@ -59,7 +59,7 @@ public class Cargo extends JFrame {
 		btnNewButton_1.setBounds(226, 112, 186, 67);
 		btnNewButton_1.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        MiembroDelProyecto miembroDelProyecto = new MiembroDelProyecto();
+		        MiembroDelProyecto miembroDelProyecto = new MiembroDelProyecto(usuario);
 		        miembroDelProyecto.setVisible(true);
 		        dispose();
 		    }

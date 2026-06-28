@@ -65,8 +65,8 @@ public class VerInfoPersonal extends JFrame {
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miSueldo miSueldo = new miSueldo();
-				miSueldo.setVisible(true);
+				MiSueldo MiSueldo = new MiSueldo();
+				MiSueldo.setVisible(true);
 				dispose();
 			}
 		});
